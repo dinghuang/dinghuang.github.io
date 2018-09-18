@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="学习笔记   学习笔记 1. 自写项目及笔记 1.1 Git使用笔记：个人在使用Git的一些心得 1.2 设计模式：用java语言阐述的33种设计模式 1.3 服务器搭建梯子：仅供学习交流 1.4 代码练习   2. 团队开源项目 2.1 代码管理 2.2 分布式文件系统 2.3 分布式框架 2.4 权限安全相关 2.5 模板引擎 2.6 持久层框架 2.7 日志框架 2.8 数据采集管道 2.9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="强壮的病猫">
+<meta property="og:url" content="https://dinghuang.github.io/README.html">
+<meta property="og:site_name" content="强壮的病猫">
+<meta property="og:description" content="学习笔记   学习笔记 1. 自写项目及笔记 1.1 Git使用笔记：个人在使用Git的一些心得 1.2 设计模式：用java语言阐述的33种设计模式 1.3 服务器搭建梯子：仅供学习交流 1.4 代码练习   2. 团队开源项目 2.1 代码管理 2.2 分布式文件系统 2.3 分布式框架 2.4 权限安全相关 2.5 模板引擎 2.6 持久层框架 2.7 日志框架 2.8 数据采集管道 2.9">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg">
+<meta property="og:image" content="https://dinghuang.github.io/LICENSE.png">
+<meta property="og:updated_time" content="2018-09-18T06:25:46.088Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="强壮的病猫">
+<meta name="twitter:description" content="学习笔记   学习笔记 1. 自写项目及笔记 1.1 Git使用笔记：个人在使用Git的一些心得 1.2 设计模式：用java语言阐述的33种设计模式 1.3 服务器搭建梯子：仅供学习交流 1.4 代码练习   2. 团队开源项目 2.1 代码管理 2.2 分布式文件系统 2.3 分布式框架 2.4 权限安全相关 2.5 模板引擎 2.6 持久层框架 2.7 日志框架 2.8 数据采集管道 2.9">
+<meta name="twitter:image" content="https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/README.html"/>
+
+
+
+
+
+  <title> | 强壮的病猫</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">强壮的病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思几过，详谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
+
+	<h1 class="post-title" itemprop="name headline"></h1>
+
+
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+        
+        
+          <h1 id="学习笔记"><a href="#学习笔记" class="headerlink" title="学习笔记  "></a>学习笔记 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener"><img src="https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg" alt="知识共享协议（CC协议）"> <img src="LICENSE.png" alt="Attribution-NonCommercial-ShareAlike CC BY-NC-SA"></a></h1><ul>
+<li><a href="#学习笔记">学习笔记</a><ul>
+<li><a href="#1-自写项目及笔记">1. 自写项目及笔记</a><ul>
+<li><a href="#11-git使用笔记个人在使用git的一些心得">1.1 <a href="https://dinghuang.github.io/main/2017/10/09/new-git.html" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a></a></li>
+<li><a href="#12-设计模式用java语言阐述的33种设计模式">1.2 <a href="https://dinghuang.github.io/main/2018/07/18/new-设计模式.html" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a></a></li>
+<li><a href="#13-服务器搭建梯子仅供学习交流">1.3 <a href="https://dinghuang.github.io/main/2018/09/08/new-VPS搭建VPN.html" rel="nofollow">服务器搭建梯子：仅供学习交流</a></a></li>
+<li><a href="#14-代码练习">1.4 代码练习</a></li>
+</ul>
+</li>
+<li><a href="#2-团队开源项目">2. 团队开源项目</a><ul>
+<li><a href="#21-代码管理">2.1 代码管理</a></li>
+<li><a href="#22-分布式文件系统">2.2 分布式文件系统</a></li>
+<li><a href="#23-分布式框架">2.3 分布式框架</a></li>
+<li><a href="#24-权限安全相关">2.4 权限安全相关</a></li>
+<li><a href="#25-模板引擎">2.5 模板引擎</a></li>
+<li><a href="#26-持久层框架">2.6 持久层框架</a></li>
+<li><a href="#27-日志框架">2.7 日志框架</a></li>
+<li><a href="#28-数据采集管道">2.8 数据采集管道</a></li>
+<li><a href="#29-搜索引擎">2.9 搜索引擎</a></li>
+<li><a href="#210-爬虫">2.10 爬虫</a></li>
+<li><a href="#211-消息中间件">2.11 消息中间件</a></li>
+<li><a href="#212-响应式编程">2.12 响应式编程</a></li>
+<li><a href="#213-热加载">2.13 热加载</a></li>
+<li><a href="#214-代码测试">2.14 代码测试</a></li>
+<li><a href="#215-测试工具">2.15 测试工具</a></li>
+<li><a href="#216-监控相关">2.16 监控相关</a></li>
+<li><a href="#217-前端相关">2.17 前端相关</a></li>
+<li><a href="#218-分布式相关工具">2.18 分布式相关工具</a></li>
+<li><a href="#219-数据库相关">2.19 数据库相关</a></li>
+<li><a href="#220-容器相关">2.20 容器相关</a></li>
+<li><a href="#221-编程语言">2.21 编程语言</a></li>
+<li><a href="#222-工具相关">2.22 工具相关</a></li>
+<li><a href="#223-缓存框架">2.23 缓存框架</a></li>
+<li><a href="#224-架构相关">2.24 架构相关</a></li>
+<li><a href="#225-工作流引擎">2.25 工作流引擎</a></li>
+<li><a href="#226-代码标准">2.26 代码标准</a></li>
+<li><a href="#227-其他">2.27 其他</a></li>
+</ul>
+</li>
+<li><a href="#3-个人优秀开源项目">3. 个人优秀开源项目</a><ul>
+<li><a href="#31-知识整合">3.1 知识整合</a></li>
+<li><a href="#32-框架工具">3.2 框架、工具</a>   <h2 id="1-自写项目及笔记"><a href="#1-自写项目及笔记" class="headerlink" title="1. 自写项目及笔记"></a>1. 自写项目及笔记</h2><h3 id="1-1-Git使用笔记：个人在使用Git的一些心得"><a href="#1-1-Git使用笔记：个人在使用Git的一些心得" class="headerlink" title="1.1 Git使用笔记：个人在使用Git的一些心得"></a>1.1 <a href="https://dinghuang.github.io/main/2017/10/09/new-git.html">Git使用笔记：个人在使用Git的一些心得</a></h3><h3 id="1-2-设计模式：用java语言阐述的33种设计模式"><a href="#1-2-设计模式：用java语言阐述的33种设计模式" class="headerlink" title="1.2 设计模式：用java语言阐述的33种设计模式"></a>1.2 <a href="https://dinghuang.github.io/main/2018/07/18/new-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html">设计模式：用java语言阐述的33种设计模式</a></h3><h3 id="1-3-服务器搭建梯子：仅供学习交流"><a href="#1-3-服务器搭建梯子：仅供学习交流" class="headerlink" title="1.3 服务器搭建梯子：仅供学习交流"></a>1.3 <a href="https://dinghuang.github.io/main/2018/09/08/new-VPS%E6%90%AD%E5%BB%BAVPN.html">服务器搭建梯子：仅供学习交流</a></h3><h3 id="1-4-代码练习"><a href="#1-4-代码练习" class="headerlink" title="1.4 代码练习"></a>1.4 代码练习</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><a href="https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/java8" target="_blank" rel="noopener">Java8新特性</a></li>
+<li><a href="https://github.com/dinghuang/java-practice/blob/master/src/main/java/com/example/demo/google/GuavaTest.java" target="_blank" rel="noopener">Google的Guava工具包</a></li>
+<li><a href="https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/concurrent" target="_blank" rel="noopener">多线程相关</a></li>
+<li><a href="https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/algorithm" target="_blank" rel="noopener">算法相关</a></li>
+<li><a href="https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/designpattern" target="_blank" rel="noopener">设计模式相关</a></li>
+<li><a href="https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/nio" target="_blank" rel="noopener">NIO与IO相关</a></li>
+<li><a href="https://github.com/dinghuang/agile-service/blob/master/src/test/groovy/io/choerodon/agile/api/controller/v1/IssueControllerSpec.groovy" target="_blank" rel="noopener">Spock单元测试</a><h2 id="2-团队开源项目"><a href="#2-团队开源项目" class="headerlink" title="2. 团队开源项目"></a>2. 团队开源项目</h2><h3 id="2-1-代码管理"><a href="#2-1-代码管理" class="headerlink" title="2.1 代码管理"></a>2.1 代码管理</h3></li>
+<li><a href="https://github.com/" target="_blank" rel="noopener">GitHub：全球最大开源代码库</a></li>
+<li><a href="https://github.com/gitlabhq" target="_blank" rel="noopener">GitLab：持续集成、企业用代码库</a></li>
+<li><a href="http://www.svnchina.com/" target="_blank" rel="noopener">SVN：国内传统it企业使用较多</a></li>
+<li><a href="https://maven.apache.org/" target="_blank" rel="noopener">Maven：项目管理及自动构建工具，目前发展如日中天</a></li>
+<li><a href="https://gradle.org/" target="_blank" rel="noopener">Gradle：跟Maven类似的，都是项目管理及自动构建工具</a></li>
+<li><a href="https://ant.apache.org/" target="_blank" rel="noopener">Ant：跟Maven类似的，都是项目管理及自动构建工具</a><h3 id="2-2-分布式文件系统"><a href="#2-2-分布式文件系统" class="headerlink" title="2.2 分布式文件系统"></a>2.2 分布式文件系统</h3></li>
+<li><a href="https://github.com/happyfish100/fastdfs" target="_blank" rel="noopener">Fastdfs：文件存储，文件同步和文件访问，它可以解决高容量和负载平衡问题。FastDFS满足基于照片共享站点和视频共享站点等文件服务的网站的要求。</a></li>
+<li><a href="https://www.minio.io/" target="_blank" rel="noopener">Minio：Minio是一款高性能的分布式对象存储服务器，专为大规模私有云基础架构。</a></li>
+<li><a href="https://www.gluster.org/" target="_blank" rel="noopener">Gluster：GlusterFS是一个可扩展的网络文件系统，适用于云存储和媒体流等数据密集型任务。</a><h3 id="2-3-分布式框架"><a href="#2-3-分布式框架" class="headerlink" title="2.3 分布式框架"></a>2.3 分布式框架</h3></li>
+<li><a href="http://projects.spring.io/spring-cloud/" target="_blank" rel="noopener">Spring Cloud：目前开源社区最活跃的分布式框架，目前自己也在用。</a></li>
+<li><a href="http://dubbo.apache.org/zh-cn/index.html" target="_blank" rel="noopener">Dubbo：阿里巴巴的开源分布式框架，致力于提供高性能和透明化的RPC远程服务调用方案，是阿里巴巴SOA服务化治理方案的核心框架。</a></li>
+<li><a href="https://github.com/twitter/finatra" target="_blank" rel="noopener">Finatra：Twitter基于scala开发的分布式框架。</a></li>
+<li><a href="http://thrift.apache.org/" target="_blank" rel="noopener">Thrift：Facebook开源的跨语言分布式框架。</a></li>
+<li><a href="https://github.com/dangdangdotcom/dubbox" target="_blank" rel="noopener">Dubbox：当当根据自身的需求，为Dubbo实现了一些新的功能，并将其命名为Dubbox。</a></li>
+<li><a href="https://github.com/weibocom/motan" target="_blank" rel="noopener">Motan：新浪用于快速开发高性能分布式服务的跨语言远程过程调用（RPC）框架。</a></li>
+<li><a href="https://grpc.io/" target="_blank" rel="noopener">Grpc：谷歌开源，支持跨语言</a>。</li>
+<li><a href="https://istio.io/" target="_blank" rel="noopener">Istio：Google、IBM、Lyft共同开发的新一代Service Mesh开源项目，目前备受关注。</a><h3 id="2-4-权限安全相关"><a href="#2-4-权限安全相关" class="headerlink" title="2.4 权限安全相关"></a>2.4 权限安全相关</h3></li>
+<li><a href="http://shiro.apache.org/index.html" target="_blank" rel="noopener">Shiro：ApacheShiro专注于易用性，可以依赖安全，稳定的身份验证，授权，加密和会话管理。</a></li>
+<li><a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener">Spring Security：SpringSecurity是一个功能强大且可高度自定义的身份验证和访问控制框架。它是保护基于Spring的应用程序的事实上的标准。</a></li>
+<li><a href="https://oauth.net/2/" target="_blank" rel="noopener">OAuth2：一种安全的授权框架，提供了一套详细的授权机制。用户或应用可以通过公开的或私有的设置，授权第三方应用访问特定资源。</a></li>
+<li><a href="https://openid.net/connect/" target="_blank" rel="noopener">OpenID Connect：OIDC=(Identity, Authentication) + OAuth 2.0。它在OAuth2上构建了一个身份层，是一个基于OAuth2协议的身份认证标准协议。</a></li>
+<li><a href="https://jwt.io/" target="_blank" rel="noopener">JWT： 提供了一种用于发布接入令牌（Access Token),并对发布的签名接入令牌进行验证的方法。</a><h3 id="2-5-模板引擎"><a href="#2-5-模板引擎" class="headerlink" title="2.5 模板引擎"></a>2.5 模板引擎</h3></li>
+<li><a href="https://freemarker.apache.org/docs/" target="_blank" rel="noopener">Freemarker：国内目前用的比较多的老牌模板引擎。</a></li>
+<li><a href="https://www.thymeleaf.org/index.html" target="_blank" rel="noopener">Thymeleaf：SpringBoot开发推荐的HTML模板引擎。</a><h3 id="2-6-持久层框架"><a href="#2-6-持久层框架" class="headerlink" title="2.6 持久层框架"></a>2.6 持久层框架</h3></li>
+<li><a href="http://www.mybatis.org/mybatis-3/zh/" target="_blank" rel="noopener">Mybatis：支持定制化SQL、存储过程以及高级映射。适合个人开发，上手快。</a></li>
+<li><a href="http://hibernate.org/" target="_blank" rel="noopener">Hibernate：老牌强大的持久层框架，学习成本相对较高，数据库移植性良好。</a></li>
+<li><a href="http://projects.spring.io/spring-data-jpa/" target="_blank" rel="noopener">Spring Data JPA：Hibernate二次封装，开发效率高。</a></li>
+<li><a href="http://projects.spring.io/spring-data-mongodb/" target="_blank" rel="noopener">Spring Data Mongo: 类似spring data jpa。</a><h3 id="2-7-日志框架"><a href="#2-7-日志框架" class="headerlink" title="2.7 日志框架"></a>2.7 日志框架</h3></li>
+<li><a href="http://commons.apache.org/proper/commons-logging/" target="_blank" rel="noopener">Commons-Logging：jdk自带。</a></li>
+<li><a href="https://www.slf4j.org/" target="_blank" rel="noopener">Slf4j: 日志接口，通过各种桥接包判断实现，在编译时静态绑定真正的日志库。</a></li>
+<li><a href="https://logging.apache.org/log4j/2.x/" target="_blank" rel="noopener">Log4j2: Log4j的升级，配置更强大，支持插件化，使用Disruptor实现异步日志，性能最好。</a><h3 id="2-8-数据采集管道"><a href="#2-8-数据采集管道" class="headerlink" title="2.8 数据采集管道"></a>2.8 数据采集管道</h3></li>
+<li><a href="https://www.elastic.co/cn/products/logstash" target="_blank" rel="noopener">Logstash：ElasticSearch下的数据采集管道，常用于日志分析。</a></li>
+<li><a href="https://www.baeldung.com/spring-boot-actuators" target="_blank" rel="noopener">Actuator：SpringBoot的数据收集器，收集指标，了解流量或数据库的状态。</a><h3 id="2-9-搜索引擎"><a href="#2-9-搜索引擎" class="headerlink" title="2.9 搜索引擎"></a>2.9 搜索引擎</h3></li>
+<li><a href="https://lucene.apache.org/" target="_blank" rel="noopener">Lucene：一个全文检索引擎的架构，提供了完整的查询引擎和索引引擎，部分文本分析引擎</a></li>
+<li><a href="https://www.elastic.co/" target="_blank" rel="noopener">ElasticSearch：基于Lucene RESTful web接口的搜索服务器，目前最火的搜索引擎开源项目，毕业论文研究的就是这个。</a></li>
+<li><a href="http://lucene.apache.org/solr/" target="_blank" rel="noopener">Solr：高性能，基于Lucene的全文搜索服务器，经常与ElaticSearch比较，上手相对于ElaticSearch快。</a><h3 id="2-10-爬虫"><a href="#2-10-爬虫" class="headerlink" title="2.10 爬虫"></a>2.10 爬虫</h3></li>
+<li><a href="https://webarchive.jira.com/wiki/spaces/Heritrix" target="_blank" rel="noopener">Heritrix：最出色之处在于它良好的可扩展性，方便用户实现自己的抓取逻辑。</a></li>
+<li><a href="https://jsoup.org/" target="_blank" rel="noopener">jsoup：一款Java的HTML解析器，可直接解析URL地址、HTML文本内容。</a></li>
+<li><a href="https://github.com/yasserg/crawler4j" target="_blank" rel="noopener">crawler4j：提供了简单易用的接口，可以在几分钟内创建一个多线程网络爬虫。</a></li>
+<li><a href="https://github.com/CrawlScript/WebCollector" target="_blank" rel="noopener">WebCollector：一个无须配置、便于二次开发爬虫内核，它提供精简的的API，只需少量代码即可实现一个功能强大的爬虫。</a></li>
+<li><a href="https://github.com/code4craft/webmagic" target="_blank" rel="noopener">WebMagic：完全模块化的设计,支持多线程抓取，分布式抓取，并支持自动重试、自定义UA/cookie等功能。</a><h3 id="2-11-消息中间件"><a href="#2-11-消息中间件" class="headerlink" title="2.11 消息中间件"></a>2.11 消息中间件</h3></li>
+<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">kafka：scala编写的高吞吐量的分布式发布订阅消息系统，目前较为主流。</a></li>
+<li><a href="http://www.rabbitmq.com/" target="_blank" rel="noopener">RabbitMQ：Erlang编写，在AMQP基础上完整的，可复用的企业消息系统。</a></li>
+<li><a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">RocketMQ：阿里巴巴的MQ中间件,在其多个产品下使用，并能够撑住双十一的大流量。</a></li>
+<li><a href="http://activemq.apache.org/" target="_blank" rel="noopener">ActiveMQ：完全支持JMS1.1和J2EE 1.4规范的消息队列。</a></li>
+<li><a href="http://pulsar.incubator.apache.org/" target="_blank" rel="noopener">Apache Pulsar：雅虎开发的企业级的发布订阅消息系统。</a></li>
+<li><a href="https://bookkeeper.apache.org/distributedlog/" target="_blank" rel="noopener">Apache DistributedLog：Twitter开发的一个低延时（毫秒级）、高吞吐的分布式复制日志流系统。</a><h3 id="2-12-响应式编程"><a href="#2-12-响应式编程" class="headerlink" title="2.12 响应式编程"></a>2.12 响应式编程</h3></li>
+<li><a href="http://projectreactor.io/" target="_blank" rel="noopener">Reactor：spring社区开源，在spring 5.0直接引入。</a></li>
+<li><a href="https://vertx.io/" target="_blank" rel="noopener">Vert.x：基于netty,可以通过它使用JavaScript、Ruby、Groovy、Java、甚至是混合语言来编写应用。</a></li>
+<li><a href="https://github.com/ReactiveX/RxJava" target="_blank" rel="noopener">RxJava：安卓上用的特别多，特别与RxAndroid,Retrofit等结合使用。</a><h3 id="2-13-热加载"><a href="#2-13-热加载" class="headerlink" title="2.13 热加载"></a>2.13 热加载</h3></li>
+<li><a href="https://zeroturnaround.com/software/jrebel/" target="_blank" rel="noopener">JRebel：收费，IDEA，Eclipse，Netbeans都有它的插件，目前自己在IDEA上用破解版。</a></li>
+<li><a href="https://github.com/spring-projects/spring-loaded" target="_blank" rel="noopener">Spring-Loaded：Spring开源热更新工具。</a></li>
+<li><a href="https://github.com/HotswapProjects/HotswapAgent" target="_blank" rel="noopener">HotswapAgent：免费开源热更新。</a><h3 id="2-14-代码测试"><a href="#2-14-代码测试" class="headerlink" title="2.14 代码测试"></a>2.14 代码测试</h3></li>
+<li><a href="http://spockframework.org/" target="_blank" rel="noopener">Spock：吸取了JUnit，jMock，RSpec，Groovy，Scala，Vulcans和其他的优秀测试框架，目前自己也在写。</a></li>
+<li><a href="https://junit.org/junit5/" target="_blank" rel="noopener">JUnit5：最常使用的单元测试工具。</a></li>
+<li><a href="https://site.mockito.org/" target="_blank" rel="noopener">Mockito：允许使用自动化的单元测试创建和测试双对象，以达到测试驱动开发和行为驱动开发的目的。</a></li>
+<li><a href="https://github.com/jacoco/jacoco" target="_blank" rel="noopener">JaCoCo：Java代码覆盖库，用Sonarqube测试代码覆盖率需要用到。</a><h3 id="2-15-测试工具"><a href="#2-15-测试工具" class="headerlink" title="2.15 测试工具"></a>2.15 测试工具</h3></li>
+<li><a href="https://jmeter.apache.org/" target="_blank" rel="noopener">Jmeter：老牌压测工具，也是用的最广泛的。</a></li>
+<li><a href="http://freshmeat.sourceforge.net/projects/fio/" target="_blank" rel="noopener">Fio：文件系统性能测试。</a></li>
+<li><a href="http://httpd.apache.org/docs/2.0/programs/ab.html" target="_blank" rel="noopener">Ab：Ab压测，命令行压测工具。</a></li>
+<li><a href="https://www.pact.net.cn/" target="_blank" rel="noopener">Pact：提供对消费者驱动的契约测试的支持，支持多种语言。</a></li>
+<li><a href="https://github.com/spring-cloud/spring-cloud-contract" target="_blank" rel="noopener">Spring Cloud Contract：一个消费者驱动的微服务契约测试套件。</a><h3 id="2-16-监控相关"><a href="#2-16-监控相关" class="headerlink" title="2.16 监控相关"></a>2.16 监控相关</h3></li>
+<li><a href="https://zipkin.io/" target="_blank" rel="noopener">Zipkin：分布式服务监控，可以监控调用链。</a></li>
+<li><a href="http://micrometer.io/" target="_blank" rel="noopener">Micrometer：Micrometer为最流行的监控系统提供了仪表客户端的简单外观，需要数据管道。</a></li>
+<li><a href="https://grafana.com/" target="_blank" rel="noopener">Grafana：开源数据可视化仪表视图服务。</a></li>
+<li><a href="https://www.elastic.co/products/kibana" target="_blank" rel="noopener">kibana：ElasticSearch下的数据可视化服务。</a></li>
+<li><a href="https://github.com/thingsboard/thingsboard" target="_blank" rel="noopener">thingsboard：开源可视化平台。</a><h3 id="2-17-前端相关"><a href="#2-17-前端相关" class="headerlink" title="2.17 前端相关"></a>2.17 前端相关</h3></li>
+<li><a href="https://getbootstrap.com/" target="_blank" rel="noopener">Bootstrap：扁平化风格前端UI框架。</a></li>
+<li><a href="https://ant.design/" target="_blank" rel="noopener">AntDesign：阿里出品，在React上的企业前端UI框架。</a></li>
+<li><a href="https://reactjs.org/" target="_blank" rel="noopener">React：Fackbook出品的前端框架，实现前后端分离开发，前端作为单独服务在Node.js环境下运行，由npm管理包，可以说是目前最流行的前端框架，自己也稍微写过一点。</a></li>
+<li><a href="https://facebook.github.io/react-native/" target="_blank" rel="noopener">ReactNative：FaceBook出品的前端移动端前端框架，实现模块化开发，Android开发的模块可以用在IOS上，挺方便的，目前用的比较好的是京东APP。</a></li>
+<li><a href="https://cn.vuejs.org/index.html" target="_blank" rel="noopener">Vue：渐进式JavaScript 框架。</a></li>
+<li><a href="https://angular.io/" target="_blank" rel="noopener">Angular：Angular使开发人员能够构建在Web，移动设备或桌面上的应用程序。</a></li>
+<li><a href="https://github.com/antvis/g2" target="_blank" rel="noopener">G6：阿里蚂蚁金服出品的JavaScript中的图形可视化框架。</a></li>
+<li><a href="https://github.com/lodash/lodash" target="_blank" rel="noopener">lodash：前端JavaScript工具库，提供多种数组、字符串处理工具。</a></li>
+<li><a href="https://mobx.js.org/refguide/api.html" target="_blank" rel="noopener">Mobx：Mobx 是一个功能强大，上手非常容易的状态管理工具。</a></li>
+<li><a href="https://redux.js.org/" target="_blank" rel="noopener">Redux：也是一个状态管理工具，比Mobx更加严谨，但是上手更难。</a></li>
+<li><a href="https://www.jstree.com/" target="_blank" rel="noopener">jsTree：jsTree是一个基于jQuery的Tree控件。支持XML，JSON，Html三种数据源。提供创建，重命名，移动，删除，拖放节点操作。</a></li>
+<li><a href="https://ckeditor.com/" target="_blank" rel="noopener">ckeditor：富文本编辑器。</a></li>
+<li><a href="http://echarts.baidu.com/" target="_blank" rel="noopener">Echarts：百度出品的可视化工具，目前用的较多，现在有React版本的Echarts。</a></li>
+<li><a href="https://quilljs.com/" target="_blank" rel="noopener">Quill：也是一款富文本编辑器，大多用来做二次开发。</a><h3 id="2-18-分布式相关工具"><a href="#2-18-分布式相关工具" class="headerlink" title="2.18 分布式相关工具"></a>2.18 分布式相关工具</h3></li>
+<li><a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">Eureka：Netflix开源的，java开发，基于restful，用于服务注册。</a></li>
+<li><a href="https://github.com/hashicorp/consul" target="_blank" rel="noopener">Consul：Consul是一种分布式，高可用性和数据中心感知解决方案，用于跨动态分布式基础架构连接和配置应用程序。</a></li>
+<li><a href="https://github.com/Netflix/ribbon" target="_blank" rel="noopener">Ribbon：Netflix开源的，用于负载均衡。</a></li>
+<li><a href="https://github.com/Netflix/Hystrix" target="_blank" rel="noopener">Hystrix：Hystrix是一个延迟和容错库，旨在隔离对远程系统，服务和第三方库的访问点，停止级联故障，并在复杂的分布式系统中实现弹性，在这些系统中，故障是不可避免的。</a></li>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper：非常强大的开源项目，目前主要用途有分布式服务的分布式锁、命名服务、配置管理、集群管理 、队列管理，kafka就是基于Zookeeper实现的消息中间件。</a></li>
+<li><a href="https://github.com/ctripcorp/apollo" target="_blank" rel="noopener">Apollo：携程框架部门研发的分布式配置中心。</a></li>
+<li><a href="https://github.com/Kong/kong" target="_blank" rel="noopener">Kong：是一个云原生，快速，可扩展和分布式微服务抽象层（也称为API网关，API中间件或在某些情况下为Service Mesh）。</a></li>
+<li><a href="http://www.spinnaker.io/" target="_blank" rel="noopener">Spinnaker：是一个开源的，多云连续交付平台，用于以高速度和可靠性发布软件更改。</a></li>
+<li><a href="https://www.nginx.com/" target="_blank" rel="noopener">Nginx：是一个异步框架的Web服务器，也可以用作反向代理，负载平衡器 和HTTP缓存。</a><h3 id="2-19-数据库相关"><a href="#2-19-数据库相关" class="headerlink" title="2.19 数据库相关"></a>2.19 数据库相关</h3></li>
+<li><a href="https://www.mysql.com/cn/" target="_blank" rel="noopener">Mysql：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，Mysql就比较适用于微服务。</a></li>
+<li><a href="https://www.oracle.com/index.html" target="_blank" rel="noopener">Oracle：老牌数据库，非常强大，现在收购了Sun公司。</a></li>
+<li><a href="https://www.mongodb.com/cn" target="_blank" rel="noopener">MogoDB：非关系型的数据库的典型代表。</a></li>
+<li><a href="https://hbase.apache.org/" target="_blank" rel="noopener">HBase：是一个开源的非关系型分布式数据库，大数据存储。</a></li>
+<li><a href="http://www.liquibase.org/" target="_blank" rel="noopener">Liquibase：一个用于跟踪、管理和应用数据库变化的开源的数据库重构工具。支持xml，groovy编写。</a></li>
+<li><a href="https://flywaydb.org/" target="_blank" rel="noopener">Flyway：是一个敏捷工具，用于数据库的移植。</a></li>
+<li><a href="http://impala.apache.org/index.html" target="_blank" rel="noopener">Apache Impala：是一个高性能分析数据库，可针对存储在 Apache Hadoop集群中的PB级数据进行闪电般快速的分布式 SQL查询。</a></li>
+<li><a href="https://github.com/Meituan-Dianping/MyFlash" target="_blank" rel="noopener">MyFlash：美团点评的开源MySQL闪回工具。</a></li>
+<li><a href="http://www.h2database.com/html/main.html" target="_blank" rel="noopener">H2 DataBase：内存数据库，可以用于单元测试中的数据库。</a></li>
+<li><a href="https://github.com/ctripcorp/dal" target="_blank" rel="noopener">Ctrip DAL：是携程框架部开发的数据库访问框架，支持代码生成和水平扩展。</a></li>
+<li><a href="http://brettwooldridge.github.io/HikariCP/" target="_blank" rel="noopener">HikariCP：性能最高的数据库连接池。</a></li>
+<li><a href="https://github.com/alibaba/druid" target="_blank" rel="noopener">Druid：阿里出品，为监控而生的数据库连接池。</a></li>
+<li><a href="https://phoenix.apache.org/" target="_blank" rel="noopener">Phoenix：构建在HBase上的一个SQL层，能让我们用标准的JDBC APIs而不是HBase客户端APIs来创建表，插入数据和对HBase数据进行查询。</a><h3 id="2-20-容器相关"><a href="#2-20-容器相关" class="headerlink" title="2.20 容器相关"></a>2.20 容器相关</h3></li>
+<li><a href="https://www.docker.com/" target="_blank" rel="noopener">Docker：是一个开源的应用容器引擎，目前主流容器技术，虚拟机的最大竞争对手。</a></li>
+<li><a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes：谷歌开源用于自动化部署，扩展和管理集装箱化应用程序的系统，也是目前容器编排主流开源项目。</a></li>
+<li><a href="https://github.com/GoogleContainerTools/container-diff" target="_blank" rel="noopener">Container-Diff：Google 开源 Docker镜像差异分析工具。</a></li>
+<li><a href="https://github.com/coreos/clair" target="_blank" rel="noopener">clair：容器的漏洞静态分析。</a></li>
+<li><a href="https://helm.sh/" target="_blank" rel="noopener">Helm：预先配置的Kubernetes资源包管理工具，目前我们用Helm管理容器环境变量等配置。</a></li>
+<li><a href="https://harbor.com/" target="_blank" rel="noopener">Harbor：Docker镜像仓库管理平台，也是主流的容器相关平台。</a></li>
+<li><a href="https://www.openshift.com/" target="_blank" rel="noopener">Openshift：红帽公司出品的一个功能全面容器应用平台，底层管理也是使用Kubernetes的。</a><h3 id="2-21-编程语言"><a href="#2-21-编程语言" class="headerlink" title="2.21 编程语言"></a>2.21 编程语言</h3></li>
+<li><a href="http://www.groovy-lang.org/" target="_blank" rel="noopener">Groovy：类似Ruby的动态语言，Gradle的编写语言。</a></li>
+<li><a href="https://www.scala-lang.org/" target="_blank" rel="noopener">Scala：强大的多范式编程语言，有Spark，Akka，Kafka等开源项目。</a></li>
+<li><a href="https://www.clojure.org/" target="_blank" rel="noopener">Clojure：动态Lisp方言。</a></li>
+<li><a href="http://kotlinlang.org/" target="_blank" rel="noopener">Kotlin：由 JetBrains 设计开发并开源，多用于安卓开发，简化版的Scala，是谷歌现在力推的安卓官方开发语言，前景光明。</a></li>
+<li><a href="https://github.com/LuxLang/lux" target="_blank" rel="noopener">Lux：正在开发中的静态Lisp方言。</a></li>
+<li><a href="https://developer.apple.com/swift/" target="_blank" rel="noopener">Swift：苹果公司用来取代Objective-C的语言，用于开发Mac OS和iOS，十分热门。</a></li>
+<li><a href="https://golang.org/" target="_blank" rel="noopener">GO：是Google开发的一种静态强类型、编辑型、并发型，并具有垃圾回收功能的编程语言。</a></li>
+<li><a href="https://www.python.org/" target="_blank" rel="noopener">Python：是一种解释型、面向对象、动态数据类型的高级程序设计语言，多用于数据分析等。</a></li>
+<li><a href="https://www.r-project.org/" target="_blank" rel="noopener">R：R语言，一种自由软件编程语言与操作环境，主要用于统计分析、绘图、数据挖掘。</a><h3 id="2-22-工具相关"><a href="#2-22-工具相关" class="headerlink" title="2.22 工具相关"></a>2.22 工具相关</h3></li>
+<li><a href="https://github.com/google/guava" target="_blank" rel="noopener">Guava：Google开源，十分强大，包含许多Google核心的Java常用库，Java8吸取了Guava的许多优点发展自己的新特性。</a></li>
+<li><a href="http://commons.apache.org/" target="_blank" rel="noopener">Apache Commons：包含了很多开源的工具。</a></li>
+<li><a href="https://projectlombok.org/" target="_blank" rel="noopener">Lombok：注解通过编译器生成getter,setter,builder等代码。</a></li>
+<li><a href="https://github.com/OpenHFT/Chronicle-Map" target="_blank" rel="noopener">Chronicle Map：基于内存的键值对存储,低延迟、高并发,支持持久化到磁盘，以及多键值查询。</a></li>
+<li><a href="https://github.com/ronmamo/reflections" target="_blank" rel="noopener">reflections：一个java反射工具包。</a></li>
+<li><a href="https://github.com/shekhargulati/strman-java" target="_blank" rel="noopener">strman-java：一个字符串处理工具,使用它可以解决几乎所有字符串处理场景。</a></li>
+<li><a href="http://www.eclipse.org/jgit/" target="_blank" rel="noopener">Jgit: java实现git操作。</a></li>
+<li><a href="https://github.com/redisson/redisson" target="_blank" rel="noopener">Redisson：在Redis的基础上实现的Java驻内存数据网格（In-Memory Data GridEhcache – Java分布式缓存框架）。它不仅提供了一系列的分布式的Java常用对象，还提供了许多分布式服务，可以用于分布式服务锁。</a></li>
+<li><a href="http://oracle.github.io/opengrok/" target="_blank" rel="noopener">OpenGrok：Oracle公司的，用Java编写的源代码库搜索工具。</a></li>
+<li><a href="https://github.com/mybatis/mybatis-3" target="_blank" rel="noopener">mybatis-3：Mybatis在Java的映射工具包，源码设计缓存设计、大量的反射，挺值得看的。</a><h3 id="2-23-缓存框架"><a href="#2-23-缓存框架" class="headerlink" title="2.23 缓存框架"></a>2.23 缓存框架</h3></li>
+<li><a href="http://www.ehcache.org/" target="_blank" rel="noopener">Ehcache：Java分布式缓存框架。</a></li>
+<li><a href="https://www.cacheonix.org/" target="_blank" rel="noopener">Cacheonix：高性能Java分布式缓存系统。</a></li>
+<li><a href="https://github.com/yangfuhai/ASimpleCache" target="_blank" rel="noopener">ASimpleCache：轻量级Android缓存框架。</a></li>
+<li><a href="http://jbosscache.jboss.org/" target="_blank" rel="noopener">JBoss Cache：基于事物的Java缓存框架。</a></li>
+<li><a href="http://www.project-voldemort.com/voldemort/" target="_blank" rel="noopener">Voldemort：基于键-值（key-value）的缓存框架。</a></li>
+<li><a href="https://redis.io/" target="_blank" rel="noopener">Redis：应用最多的缓存框架，常用于二级缓存，不仅可以作为分布式服务的分布式锁，还可以用做pubsub实现分布式WebSocket。</a><h3 id="2-24-架构相关"><a href="#2-24-架构相关" class="headerlink" title="2.24 架构相关"></a>2.24 架构相关</h3></li>
+<li><a href="https://en.wikipedia.org/wiki/Domain-driven_design" target="_blank" rel="noopener">Domain-driven design：领域驱动设计，复杂的业务逻辑可以参考，其中盒马生鲜就用到了其中的概念。</a></li>
+<li><a href="https://microservices.io/patterns/data/saga.html" target="_blank" rel="noopener">Saga：用于解决分布式系统事务一致性的模式。</a><h3 id="2-25-工作流引擎"><a href="#2-25-工作流引擎" class="headerlink" title="2.25 工作流引擎"></a>2.25 工作流引擎</h3></li>
+<li><a href="https://www.activiti.org/" target="_blank" rel="noopener">Activiti：目前用的比较多的工作流，重点关注在系统开发的易用性和轻量性上。</a></li>
+<li><a href="https://www.jbpm.org/" target="_blank" rel="noopener">JBPM：是JBoss中一款开源的工作流引擎，是一个轻量级的，使用最新的BPMN 2规范可扩展的，目前最新的是JBPM3。</a><h3 id="2-26-代码标准"><a href="#2-26-代码标准" class="headerlink" title="2.26 代码标准"></a>2.26 代码标准</h3></li>
+<li><a href="https://github.com/alibaba/p3c" target="_blank" rel="noopener">p3c：阿里巴巴代码规约。</a></li>
+<li><a href="https://www.sonarqube.org/" target="_blank" rel="noopener">SonarQube：一个开源的代码质量管理系统。</a><h3 id="2-27-其他"><a href="#2-27-其他" class="headerlink" title="2.27 其他"></a>2.27 其他</h3></li>
+<li><a href="http://www.paddlepaddle.org/" target="_blank" rel="noopener">PArallel：百度深度学习框架。</a></li>
+<li><a href="http://netty.io/" target="_blank" rel="noopener">netty：事件驱动的异步网络应用程序框架。</a></li>
+<li><a href="https://tensorflow.org/" target="_blank" rel="noopener">Tensorflow：谷歌机器学习框架，目前最流行的机器学习框架。</a></li>
+<li><a href="https://github.com/Meituan-Dianping/mpvue" target="_blank" rel="noopener">mpvue：美团小程序开发框架。</a></li>
+<li><a href="https://github.com/choerodon/" target="_blank" rel="noopener">Choerodon：自己参与开发的开源企业服务平台，是基于Kubernetes的容器编排和管理能力，整合DevOps工具链、微服务和移动应用框架。</a></li>
+<li><a href="https://github.com/naver/pinpoint" target="_blank" rel="noopener">Pinpoint：是一个开源的APM（应用程序性能管理）工具，适用于用Java编写的大型分布式系统。</a><h2 id="3-个人优秀开源项目"><a href="#3-个人优秀开源项目" class="headerlink" title="3. 个人优秀开源项目"></a>3. 个人优秀开源项目</h2><h3 id="3-1-知识整合"><a href="#3-1-知识整合" class="headerlink" title="3.1 知识整合"></a>3.1 知识整合</h3></li>
+<li><a href="https://github.com/iluwatar/java-design-patterns" target="_blank" rel="noopener">java-design-patterns：Java实现的设计模式。</a></li>
+<li><a href="https://github.com/jaywcjlove/linux-command" target="_blank" rel="noopener">linux-command：Linux命令大全搜索工具，内容包含Linux命令手册、详解、学习、搜集。</a></li>
+<li><a href="https://github.com/judasn/Linux-Tutorial" target="_blank" rel="noopener">Linux-Tutorial：Linux学习。</a></li>
+<li><a href="https://github.com/crossoverJie/JCSprout" target="_blank" rel="noopener">JCSprout：有关Java非常好的技能树总结，面试宝典啊。</a></li>
+<li><a href="https://github.com/rootsongjc/kubernetes-handbook" target="_blank" rel="noopener">kubernetes-handbook：Kubernetes中文指南/云原生应用架构实践手册。</a></li>
+<li><a href="https://github.com/oldratlee/translations" target="_blank" rel="noopener">translations：oldratlee在外文中关于一些知识的中文总结，值得一看。</a></li>
+<li><a href="https://github.com/jikexueyuanwiki/tensorflow-zh" target="_blank" rel="noopener">tensorflow-zh：谷歌全新开源人工智能系统TensorFlow官方文档中文版。</a></li>
+<li><a href="https://github.com/adam-golab/react-developer-roadmap" target="_blank" rel="noopener">react-developer-roadmap：React开发人员技能树。</a></li>
+<li><a href="https://github.com/arasatasaygin/openlogos" target="_blank" rel="noopener">openlogos：免费开源图标库，还在维护更新，支持下。</a></li>
+<li><a href="https://github.com/NJHu/iOSProject" target="_blank" rel="noopener">iOSProject：个人收集的iOS演示项目。</a></li>
+<li><a href="https://github.com/opendigg/awesome-github-wechat-weapp" target="_blank" rel="noopener">awesome-github-wechat-weapp：微信小程序开源项目汇总。</a></li>
+<li><a href="https://github.com/TheAlgorithms/Java" target="_blank" rel="noopener">TheAlgorithms/Java：所有算法在Java中的实现，强烈推荐。</a></li>
+<li><a href="https://github.com/justjavac/free-programming-books-zh_CN" target="_blank" rel="noopener">free-programming-books-zh_CN：免费的计算机编程类中文书籍，欢迎去那投稿。</a></li>
+<li><a href="https://github.com/arasatasaygin/openlogos" target="_blank" rel="noopener">openlogos：免费开源图标库，还在维护更新，支持下。</a></li>
+<li><a href="https://github.com/isaacloveadan/KnowledgeManage" target="_blank" rel="noopener">KnowledgeManage：个人前端技能树，友情链接。</a><h3 id="3-2-框架、工具"><a href="#3-2-框架、工具" class="headerlink" title="3.2 框架、工具"></a>3.2 框架、工具</h3></li>
+<li><a href="https://github.com/oblac/jodd" target="_blank" rel="noopener">jodd：轻量级的Java微框架。</a></li>
+<li><a href="https://github.com/krallin/tini" target="_blank" rel="noopener">tini：容器的一个小而有效的<code>init</code>。</a></li>
+<li><a href="https://github.com/ekalinin/github-markdown-toc" target="_blank" rel="noopener">github-markdown-toc：用Shell写的自动生成Github中Markdown文档目录的小工具。</a></li>
+<li><a href="https://github.com/ulisesbocchio/jasypt-spring-boot" target="_blank" rel="noopener">undertow：简易高性能无阻塞网络Java服务器框架。</a></li>
+<li><a href="https://github.com/lealone/Lealone" target="_blank" rel="noopener">Lealone：兼具RDBMS、NoSQL优点的个人异步化NewSQL单机与分布式关系数据库。</a></li>
+<li><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">elasticsearch-analysis-ik：ElasticSearch中文分词工具。</a></li>
+<li><a href="https://github.com/jersey/jersey" target="_blank" rel="noopener">jersey：基于RESTful设计的java网络服务框架，目前已经停止维护。</a></li>
+<li><a href="https://github.com/JSQLParser/JSqlParser" target="_blank" rel="noopener">JSqlParser：解析SQL语句并将其转换为Java类的层次结构。</a></li>
+</ol>
+
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">丁煌</p>
+              <p class="site-description motion-element" itemprop="description">学习说得、生活所得</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#学习笔记"><span class="nav-number">1.</span> <span class="nav-text">学习笔记  </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自写项目及笔记"><span class="nav-number">1.1.</span> <span class="nav-text">1. 自写项目及笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Git使用笔记：个人在使用Git的一些心得"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 Git使用笔记：个人在使用Git的一些心得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-设计模式：用java语言阐述的33种设计模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 设计模式：用java语言阐述的33种设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-服务器搭建梯子：仅供学习交流"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3 服务器搭建梯子：仅供学习交流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-代码练习"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4 代码练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-团队开源项目"><span class="nav-number">1.2.</span> <span class="nav-text">2. 团队开源项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-代码管理"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 代码管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-分布式文件系统"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 分布式文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-分布式框架"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 分布式框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-权限安全相关"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 权限安全相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-模板引擎"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 模板引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-持久层框架"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6 持久层框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-日志框架"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7 日志框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-数据采集管道"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8 数据采集管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-9-搜索引擎"><span class="nav-number">1.2.9.</span> <span class="nav-text">2.9 搜索引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-10-爬虫"><span class="nav-number">1.2.10.</span> <span class="nav-text">2.10 爬虫</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-11-消息中间件"><span class="nav-number">1.2.11.</span> <span class="nav-text">2.11 消息中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-12-响应式编程"><span class="nav-number">1.2.12.</span> <span class="nav-text">2.12 响应式编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-13-热加载"><span class="nav-number">1.2.13.</span> <span class="nav-text">2.13 热加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-14-代码测试"><span class="nav-number">1.2.14.</span> <span class="nav-text">2.14 代码测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-15-测试工具"><span class="nav-number">1.2.15.</span> <span class="nav-text">2.15 测试工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-16-监控相关"><span class="nav-number">1.2.16.</span> <span class="nav-text">2.16 监控相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-17-前端相关"><span class="nav-number">1.2.17.</span> <span class="nav-text">2.17 前端相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-18-分布式相关工具"><span class="nav-number">1.2.18.</span> <span class="nav-text">2.18 分布式相关工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-19-数据库相关"><span class="nav-number">1.2.19.</span> <span class="nav-text">2.19 数据库相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-20-容器相关"><span class="nav-number">1.2.20.</span> <span class="nav-text">2.20 容器相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-21-编程语言"><span class="nav-number">1.2.21.</span> <span class="nav-text">2.21 编程语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-22-工具相关"><span class="nav-number">1.2.22.</span> <span class="nav-text">2.22 工具相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-23-缓存框架"><span class="nav-number">1.2.23.</span> <span class="nav-text">2.23 缓存框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-24-架构相关"><span class="nav-number">1.2.24.</span> <span class="nav-text">2.24 架构相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-25-工作流引擎"><span class="nav-number">1.2.25.</span> <span class="nav-text">2.25 工作流引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-26-代码标准"><span class="nav-number">1.2.26.</span> <span class="nav-text">2.26 代码标准</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-27-其他"><span class="nav-number">1.2.27.</span> <span class="nav-text">2.27 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-个人优秀开源项目"><span class="nav-number">1.3.</span> <span class="nav-text">3. 个人优秀开源项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-知识整合"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 知识整合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-框架、工具"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 框架、工具</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">丁煌</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

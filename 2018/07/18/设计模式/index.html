@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="目录 TOC{:toc}  菜鸟教程文档 设计模式设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让">
+<meta name="description" content="设计模式* [1.创建型模式](#1创建型模式)    * [1.1. 工厂模式](#11-工厂模式)    * [1.2. 抽象工厂模式](#12-抽象工厂模式)    * [1.3. 单例模式](#13-单例模式)    * [1.4. 建造者模式](#14-建造者模式)    * [1.5. 原型模式](#15-原型模式) * [2.结构型模式](#2结构型模式)    * [2.1. 适">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式">
 <meta property="og:url" content="https://dinghuang.github.io/2018/07/18/设计模式/index.html">
 <meta property="og:site_name" content="强壮的病猫">
-<meta property="og:description" content="目录 TOC{:toc}  菜鸟教程文档 设计模式设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让">
+<meta property="og:description" content="设计模式* [1.创建型模式](#1创建型模式)    * [1.1. 工厂模式](#11-工厂模式)    * [1.2. 抽象工厂模式](#12-抽象工厂模式)    * [1.3. 单例模式](#13-单例模式)    * [1.4. 建造者模式](#14-建造者模式)    * [1.5. 原型模式](#15-原型模式) * [2.结构型模式](#2结构型模式)    * [2.1. 适">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-18T08:05:10.466Z">
+<meta property="og:updated_time" content="2018-09-18T08:34:57.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式">
-<meta name="twitter:description" content="目录 TOC{:toc}  菜鸟教程文档 设计模式设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让">
+<meta name="twitter:description" content="设计模式* [1.创建型模式](#1创建型模式)    * [1.1. 工厂模式](#11-工厂模式)    * [1.2. 抽象工厂模式](#12-抽象工厂模式)    * [1.3. 单例模式](#13-单例模式)    * [1.4. 建造者模式](#14-建造者模式)    * [1.5. 原型模式](#15-原型模式) * [2.结构型模式](#2结构型模式)    * [2.1. 适">
 
 
 
@@ -299,8 +299,36 @@
       
 
       
-        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>TOC<br>{:toc}</li>
+        <ul>
+<li><a href="#设计模式">设计模式</a><pre><code>* [1.创建型模式](#1创建型模式)
+   * [1.1. 工厂模式](#11-工厂模式)
+   * [1.2. 抽象工厂模式](#12-抽象工厂模式)
+   * [1.3. 单例模式](#13-单例模式)
+   * [1.4. 建造者模式](#14-建造者模式)
+   * [1.5. 原型模式](#15-原型模式)
+* [2.结构型模式](#2结构型模式)
+   * [2.1. 适配器模式](#21-适配器模式)
+   * [2.2. 桥接模式](#22-桥接模式)
+   * [2.3. 桥接模式](#23-桥接模式)
+   * [2.4. 组合模式](#24-组合模式)
+   * [2.5. 装饰器模式](#25-装饰器模式)
+   * [2.6. 外观模式](#26-外观模式)
+   * [2.7. 享元模式](#27-享元模式)
+   * [2.8. 代理模式](#28-代理模式)
+* [3.行为型模式](#3行为型模式)
+   * [3.1. 责任链模式](#31-责任链模式)
+   * [3.2. 命令模式](#32-命令模式)
+   * [3.3. 解释器模式](#33-解释器模式)
+   * [3.4. 迭代器模式](#34-迭代器模式)
+   * [3.5. 中介者模式](#35-中介者模式)
+   * [3.6. 备忘录模式](#36-备忘录模式)
+   * [3.7. 观察者模式](#37-观察者模式)
+   * [3.8. 状态模式](#38-状态模式)
+   * [3.9. 空对象模式](#39-空对象模式)
+   * [3.10. 策略模式](#310-策略模式)
+   * [3.11. 模板模式](#311-模板模式)
+   * [3.12. 访问者模式](#312-访问者模式)
+</code></pre></li>
 </ul>
 <p><a href="http://www.runoob.com/design-pattern/design-pattern-tutorial.html" target="_blank" rel="noopener">菜鸟教程文档</a></p>
 <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
@@ -1090,7 +1118,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">2.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建型模式"><span class="nav-number">2.1.</span> <span class="nav-text">1.创建型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-工厂模式"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1. 工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-抽象工厂模式"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2. 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-单例模式"><span class="nav-number">2.1.3.</span> <span class="nav-text">1.3. 单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-建造者模式"><span class="nav-number">2.1.4.</span> <span class="nav-text">1.4. 建造者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-原型模式"><span class="nav-number">2.1.5.</span> <span class="nav-text">1.5. 原型模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-结构型模式"><span class="nav-number">2.2.</span> <span class="nav-text">2.结构型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-适配器模式"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1. 适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-桥接模式"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2. 桥接模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-桥接模式"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3. 桥接模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-组合模式"><span class="nav-number">2.2.4.</span> <span class="nav-text">2.4. 组合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-装饰器模式"><span class="nav-number">2.2.5.</span> <span class="nav-text">2.5. 装饰器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-外观模式"><span class="nav-number">2.2.6.</span> <span class="nav-text">2.6. 外观模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-享元模式"><span class="nav-number">2.2.7.</span> <span class="nav-text">2.7. 享元模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-代理模式"><span class="nav-number">2.2.8.</span> <span class="nav-text">2.8. 代理模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-行为型模式"><span class="nav-number">2.3.</span> <span class="nav-text">3.行为型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-责任链模式"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1. 责任链模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-命令模式"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2. 命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-解释器模式"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3. 解释器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-迭代器模式"><span class="nav-number">2.3.4.</span> <span class="nav-text">3.4. 迭代器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-中介者模式"><span class="nav-number">2.3.5.</span> <span class="nav-text">3.5. 中介者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-备忘录模式"><span class="nav-number">2.3.6.</span> <span class="nav-text">3.6. 备忘录模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-观察者模式"><span class="nav-number">2.3.7.</span> <span class="nav-text">3.7. 观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-状态模式"><span class="nav-number">2.3.8.</span> <span class="nav-text">3.8. 状态模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-空对象模式"><span class="nav-number">2.3.9.</span> <span class="nav-text">3.9. 空对象模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-策略模式"><span class="nav-number">2.3.10.</span> <span class="nav-text">3.10. 策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-模板模式"><span class="nav-number">2.3.11.</span> <span class="nav-text">3.11. 模板模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-访问者模式"><span class="nav-number">2.3.12.</span> <span class="nav-text">3.12. 访问者模式</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式"><span class="nav-number">1.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-创建型模式"><span class="nav-number">1.1.</span> <span class="nav-text">1.创建型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-工厂模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-抽象工厂模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. 抽象工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-单例模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3. 单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-建造者模式"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4. 建造者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-原型模式"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5. 原型模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-结构型模式"><span class="nav-number">1.2.</span> <span class="nav-text">2.结构型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-适配器模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1. 适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-桥接模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2. 桥接模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-桥接模式"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3. 桥接模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-组合模式"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4. 组合模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-装饰器模式"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5. 装饰器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-外观模式"><span class="nav-number">1.2.6.</span> <span class="nav-text">2.6. 外观模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-享元模式"><span class="nav-number">1.2.7.</span> <span class="nav-text">2.7. 享元模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-代理模式"><span class="nav-number">1.2.8.</span> <span class="nav-text">2.8. 代理模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-行为型模式"><span class="nav-number">1.3.</span> <span class="nav-text">3.行为型模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-责任链模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1. 责任链模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-命令模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2. 命令模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-解释器模式"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3. 解释器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-迭代器模式"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4. 迭代器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-中介者模式"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5. 中介者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-备忘录模式"><span class="nav-number">1.3.6.</span> <span class="nav-text">3.6. 备忘录模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-观察者模式"><span class="nav-number">1.3.7.</span> <span class="nav-text">3.7. 观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-状态模式"><span class="nav-number">1.3.8.</span> <span class="nav-text">3.8. 状态模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-空对象模式"><span class="nav-number">1.3.9.</span> <span class="nav-text">3.9. 空对象模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-策略模式"><span class="nav-number">1.3.10.</span> <span class="nav-text">3.10. 策略模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-模板模式"><span class="nav-number">1.3.11.</span> <span class="nav-text">3.11. 模板模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-12-访问者模式"><span class="nav-number">1.3.12.</span> <span class="nav-text">3.12. 访问者模式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

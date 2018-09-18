@@ -303,42 +303,48 @@
       
         
           
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>TOC<br>{:toc}</li>
-</ul>
-<h1 id="购买VPS服务器"><a href="#购买VPS服务器" class="headerlink" title="购买VPS服务器"></a>购买VPS服务器</h1><p>声明：本教程仅供学习用</p>
+            <pre><code>* [购买VPS服务器](#购买vps服务器)
+* [搭建ShadowSocksR服务](#搭建shadowsocksr服务)
+* [优化网络](#优化网络)
+    * [1.系统层面](#1系统层面)
+    * [2.TCP优化](#2tcp优化)
+    * [3.软件辅助优化](#3软件辅助优化)
+</code></pre><h1 id="购买VPS服务器"><a href="#购买VPS服务器" class="headerlink" title="购买VPS服务器"></a>购买VPS服务器</h1><p>声明：本教程仅供学习用</p>
 <p><a href="https://my.vultr.com/" target="_blank" rel="noopener">购买地址</a></p>
 <p>推荐vultr的原因是，vultr支持支付宝、服务器较多，价格虽然不算便宜，但是网速稳定。<br>各个机房速度测试，直接ping 域名<br>地理位置 官方测试服务器ip 下载测试文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Frankfurt, DE fra-de-ping.vultr.com 100M 1000M</span><br><span class="line">Amsterdam, NL ams-nl-ping.vultr.com 100M 1000M</span><br><span class="line">Paris, France par-fr-ping.vultr.com 100M 1000M</span><br><span class="line">London, UK lon-gb-ping.vultr.com 100M 1000M</span><br><span class="line">Singapore sgp-ping.vultr.com 100M 1000M</span><br><span class="line">New York (NJ) nj-us-ping.vultr.com 100M 1000M</span><br><span class="line">Tokyo, Japan hnd-jp-ping.vultr.com 100M 1000M</span><br><span class="line">Chicago, Illinois il-us-ping.vultr.com 100M 1000M</span><br><span class="line">Atlanta, Georgia ga-us-ping.vultr.com 100M 1000M</span><br><span class="line">Miami, Florida fl-us-ping.vultr.com 100M 1000M</span><br><span class="line">Seattle, Washington wa-us-ping.vultr.com 100M 1000M</span><br><span class="line">Dallas, Texas tx-us-ping.vultr.com 100M 1000M</span><br><span class="line">Silicon Valley, California sjo-ca-us-ping.vultr.com 100M 1000M</span><br><span class="line">Los Angeles, California lax-ca-us-ping.vultr.com 100M 1000M</span><br><span class="line">Sydney, Australia syd-au-ping.vultr.com 100M 1000M</span><br></pre></td></tr></table></figure></p>
 <p>经过测试，大陆地区，Tokyo的速度是最快的，延迟在50ms左右。</p>
-<h1 id="搭建ShadowSocksR服务"><a href="#搭建ShadowSocksR服务" class="headerlink" title="搭建ShadowSocksR服务"></a>搭建ShadowSocksR服务</h1><p>ssh连接购买的服务器<br><figure class="highlight plain"><figcaption><span>-p22 root@xx.xx.xx.xx```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">搭建ssr服务</span><br><span class="line">```wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><figcaption><span>+x shadowsocksR.sh```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br></pre></td></tr></table></figure>
-<p>根据提示输入相关配置<br>相关指令：<br>卸载: <code>./shadowsocksR.sh uninstall</code><br>启动：<code>/etc/init.d/shadowsocks start</code><br>停止：<code>/etc/init.d/shadowsocks stop</code><br>重启：<code>/etc/init.d/shadowsocks restart</code><br>状态：<code>/etc/init.d/shadowsocks status</code><br>配置文件路径：<code>/etc/shadowsocks.json</code><br>日志文件路径：<code>/var/log/shadowsocks.log</code><br>代码安装目录：<code>/usr/local/shadowsocks</code><br>如果要配置多个用户，多个端口，打开配置文件路径，修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_ipv6&quot;:&quot;[::]&quot;,</span><br><span class="line">    &quot;server_port&quot;:9001,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">        &quot;9001&quot;:&quot;123456&quot;,</span><br><span class="line">        &quot;9002&quot;:&quot;123456&quot;,</span><br><span class="line">        &quot;9003&quot;:&quot;123456&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;protocol&quot;:&quot;origin&quot;,</span><br><span class="line">    &quot;obfs&quot;:&quot;plain&quot;,</span><br><span class="line">    &quot;fast_open&quot;:false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>设置相关端口后要在防火墙打开相关端口的通讯，Centos默认使用firewall命令，如下所示：<br><figure class="highlight plain"><figcaption><span>firewall-cmd --zone</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><figcaption><span>--list-all```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#   优化网络</span><br><span class="line"></span><br><span class="line">1.系统层面</span><br><span class="line">--------------------------------------------------</span><br><span class="line"></span><br><span class="line">```vi /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<h1 id="搭建ShadowSocksR服务"><a href="#搭建ShadowSocksR服务" class="headerlink" title="搭建ShadowSocksR服务"></a>搭建ShadowSocksR服务</h1><p>ssh连接购买的服务器<br><code>ssh -p22 root@xx.xx.xx.xx</code><br>搭建ssr服务<br><code>wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</code><br><code>chmod +x shadowsocksR.sh</code><br><code>./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</code><br>根据提示输入相关配置<br>相关指令：<br>卸载: <code>./shadowsocksR.sh uninstall</code><br>启动：<code>/etc/init.d/shadowsocks start</code><br>停止：<code>/etc/init.d/shadowsocks stop</code><br>重启：<code>/etc/init.d/shadowsocks restart</code><br>状态：<code>/etc/init.d/shadowsocks status</code><br>配置文件路径：<code>/etc/shadowsocks.json</code><br>日志文件路径：<code>/var/log/shadowsocks.log</code><br>代码安装目录：<code>/usr/local/shadowsocks</code><br>如果要配置多个用户，多个端口，打开配置文件路径，修改如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_ipv6&quot;:&quot;[::]&quot;,</span><br><span class="line">    &quot;server_port&quot;:9001,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">        &quot;9001&quot;:&quot;123456&quot;,</span><br><span class="line">        &quot;9002&quot;:&quot;123456&quot;,</span><br><span class="line">        &quot;9003&quot;:&quot;123456&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;aes-256-cfb&quot;,</span><br><span class="line">    &quot;protocol&quot;:&quot;origin&quot;,</span><br><span class="line">    &quot;obfs&quot;:&quot;plain&quot;,</span><br><span class="line">    &quot;fast_open&quot;:false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>设置相关端口后要在防火墙打开相关端口的通讯，Centos默认使用firewall命令，如下所示：<br><code>sudo firewall-cmd --zone=public --add-port=3000/tcp --permanent</code><br><code>sudo firewall-cmd --reload</code><br><code>firewall-cmd --list-all</code></p>
+<h1 id="优化网络"><a href="#优化网络" class="headerlink" title="优化网络"></a>优化网络</h1><h2 id="1-系统层面"><a href="#1-系统层面" class="headerlink" title="1.系统层面"></a>1.系统层面</h2><p><code>vi /etc/sysctl.conf</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># max open files</span><br><span class="line">fs.file-max = 1024000</span><br><span class="line"># max read buffer</span><br><span class="line">net.core.rmem_max = 67108864</span><br><span class="line"># max write buffer</span><br><span class="line">net.core.wmem_max = 67108864</span><br><span class="line"># default read buffer</span><br><span class="line">net.core.rmem_default = 65536</span><br><span class="line"># default write buffer</span><br><span class="line">net.core.wmem_default = 65536</span><br><span class="line"># max processor input queue</span><br><span class="line">net.core.netdev_max_backlog = 4096</span><br><span class="line"># max backlog</span><br><span class="line">net.core.somaxconn = 4096</span><br><span class="line"></span><br><span class="line"># resist SYN flood attacks</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line"># reuse timewait sockets when safe</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line"># turn off fast timewait sockets recycling</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line"># short FIN timeout</span><br><span class="line">net.ipv4.tcp_fin_timeout = 30</span><br><span class="line"># short keepalive time</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line"># outbound port range</span><br><span class="line">net.ipv4.ip_local_port_range = 10000 65000</span><br><span class="line"># max SYN backlog</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 4096</span><br><span class="line"># max timewait sockets held by system simultaneously</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 5000</span><br><span class="line"># TCP receive buffer</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 67108864</span><br><span class="line"># TCP write buffer</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 67108864</span><br><span class="line"># turn on path MTU discovery</span><br><span class="line">net.ipv4.tcp_mtu_probing = 1</span><br><span class="line"></span><br><span class="line"># for high-latency network</span><br><span class="line">net.ipv4.tcp_congestion_control = htcp</span><br><span class="line"># forward ipv4</span><br><span class="line">net.ipv4.ip_forward = 1</span><br></pre></td></tr></table></figure>
-<p>保存生效<br><figure class="highlight plain"><figcaption><span>-p```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">其中最后的hybla是为高延迟网络（如美国，欧洲）准备的算法，需要内核支持，测试内核是否支持，在终端输入：</span><br><span class="line">```sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>如果结果中有hybla，则证明你的内核已开启hybla，如果没有hybla，可以用命令modprobe tcp_hybla开启。</p>
+<p>保存生效<br><code>sysctl -p</code><br>其中最后的hybla是为高延迟网络（如美国，欧洲）准备的算法，需要内核支持，测试内核是否支持，在终端输入：<br><code>sysctl net.ipv4.tcp_available_congestion_control</code><br>如果结果中有hybla，则证明你的内核已开启hybla，如果没有hybla，可以用命令modprobe tcp_hybla开启。</p>
 <p>对于低延迟的网络（如日本，香港等），可以使用htcp，可以非常显著的提高速度，首先使用modprobe tcp_htcp开启，再将net.ipv4.tcp_congestion_control = hybla改为net.ipv4.tcp_congestion_control = htcp，建议EC2日本用户使用这个算法。</p>
 <h2 id="2-TCP优化"><a href="#2-TCP优化" class="headerlink" title="2.TCP优化"></a>2.TCP优化</h2><p>1.修改文件句柄数限制<br>如果是<code>ubuntu/centos</code>均可修改<code>/etc/sysctl.conf</code><br>找到<code>fs.file-max</code>这一行，修改其值为<code>1024000</code>，并保存退出。然后执行<code>sysctl -p</code>使其生效<br>修改<code>vi /etc/security/limits.conf</code>文件，加入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*               soft    nofile           512000</span><br><span class="line">*               hard    nofile          1024000</span><br></pre></td></tr></table></figure>
-<p>针对centos,还需要修改<code>vi /etc/pam.d/common-session</code>文件，加入<br><figure class="highlight plain"><figcaption><span>required pam_limits.so```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">2.修改``vi /etc/profile``文件，加入</span><br><span class="line">```ulimit -SHn 1024000</span><br></pre></td></tr></table></figure></p>
-<p>然后重启服务器执行<code>ulimit -n</code>，查询返回<code>1024000</code>即可。</p>
+<p>针对centos,还需要修改<code>vi /etc/pam.d/common-session</code>文件，加入<br><code>session required pam_limits.so</code></p>
+<p>2.修改<code>vi /etc/profile</code>文件，加入<br><code>ulimit -SHn 1024000</code><br>然后重启服务器执行<code>ulimit -n</code>，查询返回<code>1024000</code>即可。</p>
 <p><code>sysctl.conf</code>报错解决方法<br>修复<code>modprobe</code>的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -f /sbin/modprobe </span><br><span class="line">ln -s /bin/true /sbin/modprobe</span><br></pre></td></tr></table></figure></p>
 <p>修复<code>sysctl</code>的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -f /sbin/sysctl </span><br><span class="line">ln -s /bin/true /sbin/sysctl</span><br></pre></td></tr></table></figure></p>
 <h2 id="3-软件辅助优化"><a href="#3-软件辅助优化" class="headerlink" title="3.软件辅助优化"></a>3.软件辅助优化</h2><p>软件辅助优化都得参考系统内核，查看是否适用，如果不适用，可以修改系统内核。</p>
 <p>2.1 锐速</p>
 <p>锐速是TCP底层加速软件,官方已停止推出永久免费版本,但网上有破解版可以继续使用。需要购买的话先到锐速官网注册帐号,并确认<a href="http://dl.serverspeeder.com/ls.do?m=availables" target="_blank" rel="noopener">内核版本</a>是否支持锐速的版本。</p>
 <p>一键安装速锐破解版</p>
-<figure class="highlight plain"><figcaption><span>-N --no-check-certificate</span><a href="https://github.com/91yun/serverspeeder/raw/master/serverspeeder.sh" target="_blank" rel="noopener">&& bash serverspeeder.sh```</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一键卸载</span><br><span class="line"></span><br><span class="line">```chattr -i /serverspeeder/etc/apx* &amp;&amp; /serverspeeder/bin/serverSpeeder.sh uninstall -f</span><br></pre></td></tr></table></figure>
-<p>设置</p>
+<p><code>wget -N --no-check-certificate https://github.com/91yun/serverspeeder/raw/master/serverspeeder.sh &amp;&amp; bash serverspeeder.sh</code><br>一键卸载</p>
+<p><code>chattr -i /serverspeeder/etc/apx* &amp;&amp; /serverspeeder/bin/serverSpeeder.sh uninstall -f</code><br>设置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Enter your accelerated interface(s) [eth0]: eth0</span><br><span class="line">Enter your outbound bandwidth [1000000 kbps]: 1000000</span><br><span class="line">Enter your inbound bandwidth [1000000 kbps]: 1000000</span><br><span class="line">Configure shortRtt-bypass [0 ms]: 0</span><br><span class="line">Auto load ServerSpeeder on linux start-up? [n]:y</span><br></pre></td></tr></table></figure>
-<p><strong>是否开机自启</strong><br><figure class="highlight plain"><figcaption><span>ServerSpeeder now? [y]:y #是否现在启动```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行lsmod，看到有appex0模块即说明锐速已正常安装并启动。</span><br><span class="line"></span><br><span class="line">至此，安装就结束了，但还有后续配置。</span><br><span class="line">修改``vi /serverspeeder/etc/config``文件的几个参数以使锐速更好的工作</span><br></pre></td></tr></table></figure></p>
-<p>accppp=”1” #加速PPTP、L2TP V-P-N；设为1表示开启，设为0表示关闭<br>advinacc=”1” #高级入向加速开关；设为 1 表示开启，设为 0 表示关闭；开启此功能可以得到更好的流入方向流量加速效果；<br>maxmode=”1” #最大传输模式；设为 1 表示开启；设为 0 表示关闭；开启后会进一步提高加速效果，但是可能会降低有效数据率。<br>rsc=”1” #网卡接收端合并开关；设为 1 表示开启，设为 0 表示关闭；在有些较新的网卡驱动中，带有 RSC 算法的，需要打开该功能。<br>l2wQLimit=”512 4096” #从 LAN 到 WAN 加速引擎在缓冲池充满和空闲时分别能够缓存的数据包队列的长度的上限；该值设置的高会获得更好的加速效果，但是会消耗更多的内存<br>w2lQLimit=”512 4096” #从 WAN 到 LAN 加速引擎在缓冲池充满和空闲时分别能够缓存的数据包队列的长度的上限；该值设置的高会获得更好的加速效果，但是会消耗更多的内存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">重读配置以使配置生效``/serverspeeder/bin/serverSpeeder.sh reload``</span><br><span class="line"></span><br><span class="line">查看锐速当前状态``/serverspeeder/bin/serverSpeeder.sh stats``</span><br><span class="line"></span><br><span class="line">查看所有命令``/serverspeeder/bin/serverSpeeder.sh help``</span><br><span class="line"></span><br><span class="line">停止``/serverspeeder/bin/serverSpeeder.sh stop``</span><br><span class="line"></span><br><span class="line">启动``/serverspeeder/bin/serverSpeeder.sh start``</span><br><span class="line"></span><br><span class="line">重启锐速``/serverspeeder/bin/serverSpeeder.sh restart``</span><br><span class="line"></span><br><span class="line">2.1 安装Google BBR</span><br><span class="line"></span><br><span class="line">要求内核版本``4.13.5-1.el7.elrepo.x86_64`` 以上</span><br></pre></td></tr></table></figure></p>
-<p>rpm -Uvh <a href="http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm" target="_blank" rel="noopener">http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</a><br>yum –enablerepo=elrepo-kernel install kernel-ml -y<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">检查内核是否更新</span><br><span class="line">```rpm -qa | grep kernel</span><br></pre></td></tr></table></figure></p>
-<p>启动<br><figure class="highlight plain"><figcaption><span>1```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">重启</span><br><span class="line">```shutdown -r now</span><br></pre></td></tr></table></figure></p>
-<p>查看是否生效<br><figure class="highlight plain"><figcaption><span>-r```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装Google BBR</span><br></pre></td></tr></table></figure></p>
-<p>echo ‘net.core.default_qdisc=fq’ | sudo tee -a /etc/sysctl.conf<br>echo ‘net.ipv4.tcp_congestion_control=bbr’ | sudo tee -a /etc/sysctl.conf<br>sysctl -p<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">检查是否安装成功</span><br><span class="line">```sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>执行命令后，看是否是提示<br><code>“net.ipv4.tcp_available_congestion_control = bbr cubic reno”</code><br>执行命令，是否提示bbr<br><code>lsmod | grep bbr</code></p>
+<p><strong>是否开机自启</strong><br><code>Run ServerSpeeder now? [y]:y #是否现在启动</code><br>执行lsmod，看到有appex0模块即说明锐速已正常安装并启动。</p>
+<p>至此，安装就结束了，但还有后续配置。<br>修改<code>vi /serverspeeder/etc/config</code>文件的几个参数以使锐速更好的工作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">accppp=&quot;1&quot; #加速PPTP、L2TP V-P-N；设为1表示开启，设为0表示关闭</span><br><span class="line">advinacc=&quot;1&quot; #高级入向加速开关；设为 1 表示开启，设为 0 表示关闭；开启此功能可以得到更好的流入方向流量加速效果；</span><br><span class="line">maxmode=&quot;1&quot; #最大传输模式；设为 1 表示开启；设为 0 表示关闭；开启后会进一步提高加速效果，但是可能会降低有效数据率。</span><br><span class="line">rsc=&quot;1&quot; #网卡接收端合并开关；设为 1 表示开启，设为 0 表示关闭；在有些较新的网卡驱动中，带有 RSC 算法的，需要打开该功能。</span><br><span class="line">l2wQLimit=&quot;512 4096&quot; #从 LAN 到 WAN 加速引擎在缓冲池充满和空闲时分别能够缓存的数据包队列的长度的上限；该值设置的高会获得更好的加速效果，但是会消耗更多的内存</span><br><span class="line">w2lQLimit=&quot;512 4096&quot; #从 WAN 到 LAN 加速引擎在缓冲池充满和空闲时分别能够缓存的数据包队列的长度的上限；该值设置的高会获得更好的加速效果，但是会消耗更多的内存</span><br></pre></td></tr></table></figure>
+<p>重读配置以使配置生效<code>/serverspeeder/bin/serverSpeeder.sh reload</code></p>
+<p>查看锐速当前状态<code>/serverspeeder/bin/serverSpeeder.sh stats</code></p>
+<p>查看所有命令<code>/serverspeeder/bin/serverSpeeder.sh help</code></p>
+<p>停止<code>/serverspeeder/bin/serverSpeeder.sh stop</code></p>
+<p>启动<code>/serverspeeder/bin/serverSpeeder.sh start</code></p>
+<p>重启锐速<code>/serverspeeder/bin/serverSpeeder.sh restart</code></p>
+<p>2.1 安装Google BBR</p>
+<p>要求内核版本<code>4.13.5-1.el7.elrepo.x86_64</code> 以上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml -y</span><br></pre></td></tr></table></figure></p>
+<p>检查内核是否更新<br><code>rpm -qa | grep kernel</code><br>启动<br><code>grub2-set-default 1</code><br>重启<br><code>shutdown -r now</code><br>查看是否生效<br><code>uname -r</code><br>安装Google BBR<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;net.core.default_qdisc=fq&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">echo &apos;net.ipv4.tcp_congestion_control=bbr&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></p>
+<p>检查是否安装成功<br><code>sysctl net.ipv4.tcp_available_congestion_control</code><br>执行命令后，看是否是提示<br><code>“net.ipv4.tcp_available_congestion_control = bbr cubic reno”</code><br>执行命令，是否提示bbr<br><code>lsmod | grep bbr</code></p>
 
           
         
@@ -458,8 +464,36 @@
       
         
           
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>TOC<br>{:toc}</li>
+            <ul>
+<li><a href="#设计模式">设计模式</a><pre><code>* [1.创建型模式](#1创建型模式)
+   * [1.1. 工厂模式](#11-工厂模式)
+   * [1.2. 抽象工厂模式](#12-抽象工厂模式)
+   * [1.3. 单例模式](#13-单例模式)
+   * [1.4. 建造者模式](#14-建造者模式)
+   * [1.5. 原型模式](#15-原型模式)
+* [2.结构型模式](#2结构型模式)
+   * [2.1. 适配器模式](#21-适配器模式)
+   * [2.2. 桥接模式](#22-桥接模式)
+   * [2.3. 桥接模式](#23-桥接模式)
+   * [2.4. 组合模式](#24-组合模式)
+   * [2.5. 装饰器模式](#25-装饰器模式)
+   * [2.6. 外观模式](#26-外观模式)
+   * [2.7. 享元模式](#27-享元模式)
+   * [2.8. 代理模式](#28-代理模式)
+* [3.行为型模式](#3行为型模式)
+   * [3.1. 责任链模式](#31-责任链模式)
+   * [3.2. 命令模式](#32-命令模式)
+   * [3.3. 解释器模式](#33-解释器模式)
+   * [3.4. 迭代器模式](#34-迭代器模式)
+   * [3.5. 中介者模式](#35-中介者模式)
+   * [3.6. 备忘录模式](#36-备忘录模式)
+   * [3.7. 观察者模式](#37-观察者模式)
+   * [3.8. 状态模式](#38-状态模式)
+   * [3.9. 空对象模式](#39-空对象模式)
+   * [3.10. 策略模式](#310-策略模式)
+   * [3.11. 模板模式](#311-模板模式)
+   * [3.12. 访问者模式](#312-访问者模式)
+</code></pre></li>
 </ul>
 <p><a href="http://www.runoob.com/design-pattern/design-pattern-tutorial.html" target="_blank" rel="noopener">菜鸟教程文档</a></p>
 <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。</p>
@@ -1218,10 +1252,49 @@
       
         
           
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
-<li>TOC<br>{:toc}</li>
-</ul>
-<p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
+            <pre><code>* [Git 起步](#git-起步)
+  * [1.Git历史](#1git历史)
+  * [2.Git机制](#2git机制)
+     * [2.1. Git 保证完整性](#21-git-保证完整性)
+     * [2.2. 三种状态](#22-三种状态)
+     * [2.3. Git 仓库、工作目录 、暂存区域](#23-git-仓库工作目录-暂存区域)
+  * [3.初次运行 Git 前的配置](#3初次运行-git-前的配置)
+     * [3.1. 用户配置](#31-用户配置)
+     * [3.2. 文本编辑器](#32-文本编辑器)
+     * [3.3. 检查配置信息](#33-检查配置信息)
+* [Git 基础](#git-基础)
+  * [1.获取 Git 仓库](#1获取-git-仓库)
+  * [2.克隆现有的仓库](#2克隆现有的仓库)
+     * [2.1. 检查当前文件状态](#21-检查当前文件状态)
+     * [2.2. 跟踪新文件](#22-跟踪新文件)
+     * [2.3. 暂存已修改文件](#23-暂存已修改文件)
+     * [2.4. 状态简览](#24-状态简览)
+     * [2.5. 忽略文件](#25-忽略文件)
+     * [2.6. 查看已暂存和未暂存的修改](#26-查看已暂存和未暂存的修改)
+     * [2.7. 提交更新](#27-提交更新)
+     * [2.8. 跳过使用暂存区域](#28-跳过使用暂存区域)
+     * [2.9. 移除文件](#29-移除文件)
+     * [2.10. 移动文件](#210-移动文件)
+  * [3.查看提交历史](#3查看提交历史)
+     * [3.1. 查看提交历史](#31-查看提交历史)
+     * [3.2. 限制输出长度](#32-限制输出长度)
+  * [4.撤消操作](#4撤消操作)
+     * [4.1. 撤消操作](#41-撤消操作)
+     * [4.2. 撤消对文件的修改](#42-撤消对文件的修改)
+  * [5.远程仓库的使用](#5远程仓库的使用)
+     * [5.1. 远程仓库的使用](#51-远程仓库的使用)
+     * [5.2. 添加远程仓库](#52-添加远程仓库)
+     * [5.3. 从远程仓库中抓取与拉取](#53-从远程仓库中抓取与拉取)
+     * [5.4. 查看远程仓库](#54-查看远程仓库)
+  * [6.打标签](#6打标签)
+     * [6.1. 列出标签](#61-列出标签)
+     * [6.2. 创建标签](#62-创建标签)
+     * [6.3. 附注标签](#63-附注标签)
+     * [6.4. 轻量标签](#64-轻量标签)
+     * [6.5. 后期打标签](#65-后期打标签)
+     * [6.6. 共享标签](#66-共享标签)
+  * [7.Git 别名](#7git-别名)
+</code></pre><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
 <h1 id="Git-起步"><a href="#Git-起步" class="headerlink" title="Git 起步"></a>Git 起步</h1><h2 id="1-Git历史"><a href="#1-Git历史" class="headerlink" title="1.Git历史"></a>1.Git历史</h2><p>同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。<br>Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux</p>
 <p>内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。</p>
 <p>到了 2005 年，开发 BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束，他们收回了 Linux 内核社区免费使用 BitKeeper 的权力。 这就迫使 Linux 开源社区（特别是 Linux 的缔造者 Linus Torvalds）基于使用 BitKeeper 时的经验教训，开发出自己的版本系统。 他们对新的系统制订了若干目标：</p>
@@ -1286,7 +1359,7 @@ John Doe
 $ git clone https://github.com/libgit2/libgit2 mylibgit
 </code></pre><p>这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 mylibgit。</p>
 <h2 id="3-记录每次更新到仓库"><a href="#3-记录每次更新到仓库" class="headerlink" title="3.记录每次更新到仓库"></a>3.记录每次更新到仓库</h2><p><img src="https://git-scm.com/book/en/v2/images/lifecycle.png" alt="文件的状态变化周期"></p>
-<h3 id="3-1-检查当前文件状态"><a href="#3-1-检查当前文件状态" class="headerlink" title="3.1. 检查当前文件状态"></a>3.1. 检查当前文件状态</h3><pre><code>$ git status
+<h3 id="2-1-检查当前文件状态"><a href="#2-1-检查当前文件状态" class="headerlink" title="2.1. 检查当前文件状态"></a>2.1. 检查当前文件状态</h3><pre><code>$ git status
 On branch master
 nothing to commit, working directory clean
 </code></pre><p>现在，让我们在项目下创建一个新的 README 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：</p>
@@ -1296,7 +1369,7 @@ nothing to commit, working directory clean
 
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)
 </code></pre><p>在状态报告中可以看到新建的 README 文件出现在 <code>Untracked files</code> 下面。 未跟踪的文件意味着 Git 在之前的快照（提交）中没有这些文件；Git 不会自动将之纳入跟踪范围，除非你明明白白地告诉它“我需要跟踪该文件”， 这样的处理让你不必担心将生成的二进制文件或其它不想被跟踪的文件包含进来。 不过现在的例子中，我们确实想要跟踪管理 README 这个文件。</p>
-<h3 id="3-2-跟踪新文件"><a href="#3-2-跟踪新文件" class="headerlink" title="3.2. 跟踪新文件"></a>3.2. 跟踪新文件</h3><p>使用命令 <code>git add</code> 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
+<h3 id="2-2-跟踪新文件"><a href="#2-2-跟踪新文件" class="headerlink" title="2.2. 跟踪新文件"></a>2.2. 跟踪新文件</h3><p>使用命令 <code>git add</code> 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
 <pre><code>$ git add README
 </code></pre><p>此时再运行 git status 命令，会看到 README 文件已被跟踪，并处于暂存状态：</p>
 <pre><code>$ git status
@@ -1306,7 +1379,7 @@ Changes to be committed:
 
     new file:   README
 </code></pre><p>只要在 <code>Changes to be committed</code> 这行下面的，就说明是已暂存状态。 如果此时提交，那么该文件此时此刻的版本将被留存在历史记录中。 你可能会想起之前我们使用 <code>git init</code> 后就运行了 <code>git add (files)</code> 命令，开始跟踪当前目录下的文件。 <code>git add</code> 命令使用文件或目录的路径作为参数；如果参数是目录的路径，该命令将递归地跟踪该目录下的所有文件。</p>
-<h3 id="3-3-暂存已修改文件"><a href="#3-3-暂存已修改文件" class="headerlink" title="3.3. 暂存已修改文件"></a>3.3. 暂存已修改文件</h3><p>现在我们来修改一个已被跟踪的文件。 如果你修改了一个名为 <code>CONTRIBUTING.md</code> 的已被跟踪的文件，然后运行 <code>git status</code> 命令，会看到下面内容：</p>
+<h3 id="2-3-暂存已修改文件"><a href="#2-3-暂存已修改文件" class="headerlink" title="2.3. 暂存已修改文件"></a>2.3. 暂存已修改文件</h3><p>现在我们来修改一个已被跟踪的文件。 如果你修改了一个名为 <code>CONTRIBUTING.md</code> 的已被跟踪的文件，然后运行 <code>git status</code> 命令，会看到下面内容：</p>
 <pre><code>$ git status
 On branch master
 Changes to be committed:
@@ -1340,7 +1413,7 @@ Changes not staged for commit:
 </code></pre><p>$ git status<br>    On branch master<br>    Changes to be committed:<br>      (use “git reset HEAD <file>…” to unstage)</file></p>
 <pre><code>new file:   README
 modified:   CONTRIBUTING.md
-</code></pre><h3 id="3-4-状态简览"><a href="#3-4-状态简览" class="headerlink" title="3.4. 状态简览"></a>3.4. 状态简览</h3><p><code>git status</code> 命令的输出十分详细，但其用语有些繁琐。 如果你使用 <code>git status -s</code> 命令或 <code>git status --short</code> 命令，你将得到一种更为紧凑的格式输出。 运行 <code>git status -s</code> ，状态报告输出如下：</p>
+</code></pre><h3 id="2-4-状态简览"><a href="#2-4-状态简览" class="headerlink" title="2.4. 状态简览"></a>2.4. 状态简览</h3><p><code>git status</code> 命令的输出十分详细，但其用语有些繁琐。 如果你使用 <code>git status -s</code> 命令或 <code>git status --short</code> 命令，你将得到一种更为紧凑的格式输出。 运行 <code>git status -s</code> ，状态报告输出如下：</p>
 <pre><code>$ git status -s
 M README
 MM Rakefile
@@ -1348,7 +1421,7 @@ A  lib/git.rb
 M  lib/simplegit.rb
 ?? LICENSE.txt
 </code></pre><p>新添加的未跟踪文件前面有 <code>??</code> 标记，新添加到暂存区中的文件前面有 <code>A</code> 标记，修改过的文件前面有 <code>M</code> 标记。 你可能注意到了 <code>M</code> 有两个可以出现的位置，出现在右边的 <code>M</code> 表示该文件被修改了但是还没放入暂存区，出现在靠左边的 <code>M</code> 表示该文件被修改了并放入了暂存区。 例如，上面的状态报告显示： README 文件在工作区被修改了但是还没有将修改后的文件放入暂存区,<code>lib/simplegit.rb</code> 文件被修改了并将修改后的文件放入了暂存区。 而 Rakefile 在工作区被修改并提交到暂存区后又在工作区中被修改了，所以在暂存区和工作区都有该文件被修改了的记录。</p>
-<h3 id="3-5-忽略文件"><a href="#3-5-忽略文件" class="headerlink" title="3.5. 忽略文件"></a>3.5. 忽略文件</h3><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件模式。 来看一个实际的例子：</p>
+<h3 id="2-5-忽略文件"><a href="#2-5-忽略文件" class="headerlink" title="2.5. 忽略文件"></a>2.5. 忽略文件</h3><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件模式。 来看一个实际的例子：</p>
 <pre><code>$ cat .gitignore
 *.[oa]
 *~
@@ -1363,7 +1436,7 @@ M  lib/simplegit.rb
 <li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
 </ul>
 <p>所谓的 <code>glob</code> 模式是指 <code>shell</code> 所使用的简化了的正则表达式。 星号<code>（*）</code>匹配零个或多个任意字符；<code>[abc]</code> 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；问号<code>（?）</code>只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 <code>[0-9]</code> 表示匹配所有 0 到 9 的数字）。 使用两个星号<code>（*)</code> 表示匹配任意中间目录，比如<code>a/**/z</code> 可以匹配 <code>a/z</code>, <code>a/b/z</code> 或 <code>a/b/c/z</code>等。</p>
-<h3 id="3-6-查看已暂存和未暂存的修改"><a href="#3-6-查看已暂存和未暂存的修改" class="headerlink" title="3.6. 查看已暂存和未暂存的修改"></a>3.6. 查看已暂存和未暂存的修改</h3><p>如果 <code>git status</code> 命令的输出对于你来说过于模糊，你想知道具体修改了什么地方，可以用 <code>git diff</code> 命令。<code>git diff</code> 将通过文件补丁的格式显示具体哪些行发生了改变。</p>
+<h3 id="2-6-查看已暂存和未暂存的修改"><a href="#2-6-查看已暂存和未暂存的修改" class="headerlink" title="2.6. 查看已暂存和未暂存的修改"></a>2.6. 查看已暂存和未暂存的修改</h3><p>如果 <code>git status</code> 命令的输出对于你来说过于模糊，你想知道具体修改了什么地方，可以用 <code>git diff</code> 命令。<code>git diff</code> 将通过文件补丁的格式显示具体哪些行发生了改变。</p>
 <p>假如再次修改 <code>README</code> 文件后暂存，然后编辑 <code>CONTRIBUTING.md</code> 文件后先不暂存， 运行 <code>status</code> 命令将会看到：</p>
 <pre><code>$ git status
 On branch master
@@ -1443,7 +1516,7 @@ index 8ebb991..643e24f 100644
  that highlights your work in progress (and note in the PR title that it&apos;s
 Note
 </code></pre><p><code>Git Diff</code> 的插件版本<br>在本书中，我们使用 <code>git diff</code> 来分析文件差异。 但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 <code>git difftool</code> 命令来用 <code>Araxis</code> ，<code>emerge</code> 或 <code>vimdiff</code> 等软件输出 <code>diff</code> 分析结果。 使用 <code>git difftool --tool-help</code> 命令来看你的系统支持哪些 <code>Git Diff</code> 插件。</p>
-<h3 id="3-7-提交更新"><a href="#3-7-提交更新" class="headerlink" title="3.7. 提交更新"></a>3.7. 提交更新</h3><p>现在的暂存区域已经准备妥当可以提交了。 在此之前，请一定要确认还有什么修改过的或新建的文件还没有 <code>git add</code> 过，否则提交的时候不会记录这些还没暂存起来的变化。 这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 <code>git status</code> 看下，是不是都已暂存起来了， 然后再运行提交命令 <code>git commit</code>：</p>
+<h3 id="2-7-提交更新"><a href="#2-7-提交更新" class="headerlink" title="2.7. 提交更新"></a>2.7. 提交更新</h3><p>现在的暂存区域已经准备妥当可以提交了。 在此之前，请一定要确认还有什么修改过的或新建的文件还没有 <code>git add</code> 过，否则提交的时候不会记录这些还没暂存起来的变化。 这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 <code>git status</code> 看下，是不是都已暂存起来了， 然后再运行提交命令 <code>git commit</code>：</p>
 <pre><code>$ git commit
 </code></pre><p>这种方式会启动文本编辑器以便输入本次提交的说明。 (默认会启用 <code>shell</code> 的环境变量 <code>$EDITOR</code> 所指定的软件，一般都是 <code>vim</code> 或 <code>emacs</code>。当然也可以按照 起步 介绍的方式，使用 <code>git config --global core.editor</code> 命令设定你喜欢的编辑软件。）</p>
 <p>编辑器会显示类似下面的文本信息（本例选用 Vim 的屏显方式展示）：</p>
@@ -1466,7 +1539,7 @@ Note
  create mode 100644 README
 </code></pre><p>好，现在你已经创建了第一个提交！ 可以看到，提交后它会告诉你，当前是在哪个分支（<code>master</code>）提交的，本次提交的完整 <code>SHA-1</code> 校验和是什么（<code>463dc4f</code>），以及在本次提交中，有多少文件修订过，多少行添加和删改过。</p>
 <p>请记住，提交时记录的是放在暂存区域的快照。 任何还未暂存的仍然保持已修改状态，可以在下次提交时纳入版本管理。 每一次运行提交操作，都是对你项目作一次快照，以后可以回到这个状态，或者进行比较。</p>
-<h3 id="3-8-跳过使用暂存区域"><a href="#3-8-跳过使用暂存区域" class="headerlink" title="3.8. 跳过使用暂存区域"></a>3.8. 跳过使用暂存区域</h3><p>尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 <code>git commit</code> 加上 <code>-a</code> 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤：</p>
+<h3 id="2-8-跳过使用暂存区域"><a href="#2-8-跳过使用暂存区域" class="headerlink" title="2.8. 跳过使用暂存区域"></a>2.8. 跳过使用暂存区域</h3><p>尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 <code>git commit</code> 加上 <code>-a</code> 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤：</p>
 <pre><code>$ git status
 On branch master
 Changes not staged for commit:
@@ -1479,7 +1552,7 @@ no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&q
 $ git commit -a -m &apos;added new benchmarks&apos;
 [master 83e38c7] added new benchmarks
  1 file changed, 5 insertions(+), 0 deletions(-)
-</code></pre><h3 id="3-9-移除文件"><a href="#3-9-移除文件" class="headerlink" title="3.9. 移除文件"></a>3.9. 移除文件</h3><p>要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+</code></pre><h3 id="2-9-移除文件"><a href="#2-9-移除文件" class="headerlink" title="2.9. 移除文件"></a>2.9. 移除文件</h3><p>要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
 <p>如果只是简单地从工作目录中手工删除文件，运行 <code>git status</code> 时就会在 <code>“Changes not staged for commit”</code> 部分（也就是 未暂存清单）看到：</p>
 <pre><code>$ rm PROJECTS.md
 </code></pre><p>$ git status<br>    On branch master<br>    Your branch is up-to-date with ‘origin/master’.<br>    Changes not staged for commit:<br>      (use “git add/rm <file>…” to update what will be committed)<br>      (use “git checkout – <file>…” to discard changes in working directory)</file></file></p>
@@ -1498,7 +1571,7 @@ no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&q
 </code></pre><p>注意到星号 <code>*</code> 之前的反斜杠 <code>\</code>， 因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 <code>shell</code> 来帮忙展开。 此命令删除 <code>log/</code> 目录下扩展名为 <code>.log</code> 的所有文件。 类似的比如：</p>
 <pre><code>$ git rm \*~
 </code></pre><p>该命令为删除以 <code>~</code> 结尾的所有文件。</p>
-<h3 id="3-10-移动文件"><a href="#3-10-移动文件" class="headerlink" title="3.10. 移动文件"></a>3.10. 移动文件</h3><p>不像其它的 <code>VCS</code> 系统，Git 并不显式跟踪文件移动操作。 如果在 Git 中重命名了某个文件，仓库中存储的元数据并不会体现出这是一次改名操作。 不过 Git 非常聪明，它会推断出究竟发生了什么，至于具体是如何做到的，我们稍后再谈。</p>
+<h3 id="2-10-移动文件"><a href="#2-10-移动文件" class="headerlink" title="2.10. 移动文件"></a>2.10. 移动文件</h3><p>不像其它的 <code>VCS</code> 系统，Git 并不显式跟踪文件移动操作。 如果在 Git 中重命名了某个文件，仓库中存储的元数据并不会体现出这是一次改名操作。 不过 Git 非常聪明，它会推断出究竟发生了什么，至于具体是如何做到的，我们稍后再谈。</p>
 <p>既然如此，当你看到 Git 的 <code>mv</code> 命令时一定会困惑不已。 要在 Git 中对文件改名，可以这么做：</p>
 <pre><code>$ git mv file_from file_to
 </code></pre><p>它会恰如预期般正常工作。 实际上，即便此时查看状态信息，也会明白无误地看到关于重命名操作的说明：</p>
@@ -1509,7 +1582,7 @@ no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&q
 <pre><code>$ mv README.md README
 </code></pre><p>$ git rm README.md<br>    $ git add README</p>
 <p>如此分开操作，Git 也会意识到这是一次改名，所以不管何种方式结果都一样。 两者唯一的区别是，<code>mv</code> 是一条命令而另一种方式需要三条命令，直接用 <code>git mv</code> 轻便得多。 不过有时候用其他工具批处理改名的话，要记得在提交前删除老的文件名，再添加新的文件名。</p>
-<h2 id="4-查看提交历史"><a href="#4-查看提交历史" class="headerlink" title="4.查看提交历史"></a>4.查看提交历史</h2><h3 id="4-1-查看提交历史"><a href="#4-1-查看提交历史" class="headerlink" title="4.1. 查看提交历史"></a>4.1. 查看提交历史</h3><p>在提交了若干更新，又或者克隆了某个项目之后，你也许想回顾下提交历史。 完成这个任务最简单而又有效的工具是 <code>git log</code> 命令。</p>
+<h2 id="3-查看提交历史"><a href="#3-查看提交历史" class="headerlink" title="3.查看提交历史"></a>3.查看提交历史</h2><h3 id="3-1-查看提交历史"><a href="#3-1-查看提交历史" class="headerlink" title="3.1. 查看提交历史"></a>3.1. 查看提交历史</h3><p>在提交了若干更新，又或者克隆了某个项目之后，你也许想回顾下提交历史。 完成这个任务最简单而又有效的工具是 <code>git log</code> 命令。</p>
 <p>接下来的例子会用我专门用于演示的 <code>simplegit</code> 项目， 运行下面的命令获取该项目源代码：</p>
 <pre><code>git clone https://github.com/schacon/simplegit-progit
 </code></pre><p>然后在此项目中运行 <code>git log</code>，应该会看到下面的输出：</p>
@@ -1634,7 +1707,7 @@ a11bef0 - Scott Chacon, 6 years ago : first commit
 *  11d191e Merge branch &apos;defunkt&apos; into local
 </code></pre><p>以上只是简单介绍了一些 <code>git log</code> 命令支持的选项。 <code>git log</code> 的常用选项 列出了我们目前涉及到的和没涉及到的选项，以及它们是如何影响 <code>log</code> 命令的输出的：<br><code>git log</code> 的常用选项：</p>
 <p>|—————–+————|<br>| 选项        | 说明   |<br>|—————–|:———–|<br>| -p     | 按补丁格式显示每个更新之间的差异 |<br>| –stat        |   显示每次更新的文件修改统计信息   |<br>| –shortstat        |    只显示 –stat 中最后的行数修改添加移除统计    |<br>| –name-only     | 仅在提交信息后显示已修改的文件清单 |<br>| –name-status        |   显示新增、修改、删除的文件清单   |<br>| –abbrev-commit        |    仅显示 SHA-1 的前几个字符，而非所有的 40 个字符    |<br>| –relative-date     | 使用较短的相对时间显示（比如，“2 weeks ago”）|<br>| –graph       |   显示 ASCII 图形表示的分支合并历史   |<br>| –pretty        |    使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式））    |<br>|—————–+————|</p>
-<h3 id="4-2-限制输出长度"><a href="#4-2-限制输出长度" class="headerlink" title="4.2. 限制输出长度"></a>4.2. 限制输出长度</h3><p>除了定制输出格式的选项之外，<code>git log</code> 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。 之前你已经看到过 <code>-2</code> 了，它只显示最近的两条提交， 实际上，这是 <code>-&lt;n&gt;</code> 选项的写法，其中的 <code>n</code> 可以是任何整数，表示仅显示最近的若干条提交。 不过实践中我们是不太用这个选项的，Git 在输出所有提交时会自动调用分页程序，所以你一次只会看到一页的内容。</p>
+<h3 id="3-2-限制输出长度"><a href="#3-2-限制输出长度" class="headerlink" title="3.2. 限制输出长度"></a>3.2. 限制输出长度</h3><p>除了定制输出格式的选项之外，<code>git log</code> 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。 之前你已经看到过 <code>-2</code> 了，它只显示最近的两条提交， 实际上，这是 <code>-&lt;n&gt;</code> 选项的写法，其中的 <code>n</code> 可以是任何整数，表示仅显示最近的若干条提交。 不过实践中我们是不太用这个选项的，Git 在输出所有提交时会自动调用分页程序，所以你一次只会看到一页的内容。</p>
 <p>另外还有按照时间作限制的选项，比如 <code>--since</code> 和 <code>--until</code> 也很有用。 例如，下面的命令列出所有最近两周内的提交：</p>
 <pre><code>$ git log --since=2.weeks
 </code></pre><p>这个命令可以在多种格式下工作，比如说具体的某一天 “2008-01-15”，或者是相对地多久以前 “2 years 1 day 3 minutes ago”。</p>
@@ -1654,7 +1727,7 @@ d1a43f2 - reset --hard/read-tree --reset -u: remove unmerged new paths
 51a94af - Fix &quot;checkout --track -b newbranch&quot; on detached HEAD
 b0ad11e - pull: allow &quot;git pull origin $something:$current_branch&quot; into an unborn branch
 </code></pre><p>在近 40000 条提交中，上面的输出仅列出了符合条件的 6 条记录。</p>
-<h2 id="5-撤消操作"><a href="#5-撤消操作" class="headerlink" title="5.撤消操作"></a>5.撤消操作</h2><h3 id="5-1-撤消操作"><a href="#5-1-撤消操作" class="headerlink" title="5.1. 撤消操作"></a>5.1. 撤消操作</h3><p>在任何一个阶段，你都有可能想要撤消某些操作。 这里，我们将会学习几个撤消你所做修改的基本工具。 注意，有些撤消操作是不可逆的。 这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有的几个地方之一。</p>
+<h2 id="4-撤消操作"><a href="#4-撤消操作" class="headerlink" title="4.撤消操作"></a>4.撤消操作</h2><h3 id="4-1-撤消操作"><a href="#4-1-撤消操作" class="headerlink" title="4.1. 撤消操作"></a>4.1. 撤消操作</h3><p>在任何一个阶段，你都有可能想要撤消某些操作。 这里，我们将会学习几个撤消你所做修改的基本工具。 注意，有些撤消操作是不可逆的。 这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有的几个地方之一。</p>
 <p>有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 <code>--amend</code> 选项的提交命令尝试重新提交：</p>
 <pre><code>$ git commit --amend
 </code></pre><p>这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。</p>
@@ -1683,7 +1756,7 @@ Changes not staged for commit:
 </code></pre><p>这个命令有点儿奇怪，但是起作用了。 <code>CONTRIBUTING.md</code> 文件已经是修改未暂存的状态了。</p>
 <p>Note<br>虽然在调用时加上 <code>--hard</code> 选项可以令 <code>git reset</code> 成为一个危险的命令（译注：可能导致工作目录中所有当前进度丢失！），但本例中工作目录内的文件并不会被修改。 不加选项地调用 <code>git reset</code> 并不危险 — 它只会修改暂存区域。</p>
 <p>到目前为止这个神奇的调用就是你需要对 <code>git reset</code> 命令了解的全部。我们将会在 重置揭密 中了解 <code>reset</code> 的更多细节以及如何掌握它做一些真正有趣的事。</p>
-<h3 id="5-2-撤消对文件的修改"><a href="#5-2-撤消对文件的修改" class="headerlink" title="5.2. 撤消对文件的修改"></a>5.2. 撤消对文件的修改</h3><p>如果你并不想保留对 <code>CONTRIBUTING.md</code> 文件的修改怎么办？ 你该如何方便地撤消修改 - 将它还原成上次提交时的样子（或者刚克隆完的样子，或者刚把它放入工作目录时的样子）？ 幸运的是，<code>git status</code> 也告诉了你应该如何做。 在最后一个例子中，未暂存区域是这样：</p>
+<h3 id="4-2-撤消对文件的修改"><a href="#4-2-撤消对文件的修改" class="headerlink" title="4.2. 撤消对文件的修改"></a>4.2. 撤消对文件的修改</h3><p>如果你并不想保留对 <code>CONTRIBUTING.md</code> 文件的修改怎么办？ 你该如何方便地撤消修改 - 将它还原成上次提交时的样子（或者刚克隆完的样子，或者刚把它放入工作目录时的样子）？ 幸运的是，<code>git status</code> 也告诉了你应该如何做。 在最后一个例子中，未暂存区域是这样：</p>
 <pre><code>Changes not staged for commit:
   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
@@ -1697,7 +1770,7 @@ Changes not staged for commit:
 <p>Important<br>你需要知道 <code>git checkout -- [file]</code> 是一个危险的命令，这很重要。 你对那个文件做的任何修改都会消失 - 你只是拷贝了另一个文件来覆盖它。 除非你确实清楚不想要那个文件了，否则不要使用这个命令。</p>
 <p>如果你仍然想保留对那个文件做出的修改，但是现在仍然需要撤消，我们将会在 Git 分支 介绍保存进度与分支；这些通常是更好的做法。</p>
 <p>记住，在 Git 中任何 已提交的 东西几乎总是可以恢复的。 甚至那些被删除的分支中的提交或使用 <code>--amend</code> 选项覆盖的提交也可以恢复（阅读 数据恢复 了解数据恢复）。 然而，任何你未提交的东西丢失后很可能再也找不到了。</p>
-<h2 id="6-远程仓库的使用"><a href="#6-远程仓库的使用" class="headerlink" title="6.远程仓库的使用"></a>6.远程仓库的使用</h2><h3 id="6-1-远程仓库的使用"><a href="#6-1-远程仓库的使用" class="headerlink" title="6.1. 远程仓库的使用"></a>6.1. 远程仓库的使用</h3><p>为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。</p>
+<h2 id="5-远程仓库的使用"><a href="#5-远程仓库的使用" class="headerlink" title="5.远程仓库的使用"></a>5.远程仓库的使用</h2><h3 id="5-1-远程仓库的使用"><a href="#5-1-远程仓库的使用" class="headerlink" title="5.1. 远程仓库的使用"></a>5.1. 远程仓库的使用</h3><p>为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。</p>
 <p>查看远程仓库<br>如果想查看你已经配置的远程仓库服务器，可以运行 <code>git remote</code> 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 <code>origin -</code> 这是 Git 给你克隆的仓库服务器的默认名字：</p>
 <pre><code>$ git clone https://github.com/schacon/ticgit
 Cloning into &apos;ticgit&apos;...
@@ -1716,7 +1789,7 @@ origin    https://github.com/schacon/ticgit (push)
 </code></pre><p>$ git remote -v<br>    bakkdoor  <a href="https://github.com/bakkdoor/grit" target="_blank" rel="noopener">https://github.com/bakkdoor/grit</a> (fetch)<br>    bakkdoor  <a href="https://github.com/bakkdoor/grit" target="_blank" rel="noopener">https://github.com/bakkdoor/grit</a> (push)<br>    cho45     <a href="https://github.com/cho45/grit" target="_blank" rel="noopener">https://github.com/cho45/grit</a> (fetch)<br>    cho45     <a href="https://github.com/cho45/grit" target="_blank" rel="noopener">https://github.com/cho45/grit</a> (push)<br>    defunkt   <a href="https://github.com/defunkt/grit" target="_blank" rel="noopener">https://github.com/defunkt/grit</a> (fetch)<br>    defunkt   <a href="https://github.com/defunkt/grit" target="_blank" rel="noopener">https://github.com/defunkt/grit</a> (push)<br>    koke      git://github.com/koke/grit.git (fetch)<br>    koke      git://github.com/koke/grit.git (push)<br>    origin    <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:mojombo/grit.git (fetch)<br>    origin    <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:mojombo/grit.git (push)</p>
 <p>这样我们可以轻松拉取其中任何一个用户的贡献。 此外，我们大概还会有某些远程仓库的推送权限，虽然我们目前还不会在此介绍。</p>
 <p>注意这些远程仓库使用了不同的协议；我们将会在 在服务器上搭建 Git 中了解关于它们的更多信息。</p>
-<h3 id="6-2-添加远程仓库"><a href="#6-2-添加远程仓库" class="headerlink" title="6.2. 添加远程仓库"></a>6.2. 添加远程仓库</h3><p>我在之前的章节中已经提到并展示了如何添加远程仓库的示例，不过这里将告诉你如何明确地做到这一点。 运行 <code>git remote add &lt;shortname&gt; &lt;url&gt;</code> 添加一个新的远程 Git 仓库，同时指定一个你可以轻松引用的简写：</p>
+<h3 id="5-2-添加远程仓库"><a href="#5-2-添加远程仓库" class="headerlink" title="5.2. 添加远程仓库"></a>5.2. 添加远程仓库</h3><p>我在之前的章节中已经提到并展示了如何添加远程仓库的示例，不过这里将告诉你如何明确地做到这一点。 运行 <code>git remote add &lt;shortname&gt; &lt;url&gt;</code> 添加一个新的远程 Git 仓库，同时指定一个你可以轻松引用的简写：</p>
 <pre><code>$ git remote origin
 </code></pre><p>$ git remote add pb <a href="https://github.com/paulboone/ticgit" target="_blank" rel="noopener">https://github.com/paulboone/ticgit</a><br>    $ git remote -v<br>    origin    <a href="https://github.com/schacon/ticgit" target="_blank" rel="noopener">https://github.com/schacon/ticgit</a> (fetch)<br>    origin    <a href="https://github.com/schacon/ticgit" target="_blank" rel="noopener">https://github.com/schacon/ticgit</a> (push)<br>    pb    <a href="https://github.com/paulboone/ticgit" target="_blank" rel="noopener">https://github.com/paulboone/ticgit</a> (fetch)<br>    pb    <a href="https://github.com/paulboone/ticgit" target="_blank" rel="noopener">https://github.com/paulboone/ticgit</a> (push)</p>
 <p>现在你可以在命令行中使用字符串 <code>pb</code> 来代替整个 URL。 例如，如果你想拉取 <code>Paul</code> 的仓库中有但你没有的信息，可以运行 <code>git fetch pb</code>：</p>
@@ -1729,7 +1802,7 @@ From https://github.com/paulboone/ticgit
  * [new branch]      master     -&gt; pb/master
  * [new branch]      ticgit     -&gt; pb/ticgit
 </code></pre><p>现在 <code>Paul</code> 的 <code>master</code> 分支可以在本地通过 <code>pb/master</code> 访问到 - 你可以将它合并到自己的某个分支中，或者如果你想要查看它的话，可以检出一个指向该点的本地分支。 </p>
-<h3 id="6-3-从远程仓库中抓取与拉取"><a href="#6-3-从远程仓库中抓取与拉取" class="headerlink" title="6.3. 从远程仓库中抓取与拉取"></a>6.3. 从远程仓库中抓取与拉取</h3><p>就如刚才所见，从远程仓库中获得数据，可以执行：</p>
+<h3 id="5-3-从远程仓库中抓取与拉取"><a href="#5-3-从远程仓库中抓取与拉取" class="headerlink" title="5.3. 从远程仓库中抓取与拉取"></a>5.3. 从远程仓库中抓取与拉取</h3><p>就如刚才所见，从远程仓库中获得数据，可以执行：</p>
 <pre><code>$ git fetch [remote-name]
 </code></pre><p>这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。</p>
 <p>如果你使用 <code>clone</code> 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 <code>“origin”</code> 为简写。 所以，<code>git fetch origin</code> 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 <code>git fetch</code> 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。</p>
@@ -1737,7 +1810,7 @@ From https://github.com/paulboone/ticgit
 <p>推送到远程仓库<br>当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：<code>git push [remote-name] [branch-name]</code>。 当你想要将 <code>master</code> 分支推送到 <code>origin</code> 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字），那么运行这个命令就可以将你所做的备份到服务器：</p>
 <pre><code>$ git push origin master
 </code></pre><p>只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送。</p>
-<h3 id="6-4-查看远程仓库"><a href="#6-4-查看远程仓库" class="headerlink" title="6.4. 查看远程仓库"></a>6.4. 查看远程仓库</h3><p>如果想要查看某一个远程仓库的更多信息，可以使用 <code>git remote show [remote-name]</code> 命令。 如果想以一个特定的缩写名运行这个命令，例如 <code>origin</code>，会得到像下面类似的信息：</p>
+<h3 id="5-4-查看远程仓库"><a href="#5-4-查看远程仓库" class="headerlink" title="5.4. 查看远程仓库"></a>5.4. 查看远程仓库</h3><p>如果想要查看某一个远程仓库的更多信息，可以使用 <code>git remote show [remote-name]</code> 命令。 如果想以一个特定的缩写名运行这个命令，例如 <code>origin</code>，会得到像下面类似的信息：</p>
 <pre><code>$ git remote show origin
 * remote origin
   Fetch URL: https://github.com/schacon/ticgit
@@ -1781,7 +1854,7 @@ From https://github.com/paulboone/ticgit
 <pre><code>$ git remote rm paul
 $ git remote
 origin
-</code></pre><h2 id="7-打标签"><a href="#7-打标签" class="headerlink" title="7.打标签"></a>7.打标签</h2><h3 id="7-1-列出标签"><a href="#7-1-列出标签" class="headerlink" title="7.1. 列出标签"></a>7.1. 列出标签</h3><p>在 Git 中列出已有的标签是非常简单直观的。 只需要输入 <code>git tag</code>：</p>
+</code></pre><h2 id="6-打标签"><a href="#6-打标签" class="headerlink" title="6.打标签"></a>6.打标签</h2><h3 id="6-1-列出标签"><a href="#6-1-列出标签" class="headerlink" title="6.1. 列出标签"></a>6.1. 列出标签</h3><p>在 Git 中列出已有的标签是非常简单直观的。 只需要输入 <code>git tag</code>：</p>
 <pre><code>$ git tag
 v0.1
 v1.3
@@ -1798,10 +1871,10 @@ v1.8.5.2
 v1.8.5.3
 v1.8.5.4
 v1.8.5.5
-</code></pre><h3 id="7-2-创建标签"><a href="#7-2-创建标签" class="headerlink" title="7.2. 创建标签"></a>7.2. 创建标签</h3><p>Git 使用两种主要类型的标签：轻量标签（<code>lightweight</code>）与附注标签（<code>annotated</code>）。</p>
+</code></pre><h3 id="6-2-创建标签"><a href="#6-2-创建标签" class="headerlink" title="6.2. 创建标签"></a>6.2. 创建标签</h3><p>Git 使用两种主要类型的标签：轻量标签（<code>lightweight</code>）与附注标签（<code>annotated</code>）。</p>
 <p>一个轻量标签很像一个不会改变的分支 - 它只是一个特定提交的引用。</p>
 <p>然而，附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 <code>GNU Privacy Guard</code> （<code>GPG</code>）签名与验证。 通常建议创建附注标签，这样你可以拥有以上所有信息；但是如果你只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。</p>
-<h3 id="7-3-附注标签"><a href="#7-3-附注标签" class="headerlink" title="7.3. 附注标签"></a>7.3. 附注标签</h3><p>在 Git 中创建一个附注标签是很简单的。 最简单的方式是当你在运行 <code>tag</code> 命令时指定 <code>-a</code> 选项：</p>
+<h3 id="6-3-附注标签"><a href="#6-3-附注标签" class="headerlink" title="6.3. 附注标签"></a>6.3. 附注标签</h3><p>在 Git 中创建一个附注标签是很简单的。 最简单的方式是当你在运行 <code>tag</code> 命令时指定 <code>-a</code> 选项：</p>
 <pre><code>$ git tag -a v1.4 -m &apos;my version 1.4&apos;
 </code></pre><p>$ git tag<br>    v0.1<br>    v1.3<br>    v1.4</p>
 <p><code>-m</code> 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会运行编辑器要求你输入信息。</p>
@@ -1819,7 +1892,7 @@ Date:   Mon Mar 17 21:52:11 2008 -0700
 
     changed the version number
 </code></pre><p>输出显示了打标签者的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。</p>
-<h3 id="7-4-轻量标签"><a href="#7-4-轻量标签" class="headerlink" title="7.4. 轻量标签"></a>7.4. 轻量标签</h3><p>另一种给提交打标签的方式是使用轻量标签。 轻量标签本质上是将提交校验和存储到一个文件中 - 没有保存任何其他信息。 创建轻量标签，不需要使用 <code>-a</code>、<code>-s</code> 或 <code>-m</code> 选项，只需要提供标签名字：</p>
+<h3 id="6-4-轻量标签"><a href="#6-4-轻量标签" class="headerlink" title="6.4. 轻量标签"></a>6.4. 轻量标签</h3><p>另一种给提交打标签的方式是使用轻量标签。 轻量标签本质上是将提交校验和存储到一个文件中 - 没有保存任何其他信息。 创建轻量标签，不需要使用 <code>-a</code>、<code>-s</code> 或 <code>-m</code> 选项，只需要提供标签名字：</p>
 <pre><code>$ git tag v1.4-lw
 </code></pre><p>$ git tag<br>    v0.1<br>    v1.3<br>    v1.4<br>    v1.4-lw<br>    v1.5</p>
 <p>这时，如果在标签上运行 <code>git show</code>，你不会看到额外的标签信息。 命令只会显示出提交信息：</p>
@@ -1829,7 +1902,7 @@ Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
 Date:   Mon Mar 17 21:52:11 2008 -0700
 
 changed the version number
-</code></pre><h3 id="7-5-后期打标签"><a href="#7-5-后期打标签" class="headerlink" title="7.5. 后期打标签"></a>7.5. 后期打标签</h3><p>你也可以对过去的提交打标签。 假设提交历史是这样的：</p>
+</code></pre><h3 id="6-5-后期打标签"><a href="#6-5-后期打标签" class="headerlink" title="6.5. 后期打标签"></a>6.5. 后期打标签</h3><p>你也可以对过去的提交打标签。 假设提交历史是这样的：</p>
 <pre><code>$ git log --pretty=oneline
 15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch &apos;experiment&apos;
 a6b4c97498bd301d84096da251c98a07c7723e65 beginning write support
@@ -1864,7 +1937,7 @@ Date:   Sun Apr 27 20:43:35 2008 -0700
 
     updated rakefile
 ...
-</code></pre><h3 id="7-6-共享标签"><a href="#7-6-共享标签" class="headerlink" title="7.6. 共享标签"></a>7.6. 共享标签</h3><p>默认情况下，<code>git push</code> 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上。 这个过程就像共享远程分支一样 - 你可以运行 g<code>it push origin [tagname]</code>。</p>
+</code></pre><h3 id="6-6-共享标签"><a href="#6-6-共享标签" class="headerlink" title="6.6. 共享标签"></a>6.6. 共享标签</h3><p>默认情况下，<code>git push</code> 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上。 这个过程就像共享远程分支一样 - 你可以运行 g<code>it push origin [tagname]</code>。</p>
 <pre><code>$ git push origin v1.5
 Counting objects: 14, done.
 Delta compression using up to 8 threads.
@@ -1886,7 +1959,7 @@ To git@github.com:schacon/simplegit.git
 <pre><code>$ git checkout -b version2 v2.0.0
 Switched to a new branch &apos;version2&apos;
 </code></pre><p>当然，如果在这之后又进行了一次提交，<code>version2</code> 分支会因为改动向前移动了，那么 <code>version2</code> 分支就会和 <code>v2.0.0</code> 标签稍微有些不同，这时就应该当心了。</p>
-<h2 id="8-Git-别名"><a href="#8-Git-别名" class="headerlink" title="8.Git 别名"></a>8.Git 别名</h2><p>在我们结束本章 Git 基础之前，正好有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。 我们不会在之后的章节中引用到或假定你使用过它们，但是你大概应该知道如何使用它们。</p>
+<h2 id="7-Git-别名"><a href="#7-Git-别名" class="headerlink" title="7.Git 别名"></a>7.Git 别名</h2><p>在我们结束本章 Git 基础之前，正好有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。 我们不会在之后的章节中引用到或假定你使用过它们，但是你大概应该知道如何使用它们。</p>
 <p>Git 并不会在你输入部分命令时自动推断出你想要的命令。 如果不想每次都输入完整的 Git 命令，可以通过 <code>git config</code> 文件来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试：</p>
 <pre><code>$ git config --global alias.co checkout
 </code></pre><p>$ git config –global alias.br branch<br>    $ git config –global alias.ci commit<br>$ git config –global alias.st status</p>

@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="* [Git 起步](#git-起步)   * [1.Git历史](#1git历史)   * [2.Git机制](#2git机制)      * [2.1. Git 保证完整性](#21-git-保证完整性)      * [2.2. 三种状态](#22-三种状态)      * [2.3. Git 仓库、工作目录 、暂存区域](#23-git-仓库工作目录-暂存区域)   * [3.初次运行 G">
+<meta name="description" content="Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到了 2005 年，开发 Bi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git学习">
 <meta property="og:url" content="https://dinghuang.github.io/2017/10/09/Git学习/index.html">
 <meta property="og:site_name" content="强壮的病猫">
-<meta property="og:description" content="* [Git 起步](#git-起步)   * [1.Git历史](#1git历史)   * [2.Git机制](#2git机制)      * [2.1. Git 保证完整性](#21-git-保证完整性)      * [2.2. 三种状态](#22-三种状态)      * [2.3. Git 仓库、工作目录 、暂存区域](#23-git-仓库工作目录-暂存区域)   * [3.初次运行 G">
+<meta property="og:description" content="Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到了 2005 年，开发 Bi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://git-scm.com/book/en/v2/images/areas.png">
 <meta property="og:image" content="https://git-scm.com/book/en/v2/images/lifecycle.png">
-<meta property="og:updated_time" content="2018-09-18T08:35:43.618Z">
+<meta property="og:updated_time" content="2018-09-18T08:37:47.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git学习">
-<meta name="twitter:description" content="* [Git 起步](#git-起步)   * [1.Git历史](#1git历史)   * [2.Git机制](#2git机制)      * [2.1. Git 保证完整性](#21-git-保证完整性)      * [2.2. 三种状态](#22-三种状态)      * [2.3. Git 仓库、工作目录 、暂存区域](#23-git-仓库工作目录-暂存区域)   * [3.初次运行 G">
+<meta name="twitter:description" content="Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到了 2005 年，开发 Bi">
 <meta name="twitter:image" content="https://git-scm.com/book/en/v2/images/areas.png">
 
 
@@ -302,49 +302,7 @@
       
 
       
-        <pre><code>* [Git 起步](#git-起步)
-  * [1.Git历史](#1git历史)
-  * [2.Git机制](#2git机制)
-     * [2.1. Git 保证完整性](#21-git-保证完整性)
-     * [2.2. 三种状态](#22-三种状态)
-     * [2.3. Git 仓库、工作目录 、暂存区域](#23-git-仓库工作目录-暂存区域)
-  * [3.初次运行 Git 前的配置](#3初次运行-git-前的配置)
-     * [3.1. 用户配置](#31-用户配置)
-     * [3.2. 文本编辑器](#32-文本编辑器)
-     * [3.3. 检查配置信息](#33-检查配置信息)
-* [Git 基础](#git-基础)
-  * [1.获取 Git 仓库](#1获取-git-仓库)
-  * [2.克隆现有的仓库](#2克隆现有的仓库)
-     * [2.1. 检查当前文件状态](#21-检查当前文件状态)
-     * [2.2. 跟踪新文件](#22-跟踪新文件)
-     * [2.3. 暂存已修改文件](#23-暂存已修改文件)
-     * [2.4. 状态简览](#24-状态简览)
-     * [2.5. 忽略文件](#25-忽略文件)
-     * [2.6. 查看已暂存和未暂存的修改](#26-查看已暂存和未暂存的修改)
-     * [2.7. 提交更新](#27-提交更新)
-     * [2.8. 跳过使用暂存区域](#28-跳过使用暂存区域)
-     * [2.9. 移除文件](#29-移除文件)
-     * [2.10. 移动文件](#210-移动文件)
-  * [3.查看提交历史](#3查看提交历史)
-     * [3.1. 查看提交历史](#31-查看提交历史)
-     * [3.2. 限制输出长度](#32-限制输出长度)
-  * [4.撤消操作](#4撤消操作)
-     * [4.1. 撤消操作](#41-撤消操作)
-     * [4.2. 撤消对文件的修改](#42-撤消对文件的修改)
-  * [5.远程仓库的使用](#5远程仓库的使用)
-     * [5.1. 远程仓库的使用](#51-远程仓库的使用)
-     * [5.2. 添加远程仓库](#52-添加远程仓库)
-     * [5.3. 从远程仓库中抓取与拉取](#53-从远程仓库中抓取与拉取)
-     * [5.4. 查看远程仓库](#54-查看远程仓库)
-  * [6.打标签](#6打标签)
-     * [6.1. 列出标签](#61-列出标签)
-     * [6.2. 创建标签](#62-创建标签)
-     * [6.3. 附注标签](#63-附注标签)
-     * [6.4. 轻量标签](#64-轻量标签)
-     * [6.5. 后期打标签](#65-后期打标签)
-     * [6.6. 共享标签](#66-共享标签)
-  * [7.Git 别名](#7git-别名)
-</code></pre><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
+        <p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
 <h1 id="Git-起步"><a href="#Git-起步" class="headerlink" title="Git 起步"></a>Git 起步</h1><h2 id="1-Git历史"><a href="#1-Git历史" class="headerlink" title="1.Git历史"></a>1.Git历史</h2><p>同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。<br>Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux</p>
 <p>内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。</p>
 <p>到了 2005 年，开发 BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束，他们收回了 Linux 内核社区免费使用 BitKeeper 的权力。 这就迫使 Linux 开源社区（特别是 Linux 的缔造者 Linus Torvalds）基于使用 BitKeeper 时的经验教训，开发出自己的版本系统。 他们对新的系统制订了若干目标：</p>

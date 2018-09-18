@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="* [购买VPS服务器](#购买vps服务器) * [搭建ShadowSocksR服务](#搭建shadowsocksr服务) * [优化网络](#优化网络)     * [1.系统层面](#1系统层面)     * [2.TCP优化](#2tcp优化)     * [3.软件辅助优化](#3软件辅助优化) 购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支">
+<meta name="description" content="购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支付宝、服务器较多，价格虽然不算便宜，但是网速稳定。各个机房速度测试，直接ping 域名地理位置 官方测试服务器ip 下载测试文件123456789101112131415Frankfurt, DE fra-de-ping.vultr.com 100M 1000MAmsterdam, NL ams-nl-pin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VPS搭建SS">
 <meta property="og:url" content="https://dinghuang.github.io/2018/09/08/VPS搭建SS/index.html">
 <meta property="og:site_name" content="强壮的病猫">
-<meta property="og:description" content="* [购买VPS服务器](#购买vps服务器) * [搭建ShadowSocksR服务](#搭建shadowsocksr服务) * [优化网络](#优化网络)     * [1.系统层面](#1系统层面)     * [2.TCP优化](#2tcp优化)     * [3.软件辅助优化](#3软件辅助优化) 购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支">
+<meta property="og:description" content="购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支付宝、服务器较多，价格虽然不算便宜，但是网速稳定。各个机房速度测试，直接ping 域名地理位置 官方测试服务器ip 下载测试文件123456789101112131415Frankfurt, DE fra-de-ping.vultr.com 100M 1000MAmsterdam, NL ams-nl-pin">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-18T08:27:52.714Z">
+<meta property="og:updated_time" content="2018-09-18T08:37:56.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VPS搭建SS">
-<meta name="twitter:description" content="* [购买VPS服务器](#购买vps服务器) * [搭建ShadowSocksR服务](#搭建shadowsocksr服务) * [优化网络](#优化网络)     * [1.系统层面](#1系统层面)     * [2.TCP优化](#2tcp优化)     * [3.软件辅助优化](#3软件辅助优化) 购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支">
+<meta name="twitter:description" content="购买VPS服务器声明：本教程仅供学习用 购买地址 推荐vultr的原因是，vultr支持支付宝、服务器较多，价格虽然不算便宜，但是网速稳定。各个机房速度测试，直接ping 域名地理位置 官方测试服务器ip 下载测试文件123456789101112131415Frankfurt, DE fra-de-ping.vultr.com 100M 1000MAmsterdam, NL ams-nl-pin">
 
 
 
@@ -299,13 +299,7 @@
       
 
       
-        <pre><code>* [购买VPS服务器](#购买vps服务器)
-* [搭建ShadowSocksR服务](#搭建shadowsocksr服务)
-* [优化网络](#优化网络)
-    * [1.系统层面](#1系统层面)
-    * [2.TCP优化](#2tcp优化)
-    * [3.软件辅助优化](#3软件辅助优化)
-</code></pre><h1 id="购买VPS服务器"><a href="#购买VPS服务器" class="headerlink" title="购买VPS服务器"></a>购买VPS服务器</h1><p>声明：本教程仅供学习用</p>
+        <h1 id="购买VPS服务器"><a href="#购买VPS服务器" class="headerlink" title="购买VPS服务器"></a>购买VPS服务器</h1><p>声明：本教程仅供学习用</p>
 <p><a href="https://my.vultr.com/" target="_blank" rel="noopener">购买地址</a></p>
 <p>推荐vultr的原因是，vultr支持支付宝、服务器较多，价格虽然不算便宜，但是网速稳定。<br>各个机房速度测试，直接ping 域名<br>地理位置 官方测试服务器ip 下载测试文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Frankfurt, DE fra-de-ping.vultr.com 100M 1000M</span><br><span class="line">Amsterdam, NL ams-nl-ping.vultr.com 100M 1000M</span><br><span class="line">Paris, France par-fr-ping.vultr.com 100M 1000M</span><br><span class="line">London, UK lon-gb-ping.vultr.com 100M 1000M</span><br><span class="line">Singapore sgp-ping.vultr.com 100M 1000M</span><br><span class="line">New York (NJ) nj-us-ping.vultr.com 100M 1000M</span><br><span class="line">Tokyo, Japan hnd-jp-ping.vultr.com 100M 1000M</span><br><span class="line">Chicago, Illinois il-us-ping.vultr.com 100M 1000M</span><br><span class="line">Atlanta, Georgia ga-us-ping.vultr.com 100M 1000M</span><br><span class="line">Miami, Florida fl-us-ping.vultr.com 100M 1000M</span><br><span class="line">Seattle, Washington wa-us-ping.vultr.com 100M 1000M</span><br><span class="line">Dallas, Texas tx-us-ping.vultr.com 100M 1000M</span><br><span class="line">Silicon Valley, California sjo-ca-us-ping.vultr.com 100M 1000M</span><br><span class="line">Los Angeles, California lax-ca-us-ping.vultr.com 100M 1000M</span><br><span class="line">Sydney, Australia syd-au-ping.vultr.com 100M 1000M</span><br></pre></td></tr></table></figure></p>
 <p>经过测试，大陆地区，Tokyo的速度是最快的，延迟在50ms左右。</p>

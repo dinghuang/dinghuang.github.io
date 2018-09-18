@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="学习说得、生活所得">
-<meta property="og:type" content="website">
-<meta property="og:title" content="强壮的病猫">
-<meta property="og:url" content="https://dinghuang.github.io/index.html">
+<meta name="description" content="目录 TOC{:toc}  Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习">
+<meta property="og:url" content="https://dinghuang.github.io/2017/10/09/Git学习/index.html">
 <meta property="og:site_name" content="强壮的病猫">
-<meta property="og:description" content="学习说得、生活所得">
+<meta property="og:description" content="目录 TOC{:toc}  Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://git-scm.com/book/en/v2/images/areas.png">
+<meta property="og:image" content="https://git-scm.com/book/en/v2/images/lifecycle.png">
+<meta property="og:updated_time" content="2018-09-18T07:57:01.184Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="强壮的病猫">
-<meta name="twitter:description" content="学习说得、生活所得">
+<meta name="twitter:title" content="Git学习">
+<meta name="twitter:description" content="目录 TOC{:toc}  Git中文文档 Git 起步1.Git历史同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux 内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。 到">
+<meta name="twitter:image" content="https://git-scm.com/book/en/v2/images/areas.png">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://dinghuang.github.io/"/>
+  <link rel="canonical" href="https://dinghuang.github.io/2017/10/09/Git学习/"/>
 
 
 
 
 
-  <title>强壮的病猫</title>
+  <title>Git学习 | 强壮的病猫</title>
   
 
 
@@ -143,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/09/Git学习/" itemprop="url">Git学习</a></h1>
+          <h1 class="post-title" itemprop="name headline">Git学习</h1>
         
 
         <div class="post-meta">
@@ -301,9 +302,7 @@
       
 
       
-        
-          
-            <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li>TOC<br>{:toc}</li>
 </ul>
 <p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
@@ -995,8 +994,6 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
 </code></pre><p>可以看出，Git 只是简单地将别名替换为对应的命令。 然而，你可能想要执行外部命令，而不是一个 Git 子命令。 如果是那样的话，可以在命令前面加入 ! 符号。 如果你自己要写一些与 Git 仓库协作的工具的话，那会很有用。 我们现在演示将 <code>git visual</code> 定义为 <code>gitk</code> 的别名：</p>
 <pre><code>$ git config --global alias.visual &apos;!gitk&apos;
 </code></pre>
-          
-        
       
     </div>
     
@@ -1013,12 +1010,12 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1028,10 +1025,11 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1039,6 +1037,10 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1059,8 +1061,17 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1102,6 +1113,22 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-起步"><span class="nav-number">2.</span> <span class="nav-text">Git 起步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Git历史"><span class="nav-number">2.1.</span> <span class="nav-text">1.Git历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Git机制"><span class="nav-number">2.2.</span> <span class="nav-text">2.Git机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Git-保证完整性"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1. Git 保证完整性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-三种状态"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2. 三种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Git-仓库、工作目录-、暂存区域"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3. Git 仓库、工作目录 、暂存区域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-初次运行-Git-前的配置"><span class="nav-number">2.3.</span> <span class="nav-text">3.初次运行 Git 前的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-用户配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1. 用户配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-文本编辑器"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2. 文本编辑器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-检查配置信息"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3. 检查配置信息</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-基础"><span class="nav-number">3.</span> <span class="nav-text">Git 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-获取-Git-仓库"><span class="nav-number">3.1.</span> <span class="nav-text">1.获取 Git 仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-克隆现有的仓库"><span class="nav-number">3.2.</span> <span class="nav-text">2.克隆现有的仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-记录每次更新到仓库"><span class="nav-number">3.3.</span> <span class="nav-text">3.记录每次更新到仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-检查当前文件状态"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1. 检查当前文件状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-跟踪新文件"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2. 跟踪新文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-暂存已修改文件"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3. 暂存已修改文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-状态简览"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.4. 状态简览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-忽略文件"><span class="nav-number">3.3.5.</span> <span class="nav-text">3.5. 忽略文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-查看已暂存和未暂存的修改"><span class="nav-number">3.3.6.</span> <span class="nav-text">3.6. 查看已暂存和未暂存的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-提交更新"><span class="nav-number">3.3.7.</span> <span class="nav-text">3.7. 提交更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-跳过使用暂存区域"><span class="nav-number">3.3.8.</span> <span class="nav-text">3.8. 跳过使用暂存区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-移除文件"><span class="nav-number">3.3.9.</span> <span class="nav-text">3.9. 移除文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-移动文件"><span class="nav-number">3.3.10.</span> <span class="nav-text">3.10. 移动文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-查看提交历史"><span class="nav-number">3.4.</span> <span class="nav-text">4.查看提交历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-查看提交历史"><span class="nav-number">3.4.1.</span> <span class="nav-text">4.1. 查看提交历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-限制输出长度"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.2. 限制输出长度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-撤消操作"><span class="nav-number">3.5.</span> <span class="nav-text">5.撤消操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-撤消操作"><span class="nav-number">3.5.1.</span> <span class="nav-text">5.1. 撤消操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-撤消对文件的修改"><span class="nav-number">3.5.2.</span> <span class="nav-text">5.2. 撤消对文件的修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-远程仓库的使用"><span class="nav-number">3.6.</span> <span class="nav-text">6.远程仓库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-远程仓库的使用"><span class="nav-number">3.6.1.</span> <span class="nav-text">6.1. 远程仓库的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-添加远程仓库"><span class="nav-number">3.6.2.</span> <span class="nav-text">6.2. 添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-从远程仓库中抓取与拉取"><span class="nav-number">3.6.3.</span> <span class="nav-text">6.3. 从远程仓库中抓取与拉取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-查看远程仓库"><span class="nav-number">3.6.4.</span> <span class="nav-text">6.4. 查看远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-打标签"><span class="nav-number">3.7.</span> <span class="nav-text">7.打标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-列出标签"><span class="nav-number">3.7.1.</span> <span class="nav-text">7.1. 列出标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-2-创建标签"><span class="nav-number">3.7.2.</span> <span class="nav-text">7.2. 创建标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-3-附注标签"><span class="nav-number">3.7.3.</span> <span class="nav-text">7.3. 附注标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-轻量标签"><span class="nav-number">3.7.4.</span> <span class="nav-text">7.4. 轻量标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-5-后期打标签"><span class="nav-number">3.7.5.</span> <span class="nav-text">7.5. 后期打标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-6-共享标签"><span class="nav-number">3.7.6.</span> <span class="nav-text">7.6. 共享标签</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-Git-别名"><span class="nav-number">3.8.</span> <span class="nav-text">8.Git 别名</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1235,6 +1262,10 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

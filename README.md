@@ -220,8 +220,8 @@
 ### 2.27 知识管理
  1. [XWiki：XWiki是一个强大的Java开源的Wiki引擎。它支持Wiki的各种特性，亚马逊也在用这个开源产品。][180]
  2. [Mediawiki：MediaWiki是由PHP开发的免费开源的维基程序，运行于PHP+mySQL环境。他是专为维基百科开发的wiki程序。][181]
- 2. [Confluence：Atlassian公司下的不开源知识管理应用，Jira的母公司常平][182]
- 2. [Ones Wiki：国内不开源的知识管理应用。][183]
+ 3. [Confluence：Jira的母公司Atlassian下的不开源知识管理应用。][182]
+ 4. [Ones Wiki：国内不开源的知识管理应用。][183]
 ### 2.28 其他
  1. [PArallel：百度深度学习框架。][132]
  2. [netty：事件驱动的异步网络应用程序框架。][133]

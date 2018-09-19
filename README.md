@@ -1,9 +1,9 @@
 # 学习笔记 [![知识共享协议（CC协议）](https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg) ![Attribution-NonCommercial-ShareAlike CC BY-NC-SA](LICENSE.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
  * [学习笔记](#学习笔记)
     * [1. 自写项目及笔记](#1-自写项目及笔记)
-      * [1.1 <a href="https://dinghuang.github.io/main/2017/10/09/new-git.html" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a>](#11-git使用笔记个人在使用git的一些心得)
-      * [1.2 <a href="https://dinghuang.github.io/main/2018/07/18/new-设计模式.html" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a>](#12-设计模式用java语言阐述的33种设计模式)
-      * [1.3 <a href="https://dinghuang.github.io/main/2018/09/08/new-VPS搭建VPN.html" rel="nofollow">服务器搭建梯子：仅供学习交流</a>](#13-服务器搭建梯子仅供学习交流)
+      * [1.1 <a href="https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a>](#11-git使用笔记个人在使用git的一些心得)
+      * [1.2 <a href="https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a>](#12-设计模式用java语言阐述的33种设计模式)
+      * [1.3 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">服务器搭建梯子：仅供学习交流</a>](#13-服务器搭建梯子仅供学习交流)
       * [1.4 代码练习](#14-代码练习)
     * [2. 团队开源项目](#2-团队开源项目)
         * [2.1 代码管理](#21-代码管理)
@@ -251,9 +251,9 @@
  8. [JSqlParser：解析SQL语句并将其转换为Java类的层次结构。][156]
 
 
-  [1]: https://dinghuang.github.io/main/2017/10/09/new-git.html
-  [2]: https://dinghuang.github.io/main/2018/07/18/new-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html
-  [3]: https://dinghuang.github.io/main/2018/09/08/new-VPS%E6%90%AD%E5%BB%BAVPN.html
+  [1]: https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/
+  [2]: https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
+  [3]: https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/
   [4]: https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/java8
   [5]: https://github.com/dinghuang/java-practice/blob/master/src/main/java/com/example/demo/google/GuavaTest.java
   [6]: https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/concurrent

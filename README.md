@@ -57,6 +57,7 @@
  4. [Maven：项目管理及自动构建工具，目前发展如日中天][162]
  5. [Gradle：跟Maven类似的，都是项目管理及自动构建工具][163]
  5. [Ant：跟Maven类似的，都是项目管理及自动构建工具][164]
+ 6. [Npm：前端依赖Node.js的包管理器。][184]
 ### 2.2 分布式文件系统
  1. [Fastdfs：文件存储，文件同步和文件访问，它可以解决高容量和负载平衡问题。FastDFS满足基于照片共享站点和视频共享站点等文件服务的网站的要求。][13]
  2. [Minio：Minio是一款高性能的分布式对象存储服务器，专为大规模私有云基础架构。][14]
@@ -440,3 +441,4 @@
   [181]: https://www.mediawiki.org/wiki/MediaWiki
   [182]: https://www.atlassian.com/software/confluence
   [183]: https://ones.ai/wiki.html
+  [184]: https://www.npmjs.com/

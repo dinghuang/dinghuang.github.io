@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="其他," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
+<meta name="keywords" content="其他">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在GitHub Page使用HEXO搭建博客">
+<meta property="og:url" content="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/cf7c41010a7c5769daf36ed28209eda3/xmlnote/A621EF7ED1CA4E3F9249E04FC033831B/3282">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/cf7c41010a7c5769daf36ed28209eda3/xmlnote/2EF0BE5C89D649E49278592AE806FD65/3285">
+<meta property="og:updated_time" content="2018-09-21T05:51:42.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在GitHub Page使用HEXO搭建博客">
+<meta name="twitter:description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/cf7c41010a7c5769daf36ed28209eda3/xmlnote/A621EF7ED1CA4E3F9249E04FC033831B/3282">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/"/>
+
+
+
+
+
+  <title>如何在GitHub Page使用HEXO搭建博客 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何在GitHub Page使用HEXO搭建博客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-21T13:51:00+08:00">
+                2018-09-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/21/如何在GitHub Page使用HEXO搭建博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/21/如何在GitHub Page使用HEXO搭建博客/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="如何在使用GitHub-Page搭建HEXO博客"><a href="#如何在使用GitHub-Page搭建HEXO博客" class="headerlink" title="如何在使用GitHub Page搭建HEXO博客"></a>如何在使用GitHub Page搭建HEXO博客</h1><p><a href="https://github.com/dinghuang/Blog" target="_blank" rel="noopener">项目地址</a></p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
+<li>安装Git</li>
+<li>安装Node.js</li>
+<li>注册Github账号</li>
+<li>创建新的仓库 名称必须为 用户名.github.io<br><img src="https://note.youdao.com/yws/public/resource/cf7c41010a7c5769daf36ed28209eda3/xmlnote/A621EF7ED1CA4E3F9249E04FC033831B/3282" alt="此处输入图片的描述"></li>
+<li>添加本地电脑的SSH认证，如图所示<br><img src="https://note.youdao.com/yws/public/resource/cf7c41010a7c5769daf36ed28209eda3/xmlnote/2EF0BE5C89D649E49278592AE806FD65/3285" alt="此处输入图片的描述"><br>在本地命令工具中输入<br><code>ssh-keygen -t rsa -C &quot;Github的注册邮箱地址&quot;</code><br>一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后<br>用带格式的编辑器（比方说notepad++或者sublime）打开id_rsa.pub，复制里面的所有内容，然粘贴到KEY里面。</li>
+</ol>
+<h2 id="安装HEXO"><a href="#安装HEXO" class="headerlink" title="安装HEXO"></a>安装HEXO</h2><ol>
+<li>打开命令行工具<br><code>npm install -g hexo-cli</code></li>
+<li>安装 Hexo 完成后，分步执行（即输入代码之后敲回车）下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><code>hexo init &lt;folder&gt;</code><br>在文件夹内执行<br><code>npm install</code></li>
+<li>成功后，博客项目成功初始化</li>
+</ol>
+<h2 id="配置NEXT主题"><a href="#配置NEXT主题" class="headerlink" title="配置NEXT主题"></a>配置NEXT主题</h2><ol>
+<li>安装NEXT主题</li>
+</ol>
+<p><code>mkdir themes/next</code><br><code>curl -s https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest | grep tarball_url | cut -d &#39;&quot;&#39; -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</code><br>修改站点配置文件<code>_config.yml</code><br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">title:</span> 一只病猫</span><br><span class="line"><span class="symbol">subtitle:</span> 静坐常思己过，闲谈莫论人非</span><br><span class="line"><span class="symbol">description:</span> 学习、生活、闲谈、足球</span><br><span class="line"><span class="symbol">author:</span> 强壮的病猫</span><br><span class="line"><span class="symbol">language:</span> zh-Hans</span><br><span class="line"><span class="symbol">timezone:</span> Asia/Shanghai</span><br><span class="line"><span class="symbol">theme:</span> next</span><br><span class="line"><span class="symbol">url:</span> https:<span class="comment">//dinghuang.github.io/</span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> https:<span class="comment">//github.com/dinghuang/dinghuang.github.io.git</span></span><br><span class="line"><span class="symbol">  branch:</span> master</span><br><span class="line"><span class="meta">#开启swiftype搜索，后面的id在swiftype官网申请，[具体操作][3]</span></span><br><span class="line"><span class="symbol">swiftype_key:</span> HcRPHRrBuwozvgUoLNyX</span><br><span class="line"><span class="meta">#要放到仓库的静态资源都放在source文件夹中，.md会被转换成HTML，所以这里要忽略</span></span><br><span class="line"><span class="symbol">skip_render:</span> README.md</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>配置NEXT主题<br>设置主题配置文件<code>./themes/next/_config.yml</code>，可以参考本项目的配置。<br>NEXT强大之处在于继承了很多第三方服务插件，不过类似评论搜索功能的插件被墙了，外网是可以用的。<a href="https://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">具体参考</a></li>
+<li>设置标签分类<br>参考<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">链接</a>，在文章开头，引入：<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 设计模式</span><br><span class="line">date: 2018<span class="string">-07</span><span class="string">-18</span> 09:43:00</span><br><span class="line"><span class="keyword">tags:</span></span><br><span class="line">    - JAVA</span><br><span class="line">categories: JAVA</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>更多配置请参考官方文档</p>
+<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><ol>
+<li>输入命令<br><code>npm install hexo-deployer-git --save</code></li>
+<li>创建文章<br><code>hexo new &quot;你想要的文章标题填在这个双引号里&quot;</code></li>
+<li>文章会生成在<br><code>./source/_posts/设计模式.md</code><br>进行修改后<br><code>hexo clean ; hexo genarate</code></li>
+<li>然后输入<br><code>hexo deploy</code><br>此时文章已经成功部署。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/" title="如何在GitHub Page使用HEXO搭建博客">https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/其他/" rel="tag"># 其他</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/08/VPS搭建SS/" rel="next" title="VPS搭建SS">
+                <i class="fa fa-chevron-left"></i> VPS搭建SS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在使用GitHub-Page搭建HEXO博客"><span class="nav-number">1.</span> <span class="nav-text">如何在使用GitHub Page搭建HEXO博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HEXO"><span class="nav-number">1.2.</span> <span class="nav-text">安装HEXO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NEXT主题"><span class="nav-number">1.3.</span> <span class="nav-text">配置NEXT主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.4.</span> <span class="nav-text">提交</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/';
+          this.page.identifier = '2018/09/21/如何在GitHub Page使用HEXO搭建博客/';
+          this.page.title = '如何在GitHub Page使用HEXO搭建博客';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

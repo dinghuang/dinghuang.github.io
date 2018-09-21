@@ -4,7 +4,8 @@
       * [1.1 <a href="https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a>](#11-git使用笔记个人在使用git的一些心得)
       * [1.2 <a href="https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a>](#12-设计模式用java语言阐述的33种设计模式)
       * [1.3 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">服务器搭建梯子：仅供学习交流</a>](#13-服务器搭建梯子仅供学习交流)
-      * [1.4 代码练习](#14-代码练习)
+      * [1.4 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">如何在GitHub Page使用HEXO搭建博客</a>](#14-如何在GitHub Page使用HEXO搭建博客)
+      * [1.5 代码练习](#15-代码练习)
     * [2. 团队开源项目](#2-团队开源项目)
         * [2.1 代码管理](#21-代码管理)
         * [2.2 分布式文件系统](#22-分布式文件系统)
@@ -41,7 +42,8 @@
 ### 1.1 [Git使用笔记：个人在使用Git的一些心得][1]
 ### 1.2 [设计模式：用java语言阐述的33种设计模式][2]
 ### 1.3 [服务器搭建梯子：仅供学习交流][3]
-### 1.4 代码练习
+### 1.4 [如何在GitHub Page使用HEXO搭建博客][187]
+### 1.5 代码练习
  1. [Java8新特性][4]
  2. [Google的Guava工具包][5]
  3. [多线程相关][6]
@@ -255,8 +257,9 @@
  4. [undertow：简易高性能无阻塞网络Java服务器框架。][147]
  5. [Lealone：兼具RDBMS、NoSQL优点的个人异步化NewSQL单机与分布式关系数据库。][150]
  6. [elasticsearch-analysis-ik：ElasticSearch中文分词工具。][154]
- 7. [jersey：基于RESTful设计的java网络服务框架，目前已经停止维护。][155]
+ 7. [jersey：基于RESTful设计的Java网络服务框架，目前已经停止维护。][155]
  8. [JSqlParser：解析SQL语句并将其转换为Java类的层次结构。][156]
+ 9. [hexo-theme-next：HERO博客的NEXT主题，集成融合了许多第三方服务，自己的博客就是用NEXT主题。][186]
 
 
   [1]: https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/
@@ -444,3 +447,5 @@
   [183]: https://ones.ai/wiki.html
   [184]: https://www.npmjs.com/
   [185]: https://www.postgresql.org/
+  [186]: https://github.com/iissnan/hexo-theme-next
+  [187]: https://github.com/iissnan/hexo-theme-next

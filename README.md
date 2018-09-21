@@ -4,7 +4,7 @@
       * [1.1 <a href="https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a>](#11-git使用笔记个人在使用git的一些心得)
       * [1.2 <a href="https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a>](#12-设计模式用java语言阐述的33种设计模式)
       * [1.3 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">服务器搭建梯子：仅供学习交流</a>](#13-服务器搭建梯子仅供学习交流)
-      * [1.4 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">如何在GitHub Page使用HEXO搭建博客</a>](#14-如何在GitHub Page使用HEXO搭建博客)
+      * [1.4 <a href="https://dinghuang.github.io/2018/09/21/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%20Page%E4%BD%BF%E7%94%A8HEXO%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="nofollow">如何在GitHubPage使用HEXO搭建博客</a>](#14-如何在GitHubPage使用HEXO搭建博客)
       * [1.5 代码练习](#15-代码练习)
     * [2. 团队开源项目](#2-团队开源项目)
         * [2.1 代码管理](#21-代码管理)
@@ -448,4 +448,4 @@
   [184]: https://www.npmjs.com/
   [185]: https://www.postgresql.org/
   [186]: https://github.com/iissnan/hexo-theme-next
-  [187]: https://github.com/iissnan/hexo-theme-next
+  [187]: https://dinghuang.github.io/2018/09/21/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%20Page%E4%BD%BF%E7%94%A8HEXO%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/

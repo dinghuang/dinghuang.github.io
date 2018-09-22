@@ -136,6 +136,7 @@
  3. [Grafana：开源数据可视化仪表视图服务。][68]
  4. [kibana：ElasticSearch下的数据可视化服务。][69]
  5. [thingsboard：开源可视化平台。][70]
+ 5. [SkyWalking：一款优秀的国产 APM 工具，包括了分布式追踪、性能指标分析、应用和服务依赖分析等，跟Zipkin都是目前主要的一些APM工具。][191]
 ### 2.17 前端相关
  1. [Bootstrap：扁平化风格前端UI框架。][71]
  2. [AntDesign：阿里出品，在React上的企业前端UI框架。][72]
@@ -151,6 +152,7 @@
  12. [ckeditor：富文本编辑器。][166]
  13. [Echarts：百度出品的可视化工具，目前用的较多，现在有React版本的Echarts。][170]
  14. [Quill：也是一款富文本编辑器，大多用来做二次开发。][171]
+ 15. [F2：阿里出品的移动端图形可视化框架。][188]
 ### 2.18 分布式相关工具
  1. [Eureka：Netflix开源的，java开发，基于restful，用于服务注册。][79]
  2. [Consul：Consul是一种分布式，高可用性和数据中心感知解决方案，用于跨动态分布式基础架构连接和配置应用程序。][80]
@@ -161,6 +163,8 @@
  7. [Kong：是一个云原生，快速，可扩展和分布式微服务抽象层（也称为API网关，API中间件或在某些情况下为Service Mesh）。][85]
  8. [Spinnaker：是一个开源的，多云连续交付平台，用于以高速度和可靠性发布软件更改。][86]
  9. [Nginx：是一个异步框架的Web服务器，也可以用作反向代理，负载平衡器 和HTTP缓存。][173]
+ 10. [CircleCI：持续集成，自动部署工具，跟Gitlab CI不同的是，CircleCI主要与GitHub集成。][189]
+ 11. [Sentinel：阿里中间件团队开源的，面向分布式服务架构的轻量级高可用流量控制组件，从对比来看Sentinel比Hystrix在功能性上还要强大一些。][190]
 ### 2.19 数据库相关
  1. [MySQL：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，MySQL就比较适用于微服务。][87]
  2. [Oracle：老牌数据库，非常强大，现在收购了Sun公司和MySQL。][88]
@@ -449,3 +453,7 @@
   [185]: https://www.postgresql.org/
   [186]: https://github.com/iissnan/hexo-theme-next
   [187]: https://dinghuang.github.io/2018/09/21/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%20Page%E4%BD%BF%E7%94%A8HEXO%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/
+  [188]: https://github.com/antvis/f2
+  [189]: https://circleci.com/
+  [190]: https://github.com/alibaba/Sentinel
+  [191]: hthttps://github.com/apache/incubator-skywalking

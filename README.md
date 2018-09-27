@@ -222,6 +222,9 @@
 ### 2.25 工作流引擎
  1. [Activiti：目前用的比较多的工作流，重点关注在系统开发的易用性和轻量性上。][128]
  2. [JBPM：是JBoss中一款开源的工作流引擎，是一个轻量级的，使用最新的BPMN 2规范可扩展的，目前最新的是JBPM3。][129]
+ 3. [Conductor：Netflix开源的协调分布式微服务的工作流。][192]
+ 4. [Zeebe：目前关注的一个正在开发的真正意义上的微服务的工作流，让其他微服务串起来的工作流，目前还没出1.0。][193]
+ 5. [Camunda：一个基于Java的框架，支持BPMN用于工作流和过程自动化。][193]
 ### 2.26 代码标准
  1. [p3c：阿里巴巴代码规约。][130]
  2. [SonarQube：一个开源的代码质量管理系统。][131]
@@ -457,3 +460,6 @@
   [189]: https://circleci.com/
   [190]: https://github.com/alibaba/Sentinel
   [191]: https://github.com/apache/incubator-skywalking
+  [192]: https://netflix.github.io/conductor/
+  [193]: https://docs.zeebe.io/introduction/install.html
+  [194]: https://docs.camunda.org/manual/7.9/introduction/

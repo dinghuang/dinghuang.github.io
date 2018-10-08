@@ -114,7 +114,6 @@
 ### 2.12 响应式编程
  1. [Reactor：spring社区开源，在spring 5.0直接引入。][51]
  2. [Vert.x：基于netty,可以通过它使用JavaScript、Ruby、Groovy、Java、甚至是混合语言来编写应用。][52]
- 3. [RxJava：安卓上用的特别多，特别与RxAndroid,Retrofit等结合使用。][53]
 ### 2.13 热加载
  1. [JRebel：收费，IDEA，Eclipse，Netbeans都有它的插件，目前自己在IDEA上用破解版。][54]
  2. [Spring-Loaded：Spring开源热更新工具。][55]
@@ -200,15 +199,16 @@
  9. [R：R语言，一种自由软件编程语言与操作环境，主要用于统计分析、绘图、数据挖掘。][179]
 ### 2.22 工具相关
  1. [Guava：Google开源，十分强大，包含许多Google核心的Java常用库，Java8吸取了Guava的许多优点发展自己的新特性。][110]
- 2. [Apache Commons：包含了很多开源的工具。][111]
- 3. [Lombok：注解通过编译器生成getter,setter,builder等代码。][112]
- 4. [Chronicle Map：基于内存的键值对存储,低延迟、高并发,支持持久化到磁盘，以及多键值查询。][113]
- 5. [reflections：一个java反射工具包。][114]
- 6. [strman-java：一个字符串处理工具,使用它可以解决几乎所有字符串处理场景。][115]
- 7. [Jgit: java实现git操作。][116]
- 8. [Redisson：在Redis的基础上实现的Java驻内存数据网格（In-Memory Data GridEhcache – Java分布式缓存框架）。它不仅提供了一系列的分布式的Java常用对象，还提供了许多分布式服务，可以用于分布式服务锁。][117]
- 9. [OpenGrok：Oracle公司的，用Java编写的源代码库搜索工具。][118]
- 10. [mybatis-3：Mybatis在Java的映射工具包，源码设计缓存设计、大量的反射，挺值得看的。][119]
+ 2. [RxJava：一个工具库，十分强大，用于使用Java VM的可观察序列组合异步和基于事件的程序。][53]
+ 3. [Apache Commons：包含了很多开源的工具。][111]
+ 4. [Lombok：注解通过编译器生成getter,setter,builder等代码。][112]
+ 5. [Chronicle Map：基于内存的键值对存储,低延迟、高并发,支持持久化到磁盘，以及多键值查询。][113]
+ 6. [reflections：一个java反射工具包。][114]
+ 7. [strman-java：一个字符串处理工具,使用它可以解决几乎所有字符串处理场景。][115]
+ 8. [Jgit: java实现git操作。][116]
+ 9. [Redisson：在Redis的基础上实现的Java驻内存数据网格（In-Memory Data GridEhcache – Java分布式缓存框架）。它不仅提供了一系列的分布式的Java常用对象，还提供了许多分布式服务，可以用于分布式服务锁。][117]
+ 10. [OpenGrok：Oracle公司的，用Java编写的源代码库搜索工具。][118]
+ 11. [mybatis-3：Mybatis在Java的映射工具包，源码设计缓存设计、大量的反射，挺值得看的。][119]
 ### 2.23 缓存框架
  1. [Ehcache：Java分布式缓存框架。][120]
  2. [Cacheonix：高性能Java分布式缓存系统。][121]

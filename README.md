@@ -38,6 +38,7 @@
     * [3. 个人优秀开源项目](#3-个人优秀开源项目)
         * [3.1 知识整合](#31-知识整合)
         * [3.2 框架、工具](#32-框架工具)   
+        * [3.3 好玩的](#33-好玩的)   
 ## 1. 自写项目及笔记
 ### 1.1 [Git使用笔记：个人在使用Git的一些心得][1]
 ### 1.2 [设计模式：用java语言阐述的33种设计模式][2]
@@ -72,7 +73,11 @@
  5. [Dubbox：当当根据自身的需求，为Dubbo实现了一些新的功能，并将其命名为Dubbox。][20]
  6. [Motan：新浪用于快速开发高性能分布式服务的跨语言远程过程调用（RPC）框架。][21]
  7. [Grpc：谷歌开源，支持跨语言][22]。
- 8. [Istio：Google、IBM、Lyft共同开发的新一代Service Mesh开源项目，目前备受关注。][23]
+ 8. [Istio：Google、IBM、Lyft共同开发的新一代Service Mesh开源项目，连接、管理和保护微服务的开放平台，目前备受关注。][23]
+ 9. [Spring Cloud Alibaba：只需要添加一些注解和少量配置，就可以将 Spring Cloud 应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统。][200]
+ 10. [sofa-boot：阿里巴巴旗下支付宝开源的一个增强Spring Boot并与之完全兼容的框架，提供准备检查，类隔离等。][213]
+ 11. [Envoy：Envoy 是一款由 Lyft 开源的，使用 C++ 编写的 L7 代理和通信总线，目前是 CNCF 旗下的开源项目，它也是 Istio service mesh 中默认的 data plane。][219]
+ 12. [SOFAMosn：阿里巴巴旗下支付宝开源的功能和定位类似Envoy ，旨在提供分布式，模块化，可观察，智能化的代理能力，替换istio的sidecar。][218]
 ### 2.4 权限安全相关
  1. [Shiro：ApacheShiro专注于易用性，可以依赖安全，稳定的身份验证，授权，加密和会话管理。][24]
  2. [Spring Security：SpringSecurity是一个功能强大且可高度自定义的身份验证和访问控制框架。它是保护基于Spring的应用程序的事实上的标准。][25]
@@ -136,6 +141,11 @@
  4. [kibana：ElasticSearch下的数据可视化服务。][69]
  5. [thingsboard：开源可视化平台。][70]
  6. [SkyWalking：一款优秀的国产APM工具，包括了分布式追踪、性能指标分析、应用和服务依赖分析等，跟Zipkin都是目前主要的一些APM工具。][191]
+ 7. [Jaeger：跟Zipkin类似，开源的调用链监控工具][195]
+ 8. [Appdash：跟Zipkin类似，GO语言实现的开源的调用链监控工具][196]
+ 9. [TProfiler：阿里巴巴开源的一个可以在生产环境长期使用的性能分析工具][203]
+ 10. [CAT：美团开源的基于 Java 开发的实时应用监控平台][211]
+ 11. [btrace：Java平台的安全动态跟踪工具。][202]
 ### 2.17 前端相关
  1. [Bootstrap：扁平化风格前端UI框架。][71]
  2. [AntDesign：阿里出品，在React上的企业前端UI框架。][72]
@@ -164,6 +174,9 @@
  9. [Nginx：是一个异步框架的Web服务器，也可以用作反向代理，负载平衡器 和HTTP缓存。][173]
  10. [CircleCI：持续集成，自动部署工具，跟Gitlab CI不同的是，CircleCI主要与GitHub集成。][189]
  11. [Sentinel：阿里中间件团队开源的，面向分布式服务架构的轻量级高可用流量控制组件，从对比来看Sentinel比Hystrix在功能性上还要强大一些。][190]
+ 12. [Go-kit：go kit 是一个分布式的开发工具集，在大型的组织（业务）中可以用来构建微服务。其解决了分布式系统中的大多数常见问题，因此，使用者可以将精力集中在业务逻辑上。][197]
+ 13. [kylin：开源的分布式分析引擎，由eBay Inc.提供，在Hadoop上提供SQL接口和多维分析（OLAP），支持极大的数据集，国内团队维护的。][197]
+ 14. [curator：Apache ZooKeeper的Java / JVM客户端库，它是一种分布式协调服务，包含一个高级API框架和实用程序，使Apache ZooKeeper更容易，更可靠。][215]
 ### 2.19 数据库相关
  1. [MySQL：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，MySQL就比较适用于微服务。][87]
  2. [Oracle：老牌数据库，非常强大，现在收购了Sun公司和MySQL。][88]
@@ -225,6 +238,7 @@
  3. [Conductor：Netflix开源的协调分布式微服务的工作流。][192]
  4. [Zeebe：目前关注的一个正在开发的真正意义上的微服务的工作流，让其他微服务串起来的工作流，目前还没出1.0。][193]
  5. [Camunda：一个基于Java的框架，支持BPMN用于工作流和过程自动化。][193]
+ 6. [Camunda：Uber开源的分布式，可扩展，持久且高度可用的编排引擎，与Zeebe类似。][223]
 ### 2.26 代码标准
  1. [p3c：阿里巴巴代码规约。][130]
  2. [SonarQube：一个开源的代码质量管理系统。][131]
@@ -240,6 +254,7 @@
  4. [mpvue：美团小程序开发框架。][135]
  5. [Choerodon：自己参与开发的开源企业服务平台，是基于Kubernetes的容器编排和管理能力，整合DevOps工具链、微服务和移动应用框架。][136]
  6. [Pinpoint：是一个开源的APM（应用程序性能管理）工具，适用于用Java编写的大型分布式系统。][137]
+ 7. [go-cloud：提供了一个库和用于构建可在多个云平台之间移植的应用程序的工具。][217]
 ## 3. 个人优秀开源项目
 ### 3.1 知识整合
  1. [java-design-patterns：Java实现的设计模式。][138]
@@ -256,7 +271,13 @@
  13. [TheAlgorithms/Java：所有算法在Java中的实现，强烈推荐。][157]
  14. [free-programming-books-zh_CN：免费的计算机编程类中文书籍，欢迎去那投稿。][158]
  15. [openlogos：免费开源图标库，还在维护更新，支持下。][151]
- 15. [KnowledgeManage：个人前端技能树，友情链接。][176]
+ 16. [KnowledgeManage：个人前端技能树，友情链接。][176]
+ 17. [netty-4-user-guide：Netty 4.x User Guide. 中文翻译《Netty 4.x 用户指南》。][207]
+ 18. [netty-learning：Netty的源码导读。][210]
+ 19. [python_data_analysis_and_mining_action：《python数据分析与挖掘实战》的代码笔记。][212]
+ 20. [ZKRecipesByExample：Curator全面的例子， 演示了Curator在项目中的应用，全面的介绍了ZooKeeper的Recipe的实现， 以及CuratorFramework的基本用法。][214]
+ 21. [DataStructureAndAlgos：数据结构（链表、队列、栈、二叉树、哈希表等）以及一些常用的算法（排序：归并、快速排序、基数排序等，查找：二分查找法），统一由JAVA实现。][222]
+ 22. [CLRS：算法导论第三版中的算法及习题。。][225]
 ### 3.2 框架、工具
  1. [jodd：轻量级的Java微框架。][140]
  2. [tini：容器的一个小而有效的`init`。][142]
@@ -266,7 +287,21 @@
  6. [elasticsearch-analysis-ik：ElasticSearch中文分词工具。][154]
  7. [jersey：基于RESTful设计的Java网络服务框架，目前已经停止维护。][155]
  8. [JSqlParser：解析SQL语句并将其转换为Java类的层次结构。][156]
- 9. [hexo-theme-next：HERO博客的NEXT主题，集成融合了许多第三方服务，自己的博客就是用NEXT主题。][186]
+ 9. [jieba：结巴中文分词，支持Python、Java等各种版本。][198]
+ 10. [word_cloud：Python生成词云工具库。][199]
+ 11. [greys-anatomy：Java诊断工具。][201]
+ 12. [springfox：使用Spring构建的API的自动JSON API文档。][205]
+ 13. [netty-socketio：在Java上用Netty实现的实时Socket.IO服务器java框架。][208]
+ 14. [NettyRpc：一个轻量级分布式RPC框架--NettyRpc。][209]
+ 15. [ebook-chat-app-spring-websocket-cassandra-redis-rabbitmq：使用Spring Framework，Boot，WebSocket，Cassandra，Redis和RabbitMQ构建集群且可扩展的基于Java的实时应用程序。][209]
+ 16. [flowing-retail：演示订单履行系统分解为多个独立组件，遵循领域驱动设计（DDD），事件驱动架构（EDA）和微服务。][224]
+### 3.3 好玩的
+ 1. [style2paints：AI驱动的线条着色工具。][204]
+ 2. [JavaQuarkBBS：基于Spring Boot实现的一个简易的Java社区。][220]
+ 3. [hexo-theme-next：HERO博客的NEXT主题，集成融合了许多第三方服务，自己的博客就是用NEXT主题。][186]
+ 4. [shopizer：开源的Java实现的电子商务网站。][216]
+ 5. [my-mac-os：macOS好玩的应用。][221]
+
 
 
   [1]: https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/
@@ -463,3 +498,34 @@
   [192]: https://netflix.github.io/conductor/
   [193]: https://docs.zeebe.io/introduction/install.html
   [194]: https://docs.camunda.org/manual/7.9/introduction/
+  [195]: https://github.com/jaegertracing/jaeger
+  [196]: https://github.com/sourcegraph/appdash
+  [197]: https://gokit.io/
+  [198]: https://github.com/fxsjy/jieba
+  [199]: https://github.com/amueller/word_cloud
+  [200]: https://github.com/spring-cloud-incubator/spring-cloud-alibaba
+  [201]: https://github.com/oldmanpushcart/greys-anatomy
+  [202]: https://github.com/btraceio/btrace
+  [203]: https://github.com/alibaba/TProfiler
+  [204]: https://github.com/lllyasviel/style2paints
+  [205]: https://github.com/springfox/springfox
+  [206]: https://github.com/apache/kylin
+  [207]: https://github.com/waylau/netty-4-user-guide
+  [208]: https://github.com/mrniko/netty-socketio
+  [209]: https://github.com/luxiaoxun/NettyRpc
+  [210]: https://github.com/code4craft/netty-learning
+  [211]: https://github.com/dianping/cat
+  [212]: https://github.com/apachecn/python_data_analysis_and_mining_action
+  [213]: https://github.com/alipay/sofa-boot
+  [214]: https://github.com/smallnest/ZKRecipesByExample
+  [215]: https://github.com/apache/curator
+  [216]: https://github.com/shopizer-ecommerce/shopizer
+  [217]: https://github.com/google/go-cloud
+  [218]: https://github.com/alipay/sofa-mosn
+  [219]: https://github.com/envoyproxy/envoy
+  [220]: https://github.com/ChinaLHR/JavaQuarkBBS
+  [221]: https://github.com/nikitavoloboev/my-mac-os
+  [222]: https://github.com/WiseWolfs/DataStructureAndAlgos
+  [223]: https://github.com/uber/cadence
+  [224]: https://github.com/berndruecker/flowing-retail
+  [225]: https://github.com/zhuxiuwei/CLRS

@@ -103,7 +103,7 @@
 <meta property="og:image" content="https://www.seleniumhq.org/docs/_images/chapt2_img14_Context_Menu.png">
 <meta property="og:image" content="https://www.seleniumhq.org/docs/_images/chapt2_img18_Copy_xpath.png">
 <meta property="og:image" content="https://www.seleniumhq.org/docs/_images/chapt2_img09_Step.png">
-<meta property="og:updated_time" content="2019-01-04T01:47:23.677Z">
+<meta property="og:updated_time" content="2019-01-04T01:49:36.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Selenium测试框架">
 <meta name="twitter:description" content="Selenium官网 Selenium简介Selenium可以对浏览器进行自动化测试。它主要用于自动化Web应用程序以进行测试，但当然不仅限于此。无聊的基于Web的管理任务也可以自动化。 Selenium得到了一些最大的浏览器供应商的支持，这些供应商已采取（或正在采取）将Selenium作为其浏览器本机部分的步骤。它也是无数其他浏览器自动化工具，API和框架的核心技术。支持多种语言，在java中可">
@@ -713,10 +713,82 @@
 </table>
 <p>您可能会想“这很奇怪，我从未试图断言该警报。”但这是Selenium-IDE处理并为您关闭警报。如果您删除该步骤并重播测试，您将获得以下内容 <code>[error] Error: There was an unexpected Alert! [I&#39;m blocking!].</code></p>
 <p>如果您只想声明警报存在但是不知道或不关心它包含哪个文本，则可以使用assertAlertPresent。这将返回true或false，错误地停止测试。</p>
-<h4 id="Confirmations"><a href="#Confirmations" class="headerlink" title="Confirmations"></a>Confirmations</h4><p>确认的行为与警报的行为大致相同，其中assertConfirmation和assertConfirmationPresent提供与其警报对应物相同的特征。但是，默认情况下，Selenium会在弹出确认时选择“确定”。尝试单击示例页面中的“显示确认框”按钮，但单击弹出窗口中的“取消”按钮，然后断言输出文本。您的测试可能如下所示：<br>Command| Target|value<br>—|—|—<br>open |/|<br>click |btnAlert|<br>chooseCancelOnNextConfirmation | |<br>assertConfirmation |    Choose an option.  |<br>verifyTextPresent |Rejected |</p>
+<h4 id="Confirmations"><a href="#Confirmations" class="headerlink" title="Confirmations"></a>Confirmations</h4><p>确认的行为与警报的行为大致相同，其中assertConfirmation和assertConfirmationPresent提供与其警报对应物相同的特征。但是，默认情况下，Selenium会在弹出确认时选择“确定”。尝试单击示例页面中的“显示确认框”按钮，但单击弹出窗口中的“取消”按钮，然后断言输出文本。您的测试可能如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Target</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>/</td>
+<td></td>
+</tr>
+<tr>
+<td>click</td>
+<td>btnAlert</td>
+<td></td>
+</tr>
+<tr>
+<td>chooseCancelOnNextConfirmation</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>assertConfirmation</td>
+<td>Choose an option.</td>
+<td></td>
+</tr>
+<tr>
+<td>verifyTextPresent</td>
+<td>Rejected</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>chooseCancelOnNextConfirmation函数告诉Selenium所有后续确认都应该返回false。可以通过调用chooseOkOnNextConfirmation来重置它。</p>
 <p>可能会注意到您无法重播此测试，因为Selenium抱怨存在未经处理的确认。这是因为Selenium-IDE记录的事件顺序导致click和chooseCancelOnNextConfirmation被置于错误的顺序（如果考虑它就有意义，Selenium在打开确认之前无法知道正在取消）切换这两个命令，你的测试运行正常。</p>
-<h4 id="Prompts"><a href="#Prompts" class="headerlink" title="Prompts"></a>Prompts</h4><p>提示的行为与警报的行为大致相同，其中assertPrompt和assertPromptPresent提供与其警报对应项相同的特征。默认情况下，Selenium会在弹出提示时等待您输入数据。尝试单击示例页面中的“显示提示”按钮，然后在提示中输入“Selenium”。测试可能如下所示：<br>Command| Target|value<br>—|—|—<br>open |/|<br>answerOnNextPrompt |Selenium!|<br>click |    id=btnPrompt |<br>assertPrompt |        What’s the best web QA tool? |<br>verifyTextPresent |    Selenium! |</p>
+<h4 id="Prompts"><a href="#Prompts" class="headerlink" title="Prompts"></a>Prompts</h4><p>提示的行为与警报的行为大致相同，其中assertPrompt和assertPromptPresent提供与其警报对应项相同的特征。默认情况下，Selenium会在弹出提示时等待您输入数据。尝试单击示例页面中的“显示提示”按钮，然后在提示中输入“Selenium”。测试可能如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Target</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>/</td>
+<td></td>
+</tr>
+<tr>
+<td>answerOnNextPrompt</td>
+<td>Selenium!</td>
+<td></td>
+</tr>
+<tr>
+<td>click</td>
+<td>id=btnPrompt</td>
+<td></td>
+</tr>
+<tr>
+<td>assertPrompt</td>
+<td>What’s the best web QA tool?</td>
+<td></td>
+</tr>
+<tr>
+<td>verifyTextPresent</td>
+<td>Selenium!</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>如果在提示中选择取消，您可能会注意到answerOnNextPrompt只显示空白目标。 Selenium对取消和提示上的空白条目基本上是一样的。</p>
 <h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><h4 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h4><p>要设置断点，请选择一个命令，单击鼠标右键，然后从上下文菜单中选择“切换断点”。然后单击“运行”按钮以从开始到断点运行测试用例。<br>从测试用例的中间位置到结束位置运行测试用例或者到达起始点之后的断点有时也很有用。例如，假设您的测试用例首先登录到网站，然后执行一系列测试，并且您正在尝试调试其中一个测试。但是，您只需要登录一次，但是在开发测试时需要不断重新运行测试。您可以登录一次，然后从测试用例的登录部分之后的起点运行测试用例。这将阻止您每次重新运行测试用例时都必须手动注销。</p>
 <h4 id="按步骤执行测试"><a href="#按步骤执行测试" class="headerlink" title="按步骤执行测试"></a>按步骤执行测试</h4><p>要一次执行一个测试用例（“step through”），只需重复按此按钮。</p>

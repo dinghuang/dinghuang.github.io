@@ -78,7 +78,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -89,21 +89,18 @@
 
 
 
-<meta name="description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="基于frp内网穿透反向代理的端口转发实现本地服务器frp简介frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。  利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。 对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。 利用处于内网或防火墙后的机器，对外网">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何在GitHub Page使用HEXO搭建博客">
-<meta property="og:url" content="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/index.html">
+<meta property="og:title" content="基于Frp内网穿透反向代理的端口转发实现本地服务器">
+<meta property="og:url" content="https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/index.html">
 <meta property="og:site_name" content="一只病猫">
-<meta property="og:description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
+<meta property="og:description" content="基于frp内网穿透反向代理的端口转发实现本地服务器frp简介frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。  利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。 对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。 利用处于内网或防火墙后的机器，对外网">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/007yGiDRgy1fyy2iwon08j31f2110dln.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/007yGiDRgy1fyy2k0uun6j31lg0rsqaf.jpg">
-<meta property="og:updated_time" content="2019-01-07T07:49:49.770Z">
+<meta property="og:updated_time" content="2019-01-07T07:14:02.480Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何在GitHub Page使用HEXO搭建博客">
-<meta name="twitter:description" content="如何在使用GitHub Page搭建HEXO博客项目地址 准备工作 安装Git 安装Node.js 注册Github账号 创建新的仓库 名称必须为 用户名.github.io 添加本地电脑的SSH认证，如图所示在本地命令工具中输入ssh-keygen -t rsa -C &amp;quot;Github的注册邮箱地址&amp;quot;一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后用带格式的">
-<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/007yGiDRgy1fyy2iwon08j31f2110dln.jpg">
+<meta name="twitter:title" content="基于Frp内网穿透反向代理的端口转发实现本地服务器">
+<meta name="twitter:description" content="基于frp内网穿透反向代理的端口转发实现本地服务器frp简介frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。  利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。 对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。 利用处于内网或防火墙后的机器，对外网">
 
 
 
@@ -133,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/"/>
+  <link rel="canonical" href="https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/"/>
 
 
 
 
 
-  <title>如何在GitHub Page使用HEXO搭建博客 | 一只病猫</title>
+  <title>基于Frp内网穿透反向代理的端口转发实现本地服务器 | 一只病猫</title>
   
 
 
@@ -305,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="强壮的病猫">
@@ -322,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何在GitHub Page使用HEXO搭建博客</h1>
+          <h1 class="post-title" itemprop="name headline">基于Frp内网穿透反向代理的端口转发实现本地服务器</h1>
         
 
         <div class="post-meta">
@@ -334,8 +331,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-21T13:51:00+08:00">
-                2018-09-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-07T15:47:00+08:00">
+                2019-01-07
               </time>
             
 
@@ -357,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -375,9 +372,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/21/如何在GitHub Page使用HEXO搭建博客/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/09/21/如何在GitHub Page使用HEXO搭建博客/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -405,35 +402,31 @@
       
 
       
-        <h1 id="如何在使用GitHub-Page搭建HEXO博客"><a href="#如何在使用GitHub-Page搭建HEXO博客" class="headerlink" title="如何在使用GitHub Page搭建HEXO博客"></a>如何在使用GitHub Page搭建HEXO博客</h1><p><a href="https://github.com/dinghuang/Blog" target="_blank" rel="noopener">项目地址</a></p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ol>
-<li>安装Git</li>
-<li>安装Node.js</li>
-<li>注册Github账号</li>
-<li>创建新的仓库 名称必须为 用户名.github.io<br><img src="https://ws1.sinaimg.cn/large/007yGiDRgy1fyy2iwon08j31f2110dln.jpg" alt="此处输入图片的描述"></li>
-<li>添加本地电脑的SSH认证，如图所示<br><img src="https://ws1.sinaimg.cn/large/007yGiDRgy1fyy2k0uun6j31lg0rsqaf.jpg" alt="此处输入图片的描述"><br>在本地命令工具中输入<br><code>ssh-keygen -t rsa -C &quot;Github的注册邮箱地址&quot;</code><br>一路回车之后会得到两个文件：id_rsa和id_rsa.pub，然后<br>用带格式的编辑器（比方说notepad++或者sublime）打开id_rsa.pub，复制里面的所有内容，然粘贴到KEY里面。</li>
-</ol>
-<h2 id="安装HEXO"><a href="#安装HEXO" class="headerlink" title="安装HEXO"></a>安装HEXO</h2><ol>
-<li>打开命令行工具<br><code>npm install -g hexo-cli</code></li>
-<li>安装 Hexo 完成后，分步执行（即输入代码之后敲回车）下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><code>hexo init &lt;folder&gt;</code><br>在文件夹内执行<br><code>npm install</code></li>
-<li>成功后，博客项目成功初始化</li>
-</ol>
-<h2 id="配置NEXT主题"><a href="#配置NEXT主题" class="headerlink" title="配置NEXT主题"></a>配置NEXT主题</h2><ol>
-<li>安装NEXT主题</li>
-</ol>
-<p><code>mkdir themes/next</code><br><code>curl -s https://api.github.com/repos/iissnan/hexo-theme-next/releases/latest | grep tarball_url | cut -d &#39;&quot;&#39; -f 4 | wget -i - -O- | tar -zx -C themes/next --strip-components=1</code><br>修改站点配置文件<code>_config.yml</code><br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">title:</span> 一只病猫</span><br><span class="line"><span class="symbol">subtitle:</span> 静坐常思己过，闲谈莫论人非</span><br><span class="line"><span class="symbol">description:</span> 学习、生活、闲谈、足球</span><br><span class="line"><span class="symbol">author:</span> 强壮的病猫</span><br><span class="line"><span class="symbol">language:</span> zh-Hans</span><br><span class="line"><span class="symbol">timezone:</span> Asia/Shanghai</span><br><span class="line"><span class="symbol">theme:</span> next</span><br><span class="line"><span class="symbol">url:</span> https:<span class="comment">//dinghuang.github.io/</span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span> git</span><br><span class="line"><span class="symbol">  repo:</span> https:<span class="comment">//github.com/dinghuang/dinghuang.github.io.git</span></span><br><span class="line"><span class="symbol">  branch:</span> master</span><br><span class="line"><span class="meta">#开启swiftype搜索，后面的id在swiftype官网申请，[具体操作][3]</span></span><br><span class="line"><span class="symbol">swiftype_key:</span> HcRPHRrBuwozvgUoLNyX</span><br><span class="line"><span class="meta">#要放到仓库的静态资源都放在source文件夹中，.md会被转换成HTML，所以这里要忽略</span></span><br><span class="line"><span class="symbol">skip_render:</span> README.md</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>配置NEXT主题<br>设置主题配置文件<code>./themes/next/_config.yml</code>，可以参考本项目的配置。<br>NEXT强大之处在于继承了很多第三方服务插件，不过类似评论搜索功能的插件被墙了，外网是可以用的。<a href="https://theme-next.iissnan.com/third-party-services.html" target="_blank" rel="noopener">具体参考</a></li>
-<li>设置标签分类<br>参考<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">链接</a>，在文章开头，引入：<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: 设计模式</span><br><span class="line">date: 2018<span class="string">-07</span><span class="string">-18</span> 09:43:00</span><br><span class="line"><span class="keyword">tags:</span></span><br><span class="line">    - JAVA</span><br><span class="line">categories: JAVA</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>更多配置请参考官方文档</p>
-<h2 id="提交"><a href="#提交" class="headerlink" title="提交"></a>提交</h2><ol>
-<li>输入命令<br><code>npm install hexo-deployer-git --save</code></li>
-<li>创建文章<br><code>hexo new &quot;你想要的文章标题填在这个双引号里&quot;</code></li>
-<li>文章会生成在<br><code>./source/_posts/设计模式.md</code><br>进行修改后<br><code>hexo clean ; hexo genarate</code></li>
-<li>然后输入<br><code>hexo deploy</code><br>此时文章已经成功部署。</li>
-</ol>
+        <h1 id="基于frp内网穿透反向代理的端口转发实现本地服务器"><a href="#基于frp内网穿透反向代理的端口转发实现本地服务器" class="headerlink" title="基于frp内网穿透反向代理的端口转发实现本地服务器"></a>基于frp内网穿透反向代理的端口转发实现本地服务器</h1><h2 id="frp简介"><a href="#frp简介" class="headerlink" title="frp简介"></a>frp简介</h2><p><a href="https://github.com/fatedier/frp" target="_blank" rel="noopener">frp</a> 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。</p>
+<ul>
+<li>利用处于内网或防火墙后的机器，对外网环境提供 http 或 https 服务。</li>
+<li>对于 http, https 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口。</li>
+<li>利用处于内网或防火墙后的机器，对外网环境提供 tcp 和 udp 服务，例如在家里通过 ssh 访问处于公司内网环境内的主机。</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="准备条件"><a href="#准备条件" class="headerlink" title="准备条件"></a>准备条件</h3><p>公网服务器一台，内网服务器一台，公网服务器绑定域名1个。</p>
+<h3 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h3><h4 id="公网服务器"><a href="#公网服务器" class="headerlink" title="公网服务器"></a>公网服务器</h4><p>ssh连接到公网服务器上，新建目录<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /usr/<span class="built_in">local</span>/frp</span><br></pre></td></tr></table></figure></p>
+<p>根据对应的操作系统及架构，从 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">Release</a> 页面下载最新版本的程序。<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/fatedier/</span>frp<span class="regexp">/releases/</span>download<span class="regexp">/v0.22.0/</span>frp_0.<span class="number">22.0</span>_linux_arm64.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>解压<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span>  <span class="selector-tag">frp_0</span><span class="selector-class">.22</span><span class="selector-class">.0_linux_arm64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></table></figure></p>
+<p>首先删掉<code>frpc</code>、<code>frpc.ini</code>两个文件，然后再进行配置<br>修改<code>frps.ini</code>文件，这里使用了最简化的配置：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frps.ini</span></span><br><span class="line">bind_port = 7000           <span class="comment">#与客户端绑定的进行通信的端口</span></span><br><span class="line">vhost_http_port = 6081     <span class="comment">#访问客户端web服务自定义的端口号</span></span><br></pre></td></tr></table></figure></p>
+<p>保存然后启动服务<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./frps</span> -c <span class="string">./frps.ini</span></span><br></pre></td></tr></table></figure></p>
+<p>这是前台启动，后台启动命令为<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c ./frps.ini &amp;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">#### 内网服务器</span><br><span class="line"></span><br><span class="line">根据对应的操作系统及架构，从 [Release](https:<span class="comment">//github.com/fatedier/frp/releases) 页面下载最新版本的程序。</span></span><br></pre></td></tr></table></figure></p>
+<p>wget <a href="https://github.com/fatedier/frp/releases/download/v0.22.0/frp_0.22.0_linux_arm64.tar.gz" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases/download/v0.22.0/frp_0.22.0_linux_arm64.tar.gz</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">解压</span><br></pre></td></tr></table></figure></p>
+<p>tar -zxvf  frp_0.22.0_linux_arm64.tar.gz<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">首先删掉``frpc``、``frpc.ini``两个文件，然后再进行配置</span><br><span class="line">修改 ``frpc.ini`` 文件。</span><br></pre></td></tr></table></figure></p>
+<h1 id="frpc-ini"><a href="#frpc-ini" class="headerlink" title="frpc.ini"></a>frpc.ini</h1><p>server_addr = 10.211.37.48   #公网服务器ip<br>server_port = 7000            #与服务端bind_port一致</p>
+<p>#公网通过ssh访问内部服务器<br>[ssh]<br>type = tcp              #连接协议<br>local_ip = 192.168.3.48 #内网服务器ip<br>local_port = 22         #ssh默认端口号<br>remote_port = 6000      #自定义的访问内部ssh端口号</p>
+<p>#公网访问内部web服务器以http方式<br>[web]<br>type = http         #访问协议<br>local_port = 8081   #内网web服务的端口号<br>custom_domains = strongcat.top #所绑定的公网服务器域名，一级、二级域名都可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">保存然后执行启动</span><br></pre></td></tr></table></figure></p>
+<p>./frpc -c ./frpc.ini<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这是前台启动，后台启动命令为</span><br></pre></td></tr></table></figure></p>
+<p>nohup ./frpc -c ./frpc.ini &amp;<br><code>`</code></p>
+<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><p>外网ssh访问内网服务器（直接使用配置里面数据演示）</p>
+<p>ip：10.211.37.48  port:6000   用户名：linux服务器的用户 密码：linux服务器的密码 或者</p>
+<p>ip：10.211.37.48  port:22  用户名：linux服务器的用户 密码：linux服务器的密码 或者</p>
+<p>ip：strongcat.top  port:6000  用户名：linux服务器的用户 密码：linux服务器的密 或者</p>
+<p>ip：strongcat.top  port:22  用户名：linux服务器的用   密码：linux服务器的密码</p>
 
       
     </div>
@@ -454,7 +447,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/" title="如何在GitHub Page使用HEXO搭建博客">https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/</a>
+    <a href="https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/" title="基于Frp内网穿透反向代理的端口转发实现本地服务器">https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -469,7 +462,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
           
         </div>
       
@@ -497,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/08/VPS搭建SS/" rel="next" title="VPS搭建SS">
-                <i class="fa fa-chevron-left"></i> VPS搭建SS
+              <a href="/2019/01/04/Selenium测试框架/" rel="next" title="Selenium测试框架">
+                <i class="fa fa-chevron-left"></i> Selenium测试框架
               </a>
             
           </div>
@@ -506,10 +499,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/01/04/Selenium测试框架/" rel="prev" title="Selenium测试框架">
-                Selenium测试框架 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -667,7 +656,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在使用GitHub-Page搭建HEXO博客"><span class="nav-number">1.</span> <span class="nav-text">如何在使用GitHub Page搭建HEXO博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装HEXO"><span class="nav-number">1.2.</span> <span class="nav-text">安装HEXO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置NEXT主题"><span class="nav-number">1.3.</span> <span class="nav-text">配置NEXT主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交"><span class="nav-number">1.4.</span> <span class="nav-text">提交</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基于frp内网穿透反向代理的端口转发实现本地服务器"><span class="nav-number">1.</span> <span class="nav-text">基于frp内网穿透反向代理的端口转发实现本地服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#frp简介"><span class="nav-number">1.1.</span> <span class="nav-text">frp简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备条件"><span class="nav-number">1.2.1.</span> <span class="nav-text">准备条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开始搭建"><span class="nav-number">1.2.2.</span> <span class="nav-text">开始搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公网服务器"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">公网服务器</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#frpc-ini"><span class="nav-number">2.</span> <span class="nav-text">frpc.ini</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-1"><span class="nav-number">2.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -837,9 +826,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://dinghuang.github.io/2018/09/21/如何在GitHub Page使用HEXO搭建博客/';
-          this.page.identifier = '2018/09/21/如何在GitHub Page使用HEXO搭建博客/';
-          this.page.title = '如何在GitHub Page使用HEXO搭建博客';
+          this.page.url = 'https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/';
+          this.page.identifier = '2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/';
+          this.page.title = '基于Frp内网穿透反向代理的端口转发实现本地服务器';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dinghuang-1.disqus.com/embed.js';

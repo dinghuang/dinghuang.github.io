@@ -34,7 +34,8 @@
         * [2.25 工作流引擎](#225-工作流引擎)
         * [2.26 代码标准](#226-代码标准)
         * [2.27 知识管理](#227-知识管理)
-        * [2.28 其他](#228-其他)
+        * [2.28 运维相关](#228-运维相关)
+        * [2.29 其他](#229-其他)
     * [3. 个人优秀开源项目](#3-个人优秀开源项目)
         * [3.1 知识整合](#31-知识整合)
         * [3.2 框架、工具](#32-框架工具)   
@@ -77,7 +78,11 @@
  9. [Spring Cloud Alibaba：只需要添加一些注解和少量配置，就可以将 Spring Cloud 应用接入阿里微服务解决方案，通过阿里中间件来迅速搭建分布式应用系统。][200]
  10. [sofa-boot：阿里巴巴旗下支付宝开源的一个增强Spring Boot并与之完全兼容的框架，提供准备检查，类隔离等。][213]
  11. [Envoy：Envoy 是一款由 Lyft 开源的，使用 C++ 编写的 L7 代理和通信总线，目前是 CNCF 旗下的开源项目，它也是 Istio service mesh 中默认的 data plane。][219]
- 12. [SOFAMosn：阿里巴巴旗下支付宝开源的功能和定位类似Envoy ，旨在提供分布式，模块化，可观察，智能化的代理能力，替换istio的sidecar。][218]
+ 12. [SOFAMosn：阿里巴巴旗下支付宝开源的功能和定位类似Envoy ，旨在提供分布式，模块化，可观察，智能化的代理能力，替换Istio的sidecar。][218]
+ 13. [sofa-mesh：蚂蚁金服SOFAMesh 是基于 Istio 改进和扩展而来的 Service Mesh 大规模落地实践方案。][235]
+ 14. [sofa-bolt：SOFABolt 是蚂蚁金融服务集团开发的一套基于 Netty 实现的网络通信框架。][236]
+ 15. [thrift：Apache旗下的可伸缩的跨语言服务开发框架。][238]
+ 16. [storm：Apache旗下的分布式实时计算系统。类似于Hadoop如何提供一组用于进行批处理的通用基元，Storm提供了一组用于进行实时计算的通用基元。][239]
 ### 2.4 权限安全相关
  1. [Shiro：ApacheShiro专注于易用性，可以依赖安全，稳定的身份验证，授权，加密和会话管理。][24]
  2. [Spring Security：SpringSecurity是一个功能强大且可高度自定义的身份验证和访问控制框架。它是保护基于Spring的应用程序的事实上的标准。][25]
@@ -128,6 +133,8 @@
  2. [JUnit5：最常使用的单元测试工具。][58]
  3. [Mockito：允许使用自动化的单元测试创建和测试双对象，以达到测试驱动开发和行为驱动开发的目的。][59]
  4. [JaCoCo：Java代码覆盖库，用Sonarqube测试代码覆盖率需要用到。][60]
+ 5. [TestNG：TestNG是一个受JUnit和NUnit启发的测试框架，支持xml配置测试用例，支持扩展性较好。][227]
+ 6. [Selenium：Selenium可以对浏览器进行自动化测试。它主要用于自动化Web应用程序以进行测试。][228]
 ### 2.15 测试工具
  1. [Jmeter：老牌压测工具，也是用的最广泛的。][61]
  2. [Fio：文件系统性能测试。][62]
@@ -179,6 +186,7 @@
  12. [Go-kit：go kit 是一个分布式的开发工具集，在大型的组织（业务）中可以用来构建微服务。其解决了分布式系统中的大多数常见问题，因此，使用者可以将精力集中在业务逻辑上。][197]
  13. [kylin：开源的分布式分析引擎，由eBay Inc.提供，在Hadoop上提供SQL接口和多维分析（OLAP），支持极大的数据集，国内团队维护的。][197]
  14. [curator：Apache ZooKeeper的Java / JVM客户端库，它是一种分布式协调服务，包含一个高级API框架和实用程序，使Apache ZooKeeper更容易，更可靠。][215]
+ 15. [X-Pipe：由携程框架部门研发的Redis多数据中心复制管理系统。基于Redis的Master-Slave复制协议，实现低延时、高可用的Redis多数据中心复制，并且提供一键机房切换，复制监控、异常报警等功能。][233]
 ### 2.19 数据库相关
  1. [MySQL：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，MySQL就比较适用于微服务。][87]
  2. [Oracle：老牌数据库，非常强大，现在收购了Sun公司和MySQL。][88]
@@ -231,6 +239,7 @@
  4. [JBoss Cache：基于事物的Java缓存框架。][123]
  5. [Voldemort：基于键-值（key-value）的缓存框架。][124]
  6. [Redis：应用最多的缓存框架，常用于二级缓存，不仅可以作为分布式服务的分布式锁，还可以用做pubsub实现分布式WebSocket。][125]
+ 7. [caffeine：适用于Java 8的高性能缓存库。][125]
 ### 2.24 架构相关
  1. [Domain-driven design：领域驱动设计，复杂的业务逻辑可以参考，其中盒马生鲜就用到了其中的概念。][126]
  2. [Saga：用于解决分布式系统事务一致性的模式。][127]
@@ -239,8 +248,7 @@
  2. [JBPM：是JBoss中一款开源的工作流引擎，是一个轻量级的，使用最新的BPMN 2规范可扩展的，目前最新的是JBPM3。][129]
  3. [Conductor：Netflix开源的协调分布式微服务的工作流。][192]
  4. [Zeebe：目前关注的一个正在开发的真正意义上的微服务的工作流，让其他微服务串起来的工作流，目前还没出1.0。][193]
- 5. [Camunda：一个基于Java的框架，支持BPMN用于工作流和过程自动化。][193]
- 6. [Camunda：Uber开源的分布式，可扩展，持久且高度可用的编排引擎，与Zeebe类似。][223]
+ 6. [Cadence：Uber开源的分布式，可扩展，持久且高度可用的编排引擎，与Zeebe类似。][223]
 ### 2.26 代码标准
  1. [p3c：阿里巴巴代码规约。][130]
  2. [SonarQube：一个开源的代码质量管理系统。][131]
@@ -249,13 +257,17 @@
  2. [Mediawiki：MediaWiki是由PHP开发的免费开源的维基程序，运行于PHP+mySQL环境。他是专为维基百科开发的wiki程序。][181]
  3. [Confluence：Jira的母公司Atlassian下的不开源知识管理应用。][182]
  4. [Ones Wiki：国内不开源的知识管理应用。][183]
-### 2.28 其他
+### 2.28 运维相关
+ 1. [Frp：frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp, http, https 协议。][229]
+### 2.29 其他
  1. [PArallel：百度深度学习框架。][132]
  2. [netty：事件驱动的异步网络应用程序框架。][133]
  3. [Tensorflow：谷歌机器学习框架，目前最流行的机器学习框架。][134]
  4. [mpvue：美团小程序开发框架。][135]
  5. [Choerodon：自己参与开发的开源企业服务平台，是基于Kubernetes的容器编排和管理能力，整合DevOps工具链、微服务和移动应用框架。][136]
  6. [go-cloud：提供了一个库和用于构建可在多个云平台之间移植的应用程序的工具。][217]
+
+
 ## 3. 个人优秀开源项目
 ### 3.1 知识整合
  1. [java-design-patterns：Java实现的设计模式。][138]
@@ -278,7 +290,8 @@
  19. [python_data_analysis_and_mining_action：《python数据分析与挖掘实战》的代码笔记。][212]
  20. [ZKRecipesByExample：Curator全面的例子， 演示了Curator在项目中的应用，全面的介绍了ZooKeeper的Recipe的实现， 以及CuratorFramework的基本用法。][214]
  21. [DataStructureAndAlgos：数据结构（链表、队列、栈、二叉树、哈希表等）以及一些常用的算法（排序：归并、快速排序、基数排序等，查找：二分查找法），统一由JAVA实现。][222]
- 22. [CLRS：算法导论第三版中的算法及习题。。][225]
+ 22. [CLRS：算法导论第三版中的算法及习题。][225]
+ 23. [awesome-aws：精选的AWS库，开源存储库，指南，博客和其他资源的精选列表。][234]
 ### 3.2 框架、工具
  1. [jodd：轻量级的Java微框架。][140]
  2. [tini：容器的一个小而有效的`init`。][142]
@@ -296,12 +309,16 @@
  14. [NettyRpc：一个轻量级分布式RPC框架--NettyRpc。][209]
  15. [ebook-chat-app-spring-websocket-cassandra-redis-rabbitmq：使用Spring Framework，Boot，WebSocket，Cassandra，Redis和RabbitMQ构建集群且可扩展的基于Java的实时应用程序。][209]
  16. [flowing-retail：演示订单履行系统分解为多个独立组件，遵循领域驱动设计（DDD），事件驱动架构（EDA）和微服务。][224]
+ 17. [PicGo：PicGo在上传图片之后自动会将图片链接复制到你的剪贴板里，可选5种复制的链接格式。][230]
 ### 3.3 好玩的
  1. [style2paints：AI驱动的线条着色工具。][204]
  2. [JavaQuarkBBS：基于Spring Boot实现的一个简易的Java社区。][220]
  3. [hexo-theme-next：HERO博客的NEXT主题，集成融合了许多第三方服务，自己的博客就是用NEXT主题。][186]
  4. [shopizer：开源的Java实现的电子商务网站。][216]
  5. [my-mac-os：macOS好玩的应用。][221]
+ 6. [WeChatPlugin-MacOS：一款功能强大的 macOS 版微信小助手。][231]
+ 7. [alfred-workflows：macOS上Alfred 3的工作流集合，自己也在用，效率提升100%。][232]
+ 8. [NetDiscovery：打造一个通用的爬虫程序。][237]
 
 
 
@@ -531,3 +548,17 @@
   [224]: https://github.com/berndruecker/flowing-retail
   [225]: https://github.com/zhuxiuwei/CLRS
   [226]: https://github.com/alibaba/arthas
+  [227]: https://testng.org/doc/index.html
+  [228]: https://www.seleniumhq.org/
+  [229]: https://github.com/fatedier/frp
+  [230]: https://github.com/Molunerfinn/PicGo
+  [231]: https://github.com/TKkk-iOSer/WeChatPlugin-MacOS
+  [232]: https://github.com/zenorocha/alfred-workflows
+  [233]: https://github.com/ctripcorp/x-pipe
+  [234]: https://github.com/donnemartin/awesome-aws
+  [235]: https://github.com/alipay/sofa-mesh
+  [236]: https://github.com/alipay/sofa-bolt
+  [237]: https://github.com/fengzhizi715/NetDiscovery
+  [238]: https://github.com/apache/thrift
+  [239]: https://github.com/apache/storm
+  [240]: https://github.com/ben-manes/caffeine

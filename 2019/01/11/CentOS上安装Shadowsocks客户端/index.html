@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="一只病猫">
 <meta property="og:description" content="CentOS上安装Shadowsocks客户端Shadowsocks简介Shadowsocks，是一种加密的传输方式（一种基于 Socks5 代理方式的网络数据加密传输包）；SS 是目前主流的科学上网方式，是目前最稳定最好用的科学上网工具之一。 安装安装pippip是Python的包管理工具，我们接下来是使用pip安装的Shadowsocks。  通过yum管理工具安装： 1yum install">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-11T07:45:04.418Z">
+<meta property="og:updated_time" content="2019-01-11T07:45:57.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS上安装Shadowsocks客户端">
 <meta name="twitter:description" content="CentOS上安装Shadowsocks客户端Shadowsocks简介Shadowsocks，是一种加密的传输方式（一种基于 Socks5 代理方式的网络数据加密传输包）；SS 是目前主流的科学上网方式，是目前最稳定最好用的科学上网工具之一。 安装安装pippip是Python的包管理工具，我们接下来是使用pip安装的Shadowsocks。  通过yum管理工具安装： 1yum install">
@@ -420,7 +420,8 @@
 <h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>使用yum安装：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> privoxy -y</span><br></pre></td></tr></table></figure></p>
 <p>修改配置文件<code>vi /etc/privoxy/config</code>，加入一行代码<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">forward-socks5 / <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">25252</span> .</span><br><span class="line">listen-address <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">8118</span>  #这里的<span class="built_in">ip</span>也可以是k8s的<span class="built_in">ip</span></span><br></pre></td></tr></table></figure></p>
 <p>启动服务<code>systemctl start privoxy</code>，执行命令<code>curl -x localhost:8118 google.com</code>，返回数据则表示服务启动成功</p>
-<h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>编辑文件<code>vi /usr/local/etc/privoxy/config</code>：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">http_proxy</span>=http://127.0.0.1:8118</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">https_proxy</span>=http://127.0.0.1:8118</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>编辑文件<code>vi /usr/local/etc/privoxy/config</code>：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">http_proxy</span>=http://127.0.0.1:8118</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">https_proxy</span>=http://127.0.0.1:8118</span><br></pre></td></tr></table></figure></p>
+<p>使配置生效<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span> <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure></p>
 <p>测试代码<code>curl www.google.com</code>，返回数据则成功设置全局命令行代理</p>
 
       

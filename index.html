@@ -301,6 +301,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/01/11/CentOS上安装Shadowsocks客户端/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/11/CentOS上安装Shadowsocks客户端/" itemprop="url">CentOS上安装Shadowsocks客户端</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-11T15:47:00+08:00">
+                2019-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/11/CentOS上安装Shadowsocks客户端/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/01/11/CentOS上安装Shadowsocks客户端/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="CentOS上安装Shadowsocks客户端"><a href="#CentOS上安装Shadowsocks客户端" class="headerlink" title="CentOS上安装Shadowsocks客户端"></a>CentOS上安装Shadowsocks客户端</h1><h2 id="Shadowsocks简介"><a href="#Shadowsocks简介" class="headerlink" title="Shadowsocks简介"></a>Shadowsocks简介</h2><p>Shadowsocks，是一种加密的传输方式（一种基于 Socks5 代理方式的网络数据加密传输包）；SS 是目前主流的科学上网方式，是目前最稳定最好用的科学上网工具之一。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h3><p>pip是Python的包管理工具，我们接下来是使用pip安装的Shadowsocks。</p>
+<ol>
+<li><p>通过yum管理工具安装：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> -y pip</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>镜像库没有这个包，那么可以手动安装:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"https://bootstrap.pypa.io/get-pip.py"</span> -<span class="keyword">o</span> <span class="string">"get-pip.py"</span></span><br><span class="line"><span class="keyword">python</span> <span class="built_in">get</span>-pip.<span class="keyword">py</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="安装Shadowsocks客户端"><a href="#安装Shadowsocks客户端" class="headerlink" title="安装Shadowsocks客户端"></a>安装Shadowsocks客户端</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> <span class="comment">--upgrade pip</span></span><br><span class="line">pip <span class="keyword">install</span> shadowsocks</span><br></pre></td></tr></table></figure>
+<p>新建配置文件<code>vi /etc/shadowsocks.json</code>：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="attr">"server"</span>:<span class="string">"x.x.x.x"</span>,</span><br><span class="line"><span class="attr">"server_port"</span>:<span class="number">25247</span>,</span><br><span class="line"><span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line"><span class="attr">"local_port"</span>:<span class="number">25252</span>,</span><br><span class="line"><span class="attr">"password"</span>:<span class="string">"123456"</span>,</span><br><span class="line"><span class="attr">"timeout"</span>:<span class="number">1000</span>,</span><br><span class="line"><span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line"><span class="attr">"workers"</span>: <span class="number">10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写启动服务<code>vi /etc/systemd/system/shadowsocks.service</code>:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=shadowsocks</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">TimeoutStartSec</span>=<span class="number">30</span></span><br><span class="line"><span class="attr">ExecStart</span>=/usr/bin/sslocal -c /etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure></p>
+<p>启动服务<code>systemctl start shadowsocks</code>，运行 <code>curl --socks5 127.0.0.1:25252 http://httpbin.org/ip</code> ， 返回你ss服务器ip，则说明Shadowsocks客户端启动成功。</p>
+<h2 id="使用Privoxy把shadowsocks转换为Http代理"><a href="#使用Privoxy把shadowsocks转换为Http代理" class="headerlink" title="使用Privoxy把shadowsocks转换为Http代理"></a>使用Privoxy把shadowsocks转换为Http代理</h2><h3 id="Privoxy简介"><a href="#Privoxy简介" class="headerlink" title="Privoxy简介"></a>Privoxy简介</h3><p>Privoxy是一个代理辅助工具，这里用Privoxy把Shadowsocks socks5代理转换为http代理。可以作为kubernetes的docker容器需要访问google的服务，也同时可以作为命令行的代理，本实例用作命令行代理。</p>
+<h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>使用yum安装：<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> privoxy -y</span><br></pre></td></tr></table></figure></p>
+<p>修改配置文件<code>vi /etc/privoxy/config</code>，加入一行代码<br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">forward-socks5 / <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">25252</span> .</span><br><span class="line">listen-address <span class="number">127.0</span><span class="meta">.0</span><span class="meta">.1</span>:<span class="number">8118</span>  #这里的<span class="built_in">ip</span>也可以是k8s的<span class="built_in">ip</span></span><br></pre></td></tr></table></figure></p>
+<p>启动服务<code>systemctl start privoxy</code>，执行命令<code>curl -x localhost:8118 google.com</code>，返回数据则表示服务启动成功</p>
+<h3 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h3><p>编辑文件<code>vi /usr/local/etc/privoxy/config</code>：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">http_proxy</span>=http://127.0.0.1:8118</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">https_proxy</span>=http://127.0.0.1:8118</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<p>测试代码<code>curl www.google.com</code>，返回数据则成功设置全局命令行代理</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/01/07/基于Frp内网穿透反向代理的端口转发实现本地服务器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3079,7 +3251,7 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

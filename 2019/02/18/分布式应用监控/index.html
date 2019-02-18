@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分布式应用监控分布式系统已经诞生了很长时间，现代互联网公司规模都变得异常庞大，系统也变得越来越复杂，给监控工作带来了极大的难度：海量日志数据如何处理，服务如何追踪，如何高效定位故障缩短故障时常，常见的监控手段可以分为集中式日志系统（Logging），集中式度量系统（Metrics）和分布式追踪系统（Tracing）。 集中式日志系统集中式日志系统，选取了最具代表性的ELK Elasticsearc">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式应用监控">
+<meta property="og:url" content="https://dinghuang.github.io/2019/02/18/分布式应用监控/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="分布式应用监控分布式系统已经诞生了很长时间，现代互联网公司规模都变得异常庞大，系统也变得越来越复杂，给监控工作带来了极大的难度：海量日志数据如何处理，服务如何追踪，如何高效定位故障缩短故障时常，常见的监控手段可以分为集中式日志系统（Logging），集中式度量系统（Metrics）和分布式追踪系统（Tracing）。 集中式日志系统集中式日志系统，选取了最具代表性的ELK Elasticsearc">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ankzojyuj20my0dqgqa.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anmng640j20t20u0qb9.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anngzbwsj20ge06cmxi.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ano9kvhpj20ae0fidh8.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anos2ri4j20u00ioaoe.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anqgzyihj20rs0jkq8b.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anujxybgj22la1ac7e1.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anxotbydj22k419y475.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anykdlefj20yn0maacx.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anujxybgj22la1ac7e1.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ao1npp86j20z00kc0wk.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aocmau0ej22l812ogqo.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoe1u94dj20pp0qv78x.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aog1imivj22jc19e46g.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aogngitwj22ki19g11f.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoibi3egj20qo0eujsb.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoim0nuwj20zy0lwk41.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoqxnurij20qp0d3k4h.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aos0a6q6j20rl0fdwvn.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aov6vr6mj21gw0o8147.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aox97889j20u20ewn0o.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoyo8a04j20ru0ietcq.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aozn4exyj20uk0f6wif.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ap1ca1x2j20um0gi78o.jpg">
+<meta property="og:updated_time" content="2019-02-18T09:15:01.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式应用监控">
+<meta name="twitter:description" content="分布式应用监控分布式系统已经诞生了很长时间，现代互联网公司规模都变得异常庞大，系统也变得越来越复杂，给监控工作带来了极大的难度：海量日志数据如何处理，服务如何追踪，如何高效定位故障缩短故障时常，常见的监控手段可以分为集中式日志系统（Logging），集中式度量系统（Metrics）和分布式追踪系统（Tracing）。 集中式日志系统集中式日志系统，选取了最具代表性的ELK Elasticsearc">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ankzojyuj20my0dqgqa.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2019/02/18/分布式应用监控/"/>
+
+
+
+
+
+  <title>分布式应用监控 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/02/18/分布式应用监控/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式应用监控</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-18T15:47:00+08:00">
+                2019-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/18/分布式应用监控/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/02/18/分布式应用监控/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分布式应用监控"><a href="#分布式应用监控" class="headerlink" title="分布式应用监控"></a>分布式应用监控</h1><p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ankzojyuj20my0dqgqa.jpg" alt="image"><br>分布式系统已经诞生了很长时间，现代互联网公司规模都变得异常庞大，系统也变得越来越复杂，给监控工作带来了极大的难度：海量日志数据如何处理，服务如何追踪，如何高效定位故障缩短故障时常，常见的监控手段可以分为集中式日志系统（Logging），集中式度量系统（Metrics）和分布式追踪系统（Tracing）。</p>
+<h2 id="集中式日志系统"><a href="#集中式日志系统" class="headerlink" title="集中式日志系统"></a>集中式日志系统</h2><p>集中式日志系统，选取了最具代表性的<a href="https://www.elastic.co/elk-stack" target="_blank" rel="noopener">ELK</a><br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anmng640j20t20u0qb9.jpg" alt="image"></p>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p>Elasticsearch是个开源的分布式搜索引擎，提供搜索、分析、存储数据三大功能。它的特点有：分布式、自动发现、索引自动分片、索引副本机制、RESTful 风格接口、多数据源以及自动搜索负载等。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anngzbwsj20ge06cmxi.jpg" alt="image"></p>
+<h3 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h3><p>Logstash 是一个开源的动态数据收集处理管道，它可以同时从多个源中提取数据，对其进行转换，并且拥有可扩展的插件生态系统，能够与 Elasticsearch 产生强大的协同作用。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ano9kvhpj20ae0fidh8.jpg" alt="image"></p>
+<h3 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h3><p>Kibana是一个开源的分析与可视化平台，设计出来用于和Elasticsearch一起使用的。你可以用kibana搜索、查看存放在Elasticsearch中的数据。Kibana与Elasticsearch的交互方式是各种不同的图表、表格、地图等，直观的展示数据，从而达到高级的数据分析与可视化的目的。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anos2ri4j20u00ioaoe.jpg" alt="image"></p>
+<h3 id="Beats"><a href="#Beats" class="headerlink" title="Beats"></a>Beats</h3><p>Beats 是 ELK Stack 技术栈中负责单一用途数据采集并推送给 Logstash 或 Elasticsearch 的轻量级产品。包括：</p>
+<ul>
+<li>Filebeats：应用于日志收集场景的实现。</li>
+<li>Metricbeat：轻量级的系统级性能指标监控工具。</li>
+<li>Packetbeat：轻量级的网络数据包分析工具。</li>
+<li>Winlogbeat：轻量级的 Windows 事件日志收集工具。</li>
+<li>Heartbeat：心跳检测工具，主要监控服务的可用性。</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anqgzyihj20rs0jkq8b.jpg" alt="image"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>修改虚拟机的内存限制<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/sysctl.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>加入<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.<span class="attribute">max_map_count</span>=262144</span><br></pre></td></tr></table></figure></p>
+<p><code>sysctl -p</code>查看设置</p>
+<p>docker安装ELK<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull sebp/elk</span><br><span class="line">docker <span class="builtin-name">run</span> -p 5601:5601 -p 9200:9200 -p 5044:5044 -e <span class="attribute">ES_MIN_MEM</span>=128m  -e <span class="attribute">ES_MAX_MEM</span>=1024m -it --name elk sebp/elk</span><br></pre></td></tr></table></figure></p>
+<p>输入网址<code>http://&lt;your-host&gt;:5601</code>可以看到下面的界面，则说明安装成功<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anujxybgj22la1ac7e1.jpg" alt="image"></p>
+<h4 id="配置使用"><a href="#配置使用" class="headerlink" title="配置使用"></a>配置使用</h4><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -<span class="keyword">it</span> &lt;container-<span class="built_in">name</span>&gt; /bin/bash</span><br></pre></td></tr></table></figure>
+<p>进入容器，执行命令<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/opt/</span>logstash<span class="regexp">/bin/</span>logstash -e <span class="string">'input &#123; stdin &#123; &#125; &#125; output &#123; elasticsearch &#123; hosts =&gt; ["localhost"] &#125; &#125;'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果有错误信息<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service logstash <span class="built_in">stop</span></span><br></pre></td></tr></table></figure></p>
+<p>当命令成功被执行后，看到：<code>Successfully started Logstash API endpoint {:port=&gt;9600}</code>信息后，输入：<code>this is a dummy entry</code>然后回车，模拟一条日志进行测试。</p>
+<p>打开浏览器<code>http://&lt;your-host&gt;:9200/_search?pretty</code>，如图所示<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anxotbydj22k419y475.jpg" alt="image"></p>
+<p>打开浏览器，输入：<code>http://&lt;your-host&gt;:5601</code> 点击创建<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anykdlefj20yn0maacx.jpg" alt="image"></p>
+<p>看到如下界面，到此安装结束。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0anujxybgj22la1ac7e1.jpg" alt="image"></p>
+<p>与java应用结合的日志分析系统可以通过Beats的Filebeats来实现，通过log4j将运行日志输出在文件中，通过Filebeats插件利用Logstash过滤并导入到Elasticsearch中，最后通过Kibana展示。</p>
+<h2 id="集中式度量系统"><a href="#集中式度量系统" class="headerlink" title="集中式度量系统"></a>集中式度量系统</h2><h3 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h3><p><a href="https://prometheus.io/" target="_blank" rel="noopener">Prometheus</a>是一个基于时间序列的数值数据的监控解决方案，这是一个开源项目，由前Google员工在SoundCloud启动，他们希望监控一个高度动态的容器环境，因为对传统的监控工具不甚满意，所以开发出Prometheus，并在上面进行工作。Prometheus解决了Devs如何监控高动态容器环境的问题。</p>
+<p>例如我们想要获取所有的服务器上node_exporter暴露出来的数据，就必须有个程序去定时访问这些接口，如果想要增加或者修改这些接口，那么就需要有个配置文件来记录这些服务器的地址，如果想要访问历史的某个时间点的数据，那么就必须按照时间顺序存储获取到的指标和值。而如果想要将值绘制成图，也需要有代码去查询、计算和渲染。最后你可能还希望当服务器的某个指标超过一定的阈值时，向指定的接口发出告警信息。一切的一切其实都可以使用Prometheus来解决。</p>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ao1npp86j20z00kc0wk.jpg" alt="image"></p>
+<h3 id="Prometheus检测mysql相关指标"><a href="#Prometheus检测mysql相关指标" class="headerlink" title="Prometheus检测mysql相关指标"></a>Prometheus检测mysql相关指标</h3><p>前提：本地安装了mysql</p>
+<h4 id="安装node-exporter"><a href="#安装node-exporter" class="headerlink" title="安装node-exporter"></a>安装node-exporter</h4><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull <span class="keyword">node</span><span class="title">-exporter</span></span><br><span class="line">docker run -d -p <span class="number">9100</span>:<span class="number">9100</span> --cap-add SYS_TIME --<span class="attr">net=</span><span class="string">"host"</span> --<span class="attr">pid=</span><span class="string">"host"</span> -v <span class="string">"/:/host:ro,rslave"</span>quay.io/prometheus/<span class="keyword">node</span><span class="title">-exporter</span> --<span class="attr">cap-add=</span>SYS_TIME --path.rootfs /host</span><br></pre></td></tr></table></figure>
+<h4 id="安装mysqld-exporter"><a href="#安装mysqld-exporter" class="headerlink" title="安装mysqld-exporter"></a>安装mysqld-exporter</h4><p>通过mysql命令界面创建相应角色并赋予权限<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'mysql_monitor'</span>@<span class="string">'localhost'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'XXXXXXXX'</span> <span class="keyword">WITH</span> MAX_USER_CONNECTIONS <span class="number">3</span>;</span><br><span class="line"><span class="keyword">GRANT</span> PROCESS, <span class="keyword">REPLICATION</span> <span class="keyword">CLIENT</span>, <span class="keyword">SELECT</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'mysql_monitor'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>docker安装<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysqld-exporter</span><br><span class="line">docker <span class="builtin-name">run</span> -d -p 9104:9104 -e <span class="attribute">DATA_SOURCE_NAME</span>=<span class="string">"mysql_monitor:root@(127.0.0.1:3306)/"</span> prom/mysqld-exporter</span><br></pre></td></tr></table></figure></p>
+<h4 id="安装Prometheus"><a href="#安装Prometheus" class="headerlink" title="安装Prometheus"></a>安装Prometheus</h4><p>创建文件<code>prometheus.yml</code><br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">global</span>:</span><br><span class="line">  <span class="attribute">scrape_interval</span>:     <span class="number">60s</span></span><br><span class="line">  <span class="attribute">evaluation_interval</span>: <span class="number">60s</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">scrape_configs</span>:</span><br><span class="line">  - <span class="attribute">job_name</span>: prometheus</span><br><span class="line">    <span class="attribute">static_configs</span>:</span><br><span class="line">      - <span class="attribute">targets</span>: [<span class="string">'106.15.226.184:9090'</span>]</span><br><span class="line">        <span class="attribute">labels</span>:</span><br><span class="line">          <span class="attribute">instance</span>: prometheus</span><br><span class="line"></span><br><span class="line">  - <span class="attribute">job_name</span>: linux</span><br><span class="line">    <span class="attribute">static_configs</span>:</span><br><span class="line">      - <span class="attribute">targets</span>: [<span class="string">'106.15.226.184:9100'</span>]</span><br><span class="line">        <span class="attribute">labels</span>:</span><br><span class="line">          <span class="attribute">instance</span>: db1</span><br><span class="line"></span><br><span class="line">  - <span class="attribute">job_name</span>: mysql</span><br><span class="line">    <span class="attribute">static_configs</span>:</span><br><span class="line">      - <span class="attribute">targets</span>: [<span class="string">'106.15.226.184:9104'</span>]</span><br><span class="line">        <span class="attribute">labels</span>:</span><br><span class="line">          <span class="attribute">instance</span>: db1</span><br></pre></td></tr></table></figure></p>
+<p>docker启动<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull prometheus</span><br><span class="line">sudo docker run -d -p <span class="number">9090</span>:<span class="number">9090</span> -v <span class="regexp">/root/</span>conf<span class="regexp">/prometheus.yml:/u</span>sr<span class="regexp">/local/</span>src<span class="regexp">/file/</span>prometheus.yml quay.io<span class="regexp">/prometheus/</span>prometheus --config.<span class="keyword">file</span>=<span class="regexp">/usr/</span>local<span class="regexp">/src/</span><span class="keyword">file</span><span class="regexp">/prometheus.yml</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull grafana/grafana</span><br><span class="line">docker <span class="builtin-name">run</span> -d <span class="attribute">--name</span>=grafana -p 3000:3000 grafana/grafana</span><br></pre></td></tr></table></figure>
+<p>打开<code>http:x.x.x.x:9090</code><br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aocmau0ej22l812ogqo.jpg" alt="image"><br>如图所示，说明数据源管道agent启动成功</p>
+<p>打开<code>http://x.x.x.x:3000</code>，配置Prometheus数据源<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoe1u94dj20pp0qv78x.jpg" alt="image"></p>
+<p>配置好数据源后，下载<a href="https://codeload.github.com/percona/grafana-dashboards/zip/v1.17.0" target="_blank" rel="noopener">mysql监控模板</a>，<br>解压后，找到mysql开头的模板，导入，最后如图所示：<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aog1imivj22jc19e46g.jpg" alt="image"></p>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aogngitwj22ki19g11f.jpg" alt="image"></p>
+<h3 id="Cat"><a href="#Cat" class="headerlink" title="Cat"></a>Cat</h3><p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoibi3egj20qo0eujsb.jpg" alt="image"><br><a href="https://github.com/dianping/cat" target="_blank" rel="noopener">CAT</a>（Central Application Tracking）是一个实时和接近全量的监控系统，它侧重于对Java应用的监控，基本接入了美团上海侧所有核心应用。目前在中间件（MVC、RPC、数据库、缓存等）框架中得到广泛应用，为美团各业务线提供系统的性能指标、健康状况、监控告警等。</p>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoim0nuwj20zy0lwk41.jpg" alt="image"></p>
+<p>监控整体要求就是快速发现故障、快速定位故障以及辅助进行程序性能优化。为了做到这些，我们对监控系统的一些非功能做了如下的要求：</p>
+<p>实时处理：信息的价值会随时间锐减，尤其是事故处理过程中。<br>全量数据：最开始的设计目标就是全量采集，全量的好处有很多。<br>高可用：所有应用都倒下了，需要监控还站着，并告诉工程师发生了什么，做到故障还原和问题定位。<br>故障容忍：CAT本身故障不应该影响业务正常运转，CAT挂了，应用不该受影响，只是监控能力暂时减弱。<br>高吞吐：要想还原真相，需要全方位地监控和度量，必须要有超强的处理吞吐能力。<br>可扩展：支持分布式、跨IDC部署，横向扩展的监控系统。<br>不保证可靠：允许消息丢失，这是一个很重要的trade-off，目前CAT服务端可以做到4个9的可靠性，可靠系统和不可靠性系统的设计差别非常大。<br>CAT从开发至今，一直秉承着简单的架构就是最好的架构原则，主要分为三个模块：CAT-client、CAT-consumer、CAT-home。</p>
+<p>Cat-client 提供给业务以及中间层埋点的底层SDK。<br>Cat-consumer 用于实时分析从客户端提供的数据。<br>Cat-home 作为用户给用户提供展示的控制端。<br>在实际开发和部署中，Cat-consumer和Cat-home是部署在一个JVM内部，每个CAT服务端都可以作为consumer也可以作为home，这样既能减少整个层级结构，也可以增加系统稳定性。<br>上图是CAT目前多机房的整体结构图，图中可见：</p>
+<p>路由中心是根据应用所在机房信息来决定客户端上报的CAT服务端地址，目前美团有广州、北京、上海三地机房。<br>每个机房内部都有独立的原始信息存储集群HDFS。<br>CAT-home可以部署在一个机房也可以部署在多个机房，在最后做展示的时候，home会从consumer中进行跨机房的调用，将所有的数据合并展示给用户。<br>实际过程中，consumer、home以及路由中心都是部署在一起的，每个服务端节点都可以充当任何一个角色。</p>
+<h4 id="安装使用Cat"><a href="#安装使用Cat" class="headerlink" title="安装使用Cat"></a>安装使用Cat</h4><p>本文演示单机集群安装部署<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/dianping/<span class="keyword">cat</span>.git</span><br><span class="line"><span class="keyword">cd</span> docker</span><br><span class="line">docker-compose <span class="keyword">up</span></span><br></pre></td></tr></table></figure></p>
+<p>第一次运行以后，数据库中没有表结构，需要通过下面的命令创建表：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">docker</span> exec &lt;container_id&gt; <span class="keyword">bash </span>-c <span class="string">"mysql -uroot -Dcat &lt; /init.sql"</span></span><br></pre></td></tr></table></figure></p>
+<p>依赖配置说明</p>
+<ul>
+<li>datasources.xml<ul>
+<li>CAT数据库配置，默认配置是mysql镜像，可以按需替换</li>
+</ul>
+</li>
+<li>docker-compose.yml<ul>
+<li>通过docker-compose启动的编排文件，文件中包含cat和mysql。可以屏蔽掉mysql的部分，并且修改cat的环境变量，改为真实的mysql连接信息。</li>
+</ul>
+</li>
+<li>client.xml<ul>
+<li>CAT 初始化默认的路由列表，配置此文件可以将客户端数据上报指向到不同环境。</li>
+</ul>
+</li>
+<li>datasources.sh<ul>
+<li>辅助脚本，脚本作用时修改datasources.xml，使用环境变量中制定的mysql连接信息。（通过sed命令替换）</li>
+</ul>
+</li>
+</ul>
+<h4 id="Java-应用的集成"><a href="#Java-应用的集成" class="headerlink" title="Java 应用的集成"></a>Java 应用的集成</h4><p><a href="https://blog.csdn.net/kefengwang/article/details/81213031" target="_blank" rel="noopener">参考博客</a><br>需要指定 cat 专用的远程仓库<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- %MAVEN_HOME%\conf\settings.xml --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>central<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">layout</span>&gt;</span>default<span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://repo1.maven.org/maven2<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">id</span>&gt;</span>unidal.nexus<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://unidal.org/nexus/content/repositories/releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>加入依赖(pom.xml)<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.dianping.cat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cat-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>添加过滤器 CatFilter<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CatFilterConfigure</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">catFilter</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        FilterRegistrationBean registration = <span class="keyword">new</span> FilterRegistrationBean();</span><br><span class="line">        registration.setFilter(<span class="keyword">new</span> CatFilter());</span><br><span class="line">        registration.addUrlPatterns(<span class="string">"/*"</span>);</span><br><span class="line">        registration.setName(<span class="string">"cat-filter"</span>);</span><br><span class="line">        registration.setOrder(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> registration;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>添加注解<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@CatCacheTransaction</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line"><span class="meta">@CatHttpRequestTransaction</span>(type = <span class="string">"URL"</span>, name = <span class="string">"/hello"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="function">String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoqxnurij20qp0d3k4h.jpg" alt="image"></p>
+<p>更多集成<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aos0a6q6j20rl0fdwvn.jpg" alt="image"></p>
+<h5 id="管理平台的使用"><a href="#管理平台的使用" class="headerlink" title="管理平台的使用"></a>管理平台的使用</h5><p>控制台<br><a href="http://192.168.126.101:8080/cat" target="_blank" rel="noopener">http://192.168.126.101:8080/cat</a><br>帐号/密码: catadmin/catadmin</p>
+<p>项目配置<br><a href="http://192.168.126.101:8080/cat/s/config?op=projects" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/s/config?op=projects</a></p>
+<p>相关文档<br>部署文档: <a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=deploy" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=deploy</a><br>用户文档：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=user" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=user</a><br>告警文档：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=alert" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=alert</a><br>集成文档：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=integration" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=integration</a><br>开发文档：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=develop" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=develop</a><br>设计文档：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=design" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=design</a><br>常见问题：<a href="http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=problem" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/home?op=view&amp;docName=problem</a></p>
+<p>实时查看<br><a href="http://192.168.126.101:8080/cat/r/t" target="_blank" rel="noopener">http://192.168.126.101:8080/cat/r/t</a><br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aov6vr6mj21gw0o8147.jpg" alt="image"></p>
+<h2 id="分布式追踪系统"><a href="#分布式追踪系统" class="headerlink" title="分布式追踪系统"></a>分布式追踪系统</h2><h3 id="Zipkin"><a href="#Zipkin" class="headerlink" title="Zipkin"></a>Zipkin</h3><p><a href="https://zipkin.io/" target="_blank" rel="noopener">Zipkin</a>是一种分布式跟踪系统。它有助于收集解决微服务架构中的延迟问题所需的时序数据。它管理这些数据的收集和查找。Zipkin的设计基于Google Dapper论文。<br>应用程序用于向Zipkin报告时序数据。Zipkin UI还提供了一个依赖关系图，显示了每个应用程序通过的跟踪请求数。如果要解决延迟问题或错误，可以根据应用程序，跟踪长度，注释或时间戳对所有跟踪进行筛选或排序。选择跟踪后，您可以看到每个跨度所需的总跟踪时间百分比，从而可以识别问题应用程序。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aox97889j20u20ewn0o.jpg" alt="image"></p>
+<h3 id="Pinpoint"><a href="#Pinpoint" class="headerlink" title="Pinpoint"></a>Pinpoint</h3><p><a href="https://naver.github.io/pinpoint/" target="_blank" rel="noopener">Pinpoint</a>是一个开源的APM监控工具，我们可以通过pinpoint实时跟踪应用之间的调用、程序的响应时间以及服务器资源使用状态，可以在分布式环境中为没个调用生成代码级别的可视图并定位瓶颈点和失败点。Pinpoint的设计也是基于Google Dapper论文<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aoyo8a04j20ru0ietcq.jpg" alt="image"></p>
+<h3 id="Skywalking"><a href="#Skywalking" class="headerlink" title="Skywalking"></a>Skywalking</h3><p><a href="http://skywalking.apache.org/" target="_blank" rel="noopener">Skywalking</a>是一款优秀的国产 APM 工具，包括了分布式追踪、性能指标分析、应用和服务依赖分析等。通过在应用程序中添加 SkyWalking Agent，就可以将接口、服务、数据库、MQ等进行追踪，将追踪结果通过 HTTP 或 gRPC 发送到 SkyWalking Collecter，SkyWalking Collecter 经过分析和聚合，将结果存储到 Elasticsearch 或 H2，SkyWalking 同时提供了一个 SkyWalking UI 的可视化界面，UI 以 GraphQL + HTTP 方式获取存储数据进行展示。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0aozn4exyj20uk0f6wif.jpg" alt="image"></p>
+<h3 id="Jaeger"><a href="#Jaeger" class="headerlink" title="Jaeger"></a>Jaeger</h3><p><a href="https://www.jaegertracing.io/" target="_blank" rel="noopener">Jaeger</a>用于监控和排除基于微服务的分布式系统，包括：</p>
+<ul>
+<li>分布式上下文传播</li>
+<li>分布式事务监控</li>
+<li>根本原因分析</li>
+<li>服务依赖性分析</li>
+<li>性能/延迟优化</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g0ap1ca1x2j20um0gi78o.jpg" alt="image"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2019/02/18/分布式应用监控/" title="分布式应用监控">https://dinghuang.github.io/2019/02/18/分布式应用监控/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/12/Kubernetes学习（一）之认识Kubernetes/" rel="next" title="Kubernetes学习（一）之认识Kubernetes">
+                <i class="fa fa-chevron-left"></i> Kubernetes学习（一）之认识Kubernetes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式应用监控"><span class="nav-number">1.</span> <span class="nav-text">分布式应用监控</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集中式日志系统"><span class="nav-number">1.1.</span> <span class="nav-text">集中式日志系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">1.1.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logstash"><span class="nav-number">1.1.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kibana"><span class="nav-number">1.1.3.</span> <span class="nav-text">Kibana</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beats"><span class="nav-number">1.1.4.</span> <span class="nav-text">Beats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.1.5.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置使用"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">配置使用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集中式度量系统"><span class="nav-number">1.2.</span> <span class="nav-text">集中式度量系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus"><span class="nav-number">1.2.1.</span> <span class="nav-text">Prometheus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Prometheus检测mysql相关指标"><span class="nav-number">1.2.2.</span> <span class="nav-text">Prometheus检测mysql相关指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装node-exporter"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">安装node-exporter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装mysqld-exporter"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">安装mysqld-exporter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Prometheus"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">安装Prometheus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Grafana"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">安装Grafana</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cat"><span class="nav-number">1.2.3.</span> <span class="nav-text">Cat</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装使用Cat"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">安装使用Cat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-应用的集成"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">Java 应用的集成</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#管理平台的使用"><span class="nav-number">1.2.3.2.1.</span> <span class="nav-text">管理平台的使用</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式追踪系统"><span class="nav-number">1.3.</span> <span class="nav-text">分布式追踪系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Zipkin"><span class="nav-number">1.3.1.</span> <span class="nav-text">Zipkin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pinpoint"><span class="nav-number">1.3.2.</span> <span class="nav-text">Pinpoint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skywalking"><span class="nav-number">1.3.3.</span> <span class="nav-text">Skywalking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jaeger"><span class="nav-number">1.3.4.</span> <span class="nav-text">Jaeger</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2019/02/18/分布式应用监控/';
+          this.page.identifier = '2019/02/18/分布式应用监控/';
+          this.page.title = '分布式应用监控';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

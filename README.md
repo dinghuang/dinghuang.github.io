@@ -1,11 +1,11 @@
 # 学习笔记 [![知识共享协议（CC协议）](https://img.shields.io/badge/License-Creative%20Commons-DC3D24.svg) ![Attribution-NonCommercial-ShareAlike CC BY-NC-SA](LICENSE.png)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)
  * [学习笔记](#学习笔记)
     * [1. 自写项目及笔记](#1-自写项目及笔记)
-      * [1.1 <a href="https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/" rel="nofollow">Git使用笔记：个人在使用Git的一些心得</a>](#11-git使用笔记个人在使用git的一些心得)
-      * [1.2 <a href="https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="nofollow">设计模式：用java语言阐述的33种设计模式</a>](#12-设计模式用java语言阐述的33种设计模式)
-      * [1.3 <a href="https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/" rel="nofollow">服务器搭建梯子：仅供学习交流</a>](#13-服务器搭建梯子仅供学习交流)
-      * [1.4 <a href="https://dinghuang.github.io/2018/09/21/%E5%A6%82%E4%BD%95%E5%9C%A8GitHub%20Page%E4%BD%BF%E7%94%A8HEXO%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="nofollow">如何在GitHubPage使用HEXO搭建博客</a>](#14-如何在GitHubPage使用HEXO搭建博客)
-      * [1.5 代码练习](#15-代码练习)
+      * [1.1 <a href="https://dinghuang.github.io/" rel="nofollow">个人博客</a>](#11-个人博客)
+      * [1.2 代码练习](#12-代码练习)
+      * [1.3 <a href="https://github.com/dinghuang/testNGExample" rel="nofollow">testNG与rest-assured结合的简单示例</a>](#13-testNG与rest-assured结合的简单示例)
+      * [1.4 <a href="https://github.com/dinghuang/Blog" rel="nofollow">hexo博客，用的next主题</a>](#14-hexo博客，用的next主题)
+      * [1.5 <a href="https://github.com/dinghuang/seleniumJavaTest" rel="nofollow">selenium与java结合的自动化网页测试，支持FireFox、Edge、IE、Safari、Chrome</a>](#15-selenium与java结合的自动化网页测试，支持FireFox、Edge、IE、Safari、Chrome)
     * [2. 团队开源项目](#2-团队开源项目)
         * [2.1 代码管理](#21-代码管理)
         * [2.2 分布式文件系统](#22-分布式文件系统)
@@ -41,11 +41,8 @@
         * [3.2 框架、工具](#32-框架工具)   
         * [3.3 好玩的](#33-好玩的)   
 ## 1. 自写项目及笔记
-### 1.1 [Git使用笔记：个人在使用Git的一些心得][1]
-### 1.2 [设计模式：用java语言阐述的33种设计模式][2]
-### 1.3 [服务器搭建梯子：仅供学习交流][3]
-### 1.4 [如何在GitHub Page使用HEXO搭建博客][187]
-### 1.5 代码练习
+### 1.1 [个人博客][1]
+### 1.2 代码练习
  1. [Java8新特性][4]
  2. [Google的Guava工具包][5]
  3. [多线程相关][6]
@@ -53,6 +50,9 @@
  5. [设计模式相关][8]
  6. [NIO与IO相关][9]
  7. [Spock单元测试][175]
+### 1.3 [testNG与rest-assured结合的简单示例][241]
+### 1.4 [hexo博客，用的next主题][242]
+### 1.5 [selenium与java结合的自动化网页测试，支持FireFox、Edge、IE、Safari、Chrome][243]
 ## 2. 团队开源项目
 ### 2.1 代码管理
  1. [GitHub：全球最大开源代码库][10]
@@ -60,8 +60,8 @@
  3. [SVN：国内传统it企业使用较多][12]
  4. [Maven：项目管理及自动构建工具，目前发展如日中天][162]
  5. [Gradle：跟Maven类似的，都是项目管理及自动构建工具][163]
- 5. [Ant：跟Maven类似的，都是项目管理及自动构建工具][164]
- 6. [Npm：前端依赖Node.js的包管理器。][184]
+ 6. [Ant：跟Maven类似的，都是项目管理及自动构建工具][164]
+ 7. [Npm：前端依赖Node.js的包管理器。][184]
 ### 2.2 分布式文件系统
  1. [Fastdfs：文件存储，文件同步和文件访问，它可以解决高容量和负载平衡问题。FastDFS满足基于照片共享站点和视频共享站点等文件服务的网站的要求。][13]
  2. [Minio：Minio是一款高性能的分布式对象存储服务器，专为大规模私有云基础架构。][14]
@@ -135,6 +135,7 @@
  4. [JaCoCo：Java代码覆盖库，用Sonarqube测试代码覆盖率需要用到。][60]
  5. [TestNG：TestNG是一个受JUnit和NUnit启发的测试框架，支持xml配置测试用例，支持扩展性较好。][227]
  6. [Selenium：Selenium可以对浏览器进行自动化测试。它主要用于自动化Web应用程序以进行测试。][228]
+ 7. [rest-assured：轻量级测试REST服务框架，可以与TestNG等框架结合。][248]
 ### 2.15 测试工具
  1. [Jmeter：老牌压测工具，也是用的最广泛的。][61]
  2. [Fio：文件系统性能测试。][62]
@@ -155,6 +156,7 @@
  11. [btrace：Java平台的安全动态跟踪工具。][202]
  12. [Pinpoint：是一个开源的APM（应用程序性能管理）工具，适用于用Java编写的大型分布式系统，与Zipkin类似，但是更加强大，没有代码污染。][137]
  13. [arthas：阿里巴巴近期开源的Java诊断利器，十分强大，用的很爽。][226]
+ 14. [prometheus：基于时间序列数据库的监测系统，一般都是作为数据源配合Grafana展示。][244]
 ### 2.17 前端相关
  1. [Bootstrap：扁平化风格前端UI框架。][71]
  2. [AntDesign：阿里出品，在React上的企业前端UI框架。][72]
@@ -187,6 +189,8 @@
  13. [kylin：开源的分布式分析引擎，由eBay Inc.提供，在Hadoop上提供SQL接口和多维分析（OLAP），支持极大的数据集，国内团队维护的。][197]
  14. [curator：Apache ZooKeeper的Java / JVM客户端库，它是一种分布式协调服务，包含一个高级API框架和实用程序，使Apache ZooKeeper更容易，更可靠。][215]
  15. [X-Pipe：由携程框架部门研发的Redis多数据中心复制管理系统。基于Redis的Master-Slave复制协议，实现低延时、高可用的Redis多数据中心复制，并且提供一键机房切换，复制监控、异常报警等功能。][233]
+ 16. [fescar：阿里最新开源的基于Java的开源分布式事务解决方案。][245]
+ 17. [etcd：用于分布式系统最关键数据的分布式可靠键值存储，现在被作为kubernetes底层存储。][247]
 ### 2.19 数据库相关
  1. [MySQL：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，MySQL就比较适用于微服务。][87]
  2. [Oracle：老牌数据库，非常强大，现在收购了Sun公司和MySQL。][88]
@@ -232,6 +236,7 @@
  9. [Redisson：在Redis的基础上实现的Java驻内存数据网格（In-Memory Data GridEhcache – Java分布式缓存框架）。它不仅提供了一系列的分布式的Java常用对象，还提供了许多分布式服务，可以用于分布式服务锁。][117]
  10. [OpenGrok：Oracle公司的，用Java编写的源代码库搜索工具。][118]
  11. [mybatis-3：Mybatis在Java的映射工具包，源码设计缓存设计、大量的反射，挺值得看的。][119]
+ 12. [jvm-sandbox：基于JVM的实时非侵入式AOP框架容器，既可支持线上链路监控排查，也可支持单机版问题定位。][246]
 ### 2.23 缓存框架
  1. [Ehcache：Java分布式缓存框架。][120]
  2. [Cacheonix：高性能Java分布式缓存系统。][121]
@@ -322,7 +327,7 @@
 
 
 
-  [1]: https://dinghuang.github.io/2017/10/09/Git%E5%AD%A6%E4%B9%A0/
+  [1]: https://dinghuang.github.io/
   [2]: https://dinghuang.github.io/2018/07/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/
   [3]: https://dinghuang.github.io/2018/09/08/VPS%E6%90%AD%E5%BB%BASS/
   [4]: https://github.com/dinghuang/java-practice/tree/master/src/main/java/com/example/demo/java8
@@ -562,3 +567,11 @@
   [238]: https://github.com/apache/thrift
   [239]: https://github.com/apache/storm
   [240]: https://github.com/ben-manes/caffeine
+  [241]: https://github.com/dinghuang/testNGExample
+  [242]: https://github.com/dinghuang/Blog
+  [243]: https://github.com/dinghuang/seleniumJavaTest
+  [244]: https://github.com/prometheus/prometheus
+  [245]: https://github.com/alibaba/fescar
+  [246]: https://github.com/alibaba/jvm-sandbox
+  [247]: https://github.com/etcd-io/etcd
+  [248]: https://github.com/rest-assured/rest-assured

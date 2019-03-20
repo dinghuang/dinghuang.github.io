@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Servicecomb实践Git地址 Apache ServiceComb Pack 是华为开源的一个微服务应用的数据最终一致性解决方案。 关键特性 高可用：支持高可用的集群模式部署。 高可靠：所有的关键事务事件都持久化存储在数据库中。 高性能：事务事件是通过高性能gRPC来上报的，且事务的请求和响应消息都是通过Kyro进行序列化和反序列化。 低侵入：仅需2-3个注解和编写对应的补偿方法即可引入分">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servicecomb实践">
+<meta property="og:url" content="https://dinghuang.github.io/2019/03/20/Servicecomb实践/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="Servicecomb实践Git地址 Apache ServiceComb Pack 是华为开源的一个微服务应用的数据最终一致性解决方案。 关键特性 高可用：支持高可用的集群模式部署。 高可靠：所有的关键事务事件都持久化存储在数据库中。 高性能：事务事件是通过高性能gRPC来上报的，且事务的请求和响应消息都是通过Kyro进行序列化和反序列化。 低侵入：仅需2-3个注解和编写对应的补偿方法即可引入分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q1uo7a2j20mp07yweq.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q8mdkrvj20wo0haaau.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q92b65tj20wi0ca74s.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q9lthpvj21cw0qijsz.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qaa8gjwj21cr0rkwg6.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qatqfjbj21cu0rgwfx.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qbrxbazj21lo0wydin.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qcdd807j21ku0vu76t.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qo3gfn4j20x80ibn0v.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qof1a9kj20zc0j3dk0.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qos3fkjj20ha099abd.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qp1vtvlj20v00f0q4k.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g193ofrsu9j20q00umta3.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g193pjsh7tj20nc0blq9i.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199o8nyxcj21660e6128.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199omza6aj21nq044goa.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199oxaun5j21my03ctb9.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199hjb9mdj213u0bowkw.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199w48vfaj217e0ciajm.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g19adzx8ahj2246138drc.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g19ajirqhpj215s0aiq99.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g19aq910axj223k0gstfo.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g19ap4jromj211602kwjk.jpg">
+<meta property="og:updated_time" content="2019-03-20T08:30:54.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Servicecomb实践">
+<meta name="twitter:description" content="Servicecomb实践Git地址 Apache ServiceComb Pack 是华为开源的一个微服务应用的数据最终一致性解决方案。 关键特性 高可用：支持高可用的集群模式部署。 高可靠：所有的关键事务事件都持久化存储在数据库中。 高性能：事务事件是通过高性能gRPC来上报的，且事务的请求和响应消息都是通过Kyro进行序列化和反序列化。 低侵入：仅需2-3个注解和编写对应的补偿方法即可引入分">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q1uo7a2j20mp07yweq.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2019/03/20/Servicecomb实践/"/>
+
+
+
+
+
+  <title>Servicecomb实践 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/03/20/Servicecomb实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Servicecomb实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-20T15:47:00+08:00">
+                2019-03-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/20/Servicecomb实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/03/20/Servicecomb实践/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Servicecomb实践"><a href="#Servicecomb实践" class="headerlink" title="Servicecomb实践"></a>Servicecomb实践</h1><p><a href="https://github.com/apache/servicecomb-pack/blob/master" target="_blank" rel="noopener">Git地址</a></p>
+<p>Apache ServiceComb Pack 是华为开源的一个微服务应用的数据最终一致性解决方案。</p>
+<h2 id="关键特性"><a href="#关键特性" class="headerlink" title="关键特性"></a>关键特性</h2><ul>
+<li>高可用：支持高可用的集群模式部署。</li>
+<li>高可靠：所有的关键事务事件都持久化存储在数据库中。</li>
+<li>高性能：事务事件是通过高性能gRPC来上报的，且事务的请求和响应消息都是通过Kyro进行序列化和反序列化。</li>
+<li>低侵入：仅需2-3个注解和编写对应的补偿方法即可引入分布式事务。</li>
+<li>部署简单：支持通过容器（Docker）进行快速部署和交付。</li>
+<li>补偿机制灵活：支持前向恢复（重试）及后向恢复（补偿）功能。</li>
+<li>扩展简单：基于Pack架构很容实现多种协调协议，目前支持TCC、Saga协议，未来还可以添加其他协议支持。</li>
+</ul>
+<h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>ServiceComb Pack 架构是由 alpha 和 omega组成，其中：</p>
+<ul>
+<li>alpha充当协调者的角色，主要负责对事务进行管理和协调。</li>
+<li>omega是微服务中内嵌的一个agent，负责对调用请求进行拦截并向alpha上报事务事件。</li>
+</ul>
+<p>下图展示了alpha, omega以及微服务三者的关系： </p>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q1uo7a2j20mp07yweq.jpg" alt=""></p>
+<p>基础上我们除了实现saga协调协议以外，还实现了<a href="https://github.com/apache/servicecomb-pack/blob/master/docs/design_zh.md" target="_blank" rel="noopener">TCC协调协议</a>。 详情可浏览ServiceComb Pack 设计文档。</p>
+<h3 id="Omega内部运行机制"><a href="#Omega内部运行机制" class="headerlink" title="Omega内部运行机制"></a>Omega内部运行机制</h3><p>omega是微服务中内嵌的一个agent。当服务收到请求时，omega会将其拦截并从中提取请求信息中的全局事务id作为其自身的全局事务id（即Saga事件id），并提取本地事务id作为其父事务id。在预处理阶段，alpha会记录事务开始的事件；在后处理阶段，alpha会记录事务结束的事件。因此，每个成功的子事务都有一一对应的开始及结束事件。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q8mdkrvj20wo0haaau.jpg" alt=""></p>
+<h3 id="服务间通信流程"><a href="#服务间通信流程" class="headerlink" title="服务间通信流程"></a>服务间通信流程</h3><p>服务间通信的流程与Zipkin的类似。在服务生产方，omega会拦截请求中事务相关的id来提取事务的上下文。在服务消费方，omega会在请求中注入事务相关的id来传递事务的上下文。通过服务提供方和服务消费方的这种协作处理，子事务能连接起来形成一个完整的全局事务。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q92b65tj20wi0ca74s.jpg" alt=""></p>
+<h3 id="Saga-具体处理流程"><a href="#Saga-具体处理流程" class="headerlink" title="Saga 具体处理流程"></a>Saga 具体处理流程</h3><p>Saga处理场景是要求相关的子事务提供事务处理函数同时也提供补偿函数。Saga协调器alpha会根据事务的执行情况向omega发送相关的指令，确定是否向前重试或者向后恢复。</p>
+<h4 id="成功场景"><a href="#成功场景" class="headerlink" title="成功场景"></a>成功场景</h4><p>成功场景下，每个事务都会有开始和有对应的结束事件。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16q9lthpvj21cw0qijsz.jpg" alt=""></p>
+<h4 id="异常场景"><a href="#异常场景" class="headerlink" title="异常场景"></a>异常场景</h4><p>异常场景下，omega会向alpha上报中断事件，然后alpha会向该全局事务的其它已完成的子事务发送补偿指令，确保最终所有的子事务要么都成功，要么都回滚。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qaa8gjwj21cr0rkwg6.jpg" alt=""></p>
+<h4 id="超时场景-需要调整）"><a href="#超时场景-需要调整）" class="headerlink" title="超时场景 (需要调整）"></a>超时场景 (需要调整）</h4><p>超时场景下，已超时的事件会被alpha的定期扫描器检测出来，与此同时，该超时事务对应的全局事务也会被中断。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qatqfjbj21cu0rgwfx.jpg" alt=""></p>
+<h3 id="TCC-具体处理流程"><a href="#TCC-具体处理流程" class="headerlink" title="TCC 具体处理流程"></a>TCC 具体处理流程</h3><p>TCC(try-confirm-cancel)与Saga事务处理方式相比多了一个Try方法。事务调用的发起方来根据事务的执行情况协调相关各方进行提交事务或者回滚事务。</p>
+<h4 id="成功场景-1"><a href="#成功场景-1" class="headerlink" title="成功场景"></a>成功场景</h4><p>成功场景下， 每个事务都会有开始和对应的结束事件<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qbrxbazj21lo0wydin.jpg" alt=""></p>
+<h4 id="异常场景-1"><a href="#异常场景-1" class="headerlink" title="异常场景"></a>异常场景</h4><p>异常场景下，事务发起方会向alpha上报异常事件，然后alpha会向该全局事务的其它已完成的子事务发送补偿指令，确保最终所有的子事务要么都成功，要么都回滚。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qcdd807j21ku0vu76t.jpg" alt=""></p>
+<h2 id="omega、alpha的TSL双向证书"><a href="#omega、alpha的TSL双向证书" class="headerlink" title="omega、alpha的TSL双向证书"></a>omega、alpha的TSL双向证书</h2><p>Saga 现在支持在omega和alpha服务之间采用 TLS 通信.同样客户端方面的认证（双向认证）。</p>
+<h3 id="准备证书-（Certificates）"><a href="#准备证书-（Certificates）" class="headerlink" title="准备证书 （Certificates）"></a>准备证书 （Certificates）</h3><p>你可以用下面的命令去生成一个用于测试的自签名的证书。 如果你想采用双向认证的方式，只需要客户端证书。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Changes these CN's to match your hosts in your environment if needed.</span></span><br><span class="line"><span class="attribute">SERVER_CN</span>=localhost</span><br><span class="line"><span class="attribute">CLIENT_CN</span>=localhost # Used when doing mutual TLS</span><br><span class="line"></span><br><span class="line">echo Generate CA key:</span><br><span class="line">openssl genrsa -passout pass:1111 -des3 -out ca.key 4096</span><br><span class="line">echo Generate CA certificate:</span><br><span class="line"><span class="comment"># Generates ca.crt which is the trustCertCollectionFile</span></span><br><span class="line">openssl req -passin pass:1111 -new -x509 -days 365 -key ca.key -out ca.crt -subj <span class="string">"/CN=<span class="variable">$&#123;SERVER_CN&#125;</span>"</span></span><br><span class="line">echo Generate<span class="built_in"> server </span>key:</span><br><span class="line">openssl genrsa -passout pass:1111 -des3 -out server.key 4096</span><br><span class="line">echo Generate<span class="built_in"> server </span>signing request:</span><br><span class="line">openssl req -passin pass:1111 -new -key server.key -out server.csr -subj <span class="string">"/CN=<span class="variable">$&#123;SERVER_CN&#125;</span>"</span></span><br><span class="line">echo Self-signed<span class="built_in"> server </span>certificate:</span><br><span class="line"><span class="comment"># Generates server.crt which is the certChainFile for the server</span></span><br><span class="line">openssl x509 -req -passin pass:1111 -days 365 -in server.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out server.crt </span><br><span class="line">echo <span class="builtin-name">Remove</span> passphrase <span class="keyword">from</span><span class="built_in"> server </span>key:</span><br><span class="line">openssl rsa -passin pass:1111 -in server.key -out server.key</span><br><span class="line">echo Generate<span class="built_in"> client </span>key</span><br><span class="line">openssl genrsa -passout pass:1111 -des3 -out client.key 4096</span><br><span class="line">echo Generate<span class="built_in"> client </span>signing request:</span><br><span class="line">openssl req -passin pass:1111 -new -key client.key -out client.csr -subj <span class="string">"/CN=<span class="variable">$&#123;CLIENT_CN&#125;</span>"</span></span><br><span class="line">echo Self-signed<span class="built_in"> client </span>certificate:</span><br><span class="line"><span class="comment"># Generates client.crt which is the clientCertChainFile for the client (need for mutual TLS only)</span></span><br><span class="line">openssl x509 -passin pass:1111 -req -days 365 -in client.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out client.crt</span><br><span class="line">echo <span class="builtin-name">Remove</span> passphrase <span class="keyword">from</span><span class="built_in"> client </span>key:</span><br><span class="line">openssl rsa -passin pass:1111 -in client.key -out client.key</span><br><span class="line">echo Converting the private keys <span class="keyword">to</span> X.509:</span><br><span class="line"><span class="comment"># Generates client.pem which is the clientPrivateKeyFile for the Client (needed for mutual TLS only)</span></span><br><span class="line">openssl pkcs8 -topk8 -nocrypt -in client.key -out client.pem</span><br><span class="line"><span class="comment"># Generates server.pem which is the privateKeyFile for the Server</span></span><br><span class="line">openssl pkcs8 -topk8 -nocrypt -in server.key -out server.pem</span><br></pre></td></tr></table></figure>
+<h3 id="TLS为Alpha服务开启TLS"><a href="#TLS为Alpha服务开启TLS" class="headerlink" title="TLS为Alpha服务开启TLS"></a>TLS为Alpha服务开启TLS</h3><p>1.为alpha-server修改application.yaml文件，在alpha.server部门增加ssl配置。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">alpha:</span></span><br><span class="line"><span class="attr">  server:</span></span><br><span class="line"><span class="attr">    ssl:</span></span><br><span class="line"><span class="attr">      enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      cert:</span> <span class="string">server.crt</span></span><br><span class="line"><span class="attr">      key:</span> <span class="string">server.pem</span></span><br><span class="line"><span class="attr">      mutualAuth:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      clientCert:</span> <span class="string">client.crt</span></span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>将server.crt 和 server.pem 文件放到alpha-server的root 2目录。如果你想双向认证，合并所有client证书到一个client.crt文件,并把client.crt文件放到root目录.</li>
+<li>重新启动alpha服务器.</li>
+</ol>
+<h3 id="为Omega启用TLS"><a href="#为Omega启用TLS" class="headerlink" title="为Omega启用TLS"></a>为Omega启用TLS</h3><ol>
+<li>获取CA证书串(chain), 如果你是将alpha服务运行在集群中，你可能需要去合并多个CA证书到一个文件中.</li>
+<li>为客户端应用修改application.yaml文件, 在alpha.cluster 部分增加ssl配置.</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">alpha:</span></span><br><span class="line"><span class="attr">  cluster:</span></span><br><span class="line"><span class="attr">    address:</span> <span class="string">alpha-server.servicecomb.io:8080</span></span><br><span class="line"><span class="attr">    ssl:</span></span><br><span class="line"><span class="attr">      enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      certChain:</span> <span class="string">ca.crt</span></span><br><span class="line"><span class="attr">      mutualAuth:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      cert:</span> <span class="string">client.crt</span></span><br><span class="line"><span class="attr">      key:</span> <span class="string">client.pem</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>把ca.crt文件放到客户端应用程序的root目录 file under the client application root directory.如果你想用双向认证，仍需要把client.crt和client.pem放到root目录下.</li>
+<li>重新启动客户端应用程序.</li>
+</ol>
+<h2 id="与Spring结合使用"><a href="#与Spring结合使用" class="headerlink" title="与Spring结合使用"></a>与Spring结合使用</h2><h3 id="Saga中的Event简介"><a href="#Saga中的Event简介" class="headerlink" title="Saga中的Event简介"></a>Saga中的Event简介</h3><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">EventType</span> &#123;</span></span><br><span class="line">  SagaStartedEvent,</span><br><span class="line">  TxStartedEvent,</span><br><span class="line">  TxEndedEvent,</span><br><span class="line">  TxAbortedEvent,</span><br><span class="line">  TxCompensatedEvent,</span><br><span class="line">  SagaEndedEvent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SagaStartedEvent: 代表Saga事务的开始，Alpha接受到该事件会保存整个saga事务的执行上下文，其中包括多个本地事务/补偿请求</li>
+<li>TxStartedEvent: 本地事务开始事件，其中包含了本地事务执行的上下文（调用方法名，以及相关调用参数）</li>
+<li>TXEndedEvent: 本地事务结束事件</li>
+<li>TxAbortedEvent: 本地事务执行失败事件，包含了事务执行失败的原因</li>
+<li>TxCompensatedEvent: 本地事务补偿事件，Alpha会将本地事务执行的上下文传递给Omega，这样不需要Omega自己维护服务调用的状态。</li>
+<li>SagaEndedEvent: 标志着saga事务请求的结束</li>
+</ul>
+<p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qo3gfn4j20x80ibn0v.jpg" alt=""><br>成功场景下，全局事务事件SagaStartedEvent对应SagaEndedEvent ，每个子事务开始的事件TxStartedEvent都会有对应的结束事件TXEndedEvent。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qof1a9kj20zc0j3dk0.jpg" alt=""><br>异常场景下，Omega会向Alpha上报中断事件TxAbortedEvent，然后Alpha会根据全局事务的执行情况， 想其它已成功的子事务(以完成TXEndedEvent)的服务发送补偿指令，以确保最终所有的子事务要么都成功，要么都回滚。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qos3fkjj20ha099abd.jpg" alt=""><br>超时场景下，已超时的事件会被alpha的定期扫描器检测出来，同时该超时事务对应的全局事务也会被中断。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g16qp1vtvlj20v00f0q4k.jpg" alt=""></p>
+<ol>
+<li>用户发送Request请求调用业务方法(business logic)</li>
+<li>preIntercept向alpha发送TxStartedEvent</li>
+<li>被AOP拦截的方法(business logic)被调用</li>
+<li>当执行成功时postIntercept发送TxEndedEvent到alpha</li>
+<li>最后业务方法向用户发送response</li>
+</ol>
+<h3 id="与Spring和Mysql结合使用"><a href="#与Spring和Mysql结合使用" class="headerlink" title="与Spring和Mysql结合使用"></a>与Spring和Mysql结合使用</h3><p><a href="https://github.com/dinghuang/servicecomb-test" target="_blank" rel="noopener">项目地址</a></p>
+<p>通过源码编译，克隆代码<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/apache/servicecomb-pack.git</span><br></pre></td></tr></table></figure></p>
+<p>在<code>alpha/alpha-server/pom.xml</code>文件中加入mysql依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>构建docker镜像<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">./servicecomb-pack</span></span><br><span class="line">mvn clean install -DskipTests -Pdocker</span><br></pre></td></tr></table></figure></p>
+<p>成功后如图所示<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[@dinghuangMacPro:~]$ docker images</span><br><span class="line">REPOSITORY               <span class="keyword">TAG</span>                 <span class="title">IMAGE</span> ID            CREATED             SIZE</span><br><span class="line">pack-web                 <span class="number">0.3</span>.<span class="number">0</span>               <span class="number">77</span>dedfe8e865        <span class="number">15</span> seconds ago      <span class="number">131M</span>B</span><br><span class="line">alpha-server             <span class="number">0.3</span>.<span class="number">0</span>               <span class="number">3</span>a34b8cd4224        <span class="number">38</span> seconds ago      <span class="number">144M</span>B</span><br></pre></td></tr></table></figure></p>
+<p>启动mysql镜像，如果本地有的话<br>创建库saga，用户saga，密码password，并执行数据库脚本<code>schema-mysql.sql</code></p>
+<p>启动alpha-server<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -<span class="selector-tag">p</span> <span class="number">8080</span>:<span class="number">8080</span> -<span class="selector-tag">p</span> <span class="number">8090</span>:<span class="number">8090</span> --link mysql:mysql<span class="selector-class">.servicecomb</span><span class="selector-class">.io</span> -e JAVA_OPTS=-Dspring<span class="selector-class">.profiles</span><span class="selector-class">.active</span>=mysql -e -Dspring<span class="selector-class">.datasource</span><span class="selector-class">.url</span>=jdbc:mysql:<span class="comment">//127.0.0.1:3306/saga?useSSL=false alpha-server:0.3.0</span></span><br></pre></td></tr></table></figure></p>
+<p>启动对应的3个应用，分别说shop，order，hotel</p>
+<p>访问api<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http:<span class="regexp">//</span><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">8081</span><span class="regexp">/shop/u</span>serName<span class="regexp">/orderName/</span>hotelName</span><br></pre></td></tr></table></figure></p>
+<h3 id="事务解析"><a href="#事务解析" class="headerlink" title="事务解析"></a>事务解析</h3><p>请求流程示意图：用户发起请求到shop，shop分别调用order和hotel。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g193ofrsu9j20q00umta3.jpg" alt=""></p>
+<p>使用TCC模式，TCC原理图如图所示：<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g193pjsh7tj20nc0blq9i.jpg" alt=""></p>
+<h4 id="情况一：正常事务结束"><a href="#情况一：正常事务结束" class="headerlink" title="情况一：正常事务结束"></a>情况一：正常事务结束</h4><p><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199o8nyxcj21660e6128.jpg" alt=""><br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199omza6aj21nq044goa.jpg" alt=""><br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199oxaun5j21my03ctb9.jpg" alt=""><br>事务记录成功，订单酒店表都有数据。</p>
+<h4 id="情况二：父事件中调用订单成功后，出现异常"><a href="#情况二：父事件中调用订单成功后，出现异常" class="headerlink" title="情况二：父事件中调用订单成功后，出现异常"></a>情况二：父事件中调用订单成功后，出现异常</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父事务</span></span><br><span class="line"><span class="meta">@TccStart</span>(timeout = <span class="number">2</span>)</span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/shop_tcc/&#123;name&#125;/&#123;order&#125;/&#123;hotel&#125;"</span>)</span><br><span class="line">public <span class="built_in">String</span> shopTcc(<span class="meta">@PathVariable</span> <span class="built_in">String</span> name, <span class="meta">@PathVariable</span> <span class="built_in">String</span> order, <span class="meta">@PathVariable</span> <span class="built_in">String</span> hotel) &#123;</span><br><span class="line">        <span class="comment">//调用订单服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8082/order_tcc/&#123;name&#125;/&#123;order&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, order);</span><br><span class="line">         <span class="comment">//异常</span></span><br><span class="line">        postBooking();</span><br><span class="line">        <span class="comment">//调用酒店服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8083/hotel_tcc/&#123;name&#125;/&#123;hotel&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, hotel);</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">" order "</span> + order + <span class="string">"hotel "</span> + hotel + <span class="string">" cars OK"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//订单(酒店)中的代码逻辑</span></span><br><span class="line"><span class="meta">@Transactional</span>(rollbackFor = Exception.class)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">cancel</span><span class="params">(OrderDO orderDO)</span> </span>&#123;</span><br><span class="line">        orderRepository.deleteById(orderDO.getId());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span>(rollbackFor = Exception.class)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">confirm</span><span class="params">(OrderDO orderDO)</span> </span>&#123;</span><br><span class="line">        orderRepository.insert(orderDO);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Participate</span>(confirmMethod = <span class="string">"confirm"</span>, cancelMethod = <span class="string">"cancel"</span>)</span><br><span class="line"><span class="meta">@Transactional</span>(rollbackFor = Exception.class)</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">orderTcc</span><span class="params">(OrderDO orderDO)</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据库结果如图所示<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199hjb9mdj213u0bowkw.jpg" alt=""><br>订单和商店的表都没有生成数据。</p>
+<h4 id="情况三：父事件中调用订单和酒店成功后，出现异常"><a href="#情况三：父事件中调用订单和酒店成功后，出现异常" class="headerlink" title="情况三：父事件中调用订单和酒店成功后，出现异常"></a>情况三：父事件中调用订单和酒店成功后，出现异常</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父事务</span></span><br><span class="line"><span class="meta">@TccStart</span>(timeout = <span class="number">2</span>)</span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/shop_tcc/&#123;name&#125;/&#123;order&#125;/&#123;hotel&#125;"</span>)</span><br><span class="line">public <span class="built_in">String</span> shopTcc(<span class="meta">@PathVariable</span> <span class="built_in">String</span> name, <span class="meta">@PathVariable</span> <span class="built_in">String</span> order, <span class="meta">@PathVariable</span> <span class="built_in">String</span> hotel) &#123;</span><br><span class="line">        <span class="comment">//调用订单服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8082/order_tcc/&#123;name&#125;/&#123;order&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, order);</span><br><span class="line">        <span class="comment">//调用酒店服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8083/hotel_tcc/&#123;name&#125;/&#123;hotel&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, hotel);</span><br><span class="line">         <span class="comment">//异常</span></span><br><span class="line">        postBooking();</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">" order "</span> + order + <span class="string">"hotel "</span> + hotel + <span class="string">" cars OK"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据如图所示：<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g199w48vfaj217e0ciajm.jpg" alt=""><br>订单表与酒店表都没有产生数据</p>
+<h4 id="情况四：父事件超时"><a href="#情况四：父事件超时" class="headerlink" title="情况四：父事件超时"></a>情况四：父事件超时</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父事务</span></span><br><span class="line"><span class="meta">@TccStart</span>(timeout = <span class="number">2</span>)</span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/shop_tcc/&#123;name&#125;/&#123;order&#125;/&#123;hotel&#125;"</span>)</span><br><span class="line">public <span class="built_in">String</span> shopTcc(<span class="meta">@PathVariable</span> <span class="built_in">String</span> name, <span class="meta">@PathVariable</span> <span class="built_in">String</span> order, <span class="meta">@PathVariable</span> <span class="built_in">String</span> hotel) throws InterruptedException &#123;</span><br><span class="line">        <span class="comment">//调用订单服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8082/order_tcc/&#123;name&#125;/&#123;order&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, order);</span><br><span class="line">        <span class="comment">//调用酒店服务的请求</span></span><br><span class="line">        template.postForEntity(<span class="string">"http://127.0.0.1:8083/hotel_tcc/&#123;name&#125;/&#123;hotel&#125;"</span>,<span class="keyword">null</span>, <span class="built_in">String</span>.<span class="keyword">class</span>, name, hotel);</span><br><span class="line">         <span class="comment">//超时</span></span><br><span class="line">        Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">        <span class="keyword">return</span> name + <span class="string">" order "</span> + order + <span class="string">"hotel "</span> + hotel + <span class="string">" cars OK"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现TCC的timeout选项好像没有作用。。。。看了下源码，的确没有用到，源码如下<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g19adzx8ahj2246138drc.jpg" alt=""><br>ServiceComb在0.3.0加入了TCC的支持，所以有些功能还待完善把。</p>
+<h4 id="情况五：订单服务启动，酒店服务未启动"><a href="#情况五：订单服务启动，酒店服务未启动" class="headerlink" title="情况五：订单服务启动，酒店服务未启动"></a>情况五：订单服务启动，酒店服务未启动</h4><p>关闭hotel服务，执行后数据如下：<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fly1g19ajirqhpj215s0aiq99.jpg" alt=""><br>订单和酒店数据库都没有数据</p>
+<h4 id="情况六-模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行："><a href="#情况六-模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行：" class="headerlink" title="情况六: 模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行："></a>情况六: 模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行：</h4><p>订单、酒店、商店服务后来日志显示心跳连接失效<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g19aq910axj223k0gstfo.jpg" alt=""><br>请求数据返回错误信息，数据库表均未写入数据。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g19ap4jromj211602kwjk.jpg" alt=""></p>
+<p>重新启动alpha服务，订单、酒店、商店服务重新连接到alpha，业务正常运行。</p>
+<h4 id="情况七-模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行："><a href="#情况七-模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行：" class="headerlink" title="情况七: 模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行："></a>情况七: 模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行：</h4><p>请求未进入业务逻辑之前，alpha服务报错，请求未执行。<br>mysql重启成功后，alpha服务正常运行，请求数据正常执行。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ServiceComb对于数据最终一致性的解决现阶段0.3.0是满足业务逻辑的，但是对于失败重试、超时等功能这一块还不支持，后期应该会扩展。ServiceComb功能比较简单，但是可以通过对omega的事物id结合调用链追踪实现业务流程与事务的追溯。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2019/03/20/Servicecomb实践/" title="Servicecomb实践">https://dinghuang.github.io/2019/03/20/Servicecomb实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/22/数据库优化方案/" rel="next" title="数据库优化方案">
+                <i class="fa fa-chevron-left"></i> 数据库优化方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Servicecomb实践"><span class="nav-number">1.</span> <span class="nav-text">Servicecomb实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键特性"><span class="nav-number">1.1.</span> <span class="nav-text">关键特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构"><span class="nav-number">1.2.</span> <span class="nav-text">架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Omega内部运行机制"><span class="nav-number">1.2.1.</span> <span class="nav-text">Omega内部运行机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务间通信流程"><span class="nav-number">1.2.2.</span> <span class="nav-text">服务间通信流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Saga-具体处理流程"><span class="nav-number">1.2.3.</span> <span class="nav-text">Saga 具体处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#成功场景"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">成功场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常场景"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">异常场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#超时场景-需要调整）"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">超时场景 (需要调整）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCC-具体处理流程"><span class="nav-number">1.2.4.</span> <span class="nav-text">TCC 具体处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#成功场景-1"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">成功场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常场景-1"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">异常场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#omega、alpha的TSL双向证书"><span class="nav-number">1.3.</span> <span class="nav-text">omega、alpha的TSL双向证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#准备证书-（Certificates）"><span class="nav-number">1.3.1.</span> <span class="nav-text">准备证书 （Certificates）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS为Alpha服务开启TLS"><span class="nav-number">1.3.2.</span> <span class="nav-text">TLS为Alpha服务开启TLS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为Omega启用TLS"><span class="nav-number">1.3.3.</span> <span class="nav-text">为Omega启用TLS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与Spring结合使用"><span class="nav-number">1.4.</span> <span class="nav-text">与Spring结合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Saga中的Event简介"><span class="nav-number">1.4.1.</span> <span class="nav-text">Saga中的Event简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与Spring和Mysql结合使用"><span class="nav-number">1.4.2.</span> <span class="nav-text">与Spring和Mysql结合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务解析"><span class="nav-number">1.4.3.</span> <span class="nav-text">事务解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#情况一：正常事务结束"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">情况一：正常事务结束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况二：父事件中调用订单成功后，出现异常"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">情况二：父事件中调用订单成功后，出现异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况三：父事件中调用订单和酒店成功后，出现异常"><span class="nav-number">1.4.3.3.</span> <span class="nav-text">情况三：父事件中调用订单和酒店成功后，出现异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况四：父事件超时"><span class="nav-number">1.4.3.4.</span> <span class="nav-text">情况四：父事件超时</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况五：订单服务启动，酒店服务未启动"><span class="nav-number">1.4.3.5.</span> <span class="nav-text">情况五：订单服务启动，酒店服务未启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况六-模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行："><span class="nav-number">1.4.3.6.</span> <span class="nav-text">情况六: 模拟运行过程中alpha服务挂起，订单、酒店、商店服务正常运行：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况七-模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行："><span class="nav-number">1.4.3.7.</span> <span class="nav-text">情况七: 模拟运行过程中alpha服务的mysql挂起，订单、酒店、商店服务正常运行：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.4.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2019/03/20/Servicecomb实践/';
+          this.page.identifier = '2019/03/20/Servicecomb实践/';
+          this.page.title = 'Servicecomb实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

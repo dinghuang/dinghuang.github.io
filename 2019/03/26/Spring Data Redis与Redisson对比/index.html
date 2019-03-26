@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Spring Data Redis与Redisson对比Spring Data RedisSpring Data Redis是更大的Spring Data系列的一部分，可以从Spring应用程序轻松配置和访问Redis。它提供了与商店交互的低级和高级抽象，使用户免于基础设施问题。Spring Boot 从 2.0版本开始，将默认的Redis客户端Jedis替换问Lettuce。 特性 连接包作为多">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Data Redis与Redisson对比">
+<meta property="og:url" content="https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="Spring Data Redis与Redisson对比Spring Data RedisSpring Data Redis是更大的Spring Data系列的一部分，可以从Spring应用程序轻松配置和访问Redis。它提供了与商店交互的低级和高级抽象，使用户免于基础设施问题。Spring Boot 从 2.0版本开始，将默认的Redis客户端Jedis替换问Lettuce。 特性 连接包作为多">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g1fxturm52j219e0k2ac6.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g1f1ntysocj21b60ycgn7.jpg">
+<meta property="og:updated_time" content="2019-03-26T12:42:29.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Data Redis与Redisson对比">
+<meta name="twitter:description" content="Spring Data Redis与Redisson对比Spring Data RedisSpring Data Redis是更大的Spring Data系列的一部分，可以从Spring应用程序轻松配置和访问Redis。它提供了与商店交互的低级和高级抽象，使用户免于基础设施问题。Spring Boot 从 2.0版本开始，将默认的Redis客户端Jedis替换问Lettuce。 特性 连接包作为多">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g1fxturm52j219e0k2ac6.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/"/>
+
+
+
+
+
+  <title>Spring Data Redis与Redisson对比 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Data Redis与Redisson对比</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T20:47:00+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/26/Spring Data Redis与Redisson对比/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/03/26/Spring Data Redis与Redisson对比/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Spring-Data-Redis与Redisson对比"><a href="#Spring-Data-Redis与Redisson对比" class="headerlink" title="Spring Data Redis与Redisson对比"></a>Spring Data Redis与Redisson对比</h1><h2 id="Spring-Data-Redis"><a href="#Spring-Data-Redis" class="headerlink" title="Spring Data Redis"></a>Spring Data Redis</h2><p><a href="https://spring.io/projects/spring-data-redis" target="_blank" rel="noopener">Spring Data Redis</a>是更大的Spring Data系列的一部分，可以从Spring应用程序轻松配置和访问Redis。它提供了与商店交互的低级和高级抽象，使用户免于基础设施问题。Spring Boot 从 2.0版本开始，将默认的Redis客户端Jedis替换问Lettuce。</p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>连接包作为多个Redis驱动程序/连接器的低级抽象（<a href="https://github.com/xetorthio/jedis" target="_blank" rel="noopener">Jedis</a>和<a href="https://github.com/mp911de/lettuce" target="_blank" rel="noopener">Lettuce</a>。不推荐支持<a href="https://github.com/alphazero/jredis" target="_blank" rel="noopener">JRedis</a>和<a href="https://github.com/spullara/redis-protocol" target="_blank" rel="noopener">SRP</a>。）</li>
+<li><a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:connectors" target="_blank" rel="noopener">异常</a>转换到Spring的便携式数据访问异常层次结构Redis的驱动程序例外</li>
+<li><a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:template" target="_blank" rel="noopener">RedisTemplate</a>，提供高级抽象，用于执行各种Redis操作，异常转换和序列化支持</li>
+<li><a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#pubsub" target="_blank" rel="noopener">Pubsub</a>支持（例如消息驱动的POJO的MessageListenerContainer）</li>
+<li><a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:sentinel" target="_blank" rel="noopener">Redis Sentinel</a>和<a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#cluster" target="_blank" rel="noopener">Redis Cluster</a>支持</li>
+<li>JDK，String，JSON和Spring Object / XML映射<a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:serializer" target="_blank" rel="noopener">序列化程序</a></li>
+<li>在Redis之上的JDK Collection实现</li>
+<li>原子<a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:support" target="_blank" rel="noopener">计数器</a>支持classes</li>
+<li>排序和流水线功能</li>
+<li>专门支持SORT，SORT / GET模式和返回的批量值</li>
+<li>Redis <a href="https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/#redis:support:cache-abstraction" target="_blank" rel="noopener">实现</a>了Spring 3.1缓存抽象</li>
+<li>自动实现Repository接口，包括支持自定义查找程序方法@EnableRedisRepositories</li>
+<li>CDI对存储库的支持</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在<code>pom.xml</code>中加入<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在<code>application.yml</code>中加入<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    database:</span> <span class="number">6</span>  <span class="comment">#Redis索引0~15，默认为0</span></span><br><span class="line"><span class="attr">    host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">6379</span></span><br><span class="line"><span class="attr">    password:</span>  <span class="comment">#密码（默认为空）</span></span><br><span class="line"><span class="attr">    pool:</span></span><br><span class="line"><span class="attr">      max-active:</span> <span class="number">8</span>   <span class="comment">#连接池最大连接数（使用负值表示没有限制）</span></span><br><span class="line"><span class="attr">      max-wait:</span> <span class="bullet">-1</span><span class="string">ms</span>  <span class="comment">#连接池最大阻塞等待时间（使用负值表示没有限制）</span></span><br><span class="line"><span class="attr">      max-idle:</span> <span class="number">5</span>     <span class="comment">#连接池中的最大空闲连接</span></span><br><span class="line"><span class="attr">      min-idle:</span> <span class="number">0</span>     <span class="comment">#连接池中的最小空闲连接</span></span><br><span class="line"><span class="attr">    timeout:</span> <span class="number">10000</span><span class="string">ms</span>    <span class="comment">#连接超时时间（毫秒）</span></span><br></pre></td></tr></table></figure></p>
+<p>加入配置类<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">RedisConfiguration</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * RedisTemplate配置</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * @param redisConnectionFactory redisConnectionFactory</span></span><br><span class="line"><span class="comment">     * @return RedisTemplate</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    public <span class="type">RedisTemplate</span>&lt;<span class="type">String</span>, <span class="type">Object</span>&gt; redisTemplate(<span class="type">RedisConnectionFactory</span> redisConnectionFactory) &#123;</span><br><span class="line">        <span class="comment">// 配置redisTemplate</span></span><br><span class="line">        <span class="type">RedisTemplate</span>&lt;<span class="type">String</span>, <span class="type">Object</span>&gt; redisTemplate = <span class="keyword">new</span> <span class="type">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        <span class="comment">//key序列化</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> <span class="type">StringRedisSerializer</span>());</span><br><span class="line">        <span class="comment">//value序列化</span></span><br><span class="line">        redisTemplate.setValueSerializer(<span class="keyword">new</span> <span class="type">GenericJackson2JsonRedisSerializer</span>());</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码使用<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Autowired</span><br><span class="line"><span class="keyword">private</span> RedisTemplate redisTemplate;</span><br><span class="line"></span><br><span class="line">@Autowired</span><br><span class="line"><span class="keyword">private</span> RedisConnectionFactory redisConnectionFactory;</span><br><span class="line"></span><br><span class="line">@SuppressWarnings(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> test()&#123;</span><br><span class="line">    <span class="comment">//设置键值对</span></span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">"test:set1"</span>, <span class="string">"testValue1"</span>);</span><br><span class="line">    <span class="comment">//设置键值对数组</span></span><br><span class="line">    redisTemplate.opsForSet().add(<span class="string">"test:set2"</span>, <span class="string">"asdf"</span>);</span><br><span class="line">    <span class="comment">//数据hash存入</span></span><br><span class="line">    redisTemplate.opsForHash().<span class="built_in">put</span>(<span class="string">"hash1"</span>, <span class="string">"name1"</span>, <span class="string">"lms1"</span>);</span><br><span class="line">    redisTemplate.opsForHash().<span class="built_in">put</span>(<span class="string">"hash1"</span>, <span class="string">"name2"</span>, <span class="string">"lms2"</span>);</span><br><span class="line">    redisTemplate.opsForHash().<span class="built_in">put</span>(<span class="string">"hash1"</span>, <span class="string">"name3"</span>, <span class="string">"lms3"</span>);</span><br><span class="line">    <span class="comment">//获取</span></span><br><span class="line">    System.out.<span class="built_in">println</span>(redisTemplate.opsForValue().<span class="built_in">get</span>(<span class="string">"test:set"</span>));</span><br><span class="line">    <span class="comment">//hash获取</span></span><br><span class="line">    System.out.<span class="built_in">println</span>(redisTemplate.opsForHash().<span class="built_in">get</span>(<span class="string">"hash1"</span>, <span class="string">"name1"</span>));</span><br><span class="line">    <span class="comment">//发布、订阅消息（更多请参考 https://docs.spring.io/spring-data/data-redis/docs/current/reference/html/</span></span><br><span class="line">    <span class="keyword">String</span> message = <span class="string">"dinghuang123@gmail.com"</span>;</span><br><span class="line">    <span class="keyword">byte</span>[] msg = message.getBytes();</span><br><span class="line">    <span class="keyword">byte</span>[] channel = message.getBytes();</span><br><span class="line">    redisConnectionFactory.getConnection().publish(msg, channel);</span><br><span class="line">    redisTemplate.convertAndSend(<span class="string">"hello!"</span>, <span class="string">"world"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如图所示<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g1fxturm52j219e0k2ac6.jpg" alt=""></p>
+<h2 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h2><p><a href="https://redisson.org" target="_blank" rel="noopener">Redisson</a>是一个在Redis的基础上实现的Java驻内存数据网格（In-Memory Data Grid）。它不仅提供了一系列的分布式的Java常用对象，还提供了许多分布式服务。其中包括(BitSet, Set, Multimap, SortedSet, Map, List, Queue, BlockingQueue, Deque, BlockingDeque, Semaphore, Lock, AtomicLong, CountDownLatch, Publish / Subscribe, Bloom filter, Remote service, Spring cache, Executor service, Live Object service, Scheduler service) Redisson提供了使用Redis的最简单和最便捷的方法。Redisson的宗旨是促进使用者对Redis的关注分离（Separation of Concern），从而让使用者能够将精力更集中地放在处理业务逻辑上。能够完美的在云计算环境里使用，并且支持AWS ElastiCache主备版，AWS ElastiCache集群版，Azure Redis Cache和阿里云（Aliyun）的云数据库Redis版。Redisson底层采用的是Netty 框架。支持Redis 2.8以上版本，支持Java1.6+以上版本。</p>
+<p>Redisson作为独立节点 可以用于独立执行其他节点发布到分布式执行服务 和 分布式调度任务服务 里的远程任务。<br><img src="https://ws1.sinaimg.cn/large/9bc4cb9fgy1g1f1ntysocj21b60ycgn7.jpg" alt=""></p>
+<h3 id="特性-1"><a href="#特性-1" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>复制的Redis服务器模式（还支持<a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Replication.html" target="_blank" rel="noopener">AWS ElastiCache</a>和<a href="https://azure.microsoft.com/en-us/services/cache/" target="_blank" rel="noopener">Azure Redis</a>缓存）：<ul>
+<li>自动主服务器更改发现</li>
+</ul>
+</li>
+<li>群集Redis服务器模式（还支持<a href="http://docs.aws.amazon.com/AmazonElastiCache/latest/UserGuide/Replication.html" target="_blank" rel="noopener">AWS ElastiCache</a>和<a href="https://azure.microsoft.com/en-us/services/cache/" target="_blank" rel="noopener">Azure Redis</a>缓存：<ul>
+<li>自动主从服务器发现</li>
+<li>自动状态和拓扑更新</li>
+<li>自动插槽更改发现</li>
+</ul>
+</li>
+<li>Sentinel Redis服务器模式：<ul>
+<li>自动主，从和服务器发现</li>
+<li>自动状态和拓扑更新</li>
+</ul>
+</li>
+<li>掌握Slave Redis服务器模式</li>
+<li>单Redis服务器模式</li>
+<li>线程安全的实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/3.-operations-execution#32-reactive-way" target="_blank" rel="noopener">Reactive Streams</a> API</li>
+<li><a href="https://github.com/redisson/redisson/wiki/3.-operations-execution#31-async-way" target="_blank" rel="noopener">异步</a> API</li>
+<li>异步连接池</li>
+<li>Lua脚本</li>
+<li><a href="https://github.com/redisson/redisson/wiki/6.-Distributed-objects" target="_blank" rel="noopener">分布式Java对象</a><br>Object holder，Binary stream holder，Geospatial holder，BitSet，AtomicLong，AtomicDouble，PublishSubscribe，Bloom filter，HyperLogLog</li>
+<li><a href="https://github.com/redisson/redisson/wiki/7.-Distributed-collections" target="_blank" rel="noopener">分布式Java集合</a><br>Map，Multimap，Set，List，SortedSet，ScoredSortedSet，LexSortedSet，Queue，Deque，Blocking Queue，Bounded Blocking Queue，Blocking Deque，Delayed Queue，Priority Queue，Priority Deque</li>
+<li><a href="https://github.com/redisson/redisson/wiki/8.-Distributed-locks-and-synchronizers" target="_blank" rel="noopener">分布式Java锁和同步器</a><br>Lock，FairLock，MultiLock，RedLock，ReadWriteLock，Semaphore，PermitExpirableSemaphore，CountDownLatch</li>
+<li><a href="https://github.com/redisson/redisson/wiki/9.-distributed-services" target="_blank" rel="noopener">分布式服务</a><br>远程服务，Live Object服务，Executor服务，Scheduler服务，MapReduce服务</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks#141-spring-framework" target="_blank" rel="noopener">Spring框架</a></li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#142-spring-cache" target="_blank" rel="noopener">Spring Cache</a>实现<br>-<a href="https://github.com/redisson/redisson/wiki/14.-Integration-with-frameworks/#147-spring-transaction-manager" target="_blank" rel="noopener"> Spring Transaction API</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration-with-frameworks/#148-spring-data-redis" target="_blank" rel="noopener">Spring Data Redis</a>集成</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration-with-frameworks/#149-spring-boot-starter" target="_blank" rel="noopener">Spring Boot Starter</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#143-hibernate-cache" target="_blank" rel="noopener">Hibernate Cache</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/10.-Additional-features#104-transactions" target="_blank" rel="noopener">Transactions API</a><br>-<a href="https://github.com/redisson/redisson/wiki/10.-additional-features/#105-xa-transactions" target="_blank" rel="noopener"> XA Transaction API</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#144-jcache-api-jsr-107-implementation" target="_blank" rel="noopener">JCache API（JSR-107）</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks#145-tomcat-redis-session-manager" target="_blank" rel="noopener">Tomcat会话管理器</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/14.-Integration%20with%20frameworks/#146-spring-session" target="_blank" rel="noopener">Spring Session</a>实现</li>
+<li><a href="https://github.com/redisson/redisson/wiki/10.-additional-features#102-execution-batches-of-commands" target="_blank" rel="noopener">Redis流水线</a>（命令批处理）</li>
+<li>支持Android平台</li>
+<li>支持自动重新连接</li>
+<li>支持无法发送命令自动重试</li>
+<li>支持OSGi</li>
+<li>支持SSL</li>
+<li>支持许多流行的编解码器（<a href="https://github.com/FasterXML/jackson" target="_blank" rel="noopener">Jackson JSON</a>，<a href="http://avro.apache.org/" target="_blank" rel="noopener">Avro</a>，<a href="http://wiki.fasterxml.com/SmileFormatSpec" target="_blank" rel="noopener">Smile</a>，<a href="http://cbor.io/" target="_blank" rel="noopener">CBOR</a>，<a href="http://msgpack.org/" target="_blank" rel="noopener">MsgPack</a>，<a href="https://github.com/EsotericSoftware/kryo" target="_blank" rel="noopener">Kryo</a>，<a href="https://amzn.github.io/ion-docs/" target="_blank" rel="noopener">Amazon Ion</a>，<a href="https://github.com/RuedigerMoeller/fast-serialization" target="_blank" rel="noopener">FST</a>，<a href="https://github.com/jpountz/lz4-java" target="_blank" rel="noopener">LZ4</a>，<a href="https://github.com/xerial/snappy-java" target="_blank" rel="noopener">Snappy</a>和JDK Serialization）</li>
+<li>超过1800个单元测试</li>
+</ul>
+<h3 id="与spring-data-redis结合使用"><a href="#与spring-data-redis结合使用" class="headerlink" title="与spring-data-redis结合使用"></a>与spring-data-redis结合使用</h3><p><code>pom.xml</code>加入依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.redisson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>redisson-spring-data-21<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.10.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在<code>resources</code>文件夹添加配置文件<code>redisson.yml</code><br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Redisson配置</span></span><br><span class="line"><span class="attr">singleServerConfig:</span></span><br><span class="line"><span class="attr">  address:</span> <span class="string">"redis://127.0.0.1:6379"</span></span><br><span class="line"><span class="attr">  password:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">  clientName:</span> <span class="literal">null</span></span><br><span class="line"><span class="attr">  database:</span> <span class="number">7</span> <span class="comment">#选择使用哪个数据库0~15</span></span><br><span class="line"><span class="attr">  idleConnectionTimeout:</span> <span class="number">10000</span></span><br><span class="line"><span class="attr">  pingTimeout:</span> <span class="number">1000</span></span><br><span class="line"><span class="attr">  connectTimeout:</span> <span class="number">10000</span></span><br><span class="line"><span class="attr">  timeout:</span> <span class="number">3000</span></span><br><span class="line"><span class="attr">  retryAttempts:</span> <span class="number">3</span></span><br><span class="line"><span class="attr">  retryInterval:</span> <span class="number">1500</span></span><br><span class="line"><span class="attr">  reconnectionTimeout:</span> <span class="number">3000</span></span><br><span class="line"><span class="attr">  failedAttempts:</span> <span class="number">3</span></span><br><span class="line"><span class="attr">  subscriptionsPerConnection:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">  subscriptionConnectionMinimumIdleSize:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  subscriptionConnectionPoolSize:</span> <span class="number">50</span></span><br><span class="line"><span class="attr">  connectionMinimumIdleSize:</span> <span class="number">32</span></span><br><span class="line"><span class="attr">  connectionPoolSize:</span> <span class="number">64</span></span><br><span class="line"><span class="attr">  dnsMonitoringInterval:</span> <span class="number">5000</span></span><br><span class="line">  <span class="comment">#dnsMonitoring: false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">threads:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">nettyThreads:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">codec:</span></span><br><span class="line"><span class="attr">  class:</span> <span class="string">"org.redisson.codec.JsonJacksonCodec"</span></span><br><span class="line"><span class="attr">transportMode:</span> <span class="string">"NIO"</span></span><br></pre></td></tr></table></figure></p>
+<p>注册<code>RedissonConnectionFactory</code><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedissonSpringDataConfig</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="keyword">public</span> RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) &#123;</span><br><span class="line">       <span class="keyword">return</span> new RedissonConnectionFactory(redisson);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="meta">@Bean(destroyMethod = <span class="meta-string">"shutdown"</span>)</span></span><br><span class="line">   <span class="keyword">public</span> RedissonClient redisson(<span class="meta">@Value(<span class="meta-string">"classpath:/redisson.yml"</span>)</span> Resource configFile) throws IOException &#123;</span><br><span class="line">       Config config = Config.fromYAML(configFile.getInputStream());</span><br><span class="line">       <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码使用<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//设置键值对</span></span><br><span class="line">    RBucket&lt;String&gt; keyObj = redissonClient.getBucket(<span class="string">"k1"</span>);</span><br><span class="line">    keyObj.set(<span class="string">"v1236"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>spring-data-redis 支持的基本能够满足对redis的操作，提供了2种客户端连接，也支持redis集群的模式。如果涉及到利用redis做分布式锁的话，redisson封装了更多的工具和基础原子对象进行操作，redisson是优先选择，其次redisson兼容了很多的框架，那么多star不是没有道理的= =。同时也可以通过redisson与RxJava结合，实现线程安全的异步任务等等。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/" title="Spring Data Redis与Redisson对比">https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/20/Servicecomb实践/" rel="next" title="Servicecomb实践">
+                <i class="fa fa-chevron-left"></i> Servicecomb实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Data-Redis与Redisson对比"><span class="nav-number">1.</span> <span class="nav-text">Spring Data Redis与Redisson对比</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Data-Redis"><span class="nav-number">1.1.</span> <span class="nav-text">Spring Data Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性"><span class="nav-number">1.1.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redisson"><span class="nav-number">1.2.</span> <span class="nav-text">Redisson</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与spring-data-redis结合使用"><span class="nav-number">1.2.2.</span> <span class="nav-text">与spring-data-redis结合使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">1.3.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2019/03/26/Spring Data Redis与Redisson对比/';
+          this.page.identifier = '2019/03/26/Spring Data Redis与Redisson对比/';
+          this.page.title = 'Spring Data Redis与Redisson对比';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

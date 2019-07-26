@@ -83,6 +83,7 @@
  14. [sofa-bolt：SOFABolt 是蚂蚁金融服务集团开发的一套基于 Netty 实现的网络通信框架。][236]
  15. [thrift：Apache旗下的可伸缩的跨语言服务开发框架。][238]
  16. [storm：Apache旗下的分布式实时计算系统。类似于Hadoop如何提供一组用于进行批处理的通用基元，Storm提供了一组用于进行实时计算的通用基元。][239]
+ 17. [generator-jhipster：开源应用程序生成器，用于在几秒钟内创建Spring Boot + Angular / React项目。][252]
 ### 2.4 权限安全相关
  1. [Shiro：ApacheShiro专注于易用性，可以依赖安全，稳定的身份验证，授权，加密和会话管理。][24]
  2. [Spring Security：SpringSecurity是一个功能强大且可高度自定义的身份验证和访问控制框架。它是保护基于Spring的应用程序的事实上的标准。][25]
@@ -101,6 +102,7 @@
  1. [Commons-Logging：jdk自带。][32]
  2. [Slf4j: 日志接口，通过各种桥接包判断实现，在编译时静态绑定真正的日志库。][33]
  3. [Log4j2: Log4j的升级，配置更强大，支持插件化，使用Disruptor实现异步日志，性能最好。][34]
+ 4. [Logback: Logback是由log4j创始人设计的另一个开源日志组件。][260]
 ### 2.8 数据采集管道
  1. [Logstash：ElasticSearch下的数据采集管道，常用于日志分析。][35]
  2. [Actuator：SpringBoot的数据收集器，收集指标，了解流量或数据库的状态。][36]
@@ -191,6 +193,8 @@
  15. [X-Pipe：由携程框架部门研发的Redis多数据中心复制管理系统。基于Redis的Master-Slave复制协议，实现低延时、高可用的Redis多数据中心复制，并且提供一键机房切换，复制监控、异常报警等功能。][233]
  16. [fescar：阿里最新开源的基于Java的开源分布式事务解决方案。][245]
  17. [etcd：用于分布式系统最关键数据的分布式可靠键值存储，现在被作为kubernetes底层存储。][247]
+ 18. [Tx-lcn：分布式事务框架，本地事务的协调工。][258]
+ 19. [EasyTransaction：目前在职腾讯的一个人开发的，号称可一站式解决分布式SOA（包括微服务等）的事务问题的框架，支持TCC , SAGA ,FMT (seata/fescar AutoCompensation)，目前自己也在研究，不需要外部协调者。][259]
 ### 2.19 数据库相关
  1. [MySQL：适用于个人的小型开源数据库，现在微服务比较热门，一个大型服务拆分为模块服务，MySQL就比较适用于微服务。][87]
  2. [Oracle：老牌数据库，非常强大，现在收购了Sun公司和MySQL。][88]
@@ -206,6 +210,11 @@
  12. [HikariCP：性能最高的数据库连接池。][97]
  13. [Druid：阿里出品，为监控而生的数据库连接池。][98]
  14. [Phoenix：构建在HBase上的一个SQL层，能让我们用标准的JDBC APIs而不是HBase客户端APIs来创建表，插入数据和对HBase数据进行查询。][174]
+ 15. [Otter：阿里巴巴分布式数据库同步系统(解决中美异地机房)， 基于数据库增量日志解析，准实时同步到本机房或异地机房的mysql/oracle数据库. 一个分布式数据库同步系统。][253]
+ 16. [Canal：阿里巴巴 MySQL binlog 增量订阅&消费组件。][254]
+ 17. [Databus：Databus是一个可靠的、支持事务的、保持一致性的数据变更抓取系统。][255]
+ 18. [Incubator-shardingsphere：关系型数据库中间件，提供标准化的数据分片、分布式事务和数据库治理功能。][256]
+ 19. [tb_tddl：淘宝基于客户端的数据库中间件产品。][257]
 ### 2.20 容器相关
  1. [Docker：是一个开源的应用容器引擎，目前主流容器技术，虚拟机的最大竞争对手。][99]
  2. [Kubernetes：谷歌开源用于自动化部署，扩展和管理集装箱化应用程序的系统，也是目前容器编排主流开源项目。][100]
@@ -237,6 +246,7 @@
  10. [OpenGrok：Oracle公司的，用Java编写的源代码库搜索工具。][118]
  11. [mybatis-3：Mybatis在Java的映射工具包，源码设计缓存设计、大量的反射，挺值得看的。][119]
  12. [jvm-sandbox：基于JVM的实时非侵入式AOP框架容器，既可支持线上链路监控排查，也可支持单机版问题定位。][246]
+ 13. [useful-scripts：用于排查问题的脚本，可以用于快速排查Java的CPU性能问题(top us值过高)，自动查出运行的Java进程中消耗CPU多的线程，并打印出其线程栈，从而确定导致性能问题的方法调用。][251]
 ### 2.23 缓存框架
  1. [Ehcache：Java分布式缓存框架。][120]
  2. [Cacheonix：高性能Java分布式缓存系统。][121]
@@ -248,6 +258,7 @@
 ### 2.24 架构相关
  1. [Domain-driven design：领域驱动设计，复杂的业务逻辑可以参考，其中盒马生鲜就用到了其中的概念。][126]
  2. [Saga：用于解决分布式系统事务一致性的模式。][127]
+ 3. [Puma：为并发而构建的Ruby / Rack Web服务器。][265]
 ### 2.25 工作流引擎
  1. [Activiti：目前用的比较多的工作流，重点关注在系统开发的易用性和轻量性上。][128]
  2. [JBPM：是JBoss中一款开源的工作流引擎，是一个轻量级的，使用最新的BPMN 2规范可扩展的，目前最新的是JBPM3。][129]
@@ -271,7 +282,10 @@
  4. [mpvue：美团小程序开发框架。][135]
  5. [Choerodon：自己参与开发的开源企业服务平台，是基于Kubernetes的容器编排和管理能力，整合DevOps工具链、微服务和移动应用框架。][136]
  6. [go-cloud：提供了一个库和用于构建可在多个云平台之间移植的应用程序的工具。][217]
-
+ 7. [Aspose.Words-for-Java：Aspose.Words for Java是一种高级Java Word处理API，可以直接在Java应用程序中执行各种文档处理任务。][261]
+ 8. [spring-cloud-framework：自己写的一个基于spring-cloud的脚手架项目，用于快速开发。][264]
+ 9. [discourse：开源的社区交流平台。][262]
+ 10. [freeCodeCamp：开源代码库和课程。与数百万人一起免费学习编码。][263]
 
 ## 3. 个人优秀开源项目
 ### 3.1 知识整合
@@ -324,6 +338,8 @@
  6. [WeChatPlugin-MacOS：一款功能强大的 macOS 版微信小助手。][231]
  7. [alfred-workflows：macOS上Alfred 3的工作流集合，自己也在用，效率提升100%。][232]
  8. [NetDiscovery：打造一个通用的爬虫程序。][237]
+ 9. [avbook：最近很火的，你懂的。][249]
+ 10. [FuckMFS：用于伪装手机，防止取证，你懂的。][250]
 
 
 
@@ -575,3 +591,20 @@
   [246]: https://github.com/alibaba/jvm-sandbox
   [247]: https://github.com/etcd-io/etcd
   [248]: https://github.com/rest-assured/rest-assured
+  [249]: https://github.com/guyueyingmu/avbook
+  [250]: https://github.com/HiedaNaKan/FuckMFS
+  [251]: https://github.com/oldratlee/useful-scripts
+  [252]: https://github.com/jhipster/generator-jhipster
+  [253]: https://github.com/alibaba/otter
+  [254]: https://github.com/alibaba/canal
+  [255]: https://github.com/linkedin/databus
+  [256]: https://github.com/apache/incubator-shardingsphere
+  [257]: https://github.com/alibaba/tb_tddl
+  [258]: https://github.com/codingapi/tx-lcn
+  [259]: https://github.com/QNJR-GROUP/EasyTransaction
+  [260]: https://github.com/qos-ch/logback
+  [261]: https://github.com/aspose-words/Aspose.Words-for-Java
+  [262]: https://github.com/discourse/discourse
+  [263]: https://github.com/freeCodeCamp/freeCodeCamp
+  [264]: https://github.com/dinghuang/spring-cloud-framework
+  [265]: https://github.com/puma/puma

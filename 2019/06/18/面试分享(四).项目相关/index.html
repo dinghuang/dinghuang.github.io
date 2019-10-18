@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="项目," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="项目相关聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。你个人有什么优势讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细线上有没有遇到其他问题，如何处理的说一个你了解最多的框架，说出你的理解项目中监控报警机制如何做的，说说你的了解服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题防止服务器雪崩服务雪崩效应是一种因 服务提供">
+<meta name="keywords" content="项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试分享(四).项目相关">
+<meta property="og:url" content="https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="项目相关聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。你个人有什么优势讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细线上有没有遇到其他问题，如何处理的说一个你了解最多的框架，说出你的理解项目中监控报警机制如何做的，说说你的了解服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题防止服务器雪崩服务雪崩效应是一种因 服务提供">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/4178518469-578b40005071a_articlex.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1428026-20180627155226400-2110957179.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1428026-20180627155304978-2139783031.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142607150-1816607466.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142644719-478728417.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142705705-752555217.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153322409-925270442.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153600440-801781810.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153752409-751696404.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154202112-182791105.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154443503-595466474.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG242.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/7D4C84D6-8843-42FC-AAB4-C5D5EA308C1B.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/A026DF6E-060A-4295-83CB-FC4A7D229A03.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/26145228-2DA8-4168-BBE9-DA99F4BD0016.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9B7CB81A-434E-4C33-B65E-3821C19E3B70.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png">
+<meta property="og:updated_time" content="2019-10-18T10:55:58.160Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="面试分享(四).项目相关">
+<meta name="twitter:description" content="项目相关聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。你个人有什么优势讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细线上有没有遇到其他问题，如何处理的说一个你了解最多的框架，说出你的理解项目中监控报警机制如何做的，说说你的了解服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题防止服务器雪崩服务雪崩效应是一种因 服务提供">
+<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/4178518469-578b40005071a_articlex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/"/>
+
+
+
+
+
+  <title>面试分享(四).项目相关 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试分享(四).项目相关</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T18:33:00+08:00">
+                2019-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/06/18/面试分享(四).项目相关/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/06/18/面试分享(四).项目相关/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="项目相关"><a href="#项目相关" class="headerlink" title="项目相关"></a>项目相关</h1><h2 id="聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。"><a href="#聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。" class="headerlink" title="聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。"></a>聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。</h2><h2 id="你个人有什么优势"><a href="#你个人有什么优势" class="headerlink" title="你个人有什么优势"></a>你个人有什么优势</h2><h2 id="讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细"><a href="#讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细" class="headerlink" title="讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细"></a>讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细</h2><h2 id="线上有没有遇到其他问题，如何处理的"><a href="#线上有没有遇到其他问题，如何处理的" class="headerlink" title="线上有没有遇到其他问题，如何处理的"></a>线上有没有遇到其他问题，如何处理的</h2><h2 id="说一个你了解最多的框架，说出你的理解"><a href="#说一个你了解最多的框架，说出你的理解" class="headerlink" title="说一个你了解最多的框架，说出你的理解"></a>说一个你了解最多的框架，说出你的理解</h2><h2 id="项目中监控报警机制如何做的，说说你的了解"><a href="#项目中监控报警机制如何做的，说说你的了解" class="headerlink" title="项目中监控报警机制如何做的，说说你的了解"></a>项目中监控报警机制如何做的，说说你的了解</h2><h2 id="服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题"><a href="#服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题" class="headerlink" title="服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题"></a>服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题</h2><h2 id="防止服务器雪崩"><a href="#防止服务器雪崩" class="headerlink" title="防止服务器雪崩"></a>防止服务器雪崩</h2><p>服务雪崩效应是一种因 服务提供者 的不可用导致 服务调用者 的不可用,并将不可用 逐渐放大 的过程.如果所示:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/4178518469-578b40005071a_articlex.png" alt="image"></p>
+<p>上图中, A为服务提供者, B为A的服务调用者, C和D是B的服务调用者. 当A的不可用,引起B的不可用,并将不可用逐渐放大C和D时, 服务雪崩就形成了.</p>
+<h3 id="服务雪崩效应形成的原因"><a href="#服务雪崩效应形成的原因" class="headerlink" title="服务雪崩效应形成的原因"></a>服务雪崩效应形成的原因</h3><p>我把服务雪崩的参与者简化为 服务提供者 和 服务调用者, 并将服务雪崩产生的过程分为以下三个阶段来分析形成的原因:</p>
+<ol>
+<li>服务提供者不可用</li>
+<li>重试加大流量</li>
+<li>服务调用者不可用</li>
+</ol>
+<p>服务雪崩的每个阶段都可能由不同的原因造成, 比如造成 服务不可用 的原因有:</p>
+<ul>
+<li>硬件故障</li>
+<li>程序Bug</li>
+<li>缓存击穿</li>
+<li>用户大量请求</li>
+</ul>
+<p>硬件故障可能为硬件损坏造成的服务器主机宕机, 网络硬件故障造成的服务提供者的不可访问.<br>缓存击穿一般发生在缓存应用重启, 所有缓存被清空时,以及短时间内大量缓存失效时. 大量的缓存不命中, 使请求直击后端,造成服务提供者超负荷运行,引起服务不可用.<br>在秒杀和大促开始前,如果准备不充分,用户发起大量请求也会造成服务提供者的不可用.</p>
+<p>而形成 重试加大流量 的原因有:</p>
+<ul>
+<li>用户重试</li>
+<li>代码逻辑重试</li>
+</ul>
+<p>在服务提供者不可用后, 用户由于忍受不了界面上长时间的等待,而不断刷新页面甚至提交表单.<br>服务调用端的会存在大量服务异常后的重试逻辑.<br>这些重试都会进一步加大请求流量.</p>
+<p>最后, 服务调用者不可用 产生的主要原因是:</p>
+<ul>
+<li>同步等待造成的资源耗尽</li>
+</ul>
+<p>当服务调用者使用 同步调用 时, 会产生大量的等待线程占用系统资源. 一旦线程资源被耗尽,服务调用者提供的服务也将处于不可用状态, 于是服务雪崩效应产生了.</p>
+<h3 id="服务雪崩的应对策略"><a href="#服务雪崩的应对策略" class="headerlink" title="服务雪崩的应对策略"></a>服务雪崩的应对策略</h3><p>针对造成服务雪崩的不同原因, 可以使用不同的应对策略:</p>
+<ul>
+<li>流量控制</li>
+<li>改进缓存模式</li>
+<li>服务自动扩容</li>
+<li>服务调用者降级服务</li>
+</ul>
+<p>流量控制 的具体措施包括:</p>
+<ul>
+<li>网关限流</li>
+<li>用户交互限流</li>
+<li>关闭重试</li>
+</ul>
+<p>因为Nginx的高性能, 目前一线互联网公司大量采用Nginx+Lua的网关进行流量控制, 由此而来的OpenResty也越来越热门.</p>
+<p>用户交互限流的具体措施有:</p>
+<ul>
+<li>采用加载动画,提高用户的忍耐等待时间.</li>
+<li>提交按钮添加强制等待时间机制.</li>
+</ul>
+<p>改进缓存模式 的措施包括:</p>
+<ul>
+<li>缓存预加载</li>
+<li>同步改为异步刷新</li>
+</ul>
+<p>服务自动扩容 的措施主要有:</p>
+<ul>
+<li>AWS的auto scaling</li>
+</ul>
+<p>服务调用者降级服务 的措施包括:<br>资源隔离</p>
+<ul>
+<li>对依赖服务进行分类</li>
+<li>不可用服务的调用快速失败</li>
+<li>资源隔离主要是对调用服务的线程池进行隔离.</li>
+</ul>
+<p>我们根据具体业务,将依赖服务分为: 强依赖和若依赖. 强依赖服务不可用会导致当前业务中止,而弱依赖服务的不可用不会导致当前业务的中止.</p>
+<p>不可用服务的调用快速失败一般通过 超时机制, 熔断器 和熔断后的 降级方法 来实现.</p>
+<h2 id="缓存穿透，缓存击穿，缓存雪崩解决方案分析"><a href="#缓存穿透，缓存击穿，缓存雪崩解决方案分析" class="headerlink" title="缓存穿透，缓存击穿，缓存雪崩解决方案分析"></a>缓存穿透，缓存击穿，缓存雪崩解决方案分析</h2><h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>缓存穿透是指查询一个一定不存在的数据，由于缓存是不命中时被动写的，并且出于容错考虑，如果从存储层查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到存储层去查询，失去了缓存的意义。在流量大时，可能DB就挂掉了，要是有人利用不存在的key频繁攻击我们的应用，这就是漏洞。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>有很多种方法可以有效地解决缓存穿透问题，最常见的则是采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被 这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。另外也有一个更为简单粗暴的方法（我们采用的就是这种），如果一个查询返回的数据为空（不管是数 据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。</p>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p>缓存雪崩是指在我们设置缓存时采用了相同的过期时间，导致缓存在某一时刻同时失效，请求全部转发到DB，DB瞬时压力过重雪崩。</p>
+<h4 id="解决方案-1"><a href="#解决方案-1" class="headerlink" title="解决方案"></a>解决方案</h4><p>缓存失效时的雪崩效应对底层系统的冲击非常可怕。大多数系统设计者考虑用加锁或者队列的方式保证缓存的单线 程（进程）写，从而避免失效时大量的并发请求落到底层存储系统上。这里分享一个简单方案就时讲缓存失效时间分散开，比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</p>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p>对于一些设置了过期时间的key，如果这些key可能会在某些时间点被超高并发地访问，是一种非常“热点”的数据。这个时候，需要考虑一个问题：缓存被“击穿”的问题，这个和缓存雪崩的区别在于这里针对某一key缓存，前者则是很多key。</p>
+<p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+<h4 id="解决方案-2"><a href="#解决方案-2" class="headerlink" title="解决方案"></a>解决方案</h4><h5 id="使用互斥锁-mutex-key"><a href="#使用互斥锁-mutex-key" class="headerlink" title="使用互斥锁(mutex key)"></a>使用互斥锁(mutex key)</h5><p>业界比较常用的做法，是使用mutex。简单地来说，就是在缓存失效的时候（判断拿出来的值为空），不是立即去load db，而是先使用缓存工具的某些带成功操作返回值的操作（比如Redis的SETNX或者Memcache的ADD）去set一个mutex key，当操作返回成功时，再进行load db的操作并回设缓存；否则，就重试整个get缓存的方法。</p>
+<p>SETNX，是「SET if Not eXists」的缩写，也就是只有不存在的时候才设置，可以利用它来实现锁的效果。在redis2.6.1之前版本未实现setnx的过期时间，所以这里给出两种版本代码参考：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//2.6.1前单机版本锁</span></span><br><span class="line"><span class="keyword">String</span> <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>) &#123;  </span><br><span class="line">   <span class="keyword">String</span> value = redis.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">   <span class="keyword">if</span> (value  == <span class="keyword">null</span>) &#123;  </span><br><span class="line">    <span class="keyword">if</span> (redis.setnx(key_mutex, <span class="string">"1"</span>)) &#123;  </span><br><span class="line">        <span class="comment">// 3 min timeout to avoid mutex holder crash  </span></span><br><span class="line">        redis.expire(key_mutex, <span class="number">3</span> * <span class="number">60</span>)  </span><br><span class="line">        value = db.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">        redis.<span class="built_in">set</span>(<span class="built_in">key</span>, value);  </span><br><span class="line">        redis.delete(key_mutex);  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        <span class="comment">//其他线程休息50毫秒后重试  </span></span><br><span class="line">        Thread.sleep(<span class="number">50</span>);  </span><br><span class="line">        <span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最新版本代码：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">String</span> <span class="built_in">get</span>(<span class="built_in">key</span>) &#123;</span><br><span class="line">      <span class="keyword">String</span> value = redis.<span class="built_in">get</span>(<span class="built_in">key</span>);</span><br><span class="line">      <span class="keyword">if</span> (value == <span class="keyword">null</span>) &#123; <span class="comment">//代表缓存值过期</span></span><br><span class="line">          <span class="comment">//设置3min的超时，防止del操作失败的时候，下次缓存过期一直不能load db</span></span><br><span class="line">		  <span class="keyword">if</span> (redis.setnx(key_mutex, <span class="number">1</span>, <span class="number">3</span> * <span class="number">60</span>) == <span class="number">1</span>) &#123;  <span class="comment">//代表设置成功</span></span><br><span class="line">               value = db.<span class="built_in">get</span>(<span class="built_in">key</span>);</span><br><span class="line">                      redis.<span class="built_in">set</span>(<span class="built_in">key</span>, value, expire_secs);</span><br><span class="line">                      redis.del(key_mutex);</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;  <span class="comment">//这个时候代表同时候的其他线程已经load db并回设到缓存了，这时候重试获取缓存值即可</span></span><br><span class="line">                      sleep(<span class="number">50</span>);</span><br><span class="line">                      <span class="built_in">get</span>(<span class="built_in">key</span>);  <span class="comment">//重试</span></span><br><span class="line">              &#125;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">return</span> value;      </span><br><span class="line">          &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>memcache代码<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (memcache.<span class="built_in">get</span>(<span class="built_in">key</span>) == <span class="keyword">null</span>) &#123;  </span><br><span class="line">    <span class="comment">// 3 min timeout to avoid mutex holder crash  </span></span><br><span class="line">    <span class="keyword">if</span> (memcache.<span class="built_in">add</span>(key_mutex, <span class="number">3</span> * <span class="number">60</span> * <span class="number">1000</span>) == <span class="keyword">true</span>) &#123;  </span><br><span class="line">        value = db.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">        memcache.<span class="built_in">set</span>(<span class="built_in">key</span>, value);  </span><br><span class="line">        memcache.delete(key_mutex);  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        sleep(<span class="number">50</span>);  </span><br><span class="line">        retry();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="“提前”使用互斥锁-mutex-key"><a href="#“提前”使用互斥锁-mutex-key" class="headerlink" title="“提前”使用互斥锁(mutex key)"></a>“提前”使用互斥锁(mutex key)</h5><p>在value内部设置1个超时值(timeout1), timeout1比实际的memcache timeout(timeout2)小。当从cache读取到timeout1发现它已经过期时候，马上延长timeout1并重新设置到cache。然后再从数据库加载数据并设置到cache中。伪代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">v = memcache.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line"><span class="keyword">if</span> (v == <span class="keyword">null</span>) &#123;  </span><br><span class="line">    <span class="keyword">if</span> (memcache.<span class="built_in">add</span>(key_mutex, <span class="number">3</span> * <span class="number">60</span> * <span class="number">1000</span>) == <span class="keyword">true</span>) &#123;  </span><br><span class="line">        value = db.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">        memcache.<span class="built_in">set</span>(<span class="built_in">key</span>, value);  </span><br><span class="line">        memcache.delete(key_mutex);  </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">        sleep(<span class="number">50</span>);  </span><br><span class="line">        retry();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">    <span class="keyword">if</span> (v.timeout &lt;= now()) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (memcache.<span class="built_in">add</span>(key_mutex, <span class="number">3</span> * <span class="number">60</span> * <span class="number">1000</span>) == <span class="keyword">true</span>) &#123;  </span><br><span class="line">            <span class="comment">// extend the timeout for other threads  </span></span><br><span class="line">            v.timeout += <span class="number">3</span> * <span class="number">60</span> * <span class="number">1000</span>;  </span><br><span class="line">            memcache.<span class="built_in">set</span>(<span class="built_in">key</span>, v, KEY_TIMEOUT * <span class="number">2</span>);  </span><br><span class="line">  </span><br><span class="line">            <span class="comment">// load the latest value from db  </span></span><br><span class="line">            v = db.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">            v.timeout = KEY_TIMEOUT;  </span><br><span class="line">            memcache.<span class="built_in">set</span>(<span class="built_in">key</span>, value, KEY_TIMEOUT * <span class="number">2</span>);  </span><br><span class="line">            memcache.delete(key_mutex);  </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">            sleep(<span class="number">50</span>);  </span><br><span class="line">            retry();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="“永远不过期”"><a href="#“永远不过期”" class="headerlink" title="“永远不过期”"></a>“永远不过期”</h5><p>这里的“永远不过期”包含两层意思：</p>
+<p>(1) 从redis上看，确实没有设置过期时间，这就保证了，不会出现热点key过期问题，也就是“物理”不过期。</p>
+<p>(2) 从功能上看，如果不过期，那不就成静态的了吗？所以我们把过期时间存在key对应的value里，如果发现要过期了，通过一个后台的异步线程进行缓存的构建，也就是“逻辑”过期</p>
+<p>从实战看，这种方法对于性能非常友好，唯一不足的就是构建缓存时候，其余线程(非构建缓存的线程)可能访问的是老数据，但是对于一般的互联网功能来说这个还是可以忍受。<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">String</span> <span class="built_in">get</span>(<span class="keyword">final</span> <span class="keyword">String</span> <span class="built_in">key</span>) &#123;  </span><br><span class="line">        V v = redis.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">        <span class="keyword">String</span> value = v.getValue();  </span><br><span class="line">        <span class="keyword">long</span> timeout = v.getTimeout();  </span><br><span class="line">        <span class="keyword">if</span> (v.timeout &lt;= System.currentTimeMillis()) &#123;  </span><br><span class="line">            <span class="comment">// 异步更新后台异常执行  </span></span><br><span class="line">            threadPool.execute(<span class="keyword">new</span> Runnable() &#123;  </span><br><span class="line">                <span class="keyword">public</span> <span class="keyword">void</span> run() &#123;  </span><br><span class="line">                    <span class="keyword">String</span> keyMutex = <span class="string">"mutex:"</span> + <span class="built_in">key</span>;  </span><br><span class="line">                    <span class="keyword">if</span> (redis.setnx(keyMutex, <span class="string">"1"</span>)) &#123;  </span><br><span class="line">                        <span class="comment">// 3 min timeout to avoid mutex holder crash  </span></span><br><span class="line">                        redis.expire(keyMutex, <span class="number">3</span> * <span class="number">60</span>);  </span><br><span class="line">                        <span class="keyword">String</span> dbValue = db.<span class="built_in">get</span>(<span class="built_in">key</span>);  </span><br><span class="line">                        redis.<span class="built_in">set</span>(<span class="built_in">key</span>, dbValue);  </span><br><span class="line">                        redis.delete(keyMutex);  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;);  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> value;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="资源保护"><a href="#资源保护" class="headerlink" title="资源保护"></a>资源保护</h5><p>采用netflix的hystrix，可以做资源的隔离保护主线程池，如果把这个应用到缓存的构建也未尝不可。</p>
+<p>四种解决方案：没有最佳只有最合适</p>
+<table>
+<thead>
+<tr>
+<th>解决方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>简单分布式互斥锁（mutex key）</td>
+<td>1. 思路简单2. 保证一致性</td>
+<td>1. 代码复杂度增大2. 存在死锁的风险3. 存在线程池阻塞的风险</td>
+</tr>
+<tr>
+<td>“提前”使用互斥锁</td>
+<td>保证一致性</td>
+<td>同上  </td>
+</tr>
+<tr>
+<td>不过期(本文)</td>
+<td>异步构建缓存，不会阻塞线程池</td>
+<td>1.不保证一致性。2. 代码复杂度增大(每个value都要维护一个timekey)。3. 占用一定的内存空间(每个value都要维护一个timekey)。 </td>
+</tr>
+<tr>
+<td>资源隔离组件hystrix(本文)</td>
+<td>1.hystrix技术成熟，有效保证后端。2. hystrix监控强大。</td>
+<td>部分访问存在降级策略。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？"><a href="#怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？" class="headerlink" title="怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？"></a>怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1428026-20180627155226400-2110957179.png" alt="image"><br>优点</p>
+<p>1:提升开发交流，每个服务足够内聚，足够小，代码容易理解；</p>
+<p>2:服务独立测试、部署、升级、发布；</p>
+<p>3:按需定制的DFX，资源利用率，每个服务可以各自进行x扩展和z扩展，而且，每个服务可以根据自己的需要部署到合适的硬件服务器上；每个服务按4:需要选择HA的模式，选择接受服务的实例个数；</p>
+<p>5:容易扩大开发团队，可以针对每个服务（service）组件开发团队；</p>
+<p>6:提高容错性（fault isolation），一个服务的内存泄露并不会让整个系统瘫痪；</p>
+<p>7:新技术的应用，系统不会被长期限制在某个技术栈上；</p>
+<p>缺点</p>
+<p>没有银弹，微服务提高了系统的复杂度；开发人员要处理分布式系统的复杂性；服务之间的分布式通信问题；服务的注册与发现问题；服务之间的分布式事务问题；数据隔离再来的报表处理问题；服务之间的分布式一致性问题；服务管理的复杂性，服务的编排；不同服务实例的管理。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1428026-20180627155304978-2139783031.png" alt="image"></p>
+<p>Chris Richardson提出的微服务的三维扩展模型：</p>
+<p>X轴，服务实例水平扩展，保证可靠性与性能；</p>
+<p>Y轴，功能的扩展，服务单一职责，功能独立；</p>
+<p>Z轴，数据分区，数据独立，可靠性保证；</p>
+<h3 id="拆分例子"><a href="#拆分例子" class="headerlink" title="拆分例子"></a>拆分例子</h3><h4 id="姿势一"><a href="#姿势一" class="headerlink" title="姿势一"></a>姿势一</h4><p>新浪微博微服务专家胡忠想从纵横两个维度来划分，简单粗暴：</p>
+<p>1.1 纵向拆分</p>
+<p>　　从业务维度进行拆分。标准是按照业务的关联程度来决定，关联比较密切的业务适合拆分为一个微服务，而功能相对比较独立的业务适合单独拆分为一个微服务。</p>
+<p>1.2 横向拆分</p>
+<p>　　从公共且独立功能维度拆分。标准是按照是否有公共的被多个其他服务调用，且依赖的资源独立不与其他业务耦合。</p>
+<p>　　纵向以业务为基准，关系铁的在一起；横向功能独立的在一起。我想如果拆分这么简单，你有底气拆，敢拆吗？所以我们又继续比对一下其他专家的言论。<br>　　<img src="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142607150-1816607466.png" alt="image"></p>
+<h4 id="姿势二"><a href="#姿势二" class="headerlink" title="姿势二"></a>姿势二</h4><p>阿里的小伙伴从综合的维度来看，部分维度和上面会有重合。</p>
+<p>2.1 服务拆分要迎合业务的需要</p>
+<p>　　充分考虑业务独立性和专业性，避免以团队来定义服务边界，从而出现“土匪”抢地盘，影响团队信任。</p>
+<p>　　这个维度和上面的类似，但是强调的是业务和团队成员的各自独立性，对上面是一种很好的补充。</p>
+<p>2.2 拆分后的维护成本要低于拆分前</p>
+<p>　　这里的维护成本包括：人力、物力、时间。</p>
+<p>　　这里的成本对大部分中小团队来说都是必须要考虑的重要环节，如果投入和收益不能成正比，或者超出领导的预算或者市场窗口，那么先进的技术就是绊脚石，千万不要迷恋技术，所谓工程师思维千万要不得。</p>
+<p>2.3 拆分不仅仅是架构的调整，组织结构上也要做响应的适应性优化</p>
+<p>　　确保拆分后的服务由相对独立的团队负责维护。</p>
+<p>　　这句话怎么理解呢？传统的团队划分是按照产品部、前端、后端横向划分，微服务化以后的团队可能就会是吃一张披萨饼的人数，产品、前端、后端被归类到服务里面，以服务为中心来分配人数。</p>
+<p>2.4 拆分最有价值的结果是提高了系统的可扩展性</p>
+<p>　　把具有不同扩展性要求的服务拆分出来，分别进行部署，降低成本，提高效率。比如全文搜索服务。</p>
+<p>　　这点和上面的按功能独立性来拆分有点类似，功能独立其实就是面向可扩展性。</p>
+<p>2.5 考虑软件发布频率</p>
+<p>　　比如把20%经常变动的部分进行抽离，80%不经常变动的单独部署和管理。说白了就是按照8/2原则进行拆分。这个拆分的好处很明显，可以尽可能的减少发布产生的后遗症，比如用户体验、服务相互干扰等。</p>
+<p>　　但是这里有一个问题，假如20%的服务分属于不同的业务层面，那该怎么办？所以这里的拆分应该有个优先级，在拆分相互冲突的时候应该要优先考虑权重比较高的那个。<br>　　<img src="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142644719-478728417.png" alt="image">
+　　</p>
+<h4 id="姿势三"><a href="#姿势三" class="headerlink" title="姿势三"></a>姿势三</h4><p>资深技术专家李运华在他的架构书中给出的拆分：</p>
+<p>3.1 基于业务逻辑</p>
+<p>　　将系统中的业务按照职责范围进行识别，职责相同的划分为一个单独的服务。这种业务优先的方式在前面两种姿势当中都出现过，可见是最基本，最重要的划分方式（没有之一）。</p>
+<p>3.2 基于稳定性</p>
+<p>　　将系统中的业务模块按照稳定性进行排序。稳定的、不经常修改的划分一块；将不稳定的，经常修改的划分为一个独立服务。比如日志服务、监控服务都是相对稳定的服务，可以归到一起。这个很类似上面提到的2/8原则，80%的业务是稳定的。</p>
+<p>　　至此你会发现服务的拆分真的没有绝对的标准，只有合理才是标准。</p>
+<p>3.3 基于可靠性</p>
+<p>　　同样，将系统中的业务模块按照可靠性进行排序。对可靠性要求比较高的核心模块归在一起，对可靠性要求不高的非核心模块归在一块。</p>
+<p>　　这种拆分的高明可以很好的规避因为一颗老鼠屎坏了一锅粥的单体弊端，同时将来要做高可用方案也能很好的节省机器或带宽的成本。</p>
+<p>3.4 基于高性能</p>
+<p>　　同上，将系统中的业务模块按照对性能的要求进行优先级排序。把对性能要求较高的模块独立成一个服务，对性能要求不高的放在一起。比如全文搜索，商品查询和分类，秒杀就属于高性能的核心模块。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/127185-20190513142705705-752555217.png" alt="image"></p>
+<h2 id="如何理解网关，网关带来的好处和坏处，如何解决"><a href="#如何理解网关，网关带来的好处和坏处，如何解决" class="headerlink" title="如何理解网关，网关带来的好处和坏处，如何解决"></a>如何理解网关，网关带来的好处和坏处，如何解决</h2><p>API网关我的分析中会用到以下三种场景。</p>
+<ul>
+<li>Open API。企业需要将自身数据、能力等作为开发平台向外开放，通常会以rest的方式向外提供，最好的例子就是淘宝开放平台、腾讯公司的QQ开放平台、微信开放平台。 Open API开放平台必然涉及到客户应用的接入、API权限的管理、调用次数管理等，必然会有一个统一的入口进行管理，这正是API网关可以发挥作用的时候。</li>
+<li>微服务网关。微服务的概念最早在2012年提出，在Martin Fowler的大力推广下，微服务在2014年后得到了大力发展。 在微服务架构中，有一个组件可以说是必不可少的，那就是微服务网关，微服务网关处理了负载均衡，缓存，路由，访问控制，服务代理，监控，日志等。API网关在微服务架构中正是以微服务网关的身份存在。</li>
+<li>API服务管理平台。上述的微服务架构对企业来说有可能实施上是困难的，企业有很多遗留系统，要全部抽取为微服务器改动太大，对企业来说成本太高。但是由于不同系统间存在大量的API服务互相调用，因此需要对系统间服务调用进行管理，清晰地看到各系统调用关系，对系统间调用进行监控等。 API网关可以解决这些问题，我们可以认为如果没有大规模的实施微服务架构，那么对企业来说微服务网关就是企业的API服务管理平台。</li>
+</ul>
+<p>一个企业随着信息系统复杂度的提高，必然出现外部合作伙伴应用、企业自身的公网应用、企业内网应用等，在架构上应该将这三种应用区别开，三种应用的安排级别、访问方式也不一样。 因此在我的设计中将这三种应用分别用不同的网关进行API管理，分别是：API网关（OpenAPI合伙伙伴应用）、API网关（内部应用）、API网关（内部公网应用）。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153322409-925270442.png" alt="image"></p>
+<p>对于OpenAPI使用的API网关来说，一般合作伙伴要以应用的形式接入到OpenAPI平台，合作伙伴需要到 OpenAPI平台申请应用。 因此在OpenAPI网关之外，需要有一个面向合作伙伴的使用的平台用于合作伙伴，这就要求OpenAPI网关需要提供API给这个用户平台进行访问。 如下架构:</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153600440-801781810.jpg" alt="image"></p>
+<p>对于内网的API网关，在起到的作用上来说可以认为是微服务网关，也可以认为是内网的API服务治理平台。 当企业将所有的应用使用微服务的架构管理起来，那么API网关就起到了微服务网关的作用。 而当企业只是将系统与系统之间的调用使用rest api的方式进行访问时使用API网关对调用进行管理，那么API网关起到的就是API服务治理的作用。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104153752409-751696404.jpg" alt="image"><br>对于公司内部公网应用（如APP、公司的网站），如果管理上比较细致，在架构上是可能由独立的API网关来处理这部分内部公网应用，如果想比较简单的处理，也可以是使用面向合作伙伴的API网关。 如果使用独立的API网关，有以下的好处：</p>
+<ul>
+<li>面向合作伙伴和面向公司主体业务的优先级不一样，不同的API网关可以做到业务影响的隔离。</li>
+<li>内部API使用的管理流程和面向合作伙伴的管理流程可能不一样。</li>
+<li>内部的API在功能扩展等方面的需求一般会大于OpenAPI对于功能的要求。<br>基于以上的分析，如果公司有能力，那么还是建议分开使用合作伙伴OPEN API网关和内部公网应用网关</li>
+</ul>
+<h3 id="API网关有哪些竞争方案"><a href="#API网关有哪些竞争方案" class="headerlink" title="API网关有哪些竞争方案"></a>API网关有哪些竞争方案</h3><p>1、对于Open API平台的API网关，我分析只能选择API网关作为解决方案，业界没有发现比较好的可以用来作为Open API平台的入口的其他方案。</p>
+<p>2、对于作为微服务网关的API网关，业界的选择可以选择的解决方案比较多，也取决于微服务器的实现方案，有一些微服务架构的实现方案是不需要微服务网关的。</p>
+<ul>
+<li>Service Mesh，这是新兴的基于无API网关的架构，通过在客户端上的代理完成屏蔽网络层的访问，这样达到对应用层最小的改动，当前Service Mesh的产品还正在开发中，并没有非常成熟可直接应用的产品。 发展最迅速的产品是Istio。 建议大家密切关注相关产品的研发、业务使用进展。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154202112-182791105.png" alt="image"></li>
+<li>基于duboo架构，在这个架构中通常是不需要网关的，是由客户端直接访问服务提供方，由注册中心向客户端返回服务方的地址。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154443503-595466474.jpg" alt="image"></li>
+</ul>
+<h3 id="API网关解决方案"><a href="#API网关解决方案" class="headerlink" title="API网关解决方案"></a>API网关解决方案</h3><p>私有云开源解决方案如下：</p>
+<ul>
+<li>Kong kong是基于Nginx+Lua进行二次开发的方案， <a href="https://konghq.com/" target="_blank" rel="noopener">https://konghq.com/</a></li>
+<li>Netflix Zuul，zuul是spring cloud的一个推荐组件，<a href="https://github.com/Netflix/zuul" target="_blank" rel="noopener">https://github.com/Netflix/zuul</a></li>
+<li>orange,这个开源程序是国人开发的， <a href="http://orange.sumory.com/" target="_blank" rel="noopener">http://orange.sumory.com/</a></li>
+</ul>
+<p>公有云解决方案：</p>
+<ul>
+<li>Amazon API Gateway，<a href="https://aws.amazon.com/cn/api-gateway/" target="_blank" rel="noopener">https://aws.amazon.com/cn/api-gateway/</a></li>
+<li>阿里云API网关，<a href="https://www.aliyun.com/product/apigateway/" target="_blank" rel="noopener">https://www.aliyun.com/product/apigateway/</a></li>
+<li>腾讯云API网关， <a href="https://cloud.tencent.com/product/apigateway" target="_blank" rel="noopener">https://cloud.tencent.com/product/apigateway</a></li>
+</ul>
+<p>自开发解决方案：</p>
+<ul>
+<li>基于Nginx+Lua+ OpenResty的方案，可以看到Kong,orange都是基于这个方案</li>
+<li>基于Netty、非阻塞IO模型。 通过网上搜索可以看到国内的宜人贷等一些公司是基于这种方案，是一种成熟的方案。</li>
+<li>基于Node.js的方案。 这种方案是应用了Node.js天生的非阻塞的特性。</li>
+<li>基于java Servlet的方案。 zuul基于的就是这种方案，这种方案的效率不高，这也是zuul总是被诟病的原因。</li>
+</ul>
+<h3 id="怎么选择API网关"><a href="#怎么选择API网关" class="headerlink" title="怎么选择API网关"></a>怎么选择API网关</h3><p>如果是要选择一款已有的API网关，那么需要从以下几个方面去考虑。</p>
+<p>1、性能与可用性<br>如果一旦采用了API网关，那么API网关就会作为企业应用核心，因此性能和可用性是必须要求的。</p>
+<p>从性能上来说，需要让网关增加的时间消耗越短越好，个人觉得需要10ms以下。 系统需要采用非阻塞的IO，如epoll，NIO等。网关和各种依赖的交互也需要是非阻塞的，这样才能保证整体系统的高可用性，如：Node.js的响应式编程和基于java体现的RxJava和Future。<br>网关必须支持集群部署，任务一台服务器的crash都应该不影响整体系统的可用性。</p>
+<p>多套网关应该支持同一管理平台和同一监控中心。 如： 一个企业的OpenAPI网关和内部应用的多个系统群的不同的微服务网关可以在同一监控中心进行监控。</p>
+<p>2、可扩展性、可维护性</p>
+<p>一款产品总有不能满足生产需求的地方，因此需求思考产品在如何进行二次开发和维护，是否方便公司团队接手维护产品。</p>
+<p>3、需求匹配度</p>
+<p>需要评估各API网关在需求上是否能满足，如： 如果是OpenAPI平台需要使用API网关，那么需要看API网关在合作伙伴应用接入、合作伙伴门户集成、访问次数限额等OpenAPI核心需求上去思考产品是否能满足要求。 如果是微服务网关，那么要从微服务的运维、监控、管理等方面去思考产品是否足够强大。</p>
+<p>4、是否开源？公司是否有自开发的能力？</p>
+<p>现有的开源产品如kong，zuul，orange都有基础的API网关的核心功能，这些开源产品大多离很好的使用有一定的距离，如：没有提供管理功能的UI界面、监控功能弱小，不支持OpenAPI平台，没有公司运营与运维的功能等。 当然开源产品能获取源代码，如果公司有比较强的研发能力，能hold住这些开源产品，经过二次开发kong、zuul应该还是适应一些公司，不过需求注意以下一些点：</p>
+<p>kong是基于ngnix+lua的，从公司的角度比较难于找到能去维护这种架构产品的人。 需求评估当前公司是否有这个能力去维护这个产品。</p>
+<p>zuul因为架构的原因在高并发的情况下性能不高，同时需要去基于研究整合开源的适配zuul的监控和管理系统。<br>orange由于没有被大量使用，同时是国内个人在开源，在可持续性和社区资源上不够丰富，出了问题后可能不容易找到人问。<br>另外kong提供企业版本的API网关，当然也是基于ngnix+lua的，企业版本可以购买他们的技术支持、培训等服务、以及拥有界面的管理、监控等功能。</p>
+<p>5、公有云还是私有云</p>
+<p>现在的亚马逊、阿里、腾讯云都在提供基础公有云的API网关，当然这些网关的基础功能肯定是没有问题，但是二次开发，扩展功能、监控功能可能就不能满足部分用户的定制需求了。另外很多企业因为自身信息安全的原因，不能使用外网公有网的API网关服务，这样就只有选择私有云的方案了。<br>在需求上如果基于公有云的API网关只能做到由内部人员为外网人员申请应用，无法做到定制的合作伙伴门户，这也不适合于部分企业的需求。<br>如果作为微服务网关，大多数情况下是希望网关服务器和服务提供方服务器是要在内网的，在这里情况下也只有私有云的API网关才能满足需求。</p>
+<p>综合上面的分析，基础公有云的API网关只有满足一部分简单客户的需求，对于很多企业来说私有云的API网关才是正确的选择。</p>
+<h2 id="项目中如何保证接口的幂等操作"><a href="#项目中如何保证接口的幂等操作" class="headerlink" title="项目中如何保证接口的幂等操作"></a>项目中如何保证接口的幂等操作</h2><ul>
+<li>调用者给消息一个唯一请求ID标识。ID标识一个工作单元，这个工作单元只应执行一次，工作单元ID可以是Schema的一部分，也可以是一个定制的SOAP Header，服务的Contract 可以说明这个唯一请求ID标识是必须的</li>
+<li>接收者在执行一个工作单元必须先检验该工作单元是否已经执行过。检查是否执行的逻辑通常是根据唯一请求ID ，在服务端查询请求是否有记录，是否有对应的响应信息，如果有，直接把响应信息查询后返回；如果没有，那么就当做新请求去处理</li>
+</ul>
+<h2 id="遇到过线上服务器CPU飙高的情况没有，如何处理的？"><a href="#遇到过线上服务器CPU飙高的情况没有，如何处理的？" class="headerlink" title="遇到过线上服务器CPU飙高的情况没有，如何处理的？"></a>遇到过线上服务器CPU飙高的情况没有，如何处理的？</h2><ul>
+<li><p>登录服务器，执行top命令，查看CPU占用情况（top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器，通过以上命令，我们可以看到，进程ID为1893的Java进程的CPU占用率达到了181%，基本可以定位到是我们的Java应用导致整个服务器的CPU占用率飙升）</p>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$top</span></span><br><span class="line">PID<span class="built_in"> USER </span>     PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND</span><br><span class="line">1893 admin     20   0 7127m 2.6g  38m S 181.7 32.6  10:20.26 java</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Java是单进程多线程的，那么，我们接下来看看PID=1893的这个Java进程中的各个线程的CPU使用情况，同样是用top命令,通过top -Hp 1893命令，我们可以发现，当前1893这个进程中，ID为4519的线程占用CPU最高。</p>
+  <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$top</span> -Hp 1893</span><br><span class="line">PID<span class="built_in"> USER </span>     PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND</span><br><span class="line">4519 admin     20   0 7127m 2.6g  38m R 18.6 32.6   0:40.11 java</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过top命令，我们目前已经定位到导致CPU使用率较高的具体线程， 那么我么接下来就定位下到底是哪一行代码存在问题。首先，我们需要把4519这个线程转成16进制</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"><span class="built_in">printf</span> %x 4519</span></span><br><span class="line">11a7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来，通过jstack命令，查看栈信息(通过以上代码，我们可以清楚的看到，BeanValidator.java的第30行是有可能存在问题的)：</p>
+  <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$sudo -u admin  jstack <span class="number">1893</span> |grep -A <span class="number">200</span> <span class="number">11</span>a7</span><br><span class="line"><span class="string">"HSFBizProcessor-DEFAULT-8-thread-5"</span> <span class="comment">#500 daemon prio=10 os_prio=0 tid=0x00007f632314a800 nid=0x11a2 runnable [0x000000005442a000]</span></span><br><span class="line">   java.lang.Thread.State: RUNNABLE</span><br><span class="line">  <span class="keyword">at</span> sun.misc.URLClassPath$Loader.findResource(URLClassPath.java:<span class="number">684</span>)</span><br><span class="line">  <span class="keyword">at</span> sun.misc.URLClassPath.findResource(URLClassPath.java:<span class="number">188</span>)</span><br><span class="line">  <span class="keyword">at</span> java.net.URLClassLoader$<span class="number">2.</span><span class="built_in">run</span>(URLClassLoader.java:<span class="number">569</span>)</span><br><span class="line">  <span class="keyword">at</span> java.net.URLClassLoader$<span class="number">2.</span><span class="built_in">run</span>(URLClassLoader.java:<span class="number">567</span>)</span><br><span class="line">  <span class="keyword">at</span> java.security.AccessController.doPrivileged(Native Method)</span><br><span class="line">  <span class="keyword">at</span> java.net.URLClassLoader.findResource(URLClassLoader.java:<span class="number">566</span>)</span><br><span class="line">  <span class="keyword">at</span> java.lang.ClassLoader.getResource(ClassLoader.java:<span class="number">1093</span>)</span><br><span class="line">  <span class="keyword">at</span> java.net.URLClassLoader.getResourceAsStream(URLClassLoader.java:<span class="number">232</span>)</span><br><span class="line">  <span class="keyword">at</span> org.hibernate.validator.internal.xml.ValidationXmlParser.getInputStreamForPath(ValidationXmlParser.java:<span class="number">248</span>)</span><br><span class="line">  <span class="keyword">at</span> org.hibernate.validator.internal.xml.ValidationXmlParser.getValidationConfig(ValidationXmlParser.java:<span class="number">191</span>)</span><br><span class="line">  <span class="keyword">at</span> org.hibernate.validator.internal.xml.ValidationXmlParser.parseValidationXml(ValidationXmlParser.java:<span class="number">65</span>)</span><br><span class="line">  <span class="keyword">at</span> org.hibernate.validator.internal.engine.ConfigurationImpl.parseValidationXml(ConfigurationImpl.java:<span class="number">287</span>)</span><br><span class="line">  <span class="keyword">at</span> org.hibernate.validator.internal.engine.ConfigurationImpl.buildValidatorFactory(ConfigurationImpl.java:<span class="number">174</span>)</span><br><span class="line">  <span class="keyword">at</span> javax.validation.Validation.buildDefaultValidatorFactory(Validation.java:<span class="number">111</span>)</span><br><span class="line">  <span class="keyword">at</span> com.test.common.util.BeanValidator.validate(BeanValidator.java:<span class="number">30</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>线上问题排查还可以使用Alibaba开源的工具Arthas进行排查，以上问题，可以使用一下命令定位<code>thread -n 3</code>。</p>
+</li>
+</ul>
+<h2 id="如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？"><a href="#如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？" class="headerlink" title="如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？"></a>如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？</h2><ul>
+<li>stack栈：是自动分配变量，以及函数调用的时候所使用的一些空间。地址是由高向低减少的。由编译器自动分配内存空间，代码结束，自动释放内存空间。它的内部结构是一个容器式，只有一个进口，并且也作为出口。这就是导致，先进来的数据在“容器”底部，后进来的数据在“容器顶部”，出栈的时候，就应验了“后进先出，先进后出”的这句话。</li>
+<li>对于栈来说，理论上线性表的操作特性它都具备，可由于它的特殊性，所以针对它的操作上会有些变化。特别是插入和删除操作，我们改名为push和pop，进栈和出栈。</li>
+<li>主要用途：函数调用和返回，数字转字符，表达式求值，走迷宫等等。只要数据的保存满足先进后出的原理，都优先考虑使用栈，所以栈是计算机中不可缺的机制。</li>
+<li>建立Stack数组时需要为每一个Stack元素初始化一个对象<h2 id="分布式锁的实现、对比Redis分布式锁-amp-ZK分布式锁"><a href="#分布式锁的实现、对比Redis分布式锁-amp-ZK分布式锁" class="headerlink" title="分布式锁的实现、对比Redis分布式锁 &amp; ZK分布式锁"></a>分布式锁的实现、对比Redis分布式锁 &amp; ZK分布式锁</h2></li>
+<li>redis分布式锁<ul>
+<li>简单算法：是redis官方支持的分布式锁算法。这个分布式锁有3个重要的考量点，互斥（只能有一个客户端获取锁），不能死锁，容错（大部分redis节点或者这个锁就可以加可以释放），第一个最普通的实现方式，如果就是在redis里创建一个key算加锁。SET my:lock 随机值 NX PX 30000，这个命令就ok，这个的NX的意思就是只有key不存在的时候才会设置成功，PX 30000的意思是30秒后锁自动释放。别人创建的时候如果发现已经有了就不能加锁了。为啥要用随机值呢？因为如果某个客户端获取到了锁，但是阻塞了很长时间才执行完，此时可能已经自动释放锁了，此时可能别的客户端已经获取到了这个锁，要是你这个时候直接删除key的话会有问题，所以得用随机值加上面的lua脚本来释放锁。但是这样是肯定不行的。因为如果是普通的redis单实例，那就是单点故障。或者是redis普通主从，那redis主从异步复制，如果主节点挂了，key还没同步到从节点，此时从节点切换为主节点，别人就会拿到锁。<ul>
+<li>RedLock算法：这个场景是假设有一个redis cluster，有5个redis master实例。然后执行如下步骤获取一把锁<pre><code>1. 获取当前时间戳，单位是毫秒；
+2. 跟上面类似，轮流尝试在每个master节点上创建锁，过期时间较短，一般就几十毫秒；
+3. 尝试在大多数节点上建立一个锁，比如5个节点就要求是3个节点（n / 2 +1）；
+4. 客户端计算建立好锁的时间，如果建立锁的时间小于超时时间，就算建立成功了；
+5. 要是锁建立失败了，那么就依次删除这个锁；
+6. 只要别人建立了一把分布式锁，你就得不断轮询去尝试获取锁。
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>zk分布式锁<ul>
+<li>zk分布式锁，其实可以做的比较简单，就是某个节点尝试创建临时znode，此时创建成功了就获取了这个锁；这个时候别的客户端来创建锁会失败，只能注册个监听器监听这个锁。释放锁就是删除这个znode，一旦释放掉就会通知客户端，然后有一个等待着的客户端就可以再次重新枷锁。</li>
+</ul>
+</li>
+<li>redis分布式锁和zk分布式锁的对比：redis分布式锁，其实需要自己不断去尝试获取锁，比较消耗性能；zk分布式锁，获取不到锁，注册个监听器即可，不需要不断主动尝试获取锁，性能开销较小。另外一点就是，如果是redis获取锁的那个客户端bug了或者挂了，那么只能等待超时时间之后才能释放锁；而zk的话，因为创建的是临时znode，只要客户端挂了，znode就没了，此时就自动释放锁。redis分布式锁大家每发现好麻烦吗？遍历上锁，计算时间等等。zk的分布式锁语义清晰实现简单。所以先不分析太多的东西，就说这两点，我个人实践认为zk的分布式锁比redis的分布式锁牢靠、而且模型简单易用。</li>
+</ul>
+<h2 id="项目中系统监控怎么做的"><a href="#项目中系统监控怎么做的" class="headerlink" title="项目中系统监控怎么做的"></a>项目中系统监控怎么做的</h2><ul>
+<li>集中式日志系统<ul>
+<li>Elasticsearch</li>
+<li>Logstash</li>
+<li>Kibana</li>
+<li>Beats</li>
+</ul>
+</li>
+<li>集中式度量系统<ul>
+<li>Prometheus</li>
+<li>Cat</li>
+</ul>
+</li>
+<li>分布式追踪系统<ul>
+<li>Zipkin</li>
+<li>Pinpoint</li>
+<li>Skywalking</li>
+<li>Jaeger</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量"><a href="#如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量" class="headerlink" title="如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量"></a>如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量</h2><ul>
+<li>正数位（占1比特）+时间戳（占41比特）+机械id（占5比特）+数据中心（占5比特）+自增值（占12比特），总共64比特组成的一个Long类型。</li>
+<li>时间戳（占41个比特）：毫秒数，大约可以使使用69年</li>
+<li>机械id（占5个比特）：即2的5次方等于32个机器</li>
+<li>数据中心id（占5个比特）：即2的5次方等于32个数据中心</li>
+<li>自增值（占12比特）：2的12次方等于4096。也就是说每毫秒最多可以生成4096个id，如果cpu生产id的速度大于每毫秒4096个，那么需要使线程进行等待到下一毫秒，重新计数获取自增值。</li>
+<li>好处<ul>
+<li>生成的id是一个数字的Long类型</li>
+<li>无需链接数据库或者redis，超高性能</li>
+</ul>
+</li>
+<li>弊端<ul>
+<li>每毫秒只能生成4096个id。随着cpu不断的进步，每毫秒4096个id将不能满足。可以不用担心，即便cpu性能超过了这个值，那么只需等待到下一个毫秒</li>
+<li>只能使用69年</li>
+<li>每毫秒重新计数，空闲时间会浪费很多id空间</li>
+<li>系统时间不可回退，回退将会导致id重复。另：系统时间可以前进，不受影响</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何设计一个秒杀系统？"><a href="#如何设计一个秒杀系统？" class="headerlink" title="如何设计一个秒杀系统？"></a>如何设计一个秒杀系统？</h2><ul>
+<li>同样是高并发场景，三类业务的架构挑战不一样<ul>
+<li>QQ类业务，用户主要读写自己的数据，访问基本带有uid属性，数据访问锁冲突较小</li>
+<li>微博类业务，用户的feed主页由别人发布的消息构成，数据读写有一定锁冲突</li>
+<li>12306类业务，并发量很高，几乎所有的读写锁冲突都集中在少量数据上，难度最大</li>
+</ul>
+</li>
+<li>将请求尽量拦截在系统上游，而不要让锁冲突落到数据库。传统秒杀系统之所以挂，是因为请求都压到了后端数据层，数据读写锁冲突严重，并发高响应慢，几乎所有请求都超时，访问流量大，下单成功的有效流量小。一趟火车2000张票，200w个人同时来买，没有人能买成功，请求有效率为0。画外音：此时系统的效率，还不如线下售票窗口。</li>
+<li>充分利用缓存,秒杀买票，这是一个典型的读多写少的业务场景：<ul>
+<li>车次查询，读，量大</li>
+<li>余票查询，读，量大</li>
+<li>下单和支付，写，量小<br>一趟火车2000张票，200w个人同时来买，最多2000个人下单成功，其他人都是查询库存，写比例只有0.1%，读比例占99.9%，非常适合使用缓存来优化。</li>
+</ul>
+</li>
+<li>秒杀业务，常见的系统分层架构</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG242.png" alt="image"></p>
+<ul>
+<li><p>秒杀业务，可以使用典型的服务化分层架构</p>
+<ul>
+<li>端（浏览器/APP），最上层，面向用户<ul>
+<li>JS层面，可以限制用户在x秒之内只能提交一次请求，从而降低系统负载。</li>
+<li>APP层面，可以做类似的事情，虽然用户疯狂的在摇微信抢红包，但其实x秒才向后端发起一次请求。</li>
+<li>不过，端上的拦截只能挡住普通用户（99%的用户是普通用户），程序员firebug一抓包，写个for循环直接调用后端http接口，js拦截根本不起作用，这下怎么办？</li>
+</ul>
+</li>
+<li>站点层，访问后端数据，拼装html/json返回，如何抗住程序员写for循环调用http接口，首先要确定用户的唯一标识，对于频繁访问的用户予以拦截。<ul>
+<li>购票类业务都需要登录，用uid就能标识用户，在站点层，对同一个uid的请求进行计数和限速，例如：一个uid，5秒只准透过1个请求，这样又能拦住99%的for循环请求。</li>
+<li>一个uid，5s只透过一个请求，其余的请求怎么办，缓存，页面缓存，5秒内到达站点层的其他请求，均返回上次返回的页面。</li>
+<li>OK，通过计数、限速、页面缓存拦住了99%的普通程序员，但仍有些高端程序员，例如黑客，控制了10w个肉鸡，手里有10w个uid，同时发请求，这下怎么办</li>
+</ul>
+</li>
+<li><p>服务层的请求拦截</p>
+<ul>
+<li><p>服务层非常清楚业务的库存，非常清楚数据库的抗压能力，可以根据这两者进行削峰限速。例如，业务服务很清楚的知道，一列火车只有2000张车票，此时透传10w个请求去数据库，是没有意义的。用什么削峰？请求队，对于写请求，做请求队列，每次只透传有限的写请求去数据层（下订单，支付这样的写业务）。只有2000张火车票，即使10w个请求过来，也只透传2000个去访问数据库：</p>
+<ul>
+<li>如果前一批请求均成功，再放下一批</li>
+<li><p>如果前一批请求库存已经不足，则后续请求全部返回“已售罄”</p>
+<p>对于读请求，怎么优化？<br>cache抗，不管是memcached还是redis，单机抗个每秒10w应该都是没什么问题的。<br>如此削峰限流，只有非常少的写请求，和非常少的读缓存mis的请求会透到数据层去，又有99%的请求被拦住了。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据库层,<br>经过前三层的优化：</p>
+<ul>
+<li>浏览器拦截了80%请求</li>
+<li>站点层拦截了99%请求，并做了页面缓存</li>
+<li><p>服务层根据业务库存，以及数据库抗压能力，做了写请求队列与数据缓存</p>
+<p>你会发现，每次透到数据库层的请求都是可控的。<br>db基本就没什么压力了，闲庭信步。此时，透2000个到数据库，全部成功，请求有效率100%。</p>
+</li>
+</ul>
+</li>
+<li>按照上面的优化方案，其实压力最大的反而是站点层，假设真实有效的请求数是每秒100w，这部分的压力怎么处理？<ul>
+<li>站点层水平扩展，通过加机器扩容，一台抗5000，200台搞定；</li>
+<li>服务降级，抛弃请求，例如抛弃50%；</li>
+<li>原则是要保护系统，不能让所有用户都失败。</li>
+</ul>
+</li>
+<li>站点层限速，是个每个uid的请求计数放到redis里么？吞吐量很大情况下，高并发访问redis，网络带宽会不会成为瓶颈？<ul>
+<li>同一个uid计数与限速，如果担心访问redis带宽成为瓶颈，可以这么优化<ul>
+<li>计数直接放在内存，这样就省去了网络请求；</li>
+<li>在nginx层做7层均衡，让一个uid的请求落到同一个机器上；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>除了系统上的优化，产品与业务还能够做一些折衷，降低架构难度。<ul>
+<li>业务折衷一,一般来说，下单和支付放在同一个流程里，能够提高转化率。对于秒杀场景，产品上，下单流程和支付流程异步，放在两个环节里，能够降低数据库写压力。以12306为例，下单成功后，系统占住库存，45分钟之内支付即可。</li>
+<li>业务折衷二,一般来说，所有用户规则相同，体验会更好。对于秒杀场景，产品上，不同地域分时售票，虽然不是所有用户规则相同，但能够极大降低系统压力。北京9:00开始售票，上海9:30开始售票，广州XX开始售票，能够分担系统压力。</li>
+<li>业务折衷三,秒杀场景，由于短时间内并发较大，系统返回较慢，用户心情十分焦急，可能会频繁点击按钮，对系统造成压力。产品上可以优化为，一旦点击，不管系统是否返回，按钮立刻置灰，不给用户机会频繁点击。</li>
+<li>业务折衷四,一般来说，显示具体的库存数量，能够加强用户体验。对于秒杀场景，产品上，只显示有/无车票，而不是显示具体票数目，能够降低缓存淘汰率。<br>画外音：显示库存会淘汰N次，显示有无只会淘汰1次。更多的，用户关注是否有票，而不是票有几张。</li>
+</ul>
+</li>
+<li>总结,对于秒杀系统，除了产品和业务上的折衷，架构设计上主要有两大优化方向<ul>
+<li>尽量将请求拦截在系统上游；</li>
+<li>读多写少用缓存；</li>
+</ul>
+</li>
+</ul>
+<h2 id="如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？"><a href="#如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？" class="headerlink" title="如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？"></a>如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？</h2><ul>
+<li>Cache住所有查询，两层cache：除了使用ckv做全量缓存，还在数据访问层dao中增加本机内存cache做二级缓存，cache住所有读请求。查询失败或者查询不存在时，降级内存cache；内存cache查询失败或记录不存在时降级DB。DB本身不做读写分离。</li>
+<li>DB写同步cache，容忍少量不一致。DB写操作完成后，dao中同步内存cache，业务服务层同步ckv，失败由异步队列补偿，定时的ckv与DB备机对账，保证最终数据一致。</li>
+</ul>
+<h2 id="服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"><a href="#服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？" class="headerlink" title="服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"></a>服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？</h2><p>欢迎补充。。。。。</p>
+<h2 id="假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"><a href="#假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？" class="headerlink" title="假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"></a>假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？</h2><h3 id="大众点评设计案例"><a href="#大众点评设计案例" class="headerlink" title="大众点评设计案例"></a>大众点评设计案例</h3><p>原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这些问题越来越突出，订单数据库的切分就愈发急迫了。这次切分，我们的目标是未来十年内不需要担心订单容量的问题。先对订单库进行垂直切分，将原有的订单库分为基础订单库、订单流程库等。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png" alt="image"><br>垂直切分缓解了原来单集群的压力，但是在抢购时依然捉襟见肘。原有的订单模型已经无法满足业务需求，于是我们设计了一套新的统一订单模型，为同时满足C端用户、B端商户、客服、运营等的需求，我们分别通过用户ID和商户ID进行切分，并通过PUMA（我们内部开发的MySQL binlog实时解析服务）同步到一个运营库。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png" alt="image"></p>
+<ul>
+<li>切分策略<ul>
+<li>查询切分：将ID和库的Mapping关系记录在一个单独的库中。优点：ID和库的Mapping算法可以随意更改。缺点：引入额外的单点。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png" alt="image"></li>
+<li>范围切分：比如按照时间区间或ID区间来切分。优点：单表大小可控，天然水平扩展。缺点：无法解决集中写入瓶颈的问题。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png" alt="image"></li>
+<li>Hash切分：一般采用Mod来切分，下面着重讲一下Mod的策略。数据水平切分后我们希望是一劳永逸或者是易于水平扩展的，所以推荐采用mod 2^n这种一致性Hash。以统一订单库为例，我们分库分表的方案是32*32的，即通过UserId后四位mod 32分到32个库中，同时再将UserId后四位Div 32 Mod 32将每个库分为32个表，共计分为1024张表。线上部署情况为8个集群(主从)，每个集群4个库。为什么说这种方式是易于水平扩展的呢？我们分析如下两个场景。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png" alt="image"><ul>
+<li>场景一：数据库性能达到瓶颈<ul>
+<li>方法一：按照现有规则不变，可以直接扩展到32个数据库集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png" alt="image"></li>
+<li>方法二：如果32个集群也无法满足需求，那么将分库分表规则调整为(32<em>2^n)</em>(32⁄2^n)，可以达到最多1024个集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png" alt="image"></li>
+</ul>
+</li>
+<li>场景二：单表容量达到瓶颈（或者1024已经无法满足你）<br>  方法：假如单表都已突破200G，200<em>1024=200T（按照现有的订单模型算了算，大概一万千亿订单，相信这一天，嗯，指日可待！），没关系，32     </em>(32 <em>2^n)，这时分库规则不变，单库里的表再进行裂变，当然，在目前订单这种规则下（用userId后四位 mod）还是有极限的，因为只有四位，所以最多拆8192个表，至于为什么只取后四位，后面会有篇幅讲到。另外一个维度是通过ShopID进行切分，规则8 </em>8和UserID比较类似，就不再赘述，需要注意的是Shop库我们仅存储了订单主表，用来满足Shop维度的查询。<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png" alt="image"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>唯一ID方案：这个方案也很多，主流的有那么几种:</p>
+<ul>
+<li>利用数据库自增ID：优点：最简单。 缺点：单点风险、单机性能瓶颈。</li>
+<li>利用数据库集群并设置相应的步长（Flickr方案）：优点：高可用、ID较简洁。 缺点：需要单独的数据库集群。</li>
+<li>Twitter Snowflake：优点：高性能高可用、易拓展。 缺点：需要独立的集群以及ZK。</li>
+<li>一大波GUID、Random算法：优点：简单。 缺点：生成ID较长，有重复几率。</li>
+<li><p>我们的方案：为了减少运营成本并减少额外的风险我们排除了所有需要独立集群的方案，采用了带有业务属性的方案： &gt; 时间戳+用户标识码+随机数有下面几个好处：</p>
+<ul>
+<li>方便、成本低。</li>
+<li>基本无重复的可能。</li>
+<li>自带分库规则，这里的用户标识码即为用户ID的后四位，在查询的场景下，只需要订单号就可以匹配到相应的库表而无需用户ID，只取四位是希望订单号尽可能的短一些，并且评估下来四位已经足够。</li>
+<li>可排序，因为时间戳在最前面。</li>
+</ul>
+<p>当然也有一些缺点，比如长度稍长，性能要比int/bigint的稍差等。</p>
+</li>
+</ul>
+</li>
+<li>其他问题<ul>
+<li>事务支持：我们是将整个订单领域聚合体切分，维度一致，所以对聚合体的事务是支持的。</li>
+<li>复杂查询：垂直切分后，就跟join说拜拜了；水平切分后，查询的条件一定要在切分的维度内，比如查询具体某个用户下的各位订单等；禁止不带切分的维度的查询，即使中间件可以支持这种查询，可以在内存中组装，但是这种需求往往不应该在</li>
+<li>在线库查询，或者可以通过其他方法转换到切分的维度来实现。</li>
+</ul>
+</li>
+<li><p>数据迁移</p>
+<p>  数据库拆分一般是业务发展到一定规模后的优化和重构，为了支持业务快速上线，很难一开始就分库分表，垂直拆分还好办，改改数据源就搞定了，一旦开始水平拆分，数据清洗就是个大问题，为此，我们经历了以下几个阶段。</p>
+<ul>
+<li>第一阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png" alt="image"><ul>
+<li>数据库双写（事务成功以老模型为准），查询走老模型。</li>
+<li>每日job数据对账（通过DW），并将差异补平。</li>
+<li>通过job导历史数据。</li>
+</ul>
+</li>
+<li>第二阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png" alt="image"><ul>
+<li>历史数据导入完毕并且数据对账无误。</li>
+<li>依然是数据库双写，但是事务成功与否以新模型为准，在线查询切新模型。</li>
+<li>每日job数据对账，将差异补平。</li>
+</ul>
+</li>
+<li>第三阶段<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png" alt="image"><ul>
+<li>老模型不再同步写入，仅当订单有终态时才会异步补上。</li>
+<li>此阶段只有离线数据依然依赖老的模型，并且下游的依赖非常多，待DW改造完就可以完全废除老模型了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<p>  并非所有表都需要水平拆分，要看增长的类型和速度，水平拆分是大招，拆分后会增加开发的复杂度，不到万不得已不使用。在大规模并发的业务上，尽量做到在线查询和离线查询隔离，交易查询和运营/客服查询隔离。拆分维度的选择很重要，要尽可能在解决拆分前问题的基础上，便于开发。数据库没你想象的那么坚强，需要保护，尽量使用简单的、良好索引的查询，这样数据库整体可控，也易于长期容量规划以及水平扩展。</p>
+</li>
+</ul>
+<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><pre><code>- 分区
+    分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg)
+    查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg)
+    在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。
+
+    然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。
+
+    作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。
+- 分库分表
+
+    如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：
+    - 阿里的TDDL，DRDS和cobar
+    - 京东金融的sharding-jdbc
+    - 民间组织的MyCAT
+    - 360的Atlas
+    - 美团的zebra
+    - 其他比如网易，58，京东等公司都有自研的中间件。
+
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg)
+
+    百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。
+
+    - client模式
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg)
+    - 和proxy模式
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg)
+
+    无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。
+
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg)
+
+    我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。
+
+    前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。
+
+- 垂直拆分
+    - 垂直分表
+
+    也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。
+
+    - 垂直分库
+
+    垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg)
+
+    优点
+
+    数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。
+
+    缺点
+
+    - 跨库 join 的问题
+    - 跨库事务（分布式事务）的问题
+
+    解决方式
+
+    - 全局表
+        - 所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。
+    - 字段冗余
+        - 这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。
+    - 数据同步
+        - 定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。
+    - 系统层组装
+        - 在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。
+
+    对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。
+
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg)
+
+    这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。
+
+    将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。
+
+    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg)
+
+    分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。
+
+    对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：
+
+    - 创建一个原表一模一样的临时表1 ``create table test_a_serial_1 like test_a_serial``;
+    - 将原表命名为临时表2 ``alter table test_a_serial rename test_a_serial_{date}``;
+    - 将临时表1改为原表 ``alter table able test_a_serial_1 rename able test_a_serial``; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。
+    - 将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； ``insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit``;
+
+    如此，便完成了流水数据的迁移；
+    根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；
+
+    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
+
+    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
+
+    以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。
+- 水平拆分
+    - 水平分表
+
+        针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。
+
+        ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg)
+
+        某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。
+
+    - 水平分库分表
+
+        将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。
+
+    - 水平分库分表切分规则
+        - RANGE
+            - 从0到10000一个表，10001到20000一个表；
+        - HASH取模
+            - 一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。
+        - 地理区域
+            - 比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。
+        - 时间
+            - 按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。
+</code></pre><h2 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h2><p>一致性哈希（Consistent hashing）算法是由 MIT 的Karger 等人与1997年在一篇学术论文（《Consistent hashing and random trees: distributed caching protocols for relieving hot spots on the World Wide Web》）中提出来的，用于解决分布式缓存数据分布问题。在传统的哈希算法下，每条缓存数据落在那个节点是通过哈希算法和服务器节点数量计算出来的，一旦服务器节点数量发生增加或者介绍，哈希值需要重新计算，此时几乎所有的数据和服务器节点的对应关系也会随之发生变化，进而会造成绝大多数缓存的失效。一致性哈希算法通过环形结构和虚拟节点的概念，确保了在缓存服务器节点数量发生变化时大部分数据保持原地不动，从而大幅提高了缓存的有效性。下面我们通过例子来解释一致性哈希的原理。</p>
+<p>比如有 n 个节点，对于缓存 数据（k，v）具体存在哪个节点往往 hash(k) % n 来计算处理，举一个例子如下表所示，一共有个3个节点，hash函数采用 md5 。</p>
+<table>
+<thead>
+<tr>
+<th>缓存key</th>
+<th>hash(k) % n</th>
+<th>服务器节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_nick_rommel</td>
+<td>1</td>
+<td>192.168.56.101</td>
+</tr>
+<tr>
+<td>user_nick_pandy</td>
+<td>0</td>
+<td>192.168.56.100</td>
+</tr>
+<tr>
+<td>user_nick_sam</td>
+<td>2</td>
+<td>192.168.56.102</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Md5 的计算结果一般是一串32位的16进制字符串，做取模运算时原始数字较长，实际使用时，可以只截取最后4位或者8位使用，因为hash函数具有随机性，当数据量足球大时，截取部分数据也能保证数据的均匀分布。比如 md5(‘user_nick_rommel’)，对应字符串为 29e4fd2a0f05bd63343ae2276ca5038e，取最后4位 038e 转成10进制整数在进行取模运算，038e 对应的10进制数为 910，取模计算得 1 (9102 % 3 = 1)。</p>
+</blockquote>
+<p> 如果此时对缓存服务器进行扩容，添加一个新节点如 192.168.56.103，那么按照上面的计算方式，n 变为4， 得到的结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>缓存key</th>
+<th>hash(k) % n</th>
+<th>服务器节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_nick_rommel</td>
+<td>2</td>
+<td>192.168.56.102</td>
+</tr>
+<tr>
+<td>user_nick_pandy</td>
+<td>2</td>
+<td>192.168.56.102</td>
+</tr>
+<tr>
+<td>user_nick_sam</td>
+<td>3</td>
+<td>192.168.56.103</td>
+</tr>
+</tbody>
+</table>
+<p>从结果中可见，缓存对应关系完全发生改变，比如 user_nick_rommel 这个可以，添加节点钱可以从 192.168.56.101 中读到，添加节点后却读不到了，。一般缓存失效时应用程序都会重新从后端服务加载数据（比如数据库），以这种这种方式分配缓存，当缓节点数量发生改变时，会造成大面积的缓存失效，这回造成后端服务瞬间压力上升，压力过大会造成服务不可以用，如果服务出于关键节点，甚至还会引发雪崩效应（TODO）。</p>
+<p>在实际应用中，缓存节点由于故障挂掉，或者空间不足而进行扩容，缓存节点的增减是比较常见的事情，但上面传统方式会使服务的不可靠，下面看下一致性哈希是如何解决这个问题的。</p>
+<p>在一致性哈希算法中，首先将哈希空间映射到一个虚拟的环上，环上的数值分从 0 到 2^32-1（哈希值的范围），如下图：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png" alt="image"></p>
+<blockquote>
+<p>在一致性哈希算法刚提出来的时候，32位系统还是主流，2^32-1 相当于最大Integer，现在的应用服务器普遍都是64位系统，在使用使用一致性哈希算法时可以根据实际情况适当变通，比如将哈希值空间放大到 2^64-1。</p>
+</blockquote>
+<p> 然后使用同样的哈希算法将缓存服务节点（通常通过服务器IP+端口作为节点的key）和数据键映射到环上的位置。再决定数据落在那台服务器上时，使用一致的方向（比如顺时针方向）沿环查找，遇到的第一个有效服务器就是缓存保存的地方，如图：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/7D4C84D6-8843-42FC-AAB4-C5D5EA308C1B.png" alt="image"></p>
+<p>当有新的服务器节点加入时，按照同样的哈希算法将新节点映射到环上的某处位置，和新节点相邻的数据逆时针节点会进行迁移，其他节点保持不变。如下图，当新加入一台新服务器 192.168.56.104 时，user_nick_pandy 这条缓存数据的请求根据算法会落在192.168.56.104 这台及其上，其他节点不受任何影响。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/A026DF6E-060A-4295-83CB-FC4A7D229A03.png" alt="image"></p>
+<p>另外，由于哈希计算的记过通常都比较随机，如果缓存服务器比较少的话，可能会出现数据分配冷热不均的问题，如下图所示，大部分数据都会存储在 node3 节点上。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/26145228-2DA8-4168-BBE9-DA99F4BD0016.png" alt="image"></p>
+<p>为了解决这个问题，我们引入虚拟节点的概念，在实体服务器不增加的情况下，用多个虚拟节点替代原来的单个实体节点，一台服务服务器在环上就对应多个位置，这样可以让数据存储更加均匀，各服务器的负载页更加平衡，如图：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9B7CB81A-434E-4C33-B65E-3821C19E3B70.png" alt="image"></p>
+<p>使用 Java 代码实现一致性哈希的例子如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.SortedMap;</span><br><span class="line"><span class="keyword">import</span> java.util.TreeMap;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.digest.DigestUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> class ConsistentHashingTest &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 真实缓存地址</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">String</span>[] cacheServers = &#123; <span class="string">"192.168.56.101:11211"</span>, <span class="string">"192.168.56.102:11211"</span>, <span class="string">"192.168.56.103:11211"</span> &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 保存虚拟节点</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SortedMap&lt;Long, <span class="keyword">String</span>&gt; nodes = <span class="keyword">new</span> TreeMap&lt;Long, <span class="keyword">String</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每个虚拟节点的数量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="built_in">int</span> VIRTUAL_NODE_NUM = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ConsistentHashingTest()&#123;</span><br><span class="line">       <span class="comment">//初始化</span></span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">String</span> eachServer : cacheServers) &#123;</span><br><span class="line">           <span class="keyword">this</span>.addNode(eachServer);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建虚拟节点</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> addNode(<span class="keyword">String</span> nodeKey) &#123;</span><br><span class="line">       <span class="comment">//为每一个实体节点创建3个虚拟节点</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; VIRTUAL_NODE_NUM; i++) &#123;</span><br><span class="line">           <span class="keyword">long</span> eachHashCode = <span class="keyword">this</span>.hash(nodeKey + <span class="string">":"</span> + i);</span><br><span class="line">           nodes.put(eachHashCode, nodeKey);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// hash 函数 可以使用 md5, sha-1, sha-256 等</span></span><br><span class="line">    <span class="comment">// 虽然 md5, sha-1 哈希算法在签名领域已经不再安全，但运算速度比较快，在非安全领域是可以使用的。</span></span><br><span class="line">    <span class="comment">// DigestUtils 是来自于 apache 中的 org.apache.commons.codec.digest 中的工具类</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> hash(<span class="keyword">String</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">       Stringmd5key = DigestUtils.md5Hex(<span class="built_in">key</span>);</span><br><span class="line">       <span class="keyword">return</span> Long.parseLong(md5key.substring(<span class="number">0</span>, <span class="number">15</span>), <span class="number">16</span>) % ((<span class="keyword">long</span>) Math.<span class="built_in">pow</span>(<span class="number">2</span>, <span class="number">32</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//按照同一个方向寻找</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getRealServer(<span class="keyword">String</span> <span class="built_in">key</span>) &#123;</span><br><span class="line">       <span class="keyword">long</span> hashCode = <span class="keyword">this</span>.hash(<span class="built_in">key</span>);</span><br><span class="line">       SortedMap&lt;Long,<span class="keyword">String</span>&gt; tailMap =</span><br><span class="line">              nodes.tailMap(hashCode);</span><br><span class="line">       <span class="keyword">long</span> serverKey = tailMap.isEmpty() ? nodes.firstKey() : tailMap.firstKey(); </span><br><span class="line">       <span class="keyword">return</span> nodes.<span class="built_in">get</span>(serverKey);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">       ConsistentHashingTestt = <span class="keyword">new</span> ConsistentHashingTest();</span><br><span class="line">       System.out.<span class="built_in">println</span>(t.getRealServer(<span class="string">"my-cache-key"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外，前文提到的（TODO 章节）Guava Cache 框架支持一致性哈希，实例代码如下：<br><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实体缓存服务器</span></span><br><span class="line"><span class="keyword">String</span>[]cacheServers = &#123; <span class="string">"192.168.56.101:11211"</span>, <span class="string">"192.168.56.102:11211"</span>, <span class="string">"192.168.56.103:11211"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 缓存数据的key</span></span><br><span class="line"><span class="keyword">String</span> <span class="built_in">key</span> = <span class="string">"my-test-cache-key"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算缓存 key 对应的 hash 值，这里使用 MurmurHash 算法，MurmurHash 是一种高性能低碰撞的算法。此外，还支持  md5、sha1/sha256/sha512、orc32、adler32 等哈希算法。 </span></span><br><span class="line">HashCode hashCode = Hashing.murmur3_32().newHasher().putString(<span class="built_in">key</span>, Charsets.UTF_8).hash();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过一致性哈希方式计算，缓存key对应的服务器主机是那一台，bucket 的范围在 0 ~ cacheServers.length -1</span></span><br><span class="line"><span class="built_in">int</span> bucket = Hashing.consistentHash(hashCode, cacheServers.length);</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png" alt="image"></p>
+<h2 id="多路复用的几种方式以及区别？"><a href="#多路复用的几种方式以及区别？" class="headerlink" title="多路复用的几种方式以及区别？"></a>多路复用的几种方式以及区别？</h2><ul>
+<li>select的优缺点<ul>
+<li>优点<ul>
+<li>select的可移植性好，在某些unix下不支持poll。</li>
+<li>select对超时值提供了很好的精度，精确到微秒，而poll式毫秒。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>单个进程可监视的fd数量被限制，默认是1024。</li>
+<li>需要维护一个用来存放大量fd的数据结构，这样会使得用户空间和内核空间在传递该结构时复制开销大。</li>
+<li>对fd进行扫描时是线性扫描，fd剧增后，IO效率降低，每次调用都对fd进行线性扫描遍历，随着fd的增加会造成遍历速度慢的问题。</li>
+<li>select函数超时参数在返回时也是未定义的，考虑到可移植性，每次超时之后进入下一个select之前都要重新设置超时参数。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>poll的优缺点<ul>
+<li>优点<ul>
+<li>不要求计算最大文件描述符+1的大小。</li>
+<li>应付大数量的文件描述符时比select要快。</li>
+<li>没有最大连接数的限制是基于链表存储的。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>大量的fd数组被整体复制于内核态和用户态之间，而不管这样的复制是不是有意义。</li>
+<li>同select相同的是调用结束后需要轮询来获取就绪描述符。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>epoll的优缺点（epoll详解）</p>
+<ul>
+<li><p>支持一个进程打开大数目的socket描述符(FD)</p>
+<p>  select 最不能忍受的是一个进程所打开的FD是有一定限制的，由FD_SETSIZE设置，默认值是2048。对于那些需要支持的上万连接数目的IM服务器来说显 然太少了。这时候你一是可以选择修改这个宏然后重新编译内核，不过资料也同时指出这样会带来网络效率的下降，二是可以选择多进程的解决方案(传统的 Apache方案)，不过虽然linux上面创建进程的代价比较小，但仍旧是不可忽视的，加上进程间数据同步远比不上线程间同步的高效，所以也不是一种完 美的方案。不过 epoll则没有这个限制，它所支持的FD上限是最大可以打开文件的数目，这个数字一般远大于2048,举个例子,在1GB内存的机器上大约是10万左 右，具体数目可以cat /proc/sys/fs/file-max察看,一般来说这个数目和系统内存关系很大。</p>
+</li>
+<li><p>IO效率不随FD数目增加而线性下降</p>
+<p>  传统的select/poll另一个致命弱点就是当你拥有一个很大的socket集合，不过由于网络延时，任一时间只有部分的socket是”活跃”的， 但是select/poll每次调用都会线性扫描全部的集合，导致效率呈现线性下降。但是epoll不存在这个问题，它只会对”活跃”的socket进行 操作—这是因为在内核实现中epoll是根据每个fd上面的callback函数实现的。那么，只有”活跃”的socket才会主动的去调用 callback函数，其他idle状态socket则不会，在这点上，epoll实现了一个”伪”AIO，因为这时候推动力在os内核。在一些 benchmark中，如果所有的socket基本上都是活跃的—比如一个高速LAN环境，epoll并不比select/poll有什么效率，相 反，如果过多使用epoll_ctl,效率相比还有稍微的下降。但是一旦使用idle connections模拟WAN环境,epoll的效率就远在select/poll之上了。</p>
+</li>
+<li><p>epoll工作的两种模式</p>
+<p>  EPOLL事件分发系统可以运转在两种模式下：边缘触发Edge Triggered (ET)、水平触发Level Triggered (LT)。<br>  LT 是缺省的工作方式：同时支持block和no-block socket；在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的fd进行IO操作。如果你不作任何操作，内核还是会继续通知你的，所以，这种模式编程出错误可能性要小一点。传统的select/poll都是这种模型的代表。<br>  ET是高速工作方式：它只支持no-block socket。在这种模式下，当描述符从未就绪变为就绪时，内核通过epoll告诉你。然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述 符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了。但是请注意，如果一直不对这个fd作IO操作(从而导致它再次变成未就绪)，内核不会发送更多的通知。<br>  对于LT模式<code>epoll_wait</code>清空就绪链表之后会检查该文件描述符是哪一种模式，如果为LT模式，且必须该节点确实有事件未处理，那么就会把该节点重新放入到刚刚删除掉的且刚准备好的就绪链表，<code>epoll_wait</code>马上返回。而ET模式不会检查，只会调用一次，只通知就绪通知一次 。 </p>
+</li>
+<li>epoll函数底层实现过程<br>  首先<code>epoll_create</code>创建一个epoll文件描述符，底层同时创建一个红黑树，和一个就绪链表；红黑树存储所监控的文件描述符的节点数据，就绪链表存储就绪的文件描述符的节点数据；<code>epoll_ctl</code>将会添加新的描述符，首先判断是红黑树上是否有此文件描述符节点，如果有，则立即返回。如果没有， 则在树干上插入新的节点，并且告知内核注册回调函数。当接收到某个文件描述符过来数据时，那么内核将该节点插入到就绪链表里面。<code>epoll_wait</code>将会接收到消息，并且将数据拷贝到用户空间，清空链表。对于LT模式<code>epoll_ctl</code>清空就绪链表之后会检查该文件描述符是哪一种模式，如果为LT模式，且必须该节点确实有事件未处理，那么就会把该节点重新放入到刚刚删除掉的且刚准备好的就绪链表，<code>epoll_wait</code>马上返回。ET模式不会检查，只会调用一次</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/" title="面试分享(四).项目相关">https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/项目/" rel="tag"># 项目</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/18/面试分享(二).框架相关(Spring)/" rel="next" title="面试分享(二).框架相关(Spring)">
+                <i class="fa fa-chevron-left"></i> 面试分享(二).框架相关(Spring)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/18/面试分享(五).相关工具使用/" rel="prev" title="面试分享(五).相关工具使用">
+                面试分享(五).相关工具使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目相关"><span class="nav-number">1.</span> <span class="nav-text">项目相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。"><span class="nav-number">1.1.</span> <span class="nav-text">聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你个人有什么优势"><span class="nav-number">1.2.</span> <span class="nav-text">你个人有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细"><span class="nav-number">1.3.</span> <span class="nav-text">讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线上有没有遇到其他问题，如何处理的"><span class="nav-number">1.4.</span> <span class="nav-text">线上有没有遇到其他问题，如何处理的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说一个你了解最多的框架，说出你的理解"><span class="nav-number">1.5.</span> <span class="nav-text">说一个你了解最多的框架，说出你的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中监控报警机制如何做的，说说你的了解"><span class="nav-number">1.6.</span> <span class="nav-text">项目中监控报警机制如何做的，说说你的了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题"><span class="nav-number">1.7.</span> <span class="nav-text">服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止服务器雪崩"><span class="nav-number">1.8.</span> <span class="nav-text">防止服务器雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩效应形成的原因"><span class="nav-number">1.8.1.</span> <span class="nav-text">服务雪崩效应形成的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩的应对策略"><span class="nav-number">1.8.2.</span> <span class="nav-text">服务雪崩的应对策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透，缓存击穿，缓存雪崩解决方案分析"><span class="nav-number">1.9.</span> <span class="nav-text">缓存穿透，缓存击穿，缓存雪崩解决方案分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">1.9.1.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">1.9.2.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-1"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">1.9.3.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-2"><span class="nav-number">1.9.3.1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.1.</span> <span class="nav-text">使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“提前”使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.2.</span> <span class="nav-text">“提前”使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“永远不过期”"><span class="nav-number">1.9.3.1.3.</span> <span class="nav-text">“永远不过期”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源保护"><span class="nav-number">1.9.3.1.4.</span> <span class="nav-text">资源保护</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？"><span class="nav-number">1.10.</span> <span class="nav-text">怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分例子"><span class="nav-number">1.10.1.</span> <span class="nav-text">拆分例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势一"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">姿势一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势二"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">姿势二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势三"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">姿势三</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何理解网关，网关带来的好处和坏处，如何解决"><span class="nav-number">1.11.</span> <span class="nav-text">如何理解网关，网关带来的好处和坏处，如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关有哪些竞争方案"><span class="nav-number">1.11.1.</span> <span class="nav-text">API网关有哪些竞争方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关解决方案"><span class="nav-number">1.11.2.</span> <span class="nav-text">API网关解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么选择API网关"><span class="nav-number">1.11.3.</span> <span class="nav-text">怎么选择API网关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中如何保证接口的幂等操作"><span class="nav-number">1.12.</span> <span class="nav-text">项目中如何保证接口的幂等操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到过线上服务器CPU飙高的情况没有，如何处理的？"><span class="nav-number">1.13.</span> <span class="nav-text">遇到过线上服务器CPU飙高的情况没有，如何处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？"><span class="nav-number">1.14.</span> <span class="nav-text">如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁的实现、对比Redis分布式锁-amp-ZK分布式锁"><span class="nav-number">1.15.</span> <span class="nav-text">分布式锁的实现、对比Redis分布式锁 &amp; ZK分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中系统监控怎么做的"><span class="nav-number">1.16.</span> <span class="nav-text">项目中系统监控怎么做的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量"><span class="nav-number">1.17.</span> <span class="nav-text">如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何设计一个秒杀系统？"><span class="nav-number">1.18.</span> <span class="nav-text">如何设计一个秒杀系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？"><span class="nav-number">1.19.</span> <span class="nav-text">如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"><span class="nav-number">1.20.</span> <span class="nav-text">服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"><span class="nav-number">1.21.</span> <span class="nav-text">假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大众点评设计案例"><span class="nav-number">1.21.1.</span> <span class="nav-text">大众点评设计案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#亿级数据下的分库分表方案"><span class="nav-number">1.21.2.</span> <span class="nav-text">亿级数据下的分库分表方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性hash"><span class="nav-number">1.22.</span> <span class="nav-text">一致性hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用的几种方式以及区别？"><span class="nav-number">1.23.</span> <span class="nav-text">多路复用的几种方式以及区别？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2019/06/18/面试分享(四).项目相关/';
+          this.page.identifier = '2019/06/18/面试分享(四).项目相关/';
+          this.page.title = '面试分享(四).项目相关';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -109,24 +109,13 @@
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154202112-182791105.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/388861-20180104154443503-595466474.jpg">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG242.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/7D4C84D6-8843-42FC-AAB4-C5D5EA308C1B.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/A026DF6E-060A-4295-83CB-FC4A7D229A03.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/26145228-2DA8-4168-BBE9-DA99F4BD0016.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9B7CB81A-434E-4C33-B65E-3821C19E3B70.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/D2CFEC7D-5ACB-49C3-B67F-12BA52254454.png">
-<meta property="og:updated_time" content="2019-10-18T10:55:58.160Z">
+<meta property="og:updated_time" content="2019-10-18T11:08:43.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试分享(四).项目相关">
 <meta name="twitter:description" content="项目相关聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。你个人有什么优势讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细线上有没有遇到其他问题，如何处理的说一个你了解最多的框架，说出你的理解项目中监控报警机制如何做的，说说你的了解服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题防止服务器雪崩服务雪崩效应是一种因 服务提供">
@@ -820,188 +809,7 @@
 <li>DB写同步cache，容忍少量不一致。DB写操作完成后，dao中同步内存cache，业务服务层同步ckv，失败由异步队列补偿，定时的ckv与DB备机对账，保证最终数据一致。</li>
 </ul>
 <h2 id="服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"><a href="#服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？" class="headerlink" title="服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"></a>服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？</h2><p>欢迎补充。。。。。</p>
-<h2 id="假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"><a href="#假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？" class="headerlink" title="假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"></a>假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？</h2><h3 id="大众点评设计案例"><a href="#大众点评设计案例" class="headerlink" title="大众点评设计案例"></a>大众点评设计案例</h3><p>原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这些问题越来越突出，订单数据库的切分就愈发急迫了。这次切分，我们的目标是未来十年内不需要担心订单容量的问题。先对订单库进行垂直切分，将原有的订单库分为基础订单库、订单流程库等。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png" alt="image"><br>垂直切分缓解了原来单集群的压力，但是在抢购时依然捉襟见肘。原有的订单模型已经无法满足业务需求，于是我们设计了一套新的统一订单模型，为同时满足C端用户、B端商户、客服、运营等的需求，我们分别通过用户ID和商户ID进行切分，并通过PUMA（我们内部开发的MySQL binlog实时解析服务）同步到一个运营库。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png" alt="image"></p>
-<ul>
-<li>切分策略<ul>
-<li>查询切分：将ID和库的Mapping关系记录在一个单独的库中。优点：ID和库的Mapping算法可以随意更改。缺点：引入额外的单点。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png" alt="image"></li>
-<li>范围切分：比如按照时间区间或ID区间来切分。优点：单表大小可控，天然水平扩展。缺点：无法解决集中写入瓶颈的问题。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png" alt="image"></li>
-<li>Hash切分：一般采用Mod来切分，下面着重讲一下Mod的策略。数据水平切分后我们希望是一劳永逸或者是易于水平扩展的，所以推荐采用mod 2^n这种一致性Hash。以统一订单库为例，我们分库分表的方案是32*32的，即通过UserId后四位mod 32分到32个库中，同时再将UserId后四位Div 32 Mod 32将每个库分为32个表，共计分为1024张表。线上部署情况为8个集群(主从)，每个集群4个库。为什么说这种方式是易于水平扩展的呢？我们分析如下两个场景。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png" alt="image"><ul>
-<li>场景一：数据库性能达到瓶颈<ul>
-<li>方法一：按照现有规则不变，可以直接扩展到32个数据库集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png" alt="image"></li>
-<li>方法二：如果32个集群也无法满足需求，那么将分库分表规则调整为(32<em>2^n)</em>(32⁄2^n)，可以达到最多1024个集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png" alt="image"></li>
-</ul>
-</li>
-<li>场景二：单表容量达到瓶颈（或者1024已经无法满足你）<br>  方法：假如单表都已突破200G，200<em>1024=200T（按照现有的订单模型算了算，大概一万千亿订单，相信这一天，嗯，指日可待！），没关系，32     </em>(32 <em>2^n)，这时分库规则不变，单库里的表再进行裂变，当然，在目前订单这种规则下（用userId后四位 mod）还是有极限的，因为只有四位，所以最多拆8192个表，至于为什么只取后四位，后面会有篇幅讲到。另外一个维度是通过ShopID进行切分，规则8 </em>8和UserID比较类似，就不再赘述，需要注意的是Shop库我们仅存储了订单主表，用来满足Shop维度的查询。<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png" alt="image"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>唯一ID方案：这个方案也很多，主流的有那么几种:</p>
-<ul>
-<li>利用数据库自增ID：优点：最简单。 缺点：单点风险、单机性能瓶颈。</li>
-<li>利用数据库集群并设置相应的步长（Flickr方案）：优点：高可用、ID较简洁。 缺点：需要单独的数据库集群。</li>
-<li>Twitter Snowflake：优点：高性能高可用、易拓展。 缺点：需要独立的集群以及ZK。</li>
-<li>一大波GUID、Random算法：优点：简单。 缺点：生成ID较长，有重复几率。</li>
-<li><p>我们的方案：为了减少运营成本并减少额外的风险我们排除了所有需要独立集群的方案，采用了带有业务属性的方案： &gt; 时间戳+用户标识码+随机数有下面几个好处：</p>
-<ul>
-<li>方便、成本低。</li>
-<li>基本无重复的可能。</li>
-<li>自带分库规则，这里的用户标识码即为用户ID的后四位，在查询的场景下，只需要订单号就可以匹配到相应的库表而无需用户ID，只取四位是希望订单号尽可能的短一些，并且评估下来四位已经足够。</li>
-<li>可排序，因为时间戳在最前面。</li>
-</ul>
-<p>当然也有一些缺点，比如长度稍长，性能要比int/bigint的稍差等。</p>
-</li>
-</ul>
-</li>
-<li>其他问题<ul>
-<li>事务支持：我们是将整个订单领域聚合体切分，维度一致，所以对聚合体的事务是支持的。</li>
-<li>复杂查询：垂直切分后，就跟join说拜拜了；水平切分后，查询的条件一定要在切分的维度内，比如查询具体某个用户下的各位订单等；禁止不带切分的维度的查询，即使中间件可以支持这种查询，可以在内存中组装，但是这种需求往往不应该在</li>
-<li>在线库查询，或者可以通过其他方法转换到切分的维度来实现。</li>
-</ul>
-</li>
-<li><p>数据迁移</p>
-<p>  数据库拆分一般是业务发展到一定规模后的优化和重构，为了支持业务快速上线，很难一开始就分库分表，垂直拆分还好办，改改数据源就搞定了，一旦开始水平拆分，数据清洗就是个大问题，为此，我们经历了以下几个阶段。</p>
-<ul>
-<li>第一阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png" alt="image"><ul>
-<li>数据库双写（事务成功以老模型为准），查询走老模型。</li>
-<li>每日job数据对账（通过DW），并将差异补平。</li>
-<li>通过job导历史数据。</li>
-</ul>
-</li>
-<li>第二阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png" alt="image"><ul>
-<li>历史数据导入完毕并且数据对账无误。</li>
-<li>依然是数据库双写，但是事务成功与否以新模型为准，在线查询切新模型。</li>
-<li>每日job数据对账，将差异补平。</li>
-</ul>
-</li>
-<li>第三阶段<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png" alt="image"><ul>
-<li>老模型不再同步写入，仅当订单有终态时才会异步补上。</li>
-<li>此阶段只有离线数据依然依赖老的模型，并且下游的依赖非常多，待DW改造完就可以完全废除老模型了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>总结</p>
-<p>  并非所有表都需要水平拆分，要看增长的类型和速度，水平拆分是大招，拆分后会增加开发的复杂度，不到万不得已不使用。在大规模并发的业务上，尽量做到在线查询和离线查询隔离，交易查询和运营/客服查询隔离。拆分维度的选择很重要，要尽可能在解决拆分前问题的基础上，便于开发。数据库没你想象的那么坚强，需要保护，尽量使用简单的、良好索引的查询，这样数据库整体可控，也易于长期容量规划以及水平扩展。</p>
-</li>
-</ul>
-<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><pre><code>- 分区
-    分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg)
-    查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg)
-    在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。
-
-    然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。
-
-    作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。
-- 分库分表
-
-    如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：
-    - 阿里的TDDL，DRDS和cobar
-    - 京东金融的sharding-jdbc
-    - 民间组织的MyCAT
-    - 360的Atlas
-    - 美团的zebra
-    - 其他比如网易，58，京东等公司都有自研的中间件。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg)
-
-    百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。
-
-    - client模式
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg)
-    - 和proxy模式
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg)
-
-    无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg)
-
-    我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。
-
-    前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。
-
-- 垂直拆分
-    - 垂直分表
-
-    也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。
-
-    - 垂直分库
-
-    垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg)
-
-    优点
-
-    数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。
-
-    缺点
-
-    - 跨库 join 的问题
-    - 跨库事务（分布式事务）的问题
-
-    解决方式
-
-    - 全局表
-        - 所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。
-    - 字段冗余
-        - 这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。
-    - 数据同步
-        - 定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。
-    - 系统层组装
-        - 在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。
-
-    对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg)
-
-    这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。
-
-    将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg)
-
-    分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。
-
-    对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：
-
-    - 创建一个原表一模一样的临时表1 ``create table test_a_serial_1 like test_a_serial``;
-    - 将原表命名为临时表2 ``alter table test_a_serial rename test_a_serial_{date}``;
-    - 将临时表1改为原表 ``alter table able test_a_serial_1 rename able test_a_serial``; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。
-    - 将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； ``insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit``;
-
-    如此，便完成了流水数据的迁移；
-    根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；
-
-    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
-
-    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
-
-    以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。
-- 水平拆分
-    - 水平分表
-
-        针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。
-
-        ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg)
-
-        某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。
-
-    - 水平分库分表
-
-        将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。
-
-    - 水平分库分表切分规则
-        - RANGE
-            - 从0到10000一个表，10001到20000一个表；
-        - HASH取模
-            - 一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。
-        - 地理区域
-            - 比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。
-        - 时间
-            - 按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。
-</code></pre><h2 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h2><p>一致性哈希（Consistent hashing）算法是由 MIT 的Karger 等人与1997年在一篇学术论文（《Consistent hashing and random trees: distributed caching protocols for relieving hot spots on the World Wide Web》）中提出来的，用于解决分布式缓存数据分布问题。在传统的哈希算法下，每条缓存数据落在那个节点是通过哈希算法和服务器节点数量计算出来的，一旦服务器节点数量发生增加或者介绍，哈希值需要重新计算，此时几乎所有的数据和服务器节点的对应关系也会随之发生变化，进而会造成绝大多数缓存的失效。一致性哈希算法通过环形结构和虚拟节点的概念，确保了在缓存服务器节点数量发生变化时大部分数据保持原地不动，从而大幅提高了缓存的有效性。下面我们通过例子来解释一致性哈希的原理。</p>
+<h2 id="一致性hash"><a href="#一致性hash" class="headerlink" title="一致性hash"></a>一致性hash</h2><p>一致性哈希（Consistent hashing）算法是由 MIT 的Karger 等人与1997年在一篇学术论文（《Consistent hashing and random trees: distributed caching protocols for relieving hot spots on the World Wide Web》）中提出来的，用于解决分布式缓存数据分布问题。在传统的哈希算法下，每条缓存数据落在那个节点是通过哈希算法和服务器节点数量计算出来的，一旦服务器节点数量发生增加或者介绍，哈希值需要重新计算，此时几乎所有的数据和服务器节点的对应关系也会随之发生变化，进而会造成绝大多数缓存的失效。一致性哈希算法通过环形结构和虚拟节点的概念，确保了在缓存服务器节点数量发生变化时大部分数据保持原地不动，从而大幅提高了缓存的有效性。下面我们通过例子来解释一致性哈希的原理。</p>
 <p>比如有 n 个节点，对于缓存 数据（k，v）具体存在哪个节点往往 hash(k) % n 来计算处理，举一个例子如下表所示，一共有个3个节点，hash函数采用 md5 。</p>
 <table>
 <thead>
@@ -1355,7 +1163,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目相关"><span class="nav-number">1.</span> <span class="nav-text">项目相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。"><span class="nav-number">1.1.</span> <span class="nav-text">聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你个人有什么优势"><span class="nav-number">1.2.</span> <span class="nav-text">你个人有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细"><span class="nav-number">1.3.</span> <span class="nav-text">讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线上有没有遇到其他问题，如何处理的"><span class="nav-number">1.4.</span> <span class="nav-text">线上有没有遇到其他问题，如何处理的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说一个你了解最多的框架，说出你的理解"><span class="nav-number">1.5.</span> <span class="nav-text">说一个你了解最多的框架，说出你的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中监控报警机制如何做的，说说你的了解"><span class="nav-number">1.6.</span> <span class="nav-text">项目中监控报警机制如何做的，说说你的了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题"><span class="nav-number">1.7.</span> <span class="nav-text">服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止服务器雪崩"><span class="nav-number">1.8.</span> <span class="nav-text">防止服务器雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩效应形成的原因"><span class="nav-number">1.8.1.</span> <span class="nav-text">服务雪崩效应形成的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩的应对策略"><span class="nav-number">1.8.2.</span> <span class="nav-text">服务雪崩的应对策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透，缓存击穿，缓存雪崩解决方案分析"><span class="nav-number">1.9.</span> <span class="nav-text">缓存穿透，缓存击穿，缓存雪崩解决方案分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">1.9.1.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">1.9.2.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-1"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">1.9.3.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-2"><span class="nav-number">1.9.3.1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.1.</span> <span class="nav-text">使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“提前”使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.2.</span> <span class="nav-text">“提前”使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“永远不过期”"><span class="nav-number">1.9.3.1.3.</span> <span class="nav-text">“永远不过期”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源保护"><span class="nav-number">1.9.3.1.4.</span> <span class="nav-text">资源保护</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？"><span class="nav-number">1.10.</span> <span class="nav-text">怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分例子"><span class="nav-number">1.10.1.</span> <span class="nav-text">拆分例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势一"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">姿势一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势二"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">姿势二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势三"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">姿势三</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何理解网关，网关带来的好处和坏处，如何解决"><span class="nav-number">1.11.</span> <span class="nav-text">如何理解网关，网关带来的好处和坏处，如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关有哪些竞争方案"><span class="nav-number">1.11.1.</span> <span class="nav-text">API网关有哪些竞争方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关解决方案"><span class="nav-number">1.11.2.</span> <span class="nav-text">API网关解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么选择API网关"><span class="nav-number">1.11.3.</span> <span class="nav-text">怎么选择API网关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中如何保证接口的幂等操作"><span class="nav-number">1.12.</span> <span class="nav-text">项目中如何保证接口的幂等操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到过线上服务器CPU飙高的情况没有，如何处理的？"><span class="nav-number">1.13.</span> <span class="nav-text">遇到过线上服务器CPU飙高的情况没有，如何处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？"><span class="nav-number">1.14.</span> <span class="nav-text">如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁的实现、对比Redis分布式锁-amp-ZK分布式锁"><span class="nav-number">1.15.</span> <span class="nav-text">分布式锁的实现、对比Redis分布式锁 &amp; ZK分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中系统监控怎么做的"><span class="nav-number">1.16.</span> <span class="nav-text">项目中系统监控怎么做的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量"><span class="nav-number">1.17.</span> <span class="nav-text">如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何设计一个秒杀系统？"><span class="nav-number">1.18.</span> <span class="nav-text">如何设计一个秒杀系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？"><span class="nav-number">1.19.</span> <span class="nav-text">如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"><span class="nav-number">1.20.</span> <span class="nav-text">服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？"><span class="nav-number">1.21.</span> <span class="nav-text">假设现在双十一零点，大量下单请求，如何对这些订单进行分库分表，为什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#大众点评设计案例"><span class="nav-number">1.21.1.</span> <span class="nav-text">大众点评设计案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#亿级数据下的分库分表方案"><span class="nav-number">1.21.2.</span> <span class="nav-text">亿级数据下的分库分表方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性hash"><span class="nav-number">1.22.</span> <span class="nav-text">一致性hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用的几种方式以及区别？"><span class="nav-number">1.23.</span> <span class="nav-text">多路复用的几种方式以及区别？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#项目相关"><span class="nav-number">1.</span> <span class="nav-text">项目相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。"><span class="nav-number">1.1.</span> <span class="nav-text">聊项目，画项目架构图，画一个用户从发起请求到接收到响应，中间经过哪些服务，每个服务做什么事情的流程图。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你个人有什么优势"><span class="nav-number">1.2.</span> <span class="nav-text">你个人有什么优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细"><span class="nav-number">1.3.</span> <span class="nav-text">讲项目中的难点、挑战，如何解决的，项目这一块会问的特别细</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线上有没有遇到其他问题，如何处理的"><span class="nav-number">1.4.</span> <span class="nav-text">线上有没有遇到其他问题，如何处理的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说一个你了解最多的框架，说出你的理解"><span class="nav-number">1.5.</span> <span class="nav-text">说一个你了解最多的框架，说出你的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中监控报警机制如何做的，说说你的了解"><span class="nav-number">1.6.</span> <span class="nav-text">项目中监控报警机制如何做的，说说你的了解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题"><span class="nav-number">1.7.</span> <span class="nav-text">服务A调用服务B，用户请求服务A，发现返回较慢，如何定位这个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止服务器雪崩"><span class="nav-number">1.8.</span> <span class="nav-text">防止服务器雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩效应形成的原因"><span class="nav-number">1.8.1.</span> <span class="nav-text">服务雪崩效应形成的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务雪崩的应对策略"><span class="nav-number">1.8.2.</span> <span class="nav-text">服务雪崩的应对策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存穿透，缓存击穿，缓存雪崩解决方案分析"><span class="nav-number">1.9.</span> <span class="nav-text">缓存穿透，缓存击穿，缓存雪崩解决方案分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存穿透"><span class="nav-number">1.9.1.</span> <span class="nav-text">缓存穿透</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.9.1.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存雪崩"><span class="nav-number">1.9.2.</span> <span class="nav-text">缓存雪崩</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-1"><span class="nav-number">1.9.2.1.</span> <span class="nav-text">解决方案</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存击穿"><span class="nav-number">1.9.3.</span> <span class="nav-text">缓存击穿</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案-2"><span class="nav-number">1.9.3.1.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.1.</span> <span class="nav-text">使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“提前”使用互斥锁-mutex-key"><span class="nav-number">1.9.3.1.2.</span> <span class="nav-text">“提前”使用互斥锁(mutex key)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#“永远不过期”"><span class="nav-number">1.9.3.1.3.</span> <span class="nav-text">“永远不过期”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源保护"><span class="nav-number">1.9.3.1.4.</span> <span class="nav-text">资源保护</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？"><span class="nav-number">1.10.</span> <span class="nav-text">怎么理解微服务，服务如何划分，可以从哪几个方面去划分，为什么这样划分，微服务带来了哪些好处，哪些坏处，如何看待这个问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分例子"><span class="nav-number">1.10.1.</span> <span class="nav-text">拆分例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势一"><span class="nav-number">1.10.1.1.</span> <span class="nav-text">姿势一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势二"><span class="nav-number">1.10.1.2.</span> <span class="nav-text">姿势二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#姿势三"><span class="nav-number">1.10.1.3.</span> <span class="nav-text">姿势三</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何理解网关，网关带来的好处和坏处，如何解决"><span class="nav-number">1.11.</span> <span class="nav-text">如何理解网关，网关带来的好处和坏处，如何解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关有哪些竞争方案"><span class="nav-number">1.11.1.</span> <span class="nav-text">API网关有哪些竞争方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API网关解决方案"><span class="nav-number">1.11.2.</span> <span class="nav-text">API网关解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#怎么选择API网关"><span class="nav-number">1.11.3.</span> <span class="nav-text">怎么选择API网关</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中如何保证接口的幂等操作"><span class="nav-number">1.12.</span> <span class="nav-text">项目中如何保证接口的幂等操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到过线上服务器CPU飙高的情况没有，如何处理的？"><span class="nav-number">1.13.</span> <span class="nav-text">遇到过线上服务器CPU飙高的情况没有，如何处理的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？"><span class="nav-number">1.14.</span> <span class="nav-text">如果线上一个功能是用栈结构实现的，使用过程中要注意哪些问题，为什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式锁的实现、对比Redis分布式锁-amp-ZK分布式锁"><span class="nav-number">1.15.</span> <span class="nav-text">分布式锁的实现、对比Redis分布式锁 &amp; ZK分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目中系统监控怎么做的"><span class="nav-number">1.16.</span> <span class="nav-text">项目中系统监控怎么做的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量"><span class="nav-number">1.17.</span> <span class="nav-text">如何实现的，Snowflake实现原理，Snowflake有哪些问题，如何避免根据订单号可以推算出今天的订单量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何设计一个秒杀系统？"><span class="nav-number">1.18.</span> <span class="nav-text">如何设计一个秒杀系统？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？"><span class="nav-number">1.19.</span> <span class="nav-text">如果我现在就是要实现每秒10w请求，不能熔断限流，如何去设计？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？"><span class="nav-number">1.20.</span> <span class="nav-text">服务A调用服务B中一个接口，服务B调用服务C中一个接口，如何实现若服务B响应服务A成功，则服务C一定响应服务B成功，需要考虑系统性能问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性hash"><span class="nav-number">1.21.</span> <span class="nav-text">一致性hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路复用的几种方式以及区别？"><span class="nav-number">1.22.</span> <span class="nav-text">多路复用的几种方式以及区别？</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -4078,141 +4078,371 @@ catch (BeansException ex) {
             - 比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。
         - 时间
             - 按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。
-</code></pre><h2 id="mysql有哪些索引类型？有哪些存储引擎？有什么区别"><a href="#mysql有哪些索引类型？有哪些存储引擎？有什么区别" class="headerlink" title="mysql有哪些索引类型？有哪些存储引擎？有什么区别"></a>mysql有哪些索引类型？有哪些存储引擎？有什么区别</h2><pre><code>- 索引类型
-    - FULLTEXT：即为全文索引，目前只有MyISAM引擎支持。其可以在CREATE TABLE ，ALTER TABLE ，CREATE INDEX 使用，不过目前只有 CHAR、VARCHAR ，TEXT 列上可以创建全文索引。全文索引并不是和MyISAM一起诞生的，它的出现是为了解决WHERE name LIKE “%word%&quot;这类针对文本的模糊查询效率较低的问题。
-    - HASH：由于HASH的唯一（几乎100%的唯一）及类似键值对的形式，很适合作为索引。HASH索引可以一次定位，不需要像树形索引那样逐层查找,因此具有极高的效率。但是，这种高效是有条件的，即只在“=”和“in”条件下高效，对于范围查询、排序及组合索引仍然效率不高。
-    - BTREE：BTREE索引就是一种将索引值按一定的算法，存入一个树形的数据结构中（二叉树），每次查询都是从树的入口root开始，依次遍历node，获取leaf。这是MySQL里默认和最常用的索引类型。
-    - RTREE：RTREE在MySQL很少使用，仅支持geometry数据类型，支持该类型的存储引擎只有MyISAM、BDb、InnoDb、NDb、Archive几种。相对于BTREE，RTREE的优势在于范围查找。
-- 索引种类：
-    - 普通索引：仅加速查询。
-    - 唯一索引：加速查询 + 列值唯一（可以有null）
-    - 主键索引：加速查询 + 列值唯一（不可以有null）+ 表中只有一个
-    - 组合索引：多列值组成一个索引，专门用于组合搜索，其效率大于索引合并
-    - 全文索引：对文本的内容进行分词，进行搜索
-- 存储引擎
-    - InnoDB
-</code></pre><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343758042_8526.png" alt="image"></p>
-<pre><code>    - InnoDB 也采用 B+Tree这种数据结构来实现 B-Tree索引。而很大的区别在于，InnoDB 存储引擎采用“聚集索引”的数据存储方式实现B-Tree索引，所谓“聚集”，就是指数据行和相邻的键值紧凑地存储在一起，注意 InnoDB 只能聚集一个叶子页（16K）的记录（即聚集索引满足一定的范围的记录），因此包含相邻键值的记录可能会相距甚远。
-    - 当InnoDB做全表扫描时并不高效，因为 InnoDB 实际上并没有顺序读取,在大多情况下是在随机读取。做全表扫描时,InnoDB 会按主键顺序扫描页面和行。这应用于所有的InnoDB 表，包括碎片化的表。如果主键页表没有碎片（存储主键和行的页表),全表扫描是相当快，因为读取顺序接近物理存储顺序。但是当主键页有碎片时，该扫描就会变得十分缓慢
-    - 遵循ACID原则(atomicity原子性，consistency一致性，isolation隔离性，durability持久性)，具有事务特性的能力：commit，rollback，crash-recovery。
-        - 仅InnoDB和NDB(Network DB clustered database engine)支持事务和MVCC
-    - 行级锁和Oracle风格的读一致性，提高多用户下的并发度和性能，提供行锁(locking on row level)，提供与 Oracle 类型一致的不加锁读取(non-locking read in SELECTs)，另外，InnoDB表的行锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表，例如update table set num=1 where name like “%aaa%”。
-        - 只有通过索引条件检索数据，InnoDB才使用行级锁，否则仍然使用表锁
-        - 读一致性：query时使用snapshot快照，允许其他事务进行修改，之后再根据undo log调整数据
-        - 默认的隔离级别是可重复读，即同一个事务中多次读取，数据相同
-    - 使用主键优化查询，主键索引是聚集索引(Clustered index，仅InnoDB支持)，使查询主键时的I/O最小化
-        - 聚集索引是指整个表是按照这个索引来组织的，物理存储顺序与索引顺序相同，所以聚集索引字段的修改需要很大开销
-        - InnoDB聚集索引的实现方式，同时也体现了一张 innoDB表的结构，可以看到，InnoDB 中，主键索引和数据是一体的，没有分开。
-    - 支持外码约束
-    - 崩溃后能很好地恢复
-        - 未完成的事务将根据redo log的数据重做
-        - 已提交但未写入的修改，将从doublewrite buffer重做
-        - 系统闲时会purge buffer
-    - 维护一个内存中的buffer pool缓冲池，数据被访问时，表和索引数据会被缓存
-    - 对增删改的change buffering策略，如果被修改数据的页不在缓冲池中，则这个修改可以存在change buffer中，等相应页被放进缓冲池(发生对该页的访问)时，再写入修改，称为merge
-    - adaptive hash index，经常被访问的页会自动在内存建立一个哈希索引，适于=和IN的查询。buffer pool中会预留这种索引需要的内存空间。建立在已有的B树索引基础上，哈希索引可以是部分的，B树索引不需要全部缓存在缓冲池中
-    - 使用checksum校验和机制检测内存或硬盘的损坏
-    - InnoDB是为处理巨大数据量的最大性能设计
-    - 可以在一个查询中join混用InnoDB引擎的表和其他引擎的表
-- MyISAM
-</code></pre><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343757655_1008.png" alt="image"></p>
-<pre><code>    - 适用场景：read-only or read-mostly workloads in Web and data warehousing configurations(查询效率很高，适合大量读操作的场景)
-    - 每个MyISAM在磁盘上存储成三个文件。第一个文件的名字以表的名字开始，扩展名指出文件类型。MyISAM索引文件【.MYI (MYIndex)】和数据文件【.MYD (MYData)】是分离的，索引文件仅保存记录所在页的指针（物理位置），通过这些地址来读取页，进而读取被索引的行
-    - MyISAM 默认会把索引读入内存，直接在内存中操作
-    - Innodb强调多功能性，支持的拓展功能比较多，myisam主要侧重于性能
-    - 将创建3个文件，一个.frm文件，一个.MYD(MYData)文件存数据，一个.MYI(MYIndex)文件存索引
-    - 数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。
-    - 所有数据值都按小字节(low byte first)存储，因此独立于操作系统(可移植性)。但没有明显降低速度，只是需要多处理一下对齐问题，况且获取列值所花的时间不是最主要的
-    - 所有数字键都按大字节(high byte first)存储，利于压缩
-    - BLOB和TEXT列可以创建索引
-    - 每一个character列可以使用不同的字符编码
-    - 会保存表的具体行数
-    - 使用B树索引，string索引会被压缩，当string是索引第一项时还会压缩前缀
-    - 支持真正的变长字段varchar
-    - 支持并发的insert
-- 区别
-    - InnoDB支持事务，MyISAM不支持，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放在begin和commit之间，组成一个事务；
-    - InnoDB是聚集索引，数据文件是和索引绑在一起的，必须要有主键，通过主键索引效率很高。但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大。而MyISAM是非聚集索引，数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。
-    - InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快；
-    - Innodb不支持全文索引，而MyISAM支持全文索引，查询效率上MyISAM要高；
-- 如何选择
-    - 是否要支持事务，如果要请选择innodb，如果不需要可以考虑MyISAM；
-    - 如果表中绝大多数都只是读查询，可以考虑MyISAM，如果既有读写也挺频繁，请使用InnoDB。
-    - 系统奔溃后，MyISAM恢复起来更困难，能否接受；
-    - MySQL5.5版本开始Innodb已经成为Mysql的默认引擎(之前是MyISAM)，说明其优势是有目共睹的，如果你不知道用什么，那就用InnoDB，至少不会差。
-- ARCHIVE
-    - 适用场景：作为仓库，存储大量的独立的作为历史记录的数据(插入速度快但查询支持较差）
-    - 不支持索引
-    - 没有存储大小限制(InnoDB是64TB)
-    - 能很好地压缩数据
-    - 使用行级锁
-    - 支持INSERT, REPLACE, SELECT, 不支持 DELETE, UPDATE
-    - 使用zlib 无损数据压缩。数据insert后即被压缩，放在一个压缩缓冲区中，select操作会导致清空缓冲区，此时数据被真正存储。支持批处理insert。
-    - 行会根据需要解压，不设缓冲。select会导致全表扫描。select是读一致性的。大量查询during insertion会影响压缩。使用REPAIR TABLE或OPTIMIZE TABLE能获取更好的压缩。
-- BLACKHOLE
-    - 适用场景:转发器（会保存SQL语句的日志，并且复制给slave servers）
-    - 过滤器（设置使用黑洞引擎的“dummy” slave进程，依据一定规则将master的日志进行过滤并在BLACKHOLE表写一个新的日志，再复制给slaves，这样只会导致很少的开销）
-    - 像黑洞一样接受数据但不存储
-    - 创建table A会生成一个A.frm表文件，没有其他文件
-    - 支持所有索引
-    - 会保存SQL语句的日志，并且复制给slave servers，适合做转发器或过滤器
-    - 会导致错误，因为不论log文件是row-based还是statement-based，blackhole表不会存储自增列的数据，所以在slaves上insert时会出现重复的主码错误
-    - 使用row-based replication时，如果slaves的表的字段比master少，那么过滤机制其实是在slaves上。如果缺失字段是私密的，不能给slaves获取的；或是有很多slaves，需要在发送数据前就把数据过滤掉以减少网络负载，就不适合这种方式。BLACKHOLE表就能实现在master上进行过滤。
-- MRG_MYISAM
-    - 适用场景：Good for VLDB environments such as data warehousing
-    - 要求多个Mylsam表要有相同的列信息(包括顺序)和索引信息(包括索引的order)
-    - 这些信息不同不会影响表合并
-        - 列名和索引名
-        - 所有的备注comment
-        - 表的选项，例如 ``AVG_ROW_LENGTH``, ``MAX_ROWS``, or ``PACK_KEYS``
-    - 创建merge表时会创建2个文件，一个是存数据的.frm文件，一个是.mrg文件(存储哪些表应当merge起来使用)
-    - merge表中的表可以存于不同的数据库中
-    - 支持merge表的增删改查，前提是必须拥有处理其中所有表的权限
-    - drop table只是删除了merge表，实际存储数据的表不会被删除
-    - 建表需要指定UNION=(list-of-tables)表明使用哪些表，以及INSERT_METHOD=LAST/FIRST表明在哪一个表中插入数据，否则无法执行insert操作
-    - merge表没有主键，因为不能强制实行唯一索引
-- FEDERATED
-    - 适用场景：Very good for distributed or data mart environments
-    - 数据不存储在本地，而是在远程数据库，本地访问时会pull远程数据库的数据
-    - 远程数据库的表可以是任何存储引擎的表
-    - 本地表和远程表应有相同的定义
-    - 本地用.frm文件存储表定义，并且包含一个指向远程数据库的连接字符串
-    - 本地执行操作时，会发送给远程去执行，使用MySQL client API
-    - 远程表可以是一个FEDERATED表，但注意不要造成一个循环
-    - FEDERATED表不支持一般意义上的索引，要远程表上有索引才有效
-    - 如果一个查询语句不能使用远程表的索引，会导致全表扫描，本地数据库会获取全表数据（存在本地内存中，如果数据量过大会引起交换和挂起），再在本地进行过滤
-    - 不支持alter table或drop table，执行drop table只会删除本地FEDERATED表
-    - 不支持分区
-    - 如果远程表改变，本地表无法获知
-- PERFORMANCE_SCHEMA
-    - 关注收集mysql server运行中的性能数据，会监视server的所有events
-    - performance_schema数据库名及其表名都是小写的，查询时要用小写
-    - 很多表都是只读的，对数据库所有表的GRANT ALL授权是不允许的
-    - 数据库中表的更改不会写在日志中
-    - 是完全in-memory的，不占用磁盘空间，mysql服务启动时表会被重新填充，关闭服务时便丢弃
-    - 数据收集的实现是在源码中添加&quot;监控点&quot;(instrumentation)，没有用额外的线程(不像&quot;复制&quot;或&quot;事件调度&quot;)
-    - 用户不能创建存储该类型的表
-- MEMORY
-    - 适用场景：存储临时、不重要的数据，例如作为缓存，适合大量读的情形 (limited updates)
-    - 不支持变长的数据类型variable-length data types (including BLOB and TEXT)
-    - 不支持外码约束
-    - 不支持压缩
-    - 不支持MVCC
-    - 支持哈希索引和B树索引，不支持全文索引和T树索引
-    - mysql服务关闭或重启，数据会消失(表还在)
-    - 数据量不能超过内存大小
-    - 性能限制
-        - 单线程执行
-        - 表更新用表级锁(高并发读写情形下，表级锁严重降低性能，还不如InnoDB快)
-    - 内置的临时表(也在内存中)太大时会自动转成磁盘存储，但用户自创的内存表永远不会转化
-    - 可以从persistent data source装载数据到内存表
-    - 被删除的row会放进一个链表(不会回收内存)，等插入新数据时拿出来复用，只有整个表被删除后才会回收内存。采用定长的行存储，即使是varchar也是定长存储的。
-    - 默认使用哈希索引，并且允许非唯一的哈希索引(但如果字段含大量重复值，性能会很低，这种情况最好用B树索引)，被索引字段可以有NULL。
-- CSV
-    - 创建一个csv表，除了.frm文件外，还创建一个.csv文件用于存储数据，还有一个.csm文件存储表状态、行数等信息，称为metafile
-    - 所有字段都必须NOT NULL
-    - 不支持索引、分区
-</code></pre><h2 id="对索引的理解，组合索引，索引的最佳实践"><a href="#对索引的理解，组合索引，索引的最佳实践" class="headerlink" title="对索引的理解，组合索引，索引的最佳实践"></a>对索引的理解，组合索引，索引的最佳实践</h2><h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
+</code></pre><h2 id="MySQL主从同步与主主同步"><a href="#MySQL主从同步与主主同步" class="headerlink" title="MySQL主从同步与主主同步"></a>MySQL主从同步与主主同步</h2><h3 id="MySQL复制"><a href="#MySQL复制" class="headerlink" title="MySQL复制"></a>MySQL复制</h3><p> MySQL内建的复制功能是构建大型，高性能应用程序的基础。将MySQL的数据分布到多个系统上去，这种分布的机制，是通过将mysql的某一台主机的数据复制到其它主机（slave）上，并重新执行一遍来实现。</p>
+<p>复制过程中一个服务器充当主服务器，而一个或多个其它服务器充当从服务器。主服务器将更新写入二进制日志文件，并维护文件的一个索引以跟踪日志循坏，这些日志可以记录发送到从服务器的更新。当一个从服务器</p>
+<p>连接主服务器时，它通知主服务器从服务器在日志中读取的最后一次成功更新的位置。从服务器接收从那时起发生的任何更新，然后封锁并等待主服务器通知的更新。</p>
+<p>需注意的是：</p>
+<p>在进行mysql复制时，所有对复制中的表的更新必须在主服务器上进行。否则必须要小心，以避免用户对主服器上的表进行更新与对从服务器上的表所进行更新之间的冲突。</p>
+<h4 id="mysql支持哪些复制"><a href="#mysql支持哪些复制" class="headerlink" title="mysql支持哪些复制"></a>mysql支持哪些复制</h4><p> a.基于语句的复制：在主服务器上执行的sql语句，在从服务器上执行同样的语句。mysql默认采用基于语句的复制，效率边角高。一旦发现没法精确复制时，会自动选着基于行的复制。</p>
+<p>b.基于行的复制：把改变的内容复制过去，而不是把命令在从服务器上执行一遍。从mysql 5.0开始支持</p>
+<p>c.混合类型的复制：默认采用基于语句的复制，一旦发现基于语句的无法精确复制时，就会采用基于行的复制。</p>
+<h4 id="mysql复制解决的问题"><a href="#mysql复制解决的问题" class="headerlink" title="mysql复制解决的问题"></a>mysql复制解决的问题</h4><p>a.数据分布（data distribution）</p>
+<p> b.负载平衡（load balancing）</p>
+<p> c.数据备份（backup），保证数据安全</p>
+<p> d.高可用性与容错行（high availability and failover）</p>
+<p> e.实现读写分离，缓解数据库压力</p>
+<h4 id="mysql主从复制原理"><a href="#mysql主从复制原理" class="headerlink" title="mysql主从复制原理"></a>mysql主从复制原理</h4><p>master服务器将数据的改变记录二进制binlog日志，当master上的数据发生改变时，则将其改变写入二进制日志中；slave服务器会在一定时间间隔内对master二进制日志进行探测其是否发生改变，</p>
+<p>   如果发生改变，则开始一个I/O Thread请求master二进制事件，同时主节点为每个I/O线程启动一个dump线程，用于向其发送二进制事件，并保存至从节点本地的中继日志中，从节点将启动SQL线程从中继日志</p>
+<p>  中读取二进制日志，在本地重放，使得其数据和主节点的保持一致，最后I/O Thread和SQL Thread将进入睡眠状态，等待下一次被唤醒。</p>
+<p>注意几点：</p>
+<p> 1–master将操作语句记录到binlog日志中，然后授予slave远程连接的权限（master一定要开启binlog二进制日志功能；通常为了数据安全考虑，slave也开启binlog功能）。</p>
+<p> 2–slave开启两个线程：IO线程和SQL线程。其中：IO线程负责读取master的binlog内容到中继日志relay log里；SQL线程负责从relay log日志里读出binlog内容，并更新到slave的数据库里，这样就能保证slave数据和 master数据保持一致了。</p>
+<p> 3–Mysql复制至少需要两个Mysql的服务，当然Mysql服务可以分布在不同的服务器上，也可以在一台服务器上启动多个服务。</p>
+<p> 4–Mysql复制最好确保master和slave服务器上的Mysql版本相同（如果不能满足版本一致，那么要保证master主节点的版本低于slave从节点的版本）</p>
+<p> 5–master和slave两节点间时间需同步</p>
+<p>Mysql复制的流程图如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/907596-20170106160057409-885292032.png" alt="image"></p>
+<p>如上图所示：</p>
+<p> Mysql复制过程的第一部分就是master记录二进制日志。在每个事务更新数据完成之前，master在二日志记录这些改变。MySQL将事务串行的写入二进制日志，即使事务中的语句都是交叉执行的。在事件写入二进制日志完成后，master通知存储引擎提交事务。</p>
+<p>第二部分就是slave将master的binary log拷贝到它自己的中继日志。首先，slave开始一个工作线程——I/O线程。I/O线程在master上打开一个普通的连接，然后开始binlog dump process。Binlog dump process从master的二进制日志中读取事件，如果已经跟上master，它会睡眠并等待master产生新的事件。I/O线程将这些事件写入中继日志。</p>
+<p>SQL slave thread（SQL从线程）处理该过程的最后一步。SQL线程从中继日志读取事件，并重放其中的事件而更新slave的数据，使其与master中的数据一致。只要该线程与I/O线程保持一致，中继日志通常会位于OS的缓存中，所以中继日志的开销很小。</p>
+<p>此外，在master中也有一个工作线程：和其它MySQL的连接一样，slave在master中打开一个连接也会使得master开始一个线程。复制过程有一个很重要的限制——复制在slave上是串行化的，也就是说master上的并行更新操作不能在slave上并行操作。</p>
+<h4 id="mysql复制的模式"><a href="#mysql复制的模式" class="headerlink" title="mysql复制的模式"></a>mysql复制的模式</h4><p>  1–主从复制：主库授权从库远程连接，读取binlog日志并更新到本地数据库的过程；主库写数据后，从库会自动同步过来（从库跟着主库变）；</p>
+<p> 2–主主复制：主从相互授权连接，读取对方binlog日志并更新到本地数据库的过程；只要对方数据改变，自己就跟着改变；</p>
+<h4 id="mysql主从复制优点"><a href="#mysql主从复制优点" class="headerlink" title="mysql主从复制优点"></a>mysql主从复制优点</h4><p> 1–在从服务器可以执行查询工作(即我们常说的读功能)，降低主服务器压力;（主库写，从库读，降压）</p>
+<p> 2–在从主服务器进行备份，避免备份期间影响主服务器服务;（确保数据安全）</p>
+<p> 3–当主服务器出现问题时，可以切换到从服务器。（提升性能）</p>
+<h4 id="mysql主从复制工作流程细节"><a href="#mysql主从复制工作流程细节" class="headerlink" title="mysql主从复制工作流程细节"></a>mysql主从复制工作流程细节</h4><p>a. MySQL支持单向、异步复制，复制过程中一个服务器充当主服务器，而一个或多个其它服务器充当从服务器。MySQL复制基于主服务器在二进制日志中跟踪所有对数据库的更改(更新、删除等等)。因此，要进行复制，必须在主服务器上启用二进制日志。每个从服务器从主服务器接收主服务器上已经记录到其二进制日志的保存的更新。当一个从服务器连接主服务器时，它通知主服务器定位到从服务器在日志中读取的最后一次成功更新的位置。从服务器接收从那时起发生的任何更新，并在本机上执行相同的更新。然后封锁并等待主服务器通知新的更新。从服务器执行备份不会干扰主服务器，在备份过程中主服务器可以继续处理更新。</p>
+<p> b. MySQL使用3个线程来执行复制功能，其中两个线程(Sql线程和IO线程)在从服务器，另外一个线程(IO线程)在主服务器。<br>当发出START SLAVE时，从服务器创建一个I/O线程，以连接主服务器并让它发送记录在其二进制日志中的语句。主服务器创建一个线程将二进制日志中的内容发送到从服务器。该线程可以即为主服务器上SHOW PROCESSLIST的输出中的Binlog Dump线程。从服务器I/O线程读取主服务器Binlog Dump线程发送的内容并将该数据拷贝到从服务器数据目录中的本地文件中，即中继日志。第3个线程是SQL线程，由从服务器创建，用于读取中继日志并执行日志中包含的更新。在从服务器上，读取和执行更新语句被分成两个独立的任务。当从服务器启动时，其I/O线程可以很快地从主服务器索取所有二进制日志内容，即使SQL线程执行更新的远远滞后。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>主从数据完成同步的过程：</p>
+<p>1）在Slave 服务器上执行sartslave命令开启主从复制开关，开始进行主从复制。</p>
+<p>2）此时，Slave服务器的IO线程会通过在master上已经授权的复制用户权限请求连接master服务器，并请求从执行binlog日志文件的指定位置（日志文件名和位置就是在配置主从复制服务时执行change master命令指定的）之后开始发送binlog日志内容</p>
+<p>3）Master服务器接收到来自Slave服务器的IO线程的请求后，其上负责复制的IO线程会根据Slave服务器的IO线程请求的信息分批读取指定binlog日志文件指定位置之后的binlog日志信息，然后返回给Slave端的IO线程。返回的信息中除了binlog日志内容外，还有在Master服务器端记录的IO线程。返回的信息中除了binlog中的下一个指定更新位置。</p>
+<p>4）当Slave服务器的IO线程获取到Master服务器上IO线程发送的日志内容、日志文件及位置点后，会将binlog日志内容依次写到Slave端自身的Relay Log（即中继日志）文件（Mysql-relay-bin.xxx）的最末端，并将新的binlog文件名和位置记录到master-info文件中，以便下一次读取master端新binlog日志时能告诉Master服务器从新binlog日志的指定文件及位置开始读取新的binlog日志内容</p>
+<p>5）Slave服务器端的SQL线程会实时检测本地Relay Log 中IO线程新增的日志内容，然后及时把Relay LOG 文件中的内容解析成sql语句，并在自身Slave服务器上按解析SQL语句的位置顺序执行应用这样sql语句，并在relay-log.info中记录当前应用中继日志的文件名和位置点</p>
+<h4 id="主从复制条件"><a href="#主从复制条件" class="headerlink" title="主从复制条件"></a>主从复制条件</h4><p>1）开启Binlog功能</p>
+<p>2）主库要建立账号</p>
+<p>3）从库要配置<code>master.info</code>（CHANGE MASTER to…相当于配置密码文件和Master的相关信息）</p>
+<p>4）start slave 开启复制功能</p>
+<h5 id="需要了解的"><a href="#需要了解的" class="headerlink" title="需要了解的"></a>需要了解的</h5><p>1）3个线程，主库IO，从库IO和SQL及作用</p>
+<p>2）<code>master.info</code>（从库）作用</p>
+<p>3）<code>relay-log</code> 作用</p>
+<p>4）异步复制</p>
+<p>5）binlog作用（如果需要级联需要开启Binlog）</p>
+<h5 id="需要注意"><a href="#需要注意" class="headerlink" title="需要注意"></a>需要注意</h5><p>1）主从复制是异步的逻辑的SQL语句级的复制</p>
+<p>2）复制时，主库有一个I/O线程，从库有两个线程，I/O和SQL线程</p>
+<p>3）实现主从复制的必要条件是主库要开启记录binlog功能</p>
+<p>4）作为复制的所有Mysql节点的server-id都不能相同</p>
+<p>5）binlog文件只记录对数据库有更改的SQL语句（来自主库内容的变更），不记录任何查询（select，show）语句</p>
+<h5 id="彻底解除主从复制关系"><a href="#彻底解除主从复制关系" class="headerlink" title="彻底解除主从复制关系"></a>彻底解除主从复制关系</h5><p>1)stop slave;</p>
+<p>2)reset slave; 或直接删除<code>master.info</code>和<code>relay-log.info</code>这两个文件；</p>
+<p>3)修改<code>my.cnf</code>删除主从相关配置参数。</p>
+<p>让slave不随MySQL自动启动</p>
+<p>修改<code>my.cnf</code> 在[mysqld]中增加 <code>skip-slave-start</code> 选项。</p>
+<p>做了MySQL主从复制以后，使用mysqldump对数据备份时，一定要注意按照如下方式：</p>
+<p><code>mysqldump --master-data --single-transaction --user=username --password=password dbname&gt; dumpfilename</code></p>
+<p>这样就可以保留 file 和 position 的信息，在新搭建一个slave的时候，还原完数据库， file 和 position 的信息也随之更新，接着再start slave 就可以很迅速</p>
+<p>的完成增量同步！</p>
+<p>需要限定同步哪些数据库，有3个思路：</p>
+<p>1）在执行grant授权的时候就限定数据库；</p>
+<p>2）在主服务器上限定<code>binlog_do_db</code> = 数据库名；</p>
+<p>3）主服务器上不限定数据库，在从服务器上限定<code>replicate-do-db</code> = 数据库名；</p>
+<p>如果想实现 主-从（主）-从 这样的链条式结构，需要设置：</p>
+<p><code>log-slave-updates</code>   只有加上它，从前一台机器上同步过来的数据才能同步到下一台机器。</p>
+<p>当然，二进制日志也是必须开启的：</p>
+<p><code>log-bin=/opt/mysql/binlogs/bin-log</code></p>
+<p><code>log-bin-index=/opt/mysql/binlogs/bin-log.index</code></p>
+<p>还可以设置一个log保存周期：</p>
+<p><code>expire_logs_days=14</code></p>
+<h3 id="下面记录下mysql主从／主主同步环境的实施过程"><a href="#下面记录下mysql主从／主主同步环境的实施过程" class="headerlink" title="下面记录下mysql主从／主主同步环境的实施过程"></a>下面记录下mysql主从／主主同步环境的实施过程</h3><h4 id="环境描述"><a href="#环境描述" class="headerlink" title="环境描述"></a>环境描述</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysql</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">centos</span> 7<span class="selector-class">.4</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">master</span>：192<span class="selector-class">.168</span><span class="selector-class">.0</span><span class="selector-class">.103</span></span><br><span class="line"></span><br><span class="line"><span class="selector-tag">slave</span>： 192<span class="selector-class">.168</span><span class="selector-class">.0</span><span class="selector-class">.104</span></span><br></pre></td></tr></table></figure>
+<p>注意下面几点：</p>
+<p>1）要保证同步服务期间之间的网络联通。即能相互ping通，能使用对方授权信息连接到对方数据库（防火墙开放3306端口）。</p>
+<p>2）关闭selinux。</p>
+<p>3）同步前，双方数据库中需要同步的数据要保持一致。这样，同步环境实现后，再次更新的数据就会如期同步了。</p>
+<h4 id="主从复制实现过程"><a href="#主从复制实现过程" class="headerlink" title="主从复制实现过程"></a>主从复制实现过程</h4><p>(1)设置master数据库的<code>my.cnf</code>文件（<code>my.cnf</code> 查找顺序 <code>/etc/my.cnf ---&gt; $basedir/my.cnf</code>,在[mysqld]配置区域添加下面内容）</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vim /etc/my.cnf</span><br><span class="line">    <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br><span class="line">   [mysqld] </span><br><span class="line"><span class="attribute">server-id</span>=1        #数据库唯一ID，主从的标识号绝对不能重复。</span><br><span class="line"><span class="attribute">log-bin</span>=mysql-bin    #开启bin-log，并指定文件目录和文件名前缀</span><br><span class="line"><span class="attribute">binlog-do-db</span>=liting　  #需要同步liting数据库。如果是多个同步库，就以此格式另写几行即可。如果不指明对某个具体库同步，就去掉此行，表示同步所有库（除了ignore忽略的库）。</span><br><span class="line"><span class="attribute">binlog-ignore-db</span>=mysql  #不同步mysql系统数据库。如果是多个不同步库，就以此格式另写几行；也可以在一行，中间逗号隔开。</span><br><span class="line">sync_binlog = 1      ＃确保binlog日志写入后与硬盘同步</span><br><span class="line">binlog_checksum = none  ＃跳过现有的采用checksum的事件，mysql5.6.5以后的版本中<span class="attribute">binlog_checksum</span>=crc32,而低版本都是binlog_checksum=none</span><br><span class="line">binlog_format = mixed   ＃bin-log日志文件格式，设置为MIXED可以防止主键重复。</span><br></pre></td></tr></table></figure>
+<p> 温馨提示：在主服务器上最重要的二进制日志设置是<code>sync_binlog</code>，这使得mysql在每次提交事务的时候把二进制日志的内容同步到磁盘上，即使服务器崩溃也会把事件写入日志中。<br><code>sync_binlog</code>这个参数是对于MySQL系统来说是至关重要的，他不仅影响到Binlog对MySQL所带来的性能损耗，而且还影响到MySQL中数据的完整性。对于”sync_binlog”参数的各种设置的说明如下：<br><code>sync_binlog</code>=0，当事务提交之后，MySQL不做fsync之类的磁盘同步指令刷新<code>binlog_cache</code>中的信息到磁盘，而让Filesystem自行决定什么时候来做同步，或者cache满了之后才同步到磁盘。<br><code>sync_binlog</code>=n，当每进行n次事务提交之后，MySQL将进行一次fsync之类的磁盘同步指令来将<code>binlog_cache</code>中的数据强制写入磁盘。</p>
+<p>在MySQL中系统默认的设置是<code>sync_binlog</code>=0，也就是不做任何强制性的磁盘刷新指令，这时候的性能是最好的，但是风险也是最大的。因为一旦系统Crash，在<code>binlog_cache</code>中的所有binlog信息都会被丢失。而当设置为“1”的时候，是最安全但是性能损耗最大的设置。因为当设置为1的时候，即使系统Crash，也最多丢失<code>binlog_cache</code>中未完成的一个事务，对实际数据没有任何实质性影响。</p>
+<p><strong>从以往经验和相关测试来看，对于高并发事务的系统来说，“<code>sync_binlog</code>”设置为0和设置为1的系统写入性能差距可能高达5倍甚至更多。</strong></p>
+<p>(2)导出master数据库多余slave数据库中的数据，然后导入到slave数据库中。保证双方在同步环境实现前的数据一致。[新建环境可忽略次步骤]</p>
+<p>导出数据库之前先锁定数据库<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; flush tables with <span class="keyword">read</span> lock;    <span class="comment">#数据库只读锁定命令，防止导出数据库的时候有数据写入。unlock tables命令解除锁定</span></span><br><span class="line">    </span><br><span class="line">导出<span class="literal">master</span>数据库中需要同步的库(<span class="literal">master</span>数据库的root用户登陆密码：<span class="number">123456</span>)</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]#mysqldump</span> -uroot liting -p123456 &gt;/opt/liting.sql</span><br><span class="line">[root@<span class="keyword">master</span> <span class="title">~]#rsync</span>  -e <span class="string">"ssh -p22"</span> -avpgolr /opt/liting.sql <span class="number">192.168</span>.<span class="number">0.104</span>:/opt/   ＃将导出的sql文件上传到<span class="literal">slave</span>机器上</span><br></pre></td></tr></table></figure></p>
+<p>(3)在master上设置数据同步权限<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant replication slave,replication client on *.* to repl@'<span class="number">192.168</span><span class="number">.0</span><span class="number">.104</span>' identified by <span class="string">"repl123"</span>;  #只允许<span class="number">192.168</span><span class="number">.0</span><span class="number">.104</span>使用repl，且密码为<span class="string">"repl123"</span>连接主库做数据同步</span><br><span class="line"> Query OK, <span class="number">0</span> rows affected (<span class="number">0.02</span> sec)                                    #若要所有网段则设置repl@'%' ；部分网段：repl@'<span class="number">192.168</span><span class="number">.0</span>.%'</span><br><span class="line"> mysql&gt; flush privileges;</span><br><span class="line"> Query OK, <span class="number">0</span> rows affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></p>
+<p>温馨提示：<br>权限查看方式<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show grants;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show grants <span class="keyword">for</span> repl@<span class="string">'192.168.0.104'</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>(4)查看主服务器master状态(注意File与Position项，从服务器需要这两项参数)<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show master status;</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| File       | Position | Binlog<span class="emphasis">_Do_</span>DB | Binlog<span class="emphasis">_Ignore_</span>DB | Executed<span class="emphasis">_Gtid_</span>Set |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| mysql-bin.000007 | 120    |  liting   |     mysql   |          |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>下面是slave数据库上的操作</p>
+<p>(1)设置slave数据库的my.cnf配置文件<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@master ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line">.......</span><br><span class="line">[mysqld]</span><br><span class="line"><span class="attr">server-id=2</span>   <span class="comment">#设置从服务器id，必须于主服务器不同</span></span><br><span class="line"><span class="attr">log-bin=mysql-bin</span>   <span class="comment">#启动MySQ二进制日志系统</span></span><br><span class="line"><span class="attr">replicate-do-db=liting</span>  <span class="comment">#需要同步的数据库名。如果不指明同步哪些库，就去掉这行，表示所有库的同步（除了ignore忽略的库）。</span></span><br><span class="line"><span class="attr">replicate-ignore-db=mysql</span>  <span class="comment">#不同步test数据库</span></span><br><span class="line"><span class="attr">slave-skip-errors</span> = all   <span class="comment">#跳过所有的错误，继续执行复制操作</span></span><br></pre></td></tr></table></figure></p>
+<p>温馨提示：<br>当只针对某些库的某张表进行同步时，如下，只同步liting库的haha表和test库的heihei表：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">replicate-<span class="keyword">do</span>-<span class="keyword">db</span> = liting</span><br><span class="line">replicate-wild-<span class="keyword">do</span>-<span class="keyword">table</span> = liting.haha       <span class="comment">//当只同步几个或少数表时，可以这样设置。注意这要跟上面的库指定配合使用；</span></span><br><span class="line">replicate-<span class="keyword">do</span>-<span class="keyword">db</span> = <span class="keyword">test</span></span><br><span class="line">replicate-wild-<span class="keyword">do</span>-<span class="keyword">table</span> = <span class="keyword">test</span>.heihei      <span class="comment">//如果同步的库的表比较多时，就不能这样一一指定了，就把这个选项配置去掉，直接根据指定的库进行同步。</span></span><br></pre></td></tr></table></figure></p>
+<p>(2)在slave数据库中导入从master传过来的数据。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> CREATE DATABASE liting CHARACTER SET utf8 COLLATE utf8_general_ci;   <span class="comment">#先创建一个liting空库，否则下面导入数据时会报错说此库不存在。</span></span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> use liting;</span></span><br><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> <span class="built_in">source</span> /opt/liting.sql;   ＃导入master中多余的数据。</span></span><br><span class="line">.......</span><br></pre></td></tr></table></figure></p>
+<p>(3）配置主从同步指令<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mysql&gt;</span> <span class="string">stop</span> <span class="string">slave;</span>   <span class="string">＃执行同步前，要先关闭slave</span></span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">change</span> <span class="string">master</span> <span class="string">to</span> <span class="string">master_host='192.168.0.103',master_user='repl',master_password='repl123',master_log_file='mysql-bin.000007',master_log_pos=120;</span></span><br><span class="line">    </span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">start</span> <span class="string">slave;</span></span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">show</span> <span class="string">slave</span> <span class="string">status</span> <span class="string">\G;</span></span><br><span class="line"><span class="string">.......</span></span><br><span class="line"><span class="string">***************************</span> <span class="number">1.</span> <span class="string">row</span> <span class="string">***************************</span></span><br><span class="line"><span class="attr">        Slave_IO_State:</span> <span class="string">Waiting</span> <span class="string">for</span> <span class="string">master</span> <span class="string">to</span> <span class="string">send</span> <span class="string">event</span></span><br><span class="line"><span class="attr">         Master_Host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.103</span></span><br><span class="line"><span class="attr">         Master_User:</span> <span class="string">repl</span></span><br><span class="line"><span class="attr">         Master_Port:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">        Connect_Retry:</span> <span class="number">60</span></span><br><span class="line"><span class="attr">       Master_Log_File:</span> <span class="string">mysql-bin.000007</span></span><br><span class="line"><span class="attr">     Read_Master_Log_Pos:</span> <span class="number">120</span></span><br><span class="line"><span class="attr">       Relay_Log_File:</span> <span class="string">mysql-relay-bin.000002</span></span><br><span class="line"><span class="attr">       Relay_Log_Pos:</span> <span class="number">279</span></span><br><span class="line"><span class="attr">   Relay_Master_Log_File:</span> <span class="string">mysql-bin.000007</span></span><br><span class="line"><span class="attr">     Slave_IO_Running:</span> <span class="literal">Yes</span></span><br><span class="line"><span class="attr">     Slave_SQL_Running:</span> <span class="literal">Yes</span></span><br><span class="line"><span class="attr">      Replicate_Do_DB:</span> <span class="string">liting</span></span><br><span class="line"><span class="attr">    Replicate_Ignore_DB:</span> <span class="string">mysql</span></span><br><span class="line">     <span class="string">.............</span></span><br><span class="line"><span class="attr">   Seconds_Behind_Master:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>如上，当IO和SQL线程的状态均为Yes，则表示主从已实现同步了！</p>
+<p>下面测试下Mysql主从同步的效果<br>在master主数据库上写入新数据<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use liting;    </span><br><span class="line">mysql&gt;<span class="keyword">create</span> table <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> haha (id int(<span class="number">10</span>) <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> AUTO_INCREMENT,name varchar(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>);</span><br><span class="line">Query OK, 0 rows affected (0.02 sec)</span><br><span class="line">mysql&gt; <span class="keyword">insert</span> <span class="keyword">into</span> huanqiu.haha <span class="keyword">values</span>(<span class="number">100</span>,<span class="string">"anhui"</span>);</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>然后在slave数据库上查看，发现master上新写入的数据已经同步过来了<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from liting.haha;</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">| id   | name    |</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">| 100 | anhui   |</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">1 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>至此，主从同步环境已经实现！</p>
+<p>注意：<br>Mysql主从环境部署一段时间后，发现主从不同步时，如何进行数据同步至一致？<br>有以下两种做法：<br>1）参考：<a href="http://www.cnblogs.com/kevingrace/p/6261111.html" target="_blank" rel="noopener">mysql主从同步(2)-问题梳理</a> 中的第（4）步的第二种方法<br>2）参考：<a href="http://www.cnblogs.com/kevingrace/p/6261091.html" target="_blank" rel="noopener">mysql主从同步(3)-percona-toolkit工具</a>（数据一致性监测、延迟监控）使用梳理</p>
+<h3 id="主主复制实现过程"><a href="#主主复制实现过程" class="headerlink" title="主主复制实现过程"></a>主主复制实现过程</h3><p>根据上面的主从环境部署，master和slave已经实现同步，即在master上写入新数据，自动同步到slave。而从库只能读不能写，一旦从库有写入数据，就会造成主从数据不一致！<br>下面就说下Mysql主主复制环境，在slave上更新数据时，master也能自动同步过来。</p>
+<p>温馨提示：</p>
+<p>在做主主同步前，提醒下需要特别注意的一个问题：</p>
+<p>主主复制和主从复制有一些区别，因为多主中都可以对服务器有写权限，所以设计到自增长重复问题，例如：</p>
+<p>出现的问题（多主自增长ID重复）</p>
+<p>1）首先在A和B两个库上创建test表结构;</p>
+<p>2）停掉A，在B上对数据表test(存在自增长属性的ID字段)执行插入操作，返回插入ID为1;</p>
+<p>3）然后停掉B，在A上对数据表test(存在自增长属性的ID字段)执行插入操作，返回的插入ID也是1;</p>
+<p>4）然后 同时启动A,B，就会出现主键ID重复</p>
+<p>解决方法：</p>
+<p>只要保证两台服务器上的数据库里插入的自增长数据不同就可以了<br>如：A插入奇数ID，B插入偶数ID，当然如果服务器多的话，还可以自定义算法，只要不同就可以了<br>在下面例子中，在两台主主服务器上加入参数，以实现奇偶插入！<br>记住:在做主主同步时需要设置自增长的两个相关配置，如下：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto_increment_offset     表示自增长字段从那个数开始，取值范围是<span class="number">1</span> .. <span class="number">65535</span>。这个就是序号。如果有n台mysql机器，则从第一台开始分为设<span class="number">1</span>，<span class="number">2.</span>..n</span><br><span class="line">auto_increment_increment    表示自增长字段每次递增的量，其默认值是<span class="number">1</span>，取值范围是<span class="number">1</span> .. <span class="number">65535</span>。如果有n台mysql机器，这个值就设置为n。</span><br></pre></td></tr></table></figure></p>
+<p>在主主同步配置时，需要将两台服务器的：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto_increment_increment     增长量都配置为<span class="number">2</span></span><br><span class="line">auto_increment_offset        分别配置为<span class="number">1</span>和<span class="number">2</span>。这是序号，第一台从<span class="number">1</span>开始，第二台就是<span class="number">2</span>，以此类推.....</span><br></pre></td></tr></table></figure></p>
+<p>这样才可以避免两台服务器同时做更新时自增长字段的值之间发生冲突。（针对的是有自增长属性的字段）</p>
+<h4 id="主主同步实现操作过程"><a href="#主主同步实现操作过程" class="headerlink" title="主主同步实现操作过程"></a>主主同步实现操作过程</h4><p>1）在master上的my.cnf配置：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">1</span>        </span><br><span class="line"><span class="attr">log-bin</span> = mysql-bin  </span><br><span class="line"><span class="attr">binlog-ignore-db</span> = mysql,information_schema</span><br><span class="line"><span class="attr">sync_binlog</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">binlog_checksum</span> = none</span><br><span class="line"><span class="attr">binlog_format</span> = mixed</span><br><span class="line"><span class="attr">auto-increment-increment</span> = <span class="number">2</span>    </span><br><span class="line"><span class="attr">auto-increment-offset</span> = <span class="number">1</span>   </span><br><span class="line"><span class="attr">slave-skip-errors</span> = all     </span><br><span class="line">[root@master ~]<span class="comment"># /etc/init.d/mysql restart</span></span><br><span class="line">Shutting down MySQL. SUCCESS!</span><br><span class="line">Starting MySQL.. SUCCESS!</span><br></pre></td></tr></table></figure></p>
+<p>数据同步授权（iptables防火墙开启3306端口，要确保对方机器能使用下面权限连接到本机mysql）<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">mysql</span>&gt; <span class="selector-tag">grant</span> <span class="selector-tag">replication</span> <span class="selector-tag">slave</span>,<span class="selector-tag">replication</span> <span class="selector-tag">client</span> <span class="selector-tag">on</span> *.* <span class="selector-tag">to</span> <span class="selector-tag">repl</span>@'<span class="keyword">192</span>.<span class="keyword">168</span>.<span class="keyword">0</span>.<span class="keyword">104</span>' identified by <span class="string">"repl123"</span>;</span><br><span class="line"><span class="selector-tag">mysql</span>&gt; <span class="selector-tag">flush</span> <span class="selector-tag">privileges</span>;</span><br></pre></td></tr></table></figure></p>
+<p>最好将库锁住，仅仅允许读，以保证数据一致性；待主主同步环境部署后再解锁；锁住后，就不能往表里写数据，但是重启mysql服务后就会自动解锁！<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; FLUSH TABLES WITH READ LOCK;    //注意该参数设置后，如果自己同步对方数据，同步前一定要记得先解锁！</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"><span class="code"> </span></span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| File       | Position | Binlog<span class="emphasis">_Do_</span>DB | Binlog<span class="emphasis">_Ignore_</span>DB | Executed<span class="emphasis">_Gtid_</span>Set |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| mysql-bin.000001 |   158 |        |         |          |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>2）slave数据库上<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@slave ~]<span class="comment"># vim /etc/my.cnf</span></span><br><span class="line"><span class="attr">server-id</span> = <span class="number">2</span>       </span><br><span class="line"><span class="attr">log-bin</span> = mysql-bin  </span><br><span class="line"><span class="attr">binlog-ignore-db</span> = mysql,information_schema</span><br><span class="line"><span class="attr">sync_binlog</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">binlog_checksum</span> = none</span><br><span class="line"><span class="attr">binlog_format</span> = mixed</span><br><span class="line"><span class="attr">auto-increment-increment</span> = <span class="number">2</span>    </span><br><span class="line"><span class="attr">auto-increment-offset</span> = <span class="number">2</span>   </span><br><span class="line"><span class="attr">slave-skip-errors</span> = all</span><br><span class="line"> </span><br><span class="line">[root@slave ~]<span class="comment"># /etc/init.d/mysql restart</span></span><br><span class="line">Shutting down MySQL. SUCCESS!</span><br><span class="line">Starting MySQL.. SUCCESS!</span><br></pre></td></tr></table></figure></p>
+<p>数据同步授权（iptables防火墙开启3306端口，要确保对方机器能使用下面权限连接到本机mysql）<br>同理，slave也要授权给master机器远程同步数据的权限<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; grant replication slave ,replication client on <span class="strong">*.*</span> to repl@<span class="emphasis">'192.168.0.103'</span> identified by "repl123";  </span><br><span class="line">mysql&gt; flush privileges;</span><br><span class="line"><span class="code"> </span></span><br><span class="line">mysql&gt; FLUSH TABLES WITH READ LOCK;</span><br><span class="line">mysql&gt; show master status;</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| File       | Position | Binlog<span class="emphasis">_Do_</span>DB | Binlog<span class="emphasis">_Ignore_</span>DB | Executed<span class="emphasis">_Gtid_</span>Set |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">| mysql-bin.000001 |   256 |       |          |          |</span><br><span class="line"><span class="code">+------------------+</span>----------<span class="code">+--------------+</span>------------------<span class="code">+-------------------+</span></span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>3）执行主张同步操作</p>
+<p>先在slave数据库上做同步master的设置。（确保slave上要同步的数据，提前在master上存在。最好双方数据保持一致）<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">mysql&gt;</span> <span class="string">unlock</span> <span class="string">tables;</span>     <span class="string">//先解锁，将对方数据同步到自己的数据库中</span></span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">slave</span> <span class="string">stop；</span></span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">change</span> <span class="string">master</span> <span class="string">to</span> <span class="string">master_host='192.168.0.103',master_user='repl',master_password='repl123',master_log_file='master-bin.000001',master_log_pos=158;</span></span><br><span class="line"> </span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">start</span> <span class="string">slave;</span></span><br><span class="line"><span class="string">mysql&gt;</span> <span class="string">show</span> <span class="string">slave</span> <span class="string">status</span> <span class="string">\G;</span></span><br><span class="line"><span class="string">***************************</span> <span class="number">1.</span> <span class="string">row</span> <span class="string">***************************</span></span><br><span class="line"><span class="attr">             Slave_IO_State:</span> <span class="string">Waiting</span> <span class="string">for</span> <span class="string">master</span> <span class="string">to</span> <span class="string">send</span> <span class="string">event</span></span><br><span class="line"><span class="attr">              Master_Host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.103</span></span><br><span class="line"><span class="attr">              Master_User:</span> <span class="string">repl</span></span><br><span class="line"><span class="attr">              Master_Port:</span> <span class="number">3306</span></span><br><span class="line"><span class="attr">             Connect_Retry:</span> <span class="number">60</span></span><br><span class="line"><span class="attr">            Master_Log_File:</span> <span class="string">mysql-bin.000001</span></span><br><span class="line"><span class="attr">          Read_Master_Log_Pos:</span> <span class="number">158</span></span><br><span class="line"><span class="attr">           nelay_Log_File:</span> <span class="string">mysql-relay-bin.000003</span></span><br><span class="line"><span class="attr">             Relay_Log_Pos:</span> <span class="number">750</span></span><br><span class="line"><span class="attr">        Relay_Master_Log_File:</span> <span class="string">mysql-bin.000001</span></span><br><span class="line"><span class="attr">            Slave_IO_Running:</span> <span class="literal">Yes</span></span><br><span class="line"><span class="attr">            Slave_SQL_Running:</span> <span class="literal">Yes</span></span><br><span class="line">            <span class="string">..................</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就实现了slave－&gt;master的同步环境。</p>
+<p>再在master数据库上做同步slave的设置。（确保slave上要同步的数据，提前在master上存在。最好双方数据保持一致）<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; unlock tables;</span><br><span class="line">mysql&gt; slave stop；</span><br><span class="line">mysql&gt; change master <span class="keyword">to</span> <span class="attribute">master_host</span>=<span class="string">'192.168.0.104'</span>,master_user='repl',master_password='repl123',master_log_file='master-bin.000001',master_log_pos=256;</span><br><span class="line"> </span><br><span class="line">mysql&gt; start slave;</span><br><span class="line">mysql&gt; show slave status \G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Slave_IO_State: Waiting <span class="keyword">for</span> master <span class="keyword">to</span> send event</span><br><span class="line">             Master_Host: 192.168.0.103</span><br><span class="line">             Master_User: repl</span><br><span class="line">             Master_Port: 3306</span><br><span class="line">            Connect_Retry: 60</span><br><span class="line">           Master_Log_File: mysql-bin.000001</span><br><span class="line">          Read_Master_Log_Pos: 256</span><br><span class="line">           Relay_Log_File: mysql-relay-bin.000003</span><br><span class="line">           Relay_Log_Pos: 750</span><br><span class="line">        Relay_Master_Log_File: mysql-bin.000001</span><br><span class="line">            Slave_IO_Running: <span class="literal">Yes</span></span><br><span class="line">            Slave_SQL_Running: <span class="literal">Yes</span></span><br><span class="line">            <span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span><span class="built_in">..</span></span><br></pre></td></tr></table></figure></p>
+<p>这样就实现了master－&gt;slave的同步环境。至此，主主双向同步环境已经实现！</p>
+<h4 id="最后测试下Mysql主主同步的效果"><a href="#最后测试下Mysql主主同步的效果" class="headerlink" title="最后测试下Mysql主主同步的效果"></a>最后测试下Mysql主主同步的效果</h4><p>在master上写入新数据<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from liting.haha;</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">| id   | name    |</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">| 100 | anhui   |</span><br><span class="line"><span class="code">+-----+</span>-----------+</span><br><span class="line">1 rows in set (0.00 sec)</span><br><span class="line"><span class="code"> </span></span><br><span class="line">mysql&gt; insert into huanqiu.haha values(10,"beijing");</span><br></pre></td></tr></table></figure></p>
+<p>在slave数据库中查看，发现master新写入的数据已经同步过来了<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from liting.haha;</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">| id  | name    |</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">|  10| beijing  |</span><br><span class="line">| 100 | anhui   |</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">2 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>在slave上删除数据<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="keyword">delete</span> <span class="keyword">from</span> liting.haha <span class="keyword">where</span> id=<span class="number">100</span>;</span><br></pre></td></tr></table></figure></p>
+<p>在master数据库中查看<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select * from liting.haha;</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">| id  | name    |</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">|  10 | beijing  |</span><br><span class="line"><span class="code">+-----+</span>------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure></p>
+<p>以上，主主同步实现</p>
+<h3 id="binlog，redo-log，undo-log区别"><a href="#binlog，redo-log，undo-log区别" class="headerlink" title="binlog，redo log，undo log区别"></a>binlog，redo log，undo log区别</h3><ol>
+<li><p>binlog是MySQL Server层记录的日志， redo log是InnoDB存储引擎层的日志。 两者都是记录了某些操作的日志(不是所有)自然有些重复（但两者记录的格式不同）。</p>
+</li>
+<li><p>选择binlog日志作为replication我想主要原因是MySQL的特点就是支持多存储引擎，为了兼容绝大部分引擎来支持复制这个特性，那么自然要采用MySQL Server自己记录的日志而不是仅仅针对InnoDB的redo log，因为如果采用了InnoDB redo log复制，那么其他引擎也想复制，此时改怎么办呢？对吧</p>
+</li>
+</ol>
+<p>binlog属于逻辑日志，是逻辑操作。innodb redo属于物理日志，是物理变更。<br>逻辑日志有个缺点是难以并行，而物理日志可以比较好的并行操作，所以redo复制还是有优势的，也许5.7能搞出来。</p>
+<h4 id="binlog"><a href="#binlog" class="headerlink" title="binlog"></a>binlog</h4><p>binlog日志用于记录所有更新且提交了数据或者已经潜在更新提交了数据（例如，没有匹配任何行的一个DELETE）的所有语句。语句以“事件”的形式保存，它描述数据更改。</p>
+<p>binlog作用</p>
+<p>1.恢复使能够最大可能地更新数据库，因为二进制日志包含备份后进行的所有更新。<br>2.在主复制服务器上记录所有将发送给从服务器的语句。 </p>
+<p>binlog 主要参数</p>
+<p><code>log_bin</code><br>设置此参数表示启用binlog功能，并指定路径名称</p>
+<p><code>innodb_flush_log_at_trx_commit = N</code>：</p>
+<p>N=0  – 每隔一秒，把事务日志缓存区的数据写到日志文件中，以及把日志文件的数据刷新到磁盘上；</p>
+<p>N=1  – 每个事务提交时候，把事务日志从缓存区写到日志文件中，并且刷新日志文件的数据到磁盘上；</p>
+<p>N=2  – 每事务提交的时候，把事务日志数据从缓存区写到日志文件中；每隔一秒，刷新一次日志文件，但不一定刷新到磁盘上，而是取决于操作系统的调度；</p>
+<p><code>sync_binlog =  N</code>：</p>
+<p>N&gt;0  — 每向二进制日志文件写入N条SQL或N个事务后，则把二进制日志文件的数据刷新到磁盘上；</p>
+<p>N=0  — 不主动刷新二进制日志文件的数据到磁盘上，而是由操作系统决定；</p>
+<p>推荐配置组合：</p>
+<p>N=1,1  — 适合数据安全性要求非常高，而且磁盘IO写能力足够支持业务，比如充值消费系统；</p>
+<p>N=1,0  — 适合数据安全性要求高，磁盘IO写能力支持业务不富余，允许备库落后或无复制；</p>
+<p>N=2,0或2,<code>m(0&lt;m&lt;100)</code> — 适合数据安全性有要求，允许丢失一点事务日志，复制架构的延迟也能接受；</p>
+<p>N=0,0  — 磁盘IO写能力有限，无复制或允许复制延迟稍微长点能接受，例如：日志性登记业务；</p>
+<h4 id="Undo-Log"><a href="#Undo-Log" class="headerlink" title="Undo Log"></a>Undo Log</h4><p>Undo Log是为了实现事务的原子性，在MySQL数据库InnoDB存储引擎中，还用UndoLog来实现多版本并发控制(简称：MVCC)。</p>
+<h5 id="事务的原子性-Atomicity"><a href="#事务的原子性-Atomicity" class="headerlink" title="事务的原子性(Atomicity)"></a>事务的原子性(Atomicity)</h5><pre><code>- 事务中的所有操作，要么全部完成，要么不做任何操作，不能只做部分操作。如果在执行的过程中发了错误，要回滚(Rollback)到事务开始前的状态，就像这个事务从来没有执行过。
+</code></pre><h5 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h5><p>Undo Log的原理很简单，为了满足事务的原子性，在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为UndoLo）。<br>然后进行数据的修改。如果出现了错误或者用户执行了ROLLBACK语句，系统可以利用UndoLog中的备份将数据恢复到事务开始之前的状态。<br>除了可以保证事务的原子性，Undo Log也可以用来辅助完成事务的持久化。</p>
+<h5 id="事务的持久性-Durability"><a href="#事务的持久性-Durability" class="headerlink" title="事务的持久性(Durability)"></a>事务的持久性(Durability)</h5><p>事务一旦完成，该事务对数据库所做的所有修改都会持久的保存到数据库中。为了保证持久性，数据库系统会将修改后的数据完全的记录到持久的存储上。</p>
+<h5 id="用Undo-Log"><a href="#用Undo-Log" class="headerlink" title="用Undo Log"></a>用Undo Log</h5><p>实现原子性和持久化的事务的简化过程</p>
+<p>假设有A、B两个数据，值分别为1,2。<br>A.事务开始.</p>
+<p>B.记录A=1到undolog.</p>
+<p>C.修改A=3.</p>
+<p>D.记录B=2到undolog.</p>
+<p>E.修改B=4.</p>
+<p>F.将undolog写到磁盘。</p>
+<p>G.将数据写到磁盘。</p>
+<p>H.事务提交</p>
+<p>这里有一个隐含的前提条件：‘数据都是先读到内存中，然后修改内存中的数据，最后将数据写回磁盘’。</p>
+<p>之所以能同时保证原子性和持久化，是因为以下特点：</p>
+<p>A.更新数据前记录Undo log。</p>
+<p>B.为了保证持久性，必须将数据在事务提交前写到磁盘。只要事务成功提交，数据必然已经持久化。</p>
+<p>C.Undo log<br>必须先于数据持久化到磁盘。如果在G,H之间系统崩溃，undo log是完整的，可以用来回滚事务。</p>
+<p>D.如果在A-F之间系统崩溃,因为数据没有持久化到磁盘。所以磁盘上的数据还是保持在事务开始前的状态。</p>
+<p>缺陷：每个事务提交前将数据和Undo Log写入磁盘，这样会导致大量的磁盘IO，因此性能很低。<br>如果能够将数据缓存一段时间，就能减少IO提高性能。但是这样就会丧失事务的持久性。因此引入了另外一种机制来实现持久化，即</p>
+<h4 id="Redo-log"><a href="#Redo-log" class="headerlink" title="Redo log"></a>Redo log</h4><p>记录的是新数据的备份。在事务提交前，只要将Redo Log持久化即可，不需要将数据持久化。当系统崩溃时，虽然数据没有持久化，<br>但是RedoLog已经持久化。系统可以根据RedoLog的内容，将所有数据恢复到最新的状态。</p>
+<p>-Undo+Redo<br>事务的简化过程</p>
+<p>假设有A、B两个数据，值分别为1,2.</p>
+<p>A.事务开始.</p>
+<p>B.记录A=1到undolog.</p>
+<p>C.修改A=3.</p>
+<p>D.记录A=3到redolog.</p>
+<p>E.记录B=2到undolog.</p>
+<p>F.修改B=4.</p>
+<p>G.记录B=4到redolog.</p>
+<p>H.将redolog写入磁盘。</p>
+<p>I.事务提交</p>
+<p>-Undo+Redo<br>事务的特点</p>
+<p>A.为了保证持久性，必须在事务提交前将<br>RedoLog持久化。</p>
+<p>B.数据不需要在事务提交前写入磁盘，而是缓存在内存中。</p>
+<p>C.RedoLog保证事务的持久性。</p>
+<p>D.UndoLog保证事务的原子性。</p>
+<p>E.有一个隐含的特点，数据必须要晚于redolog写入持久存</p>
+<h2 id="mysql有哪些索引类型？有哪些存储引擎？有什么区别"><a href="#mysql有哪些索引类型？有哪些存储引擎？有什么区别" class="headerlink" title="mysql有哪些索引类型？有哪些存储引擎？有什么区别"></a>mysql有哪些索引类型？有哪些存储引擎？有什么区别</h2><ul>
+<li>索引类型<ul>
+<li>FULLTEXT：即为全文索引，目前只有MyISAM引擎支持。其可以在CREATE TABLE ，ALTER TABLE ，CREATE INDEX 使用，不过目前只有 CHAR、VARCHAR ，TEXT 列上可以创建全文索引。全文索引并不是和MyISAM一起诞生的，它的出现是为了解决WHERE name LIKE “%word%”这类针对文本的模糊查询效率较低的问题。</li>
+<li>HASH：由于HASH的唯一（几乎100%的唯一）及类似键值对的形式，很适合作为索引。HASH索引可以一次定位，不需要像树形索引那样逐层查找,因此具有极高的效率。但是，这种高效是有条件的，即只在“=”和“in”条件下高效，对于范围查询、排序及组合索引仍然效率不高。</li>
+<li>BTREE：BTREE索引就是一种将索引值按一定的算法，存入一个树形的数据结构中（二叉树），每次查询都是从树的入口root开始，依次遍历node，获取leaf。这是MySQL里默认和最常用的索引类型。</li>
+<li>RTREE：RTREE在MySQL很少使用，仅支持geometry数据类型，支持该类型的存储引擎只有MyISAM、BDb、InnoDb、NDb、Archive几种。相对于BTREE，RTREE的优势在于范围查找。</li>
+</ul>
+</li>
+<li>索引种类：<ul>
+<li>普通索引：仅加速查询。</li>
+<li>唯一索引：加速查询 + 列值唯一（可以有null）</li>
+<li>主键索引：加速查询 + 列值唯一（不可以有null）+ 表中只有一个</li>
+<li>组合索引：多列值组成一个索引，专门用于组合搜索，其效率大于索引合并</li>
+<li>全文索引：对文本的内容进行分词，进行搜索</li>
+</ul>
+</li>
+<li>存储引擎<ul>
+<li>InnoDB<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343758042_8526.png" alt="image"><ul>
+<li>InnoDB 也采用 B+Tree这种数据结构来实现 B-Tree索引。而很大的区别在于，InnoDB 存储引擎采用“聚集索引”的数据存储方式实现B-Tree索引，所谓“聚集”，就是指数据行和相邻的键值紧凑地存储在一起，注意 InnoDB 只能聚集一个叶子页（16K）的记录（即聚集索引满足一定的范围的记录），因此包含相邻键值的记录可能会相距甚远。</li>
+<li>当InnoDB做全表扫描时并不高效，因为 InnoDB 实际上并没有顺序读取,在大多情况下是在随机读取。做全表扫描时,InnoDB 会按主键顺序扫描页面和行。这应用于所有的InnoDB 表，包括碎片化的表。如果主键页表没有碎片（存储主键和行的页表),全表扫描是相当快，因为读取顺序接近物理存储顺序。但是当主键页有碎片时，该扫描就会变得十分缓慢</li>
+<li>遵循ACID原则(atomicity原子性，consistency一致性，isolation隔离性，durability持久性)，具有事务特性的能力：commit，rollback，crash-recovery。<ul>
+<li>仅InnoDB和NDB(Network DB clustered database engine)支持事务和MVCC</li>
+</ul>
+</li>
+<li>行级锁和Oracle风格的读一致性，提高多用户下的并发度和性能，提供行锁(locking on row level)，提供与 Oracle 类型一致的不加锁读取(non-locking read in SELECTs)，另外，InnoDB表的行锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表，例如update table set num=1 where name like “%aaa%”。<ul>
+<li>只有通过索引条件检索数据，InnoDB才使用行级锁，否则仍然使用表锁</li>
+<li>读一致性：query时使用snapshot快照，允许其他事务进行修改，之后再根据undo log调整数据</li>
+<li>默认的隔离级别是可重复读，即同一个事务中多次读取，数据相同</li>
+</ul>
+</li>
+<li>使用主键优化查询，主键索引是聚集索引(Clustered index，仅InnoDB支持)，使查询主键时的I/O最小化<ul>
+<li>聚集索引是指整个表是按照这个索引来组织的，物理存储顺序与索引顺序相同，所以聚集索引字段的修改需要很大开销</li>
+<li>InnoDB聚集索引的实现方式，同时也体现了一张 innoDB表的结构，可以看到，InnoDB 中，主键索引和数据是一体的，没有分开。</li>
+</ul>
+</li>
+<li>支持外码约束</li>
+<li>崩溃后能很好地恢复<ul>
+<li>未完成的事务将根据redo log的数据重做</li>
+<li>已提交但未写入的修改，将从doublewrite buffer重做</li>
+<li>系统闲时会purge buffer</li>
+</ul>
+</li>
+<li>维护一个内存中的buffer pool缓冲池，数据被访问时，表和索引数据会被缓存</li>
+<li>对增删改的change buffering策略，如果被修改数据的页不在缓冲池中，则这个修改可以存在change buffer中，等相应页被放进缓冲池(发生对该页的访问)时，再写入修改，称为merge</li>
+<li>adaptive hash index，经常被访问的页会自动在内存建立一个哈希索引，适于=和IN的查询。buffer pool中会预留这种索引需要的内存空间。建立在已有的B树索引基础上，哈希索引可以是部分的，B树索引不需要全部缓存在缓冲池中</li>
+<li>使用checksum校验和机制检测内存或硬盘的损坏</li>
+<li>InnoDB是为处理巨大数据量的最大性能设计</li>
+<li>可以在一个查询中join混用InnoDB引擎的表和其他引擎的表</li>
+</ul>
+</li>
+<li>MyISAM<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343757655_1008.png" alt="image"><ul>
+<li>适用场景：read-only or read-mostly workloads in Web and data warehousing configurations(查询效率很高，适合大量读操作的场景)</li>
+<li>每个MyISAM在磁盘上存储成三个文件。第一个文件的名字以表的名字开始，扩展名指出文件类型。MyISAM索引文件【.MYI (MYIndex)】和数据文件【.MYD (MYData)】是分离的，索引文件仅保存记录所在页的指针（物理位置），通过这些地址来读取页，进而读取被索引的行</li>
+<li>MyISAM 默认会把索引读入内存，直接在内存中操作</li>
+<li>Innodb强调多功能性，支持的拓展功能比较多，myisam主要侧重于性能</li>
+<li>将创建3个文件，一个.frm文件，一个.MYD(MYData)文件存数据，一个.MYI(MYIndex)文件存索引</li>
+<li>数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。</li>
+<li>所有数据值都按小字节(low byte first)存储，因此独立于操作系统(可移植性)。但没有明显降低速度，只是需要多处理一下对齐问题，况且获取列值所花的时间不是最主要的</li>
+<li>所有数字键都按大字节(high byte first)存储，利于压缩</li>
+<li>BLOB和TEXT列可以创建索引</li>
+<li>每一个character列可以使用不同的字符编码</li>
+<li>会保存表的具体行数</li>
+<li>使用B树索引，string索引会被压缩，当string是索引第一项时还会压缩前缀</li>
+<li>支持真正的变长字段varchar</li>
+<li>支持并发的insert</li>
+</ul>
+</li>
+<li>区别<ul>
+<li>InnoDB支持事务，MyISAM不支持，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放在begin和commit之间，组成一个事务；</li>
+<li>InnoDB是聚集索引，数据文件是和索引绑在一起的，必须要有主键，通过主键索引效率很高。但是辅助索引需要两次查询，先查询到主键，然后再通过主键查询到数据。因此，主键不应该过大，因为主键太大，其他索引也都会很大。而MyISAM是非聚集索引，数据文件是分离的，索引保存的是数据文件的指针。主键索引和辅助索引是独立的。</li>
+<li>InnoDB不保存表的具体行数，执行select count(*) from table时需要全表扫描。而MyISAM用一个变量保存了整个表的行数，执行上述语句时只需要读出该变量即可，速度很快；</li>
+<li>Innodb不支持全文索引，而MyISAM支持全文索引，查询效率上MyISAM要高；</li>
+</ul>
+</li>
+<li>如何选择<ul>
+<li>是否要支持事务，如果要请选择innodb，如果不需要可以考虑MyISAM；</li>
+<li>如果表中绝大多数都只是读查询，可以考虑MyISAM，如果既有读写也挺频繁，请使用InnoDB。</li>
+<li>系统奔溃后，MyISAM恢复起来更困难，能否接受；</li>
+<li>MySQL5.5版本开始Innodb已经成为Mysql的默认引擎(之前是MyISAM)，说明其优势是有目共睹的，如果你不知道用什么，那就用InnoDB，至少不会差。</li>
+</ul>
+</li>
+<li>ARCHIVE<ul>
+<li>适用场景：作为仓库，存储大量的独立的作为历史记录的数据(插入速度快但查询支持较差）</li>
+<li>不支持索引</li>
+<li>没有存储大小限制(InnoDB是64TB)</li>
+<li>能很好地压缩数据</li>
+<li>使用行级锁</li>
+<li>支持INSERT, REPLACE, SELECT, 不支持 DELETE, UPDATE</li>
+<li>使用zlib 无损数据压缩。数据insert后即被压缩，放在一个压缩缓冲区中，select操作会导致清空缓冲区，此时数据被真正存储。支持批处理insert。</li>
+<li>行会根据需要解压，不设缓冲。select会导致全表扫描。select是读一致性的。大量查询during insertion会影响压缩。使用REPAIR TABLE或OPTIMIZE TABLE能获取更好的压缩。</li>
+</ul>
+</li>
+<li>BLACKHOLE<ul>
+<li>适用场景:转发器（会保存SQL语句的日志，并且复制给slave servers）</li>
+<li>过滤器（设置使用黑洞引擎的“dummy” slave进程，依据一定规则将master的日志进行过滤并在BLACKHOLE表写一个新的日志，再复制给slaves，这样只会导致很少的开销）</li>
+<li>像黑洞一样接受数据但不存储</li>
+<li>创建table A会生成一个A.frm表文件，没有其他文件</li>
+<li>支持所有索引</li>
+<li>会保存SQL语句的日志，并且复制给slave servers，适合做转发器或过滤器</li>
+<li>会导致错误，因为不论log文件是row-based还是statement-based，blackhole表不会存储自增列的数据，所以在slaves上insert时会出现重复的主码错误</li>
+<li>使用row-based replication时，如果slaves的表的字段比master少，那么过滤机制其实是在slaves上。如果缺失字段是私密的，不能给slaves获取的；或是有很多slaves，需要在发送数据前就把数据过滤掉以减少网络负载，就不适合这种方式。BLACKHOLE表就能实现在master上进行过滤。</li>
+</ul>
+</li>
+<li>MRG_MYISAM<ul>
+<li>适用场景：Good for VLDB environments such as data warehousing</li>
+<li>要求多个Mylsam表要有相同的列信息(包括顺序)和索引信息(包括索引的order)</li>
+<li>这些信息不同不会影响表合并<ul>
+<li>列名和索引名</li>
+<li>所有的备注comment</li>
+<li>表的选项，例如 <code>AVG_ROW_LENGTH</code>, <code>MAX_ROWS</code>, or <code>PACK_KEYS</code></li>
+</ul>
+</li>
+<li>创建merge表时会创建2个文件，一个是存数据的.frm文件，一个是.mrg文件(存储哪些表应当merge起来使用)</li>
+<li>merge表中的表可以存于不同的数据库中</li>
+<li>支持merge表的增删改查，前提是必须拥有处理其中所有表的权限</li>
+<li>drop table只是删除了merge表，实际存储数据的表不会被删除</li>
+<li>建表需要指定UNION=(list-of-tables)表明使用哪些表，以及INSERT_METHOD=LAST/FIRST表明在哪一个表中插入数据，否则无法执行insert操作</li>
+<li>merge表没有主键，因为不能强制实行唯一索引</li>
+</ul>
+</li>
+<li>FEDERATED<ul>
+<li>适用场景：Very good for distributed or data mart environments</li>
+<li>数据不存储在本地，而是在远程数据库，本地访问时会pull远程数据库的数据</li>
+<li>远程数据库的表可以是任何存储引擎的表</li>
+<li>本地表和远程表应有相同的定义</li>
+<li>本地用.frm文件存储表定义，并且包含一个指向远程数据库的连接字符串</li>
+<li>本地执行操作时，会发送给远程去执行，使用MySQL client API</li>
+<li>远程表可以是一个FEDERATED表，但注意不要造成一个循环</li>
+<li>FEDERATED表不支持一般意义上的索引，要远程表上有索引才有效</li>
+<li>如果一个查询语句不能使用远程表的索引，会导致全表扫描，本地数据库会获取全表数据（存在本地内存中，如果数据量过大会引起交换和挂起），再在本地进行过滤</li>
+<li>不支持alter table或drop table，执行drop table只会删除本地FEDERATED表</li>
+<li>不支持分区</li>
+<li>如果远程表改变，本地表无法获知</li>
+</ul>
+</li>
+<li>PERFORMANCE_SCHEMA<ul>
+<li>关注收集mysql server运行中的性能数据，会监视server的所有events</li>
+<li>performance_schema数据库名及其表名都是小写的，查询时要用小写</li>
+<li>很多表都是只读的，对数据库所有表的GRANT ALL授权是不允许的</li>
+<li>数据库中表的更改不会写在日志中</li>
+<li>是完全in-memory的，不占用磁盘空间，mysql服务启动时表会被重新填充，关闭服务时便丢弃</li>
+<li>数据收集的实现是在源码中添加”监控点”(instrumentation)，没有用额外的线程(不像”复制”或”事件调度”)</li>
+<li>用户不能创建存储该类型的表</li>
+</ul>
+</li>
+<li>MEMORY<ul>
+<li>适用场景：存储临时、不重要的数据，例如作为缓存，适合大量读的情形 (limited updates)</li>
+<li>不支持变长的数据类型variable-length data types (including BLOB and TEXT)</li>
+<li>不支持外码约束</li>
+<li>不支持压缩</li>
+<li>不支持MVCC</li>
+<li>支持哈希索引和B树索引，不支持全文索引和T树索引</li>
+<li>mysql服务关闭或重启，数据会消失(表还在)</li>
+<li>数据量不能超过内存大小</li>
+<li>性能限制<ul>
+<li>单线程执行</li>
+<li>表更新用表级锁(高并发读写情形下，表级锁严重降低性能，还不如InnoDB快)</li>
+</ul>
+</li>
+<li>内置的临时表(也在内存中)太大时会自动转成磁盘存储，但用户自创的内存表永远不会转化</li>
+<li>可以从persistent data source装载数据到内存表</li>
+<li>被删除的row会放进一个链表(不会回收内存)，等插入新数据时拿出来复用，只有整个表被删除后才会回收内存。采用定长的行存储，即使是varchar也是定长存储的。</li>
+<li>默认使用哈希索引，并且允许非唯一的哈希索引(但如果字段含大量重复值，性能会很低，这种情况最好用B树索引)，被索引字段可以有NULL。</li>
+</ul>
+</li>
+<li>CSV<ul>
+<li>创建一个csv表，除了.frm文件外，还创建一个.csv文件用于存储数据，还有一个.csm文件存储表状态、行数等信息，称为metafile</li>
+<li>所有字段都必须NOT NULL</li>
+<li>不支持索引、分区</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="对索引的理解，组合索引，索引的最佳实践"><a href="#对索引的理解，组合索引，索引的最佳实践" class="headerlink" title="对索引的理解，组合索引，索引的最佳实践"></a>对索引的理解，组合索引，索引的最佳实践</h2><h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
 <li>B-Tree 索引：MySQL 中最主要的索引；</li>
 <li>RTREE 索引：仅仅是 MyISAM，GIS；</li>
 <li>哈希索引：MyISAM，5.6 开始的 Innodb。</li>

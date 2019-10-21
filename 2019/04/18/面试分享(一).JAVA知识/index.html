@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG253.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG254.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG255.png">
-<meta property="og:image" content="https://images2015.cnblogs.com/blog/1182497/201706/1182497-20170616192740650-1039521219.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG4944.png">
 <meta property="og:image" content="https://img2018.cnblogs.com/blog/1489669/201810/1489669-20181016185255493-478123409.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1489669-20181016192344776-1456921556.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1489669-20181016192808209-1144011671.png">
@@ -173,7 +173,7 @@
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/command_pattern_uml_diagram.jpg">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/observer_pattern_uml_diagram.jpg">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/strategy_pattern_uml_diagram.jpg">
-<meta property="og:updated_time" content="2019-10-18T10:50:35.250Z">
+<meta property="og:updated_time" content="2019-10-21T17:26:53.267Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试分享(一).JAVA知识">
 <meta name="twitter:description" content="JAVA知识ArrayList和LinkList有什么区别 ArrayList是数组实现的集合操作，而LinkedList是链表实现的集合操作,（LinkedList是双向链表，有next也有previous）。 只是用List集合中的get()方法根据索引取数据的时候，ArrayList的时间复杂度为“O(1)”,而LinkedList的时间复杂度为“O(n)”(n为集合的长度)，因为Linke">
@@ -673,7 +673,7 @@
 <p>其做法是：以class为单位，为每个class维护一个偏向锁撤销计数器，每一次该class的对象发生偏向撤销操作时，该计数器+1，当这个值达到重偏向阈值（默认20）时，JVM就认为该class的偏向锁有问题，因此会进行批量重偏向。每个class对象会有一个对应的epoch字段，每个处于偏向锁状态对象的mark word中也有该字段，其初始值为创建该对象时，class中的epoch的值。每次发生批量重偏向时，就将该值+1，同时遍历JVM中所有线程的栈，找到该class所有正处于加锁状态的偏向锁，将其epoch字段改为新值。下次获得锁时，发现当前对象的epoch值和class的epoch不相等，那就算当前已经偏向了其他线程，也不会执行撤销操作，而是直接通过CAS操作将其mark word的Thread Id 改成当前线程Id。</p>
 <p>当达到重偏向阈值后，假设该class计数器继续增长，当其达到批量撤销的阈值后（默认40），JVM就认为该class的使用场景存在多线程竞争，会标记该class为不可偏向，之后，对于该class的锁，直接走轻量级锁的逻辑。</p>
 <h2 id="Java运行时区域及各个区域的作用、对GC的了解、Java内存模型及为什么要这么设计？"><a href="#Java运行时区域及各个区域的作用、对GC的了解、Java内存模型及为什么要这么设计？" class="headerlink" title="Java运行时区域及各个区域的作用、对GC的了解、Java内存模型及为什么要这么设计？"></a>Java运行时区域及各个区域的作用、对GC的了解、Java内存模型及为什么要这么设计？</h2><h3 id="Java运行时区域及各个区域的作用"><a href="#Java运行时区域及各个区域的作用" class="headerlink" title="Java运行时区域及各个区域的作用"></a>Java运行时区域及各个区域的作用</h3><p>Java虚拟机所管理的内存将会包括一下几个运行时数据区域</p>
-<p><img src="https://images2015.cnblogs.com/blog/1182497/201706/1182497-20170616192740650-1039521219.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG4944.png" alt="image"></p>
 <h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p> 程序计数器（Program Counter Register） 是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条执行字节码指令。</p>
 <p>每条线程都有一个独立的程序计数器。</p>
 <p>如果执行的是java方法，这个计数器记录的是正在执行的虚拟机字节码指令地址。如果是native方法，计数器为空。此内存区域是唯一一个在java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>

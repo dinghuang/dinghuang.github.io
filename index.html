@@ -5637,7 +5637,7 @@ catch (BeansException ex) {
 <p>JDK1.4加入了NIO，引入一种基于通道与缓冲区的I/O方式，它可以使用Native函数库直接分配堆外内存，然后通过一个存储在Java堆中的DirectByteBuffer对象作为这块内存的引用进行操作。因为避免了在Java堆和Native堆中来回复制数据，提高了性能。</p>
 <p>当各个内存区域总和大于物理内存限制，抛出OutOfMemoryError异常。</p>
 <h3 id="GC相关"><a href="#GC相关" class="headerlink" title="GC相关"></a>GC相关</h3><p>jvm 中，程序计数器、虚拟机栈、本地方法栈都是随线程而生随线程而灭，栈帧随着方法的进入和退出做入栈和出栈操作，实现了自动的内存清理，因此，我们的内存垃圾回收主要集中于 java 堆和方法区中，在程序运行期间，这部分内存的分配和使用都是动态的。</p>
-<p><img src="https://img2018.cnblogs.com/blog/1489669/201810/1489669-20181016185255493-478123409.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1489669-20181016185255493-478123409.png" alt="image"></p>
 <h4 id="GC的对象"><a href="#GC的对象" class="headerlink" title="GC的对象"></a>GC的对象</h4><p>需要进行回收的对象就是已经没有存活的对象，判断一个对象是否存活常用的有两种办法：引用计数和可达分析。</p>
 <ul>
 <li>引用计数：每个对象有一个引用计数属性，新增一个引用时计数加1，引用释放时计数减1，计数为0时可以回收。此方法简单，无法解决对象相互循环引用的问题。</li>

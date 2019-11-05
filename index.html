@@ -2605,123 +2605,104 @@
 <p>  并非所有表都需要水平拆分，要看增长的类型和速度，水平拆分是大招，拆分后会增加开发的复杂度，不到万不得已不使用。在大规模并发的业务上，尽量做到在线查询和离线查询隔离，交易查询和运营/客服查询隔离。拆分维度的选择很重要，要尽可能在解决拆分前问题的基础上，便于开发。数据库没你想象的那么坚强，需要保护，尽量使用简单的、良好索引的查询，这样数据库整体可控，也易于长期容量规划以及水平扩展。</p>
 </li>
 </ul>
-<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><pre><code>- 分区
-    分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg)
-    查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg)
-    在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。
-
-    然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。
-
-    作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。
-- 分库分表
-
-    如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：
-    - 阿里的TDDL，DRDS和cobar
-    - 京东金融的sharding-jdbc
-    - 民间组织的MyCAT
-    - 360的Atlas
-    - 美团的zebra
-    - 其他比如网易，58，京东等公司都有自研的中间件。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg)
-
-    百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。
-
-    - client模式
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg)
-    - 和proxy模式
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg)
-
-    无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg)
-
-    我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。
-
-    前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。
-
-- 垂直拆分
-    - 垂直分表
-
-    也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。
-
-    - 垂直分库
-
-    垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg)
-
-    优点
-
-    数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。
-
-    缺点
-
-    - 跨库 join 的问题
-    - 跨库事务（分布式事务）的问题
-
-    解决方式
-
-    - 全局表
-        - 所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。
-    - 字段冗余
-        - 这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。
-    - 数据同步
-        - 定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。
-    - 系统层组装
-        - 在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。
-
-    对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg)
-
-    这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。
-
-    将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。
-
-    ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg)
-
-    分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。
-
-    对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：
-
-    - 创建一个原表一模一样的临时表1 ``create table test_a_serial_1 like test_a_serial``;
-    - 将原表命名为临时表2 ``alter table test_a_serial rename test_a_serial_{date}``;
-    - 将临时表1改为原表 ``alter table able test_a_serial_1 rename able test_a_serial``; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。
-    - 将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； ``insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit``;
-
-    如此，便完成了流水数据的迁移；
-    根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；
-
-    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
-
-    半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。
-
-    以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。
-- 水平拆分
-    - 水平分表
-
-        针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。
-
-        ![](https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg)
-
-        某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。
-
-    - 水平分库分表
-
-        将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。
-
-    - 水平分库分表切分规则
-        - RANGE
-            - 从0到10000一个表，10001到20000一个表；
-        - HASH取模
-            - 一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。
-        - 地理区域
-            - 比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。
-        - 时间
-            - 按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。
-</code></pre><h2 id="MySQL主从同步与主主同步"><a href="#MySQL主从同步与主主同步" class="headerlink" title="MySQL主从同步与主主同步"></a>MySQL主从同步与主主同步</h2><h3 id="MySQL复制"><a href="#MySQL复制" class="headerlink" title="MySQL复制"></a>MySQL复制</h3><p> MySQL内建的复制功能是构建大型，高性能应用程序的基础。将MySQL的数据分布到多个系统上去，这种分布的机制，是通过将mysql的某一台主机的数据复制到其它主机（slave）上，并重新执行一遍来实现。</p>
+<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p>分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg" alt=""><br>查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg" alt=""><br>在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。</p>
+<p>然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。</p>
+<p>作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。</p>
+<h4 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h4><p>如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：</p>
+<ul>
+<li>阿里的TDDL，DRDS和cobar</li>
+<li>京东金融的sharding-jdbc</li>
+<li>民间组织的MyCAT</li>
+<li>360的Atlas</li>
+<li>美团的zebra</li>
+<li>其他比如网易，58，京东等公司都有自研的中间件。</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg" alt=""></p>
+<p>百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。</p>
+<ul>
+<li>client模式<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg" alt=""></li>
+<li>和proxy模式<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg" alt=""></li>
+</ul>
+<p>无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg" alt=""></p>
+<p>我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。</p>
+<p>前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。</p>
+<h5 id="垂直拆分"><a href="#垂直拆分" class="headerlink" title="垂直拆分"></a>垂直拆分</h5><h6 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h6><p>也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。</p>
+<h6 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h6><p>垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg" alt=""></p>
+<p>优点</p>
+<p>数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。</p>
+<p>缺点</p>
+<ul>
+<li>跨库 join 的问题</li>
+<li>跨库事务（分布式事务）的问题</li>
+</ul>
+<p>解决方式</p>
+<ul>
+<li>全局表<ul>
+<li>所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。</li>
+</ul>
+</li>
+<li>字段冗余<ul>
+<li>这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。</li>
+</ul>
+</li>
+<li>数据同步<ul>
+<li>定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。</li>
+</ul>
+</li>
+<li>系统层组装<ul>
+<li>在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。</li>
+</ul>
+</li>
+</ul>
+<p>对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg" alt=""></p>
+<p>这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。</p>
+<p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""></p>
+<p>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
+<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
+<ul>
+<li>创建一个原表一模一样的临时表1 <code>create table test_a_serial_1 like test_a_serial</code>;</li>
+<li>将原表命名为临时表2 <code>alter table test_a_serial rename test_a_serial_{date}</code>;</li>
+<li>将临时表1改为原表 <code>alter table able test_a_serial_1 rename able test_a_serial</code>; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。</li>
+<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
+</ul>
+<p>如此，便完成了流水数据的迁移；<br>根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；</p>
+<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
+<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
+<p>以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。</p>
+<h6 id="水平拆分"><a href="#水平拆分" class="headerlink" title="水平拆分"></a>水平拆分</h6><ul>
+<li><p>水平分表</p>
+<p>  针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。</p>
+<p>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg" alt=""></p>
+<p>  某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。</p>
+</li>
+<li><p>水平分库分表</p>
+<p>  将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。</p>
+</li>
+<li><p>水平分库分表切分规则</p>
+<ul>
+<li>RANGE<ul>
+<li>从0到10000一个表，10001到20000一个表；</li>
+</ul>
+</li>
+<li>HASH取模<ul>
+<li>一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。</li>
+</ul>
+</li>
+<li>地理区域<ul>
+<li>比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。</li>
+</ul>
+</li>
+<li>时间<ul>
+<li>按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="MySQL主从同步与主主同步"><a href="#MySQL主从同步与主主同步" class="headerlink" title="MySQL主从同步与主主同步"></a>MySQL主从同步与主主同步</h2><h3 id="MySQL复制"><a href="#MySQL复制" class="headerlink" title="MySQL复制"></a>MySQL复制</h3><p> MySQL内建的复制功能是构建大型，高性能应用程序的基础。将MySQL的数据分布到多个系统上去，这种分布的机制，是通过将mysql的某一台主机的数据复制到其它主机（slave）上，并重新执行一遍来实现。</p>
 <p>复制过程中一个服务器充当主服务器，而一个或多个其它服务器充当从服务器。主服务器将更新写入二进制日志文件，并维护文件的一个索引以跟踪日志循坏，这些日志可以记录发送到从服务器的更新。当一个从服务器</p>
 <p>连接主服务器时，它通知主服务器从服务器在日志中读取的最后一次成功更新的位置。从服务器接收从那时起发生的任何更新，然后封锁并等待主服务器通知的更新。</p>
 <p>需注意的是：</p>
@@ -4185,9 +4166,11 @@
 </table>
 <p>基本上每一种标签都是用来定义一类 bean 的（P标签除外）。以上都是 spring 自带的一些标签，当然 spring 也支持自定义标签。其实 <code>&lt;tx&gt;&lt;aop&gt;</code> 这些也可以认为是自定义标签，不过是由 spring 扩展的而已。</p>
 <p>其实所有的bean定义都可以用bean标签来实现定义的。而衍生这种自定义标签来定义 bean 有几个好处：</p>
-<p>1.见名知意。</p>
-<ol start="2">
-<li>对于同一类的通用 bean。封装不必要的配置，只给外部暴露一个简单易用的标签和一些需要配置的属性。很多时候对于一个框架通用的 bean ，我们不需要把 bean 的所有配置都暴露出来，甚至像类名、默认值等我们都想直接封装，这个时候就可以使用自定义标签了，如： &lt;services:property-placeholder /&gt; 可能这个标签就默认代表配置了一个支持 property placeholder 的通用 bean ，我们都不需要去知道配这样一个 bean 的类路径是什么。</li>
+<ol>
+<li><p>见名知意。</p>
+</li>
+<li><p>对于同一类的通用 bean。封装不必要的配置，只给外部暴露一个简单易用的标签和一些需要配置的属性。很多时候对于一个框架通用的 bean ，我们不需要把 bean 的所有配置都暴露出来，甚至像类名、默认值等我们都想直接封装，这个时候就可以使用自定义标签了，如： &lt;services:property-placeholder /&gt; 可能这个标签就默认代表配置了一个支持 property placeholder 的通用 bean ，我们都不需要去知道配这样一个 bean 的类路径是什么。</p>
+</li>
 </ol>
 <p>可以说自定义标签是 spring 的 xml 容器的一个扩展点，本身 spring 自己的很多标签也是基于这个设计上面来构造出来的。</p>
 <h3 id="Spring-对于自定义（声明式）bean标签解析如何设计"><a href="#Spring-对于自定义（声明式）bean标签解析如何设计" class="headerlink" title="Spring 对于自定义（声明式）bean标签解析如何设计"></a>Spring 对于自定义（声明式）bean标签解析如何设计</h3><p>Bean 的定义方式有千千万万种，无论是何种标签，无论是何种资源定义，无论是何种容器，最终的 bean 定义内部表示都将转换为内部的唯一结构： BeanDefinition 。外部的各种定义说白了就是为了方便配置。</p>
@@ -4229,7 +4212,7 @@
 <p>源码段 1 ： 加载 spring.shemas，在PluggableSchemaResolver.java里实现：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PluggableSchemaResolver</span> <span class="title">implements</span> <span class="title">EntityResolver</span> </span>&#123;  </span><br><span class="line"><span class="comment">/***定义schema location的映射文件路径***/</span>  </span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">final</span> String DEFAULT_SCHEMA_MAPPINGS_LOCATION = <span class="string">"META-INF/spring.schemas"</span>;  </span><br><span class="line">    <span class="keyword">private</span> static <span class="keyword">final</span> Log logger = LogFactory.getLog(PluggableSchemaResolver.<span class="keyword">class</span>);  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ClassLoader classLoader;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String schemaMappingsLocation;  </span><br><span class="line">    <span class="comment">/** Stores the mapping of schema URL -&gt; local schema path */</span>  </span><br><span class="line">    <span class="keyword">private</span> Properties schemaMappings;  </span><br><span class="line">    <span class="keyword">public</span> PluggableSchemaResolver(ClassLoader classLoader) &#123;  </span><br><span class="line">        <span class="keyword">this</span>.classLoader = classLoader;  </span><br><span class="line">        <span class="keyword">this</span>.schemaMappingsLocation = DEFAULT_SCHEMA_MAPPINGS_LOCATION;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">public</span> PluggableSchemaResolver(ClassLoader classLoader, String schemaMappingsLocation) &#123;  </span><br><span class="line">        Assert.hasText(schemaMappingsLocation, <span class="string">"'schemaMappingsLocation' must not be empty"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.classLoader = classLoader;  </span><br><span class="line">        <span class="keyword">this</span>.schemaMappingsLocation = schemaMappingsLocation;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/**==========中间省略部分代码=========**/</span>  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/***此处完成schema的加载***/</span>  </span><br><span class="line">    <span class="keyword">protected</span> String getSchemaMapping(String systemId) &#123;  </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.schemaMappings == <span class="literal">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;  </span><br><span class="line">                logger.debug(<span class="string">"Loading schema mappings from ["</span> + <span class="keyword">this</span>.schemaMappingsLocation + <span class="string">"]"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">try</span> &#123;  </span><br><span class="line">                <span class="keyword">this</span>.schemaMappings =  </span><br><span class="line">                        PropertiesLoaderUtils.loadAllProperties(<span class="keyword">this</span>.schemaMappingsLocation, <span class="keyword">this</span>.classLoader);  </span><br><span class="line">                <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;  </span><br><span class="line">                    logger.debug(<span class="string">"Loaded schema mappings: "</span> + <span class="keyword">this</span>.schemaMappings);  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">catch</span> (IOException ex) &#123;  </span><br><span class="line">                <span class="keyword">throw</span> new FatalBeanException(  </span><br><span class="line">                        <span class="string">"Unable to load schema mappings from location ["</span> + <span class="keyword">this</span>.schemaMappingsLocation + <span class="string">"]"</span>, ex);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.schemaMappings.getProperty(systemId);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>源码段 2 ： 加载 spring.handlers,在 DefaultNamespaceHandlerResolver里实现：<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">DefaultNamespaceHandlerResolver</span> <span class="keyword">implements</span> <span class="title">NamespaceHandlerResolver</span> </span>&#123;  </span><br><span class="line">    <span class="comment"><span class="markdown">/** </span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">     * The location to look for </span></span>the<span class="markdown"> mapping files. Can be present in multiple JAR files. </span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">     */</span></span></span>  </span><br><span class="line">    public <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">String</span> DEFAULT_HANDLER_MAPPINGS_LOCATION = <span class="string">"META-INF/spring.handlers"</span>;  </span><br><span class="line">  </span><br><span class="line">    <span class="comment"><span class="markdown">/<span class="emphasis">** Logger available to subclasses *</span>/</span></span>  </span><br><span class="line">    protected <span class="keyword">final</span> Log logger = LogFactory.getLog(getClass());  </span><br><span class="line">    <span class="comment"><span class="markdown">/<span class="emphasis">** ClassLoader to use for NamespaceHandler classes *</span>/</span></span>  </span><br><span class="line">    private <span class="keyword">final</span> ClassLoader classLoader;  </span><br><span class="line">    <span class="comment"><span class="markdown">/<span class="emphasis">** Resource location to search for *</span>/</span></span>  </span><br><span class="line">    private <span class="keyword">final</span> <span class="built_in">String</span> handlerMappingsLocation;  </span><br><span class="line">    <span class="comment"><span class="markdown">/** Stores </span>the<span class="markdown"> mappings from namespace URI to NamespaceHandler class name / instance */</span></span>  </span><br><span class="line">    private <span class="built_in">Map</span> handlerMappings;  </span><br><span class="line">  </span><br><span class="line">    public DefaultNamespaceHandlerResolver() &#123;  </span><br><span class="line">        <span class="keyword">this</span>(<span class="keyword">null</span>, DEFAULT_HANDLER_MAPPINGS_LOCATION);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    public DefaultNamespaceHandlerResolver(ClassLoader classLoader) &#123;  </span><br><span class="line">        <span class="keyword">this</span>(classLoader, DEFAULT_HANDLER_MAPPINGS_LOCATION);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    public DefaultNamespaceHandlerResolver(ClassLoader classLoader, <span class="built_in">String</span> handlerMappingsLocation) &#123;  </span><br><span class="line">        Assert.notNull(handlerMappingsLocation, <span class="string">"Handler mappings location must not be null"</span>);  </span><br><span class="line">        <span class="keyword">this</span>.classLoader = (classLoader != <span class="keyword">null</span> ? classLoader : ClassUtils.getDefaultClassLoader());  </span><br><span class="line">        <span class="keyword">this</span>.handlerMappingsLocation = handlerMappingsLocation;  </span><br><span class="line">    &#125;  </span><br><span class="line"><span class="comment"><span class="markdown">/<span class="strong">**==========中间省略部分代码=========**</span>/</span></span>  </span><br><span class="line">  </span><br><span class="line">        </span><br><span class="line">       <span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="emphasis">***</span>* </span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">     * Load </span></span>the<span class="markdown"> specified NamespaceHandler mappings lazily. </span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">        *  此处加载延迟加载spring.handlers，只有第一次自定义标签被解析到，才会被加载。 </span></span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">        ****************************/</span></span></span>  </span><br><span class="line">    private <span class="built_in">Map</span> getHandlerMappings() &#123;  </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.handlerMappings == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="keyword">try</span> &#123;  </span><br><span class="line">                Properties mappings =  </span><br><span class="line">                        PropertiesLoaderUtils.loadAllProperties(<span class="keyword">this</span>.handlerMappingsLocation, <span class="keyword">this</span>.classLoader);  </span><br><span class="line">                <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;  </span><br><span class="line">                    logger.debug(<span class="string">"Loaded mappings ["</span> + mappings + <span class="string">"]"</span>);  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">this</span>.handlerMappings = <span class="keyword">new</span> HashMap(mappings);  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">catch</span> (IOException ex) &#123;  </span><br><span class="line">                IllegalStateException ise = <span class="keyword">new</span> IllegalStateException(  </span><br><span class="line">                        <span class="string">"Unable to load NamespaceHandler mappings from location ["</span> + <span class="keyword">this</span>.handlerMappingsLocation + <span class="string">"]"</span>);  </span><br><span class="line">                ise.initCause(ex);  </span><br><span class="line">                <span class="keyword">throw</span> ise;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.handlerMappings;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>源码段3 ： xml 到 dom 树的解析。</p>
-<p>在 XmlBeanDefinitionReader .java 的 doLoadBeanDefinitions 方法里，调用 DefaultDocumentLoader 完成。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">protected int doLoadBeanDefinitions(InputSource inputSource,<span class="built_in"> Resource </span>resource)  </span><br><span class="line">            throws BeanDefinitionStoreException &#123;  </span><br><span class="line">    try &#123;  </span><br><span class="line">        int validationMode = getValidationModeForResource(resource);  </span><br><span class="line">        Document doc = this.documentLoader.loadDocument(  </span><br><span class="line">                inputSource, getEntityResolver(), this.errorHandler, validationMode, isNamespaceAware());  </span><br><span class="line">        return registerBeanDefinitions(doc, resource);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (BeanDefinitionStoreException ex) &#123;  </span><br><span class="line">        throw ex;  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (SAXParseException ex) &#123;  </span><br><span class="line">        throw new XmlBeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Line "</span> + ex.getLineNumber() + <span class="string">" in XML document from "</span> +<span class="built_in"> resource </span>+ <span class="string">" is invalid"</span>, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (SAXException ex) &#123;  </span><br><span class="line">        throw new XmlBeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"XML document from "</span> +<span class="built_in"> resource </span>+ <span class="string">" is invalid"</span>, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (ParserConfigurationException ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Parser configuration exception parsing XML from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (IOException ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"IOException parsing XML document from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (Throwable ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Unexpected exception parsing XML document from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 XmlBeanDefinitionReader.java 的 doLoadBeanDefinitions 方法里，调用 DefaultDocumentLoader 完成。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">protected int doLoadBeanDefinitions(InputSource inputSource,<span class="built_in"> Resource </span>resource)  </span><br><span class="line">            throws BeanDefinitionStoreException &#123;  </span><br><span class="line">    try &#123;  </span><br><span class="line">        int validationMode = getValidationModeForResource(resource);  </span><br><span class="line">        Document doc = this.documentLoader.loadDocument(  </span><br><span class="line">                inputSource, getEntityResolver(), this.errorHandler, validationMode, isNamespaceAware());  </span><br><span class="line">        return registerBeanDefinitions(doc, resource);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (BeanDefinitionStoreException ex) &#123;  </span><br><span class="line">        throw ex;  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (SAXParseException ex) &#123;  </span><br><span class="line">        throw new XmlBeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Line "</span> + ex.getLineNumber() + <span class="string">" in XML document from "</span> +<span class="built_in"> resource </span>+ <span class="string">" is invalid"</span>, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (SAXException ex) &#123;  </span><br><span class="line">        throw new XmlBeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"XML document from "</span> +<span class="built_in"> resource </span>+ <span class="string">" is invalid"</span>, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (ParserConfigurationException ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Parser configuration exception parsing XML from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (IOException ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"IOException parsing XML document from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">    catch (Throwable ex) &#123;  </span><br><span class="line">        throw new BeanDefinitionStoreException(resource.getDescription(),  </span><br><span class="line">                <span class="string">"Unexpected exception parsing XML document from "</span> + resource, ex);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中的<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">getEntityResolver</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
 <p>会完成spring.schemas的装载,里面会间接调用源码段1。穿进去的entityResolver作为标签解析使用。</p>
 <p>源码段4 ： dom 树到 Beandifinition：</p>
@@ -4252,10 +4235,10 @@
 <p>3.动态代理也叫做:JDK代理,接口代理</p>
 <h5 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h5><p>1)原理：是根据类加载器和接口创建代理类（此代理类是接口的实现类，所以必须使用接口 面向接口生成代理，位于java.lang.reflect包下）</p>
 <p>2)实现方式：</p>
-<p>通过实现InvocationHandler接口创建自己的调用处理器 IvocationHandler handler = new InvocationHandlerImpl(…);</p>
-<p>通过为Proxy类指定ClassLoader对象和一组interface创建动态代理类Class clazz = Proxy.getProxyClass(classLoader,new Class[]{…});</p>
-<p>通过反射机制获取动态代理类的构造函数，其参数类型是调用处理器接口类型Constructor constructor = clazz.getConstructor(new Class[]{InvocationHandler.class});</p>
-<p>通过构造函数创建代理类实例，此时需将调用处理器对象作为参数被传入Interface Proxy = (Interface)constructor.newInstance(new Object[] (handler));</p>
+<p>通过实现InvocationHandler接口创建自己的调用处理器 <code>IvocationHandler handler = new InvocationHandlerImpl(…);</code></p>
+<p>通过为Proxy类指定ClassLoader对象和一组interface创建动态代理类<code>Class clazz = Proxy.getProxyClass(classLoader,new Class[]{…});</code></p>
+<p>通过反射机制获取动态代理类的构造函数，其参数类型是调用处理器接口类型<code>Constructor constructor = clazz.getConstructor(new Class[]{InvocationHandler.class});</code></p>
+<p>通过构造函数创建代理类实例，此时需将调用处理器对象作为参数被传入<code>Interface Proxy = (Interface)constructor.newInstance(new Object[] (handler));</code></p>
 <p>缺点：jdk动态代理，必须是面向接口，目标业务类必须实现接口<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 每次生成动态代理类对象时,实现了InvocationHandler接口的调用处理器对象 </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvocationHandlerImpl</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Object <span class="keyword">target</span>;<span class="comment">// 这其实业务实现类对象，用来调用具体的业务方法</span></span><br><span class="line">    <span class="comment">// 通过构造函数传入目标对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">InvocationHandlerImpl</span><span class="params">(Object <span class="keyword">target</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.<span class="keyword">target</span> = <span class="keyword">target</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        Object result = <span class="keyword">null</span>;</span><br><span class="line">        System.out.println(<span class="string">"调用开始处理"</span>);</span><br><span class="line">        result = method.invoke(<span class="keyword">target</span>, args);</span><br><span class="line">        System.out.println(<span class="string">"调用结束处理"</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) <span class="keyword">throws</span> NoSuchMethodException, SecurityException, InstantiationException,</span><br><span class="line">            IllegalAccessException, IllegalArgumentException, InvocationTargetException &#123;</span><br><span class="line">        <span class="comment">// 被代理对象</span></span><br><span class="line">        IUserDao userDao = <span class="keyword">new</span> UserDao();</span><br><span class="line">        InvocationHandlerImpl invocationHandlerImpl = <span class="keyword">new</span> InvocationHandlerImpl(userDao);</span><br><span class="line">        ClassLoader loader = userDao.getClass().getClassLoader();</span><br><span class="line">        Class&lt;?&gt;[] interfaces = userDao.getClass().getInterfaces();</span><br><span class="line">        <span class="comment">// 主要装载器、一组接口及调用处理动态代理实例</span></span><br><span class="line">        IUserDao newProxyInstance = (IUserDao) Proxy.newProxyInstance(loader, interfaces, invocationHandlerImpl);</span><br><span class="line">        newProxyInstance.save();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h5 id="CGLIB动态代理"><a href="#CGLIB动态代理" class="headerlink" title="CGLIB动态代理"></a>CGLIB动态代理</h5><p>原理：利用asm开源包，对代理对象类的class文件加载进来，通过修改其字节码生成子类来处理。</p>
 <p>什么是CGLIB动态代理</p>
@@ -4328,8 +4311,8 @@
 <h2 id="什么是脑裂"><a href="#什么是脑裂" class="headerlink" title="什么是脑裂"></a>什么是脑裂</h2><h3 id="什么是脑裂-1"><a href="#什么是脑裂-1" class="headerlink" title="什么是脑裂"></a>什么是脑裂</h3><p>脑裂(split-brain)就是“大脑分裂”，也就是本来一个“大脑”被拆分了两个或多个“大脑”，我们都知道，如果一个人有多个大脑，并且相互独立的话，那么会导致人体“手舞足蹈”，“不听使唤”。</p>
 <p>脑裂通常会出现在集群环境中，比如ElasticSearch、Zookeeper集群，而这些集群环境有一个统一的特点，就是它们有一个大脑，比如ElasticSearch集群中有Master节点，Zookeeper集群中有Leader节点。</p>
 <p>章着重来给大家讲一下Zookeeper中的脑裂问题，以及是如果解决脑裂问题的。</p>
-<h3 id="Zookeeper集群中的脑裂场景"><a href="#Zookeeper集群中的脑裂场景" class="headerlink" title="Zookeeper集群中的脑裂场景"></a>Zookeeper集群中的脑裂场景</h3><p>对于一个集群，想要提高这个集群的可用性，通常会采用多机房部署，比如现在有一个由6台zkServer所组成的一个集群，部署在了两个机房： image.png</p>
-<p>正常情况下，此集群只会有一个Leader，那么如果机房之间的网络断了之后，两个机房内的zkServer还是可以相互通信的，如果不考虑过半机制，那么就会出现每个机房内部都将选出一个Leader。 image.png</p>
+<h3 id="Zookeeper集群中的脑裂场景"><a href="#Zookeeper集群中的脑裂场景" class="headerlink" title="Zookeeper集群中的脑裂场景"></a>Zookeeper集群中的脑裂场景</h3><p>对于一个集群，想要提高这个集群的可用性，通常会采用多机房部署，比如现在有一个由6台zkServer所组成的一个集群，部署在了两个机房：</p>
+<p>正常情况下，此集群只会有一个Leader，那么如果机房之间的网络断了之后，两个机房内的zkServer还是可以相互通信的，如果不考虑过半机制，那么就会出现每个机房内部都将选出一个Leader。 </p>
 <p>这就相当于原本一个集群，被分成了两个集群，出现了两个“大脑”，这就是脑裂。</p>
 <p>对于这种情况，我们也可以看出来，原本应该是统一的一个集群对外提供服务的，现在变成了两个集群同时对外提供服务，如果过了一会，断了的网络突然联通了，那么此时就会出现问题了，两个集群刚刚都对外提供服务了，数据该怎么合并，数据冲突怎么解决等等问题。</p>
 <p>刚刚在说明脑裂场景时，有一个前提条件就是没有考虑过半机制，所以实际上Zookeeper集群中是不会出现脑裂问题的，而不会出现的原因就跟过半机制有关。</p>
@@ -4339,10 +4322,10 @@
 <p>举个简单的例子： 如果现在集群中有5台zkServer，那么half=5/2=2，那么也就是说，领导者选举的过程中至少要有三台zkServer投了同一个zkServer，才会符合过半机制，才能选出来一个Leader。</p>
 <p>那么有一个问题我们想一下，选举的过程中为什么一定要有一个过半机制验证？ 因为这样不需要等待所有zkServer都投了同一个zkServer就可以选举出来一个Leader了，这样比较快，所以叫快速领导者选举算法呗。</p>
 <p>那么再来想一个问题，过半机制中为什么是大于，而不是大于等于呢？</p>
-<p>这就是更脑裂问题有关系了，比如回到上文出现脑裂问题的场景： image.png</p>
+<p>这就是更脑裂问题有关系了，比如回到上文出现脑裂问题的场景： </p>
 <p>当机房中间的网络断掉之后，机房1内的三台服务器会进行领导者选举，但是此时过半机制的条件是set.size() &gt; 3，也就是说至少要4台zkServer才能选出来一个Leader，所以对于机房1来说它不能选出一个Leader，同样机房2也不能选出一个Leader，这种情况下整个集群当机房间的网络断掉后，整个集群将没有Leader。</p>
 <p>而如果过半机制的条件是set.size() &gt;= 3，那么机房1和机房2都会选出一个Leader，这样就出现了脑裂。所以我们就知道了，为什么过半机制中是大于，而不是大于等于。就是为了防止脑裂。</p>
-<p>如果假设我们现在只有5台机器，也部署在两个机房： image.png</p>
+<p>如果假设我们现在只有5台机器，也部署在两个机房： </p>
 <p>此时过半机制的条件是set.size() &gt; 2，也就是至少要3台服务器才能选出一个Leader，此时机房件的网络断开了，对于机房1来说是没有影响的，Leader依然还是Leader，对于机房2来说是选不出来Leader的，此时整个集群中只有一个Leader。</p>
 <p>所以，我们可以总结得出，有了过半机制，对于一个Zookeeper集群，要么没有Leader，要没只有1个Leader，这样就避免了脑裂问题。</p>
 <p>有痛点才有创新，一个技术肯定都是为了解决某个痛点才出现的。</p>
@@ -4440,10 +4423,9 @@
 </li>
 <li><p><code>ISOLATION_REPEATABLE_READ</code>： 这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻像读。它除了保证一个事务不能读取另一个事务未提交的数据外，还保证了避免下面的情况产生(不可重复读)。</p>
 </li>
-<li><p><code>ISOLATION_SERIALIZABLE</code>  这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。</p>
+<li><p><code>ISOLATION_SERIALIZABLE</code>  这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止脏读，不可重复读外，还避免了幻像读。</p>
 </li>
 </ol>
-<p>除了防止脏读，不可重复读外，还避免了幻像读。</p>
 <p><strong>其中的一些概念的说明：</strong><br><strong>脏读</strong>:  指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务也访问这个数据，然后使用了这个数据。因为这个数据是还没有提交的数据， 那么另外一 个事务读到的这个数据是脏数据，依据脏数据所做的操作可能是不正确的。</p>
 <p><strong>不可重复读</strong>:  指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。 那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的数据可能是不一样的。这样就发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。</p>
 <p><strong>幻觉读</strong>:指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及 到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，就会发生操作第一个事务的用户发现表中还有 没有修改的数据行,也就是说幻像读是指同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻像读,就好象发生了幻觉一样。</p>
@@ -4604,7 +4586,7 @@
 <li>获取Fallback，如果fallback失败，系统报错，所以要尽量防止fallback报错，当然也可以在fallback上加上一层fallback</li>
 <li>返回执行结果</li>
 </ol>
-<h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><h4 id="熔断器"><a href="#熔断器" class="headerlink" title="熔断器"></a>熔断器</h4><p>下图显示了HystrixCommand或者HystrixObserverCommand如何与HystrixCircuitBreaker及哦啊胡及其逻辑和决策流程。包括计数器在断路器中的行为方式。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/hystrix-command-flow-chart.png" alt="image"><br>熔断行为</p>
+<h3 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h3><h4 id="熔断器"><a href="#熔断器" class="headerlink" title="熔断器"></a>熔断器</h4><p>下图显示了HystrixCommand或者HystrixObserverCommand如何与HystrixCircuitBreaker及其逻辑和决策流程。包括计数器在断路器中的行为方式。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/hystrix-command-flow-chart.png" alt="image"><br>熔断行为</p>
 <p>断路器打开还是关闭的步骤如下</p>
 <ol>
 <li>假定请求的量超过预定的阈值（circuitBreakerRequestVolumeThreshold）</li>

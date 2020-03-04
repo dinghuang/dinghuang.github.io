@@ -156,7 +156,7 @@
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-1f499d02104728e0.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-35dc3a0aed8a0f9a.png">
 <meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-3e7aaef9e3865926.png">
-<meta property="og:updated_time" content="2019-11-05T13:09:07.787Z">
+<meta property="og:updated_time" content="2019-11-06T03:09:22.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试分享(三).数据库相关">
 <meta name="twitter:description" content="数据库相关读过MyBatis源码没有？可以参考本文 聊一聊对分库分表的理解大众点评设计案例原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这">
@@ -582,12 +582,12 @@
 <p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。</p>
 <p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""></p>
 <p>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
-<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
+<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即使是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
 <ul>
 <li>创建一个原表一模一样的临时表1 <code>create table test_a_serial_1 like test_a_serial</code>;</li>
 <li>将原表命名为临时表2 <code>alter table test_a_serial rename test_a_serial_{date}</code>;</li>
 <li>将临时表1改为原表 <code>alter table able test_a_serial_1 rename able test_a_serial</code>; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。</li>
-<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
+<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即使是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
 </ul>
 <p>如此，便完成了流水数据的迁移；<br>根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；</p>
 <p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
@@ -1985,7 +1985,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2070,7 +2070,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

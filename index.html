@@ -301,6 +301,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/" itemprop="url">Activiti7.X结合SpringBoot2.1、Mybatis</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-14T18:33:00+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Activiti7-X结合SpringBoot2-1、Mybatis"><a href="#Activiti7-X结合SpringBoot2-1、Mybatis" class="headerlink" title="Activiti7.X结合SpringBoot2.1、Mybatis"></a>Activiti7.X结合SpringBoot2.1、Mybatis</h1><h2 id="Activiti简介"><a href="#Activiti简介" class="headerlink" title="Activiti简介"></a>Activiti简介</h2><h3 id="Activiti介绍"><a href="#Activiti介绍" class="headerlink" title="Activiti介绍"></a>Activiti介绍</h3><p><img src="https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LHE-A0W4uh4yR1u7ql8%2F-LHE-EAcoOsHLfdz-Di9%2F-LHE-FC7enBS3Fh9WnbR%2FAcitiviti_Icon_FullColor_GitHub_400x400.png?generation=1531407568078053&amp;alt=media" alt="image"></p>
+<p>Activiti 是由 jBPM 的创建者 Tom Baeyens 离开 JBoss 之后建立的项目，构建在开发 jBPM 版本 1 到 4 时积累的多年经验的基础之上，旨在创建下一代的 BPM 解决方案。</p>
+<p>Activiti是一个开源的工作流引擎，它实现了BPMN 2.0规范，可以发布设计好的流程定义，并通过api进行流程调度。</p>
+<p>Activiti 作为一个遵从 Apache 许可的工作流和业务流程管理开源平台，其核心是基于Java的超快速、超稳定的 BPMN2.0 流程引擎，强调流程服务的可嵌入性和可扩展性，同时更加强调面向业务人员。</p>
+<p>Activiti 流程引擎重点关注在系统开发的易用性和轻量性上。每一项 BPM 业务功能 Activiti 流程引擎都以服务的形式提供给开发人员。通过使用这些服务，开发人员能够构建出功能丰富、轻便且高效的 BPM 应用程序。</p>
+<p>Activiti是一个针对企业用户、开发人员、系统管理员的轻量级工作流业务管理平台，其核心是使用Java开发的快速、稳定的BPMN e 2.0流程引擎。Activiti是在ApacheV2许可下发布的，可以运行在任何类型的Java程序中，例如服务器、集群、云服务等。Activiti可以完美地与Spring集成。同时，基于简约思想的设计使Activiti非常轻量级。</p>
+<p>目前Activiti有2个版本，一个本地的core，一个可以支持分布式的cloud，本文只介绍core，新版 Activiti 7.0.0 发布后，Activiti Cloud 现在是新一代商业自动化平台，提供一组旨在在分布式基础架构上运行的 Cloud原生构建块。Cloud可以参考<a href="https://activiti.gitbook.io/activiti-7-developers-guide/getting-started" target="_blank" rel="noopener">官网</a></p>
+<p>Activiti 7.x 主要突出了 Spring Boot 2.x 应用程序中的 ProcessRuntime 和 TaskRuntime API 的使用。</p>
+<h3 id="BPMN"><a href="#BPMN" class="headerlink" title="BPMN"></a>BPMN</h3><p>BPMN（Business Process Model And Notation）-业务流程模型和符号是由BPMI（Business Process Management Initiative）开发的一套标准的业务流程建模符号，使用BPMN提供的符号可以创建业务流程。</p>
+<p>Activiti 就是使用BPMN 2.0 进行流程建模、流程执行管理，它包括很多的建模符号，比如：Event 用一个圆圈表示，它是流程中运行过程中发生的事情。</p>
+<p>一个bpmn图形的例子：</p>
+<p>首先当事人发起一个请假单<br>其次他所在部门的经理对请假单进行审核<br>然后人事经理进行复核并进行备案<br>最后请假流程结束</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>代码库地址：<a href="https://github.com/dinghuang/activiti-service.git" target="_blank" rel="noopener">https://github.com/dinghuang/activiti-service.git</a></p>
+<p>创建maven应用，pom引入包<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span><br><span class="line"><span class="xml">         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dinghuang-framework-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dinghuang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0-RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>activiti<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>activiti project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mapstruct</span>&gt;</span>1.3.0.Final<span class="tag">&lt;/<span class="name">mapstruct</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">activiti.version</span>&gt;</span>7.1.0.M6<span class="tag">&lt;/<span class="name">activiti.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">spring-boot</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">spring-boot</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">fastjson</span>&gt;</span>1.2.47<span class="tag">&lt;/<span class="name">fastjson</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">commons-collections</span>&gt;</span>3.2.2<span class="tag">&lt;/<span class="name">commons-collections</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">commons-lang3</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">commons-lang3</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">swagger-annotations</span>&gt;</span>1.5.16<span class="tag">&lt;/<span class="name">swagger-annotations</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">springfox-swagger2</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">springfox-swagger2</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">druid</span>&gt;</span>1.1.10<span class="tag">&lt;/<span class="name">druid</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mybatis-plus-boot-starter</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">mybatis-plus-boot-starter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">feign-hystrix</span>&gt;</span>9.5.0<span class="tag">&lt;/<span class="name">feign-hystrix</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">lombok</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">lombok</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mysql-connector-java</span>&gt;</span>8.0.15<span class="tag">&lt;/<span class="name">mysql-connector-java</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">liquibase-core</span>&gt;</span>3.5.3<span class="tag">&lt;/<span class="name">liquibase-core</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">validation-api</span>&gt;</span>2.0.1.Final<span class="tag">&lt;/<span class="name">validation-api</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">hibernate-validator</span>&gt;</span>6.0.15.Final<span class="tag">&lt;/<span class="name">hibernate-validator</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti.dependencies<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;activiti.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.12.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;activiti.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.postgresql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>postgresql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>42.2.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- Activiti生成流程图 --&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-image-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;spring-boot&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dinghuang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dinghuang-framework-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0-RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">annotationProcessorPaths</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="comment">&lt;!--这个配置是因为lombok跟mapstruct一起用的时候maven对注解的解析器选择有点问题--&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mapstruct<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapstruct-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;mapstruct&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">annotationProcessorPaths</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">compilerArgs</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">compilerArg</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            -Amapstruct.defaultComponentModel=spring</span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">compilerArg</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">compilerArgs</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="与mysql结合"><a href="#与mysql结合" class="headerlink" title="与mysql结合"></a>与mysql结合</h3><p>在<code>resource</code>目录下准备文件<code>activiti.cfg.xml</code>，内容如下：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml <span class="built_in">version</span>=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">       xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">       xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans</span></span><br><span class="line"><span class="string">                           http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">"processEngineConfiguration"</span> <span class="built_in">class</span>=<span class="string">"org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration"</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"databaseType"</span> value=<span class="string">"mysql"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcUrl"</span> value=<span class="string">"jdbc:mysql://localhost:3306/activiti"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcDriver"</span> value=<span class="string">"com.mysql.jdbc.Driver"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcUsername"</span> value=<span class="string">"root"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcPassword"</span> value=<span class="string">"root"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<p>执行下面的代码，初始化db数据库或者配置springboot配置文件，会自动生成25个表，代码执行如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.impl.db.DbSchemaCreate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/2/28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DbSchemaCreate.main(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置文件如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr"> activiti:</span></span><br><span class="line">  <span class="comment"># 自动建表</span></span><br><span class="line"><span class="attr">  database-schema:</span> <span class="string">ACTIVITI</span></span><br><span class="line">  <span class="comment">#表示启动时检查数据库表，不存在则创建</span></span><br><span class="line"><span class="attr">  database-schema-update:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#表示哪种情况下使用历史表，这里配置为full表示全部记录历史，方便绘制流程图</span></span><br><span class="line"><span class="attr">  history-level:</span> <span class="string">full</span></span><br><span class="line">  <span class="comment">#表示使用历史表，如果不配置，则工程启动后可以检查数据库，只建立了17张表，历史表没有建立，则流程图及运行节点无法展示</span></span><br><span class="line"><span class="attr">  db-history-used:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">project:</span></span><br><span class="line"><span class="attr">  manifest:</span></span><br><span class="line"><span class="attr">    file:</span></span><br><span class="line"><span class="attr">      path:</span> <span class="attr">classpath:/default-project.json</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  level:</span></span><br><span class="line">    <span class="string">org.activiti:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="数据库说明"><a href="#数据库说明" class="headerlink" title="数据库说明"></a>数据库说明</h4><p>数据库会生成25张表，ER图如图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/activiti.png" alt="image"><br>表的列表：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG430.png" alt="image"></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ACT_RE_*</span>: RE表示repository，这个前缀的表包含了流程定义和流程静态资源</span><br><span class="line"><span class="attribute">ACT_RU_*</span>: RU表示runtime，这些运行时的表，包含流程实例，任务，变量，异步任务等运行中的数据。Activiti只在流程实例执行过程中保存这些数据， 在流程结束时就会删除这些记录。</span><br><span class="line"><span class="attribute">ACT_ID_*</span>: ID表示identity，这些表包含身份信息，比如用户，组等。这些表现在已废弃。</span><br><span class="line"><span class="attribute">ACT_HI_*</span>: HI表示history，这些表包含历史数据，比如历史流程实例， 变量，任务等。</span><br><span class="line"><span class="attribute">ACT_GE_*</span>: 通用数据， 用于不同场景下。</span><br><span class="line"><span class="attribute">ACT_EVT_*</span>: EVT表示EVENT，目前只有一张表ACT_EVT_LOG，存储事件处理日志，方便管理员跟踪处理</span><br></pre></td></tr></table></figure>
+<p>具体表详解可以参考<a href="https://www.chenmin.info/2018/07/28/Activiti-23%E5%BC%A0%E8%A1%A8%E5%8F%8A7%E5%A4%A7%E6%9C%8D%E5%8A%A1%E8%AF%A6%E8%A7%A3/#7%E5%A4%A7%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D" target="_blank" rel="noopener">文章</a></p>
+<h3 id="表详解"><a href="#表详解" class="headerlink" title="表详解"></a>表详解</h3><table>
+<thead>
+<tr>
+<th>表</th>
+<th>意义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACT_EVT_LOG</td>
+<td>事件处理日志</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_GE_BYTEARRAY</td>
+<td>二进制数据表</td>
+<td>存储流程定义相关的部署信息。即流程定义文档的存放地。每部署一次就会增加两条记录，一条是关于bpmn规则文件的，一条是图片的（如果部署时只指定了bpmn一个文件，activiti会在部署时解析bpmn文件内容自动生成流程图）。两个文件不是很大，都是以二进制形式存储在数据库中。</td>
+</tr>
+<tr>
+<td>ACT_GE_PROPERTY</td>
+<td>主键生成表</td>
+<td>主张表将生成下次流程部署的主键ID。    </td>
+</tr>
+<tr>
+<td>ACT_HI_ACTINST</td>
+<td>历史节点表</td>
+<td>只记录usertask内容,某一次流程的执行一共经历了多少个活动</td>
+</tr>
+<tr>
+<td>ACT_HI_ATTACHMENT</td>
+<td>历史附件表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_COMMENT</td>
+<td>历史意见表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_DETAIL</td>
+<td>历史详情表，提供历史变量的查询</td>
+<td>流程中产生的变量详细，包括控制流程流转的变量等</td>
+</tr>
+<tr>
+<td>ACT_HI_IDENTITYLINK</td>
+<td>历史流程人员表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_PROCINST</td>
+<td>历史流程实例表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_TASKINST</td>
+<td>历史任务实例表</td>
+<td>一次流程的执行一共经历了多少个任务</td>
+</tr>
+<tr>
+<td>ACT_HI_VARINST</td>
+<td>历史变量表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_PROCDEF_INFO</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RE_DEPLOYMENT</td>
+<td>部署信息表</td>
+<td>存放流程定义的显示名和部署时间，每部署一次增加一条记录</td>
+</tr>
+<tr>
+<td>ACT_RE_MODEL</td>
+<td>流程设计模型部署表</td>
+<td>流程设计器设计流程后，保存数据到该表</td>
+</tr>
+<tr>
+<td>ACT_RE_PROCDEF</td>
+<td>流程定义数据表</td>
+<td>存放流程定义的属性信息，部署每个新的流程定义都会在这张表中增加一条记录。注意：当流程定义的key相同的情况下，使用的是版本升级</td>
+</tr>
+<tr>
+<td>ACT_RU_EVENT_SUBSCR</td>
+<td>throwEvent，catchEvent时间监听信息表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_EXECUTION</td>
+<td>运行时流程执行实例表</td>
+<td>历史流程变量</td>
+</tr>
+<tr>
+<td>ACT_RU_IDENTITYLINK</td>
+<td>运行时流程人员表</td>
+<td>主要存储任务节点与参与者的相关信息</td>
+</tr>
+<tr>
+<td>ACT_RU_INTEGRATION</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_JOB</td>
+<td>运行时定时任务数据表    </td>
+</tr>
+<tr>
+<td>ACT_RU_TIMER_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_SUSPENDED_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_TASK</td>
+<td>运行时任务节点表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_TIMER_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_VARIABLE</td>
+<td>运行时流程变量数据表</td>
+<td>通过JavaBean设置的流程变量，在act_ru_variable中存储的类型为serializable，变量真正存储的地方在act_ge_bytearray中。</td>
+</tr>
+<tr>
+<td>ACT_ID_GROUP</td>
+<td>用户组信息表</td>
+<td>已废弃    </td>
+</tr>
+<tr>
+<td>ACT_ID_INFO</td>
+<td>用户扩展信息表</td>
+<td>已废弃</td>
+</tr>
+<tr>
+<td>ACT_ID_MEMBERSHIP</td>
+<td>用户与用户组对应信息表</td>
+<td>已废弃    </td>
+</tr>
+<tr>
+<td>ACT_ID_USER</td>
+<td>用户信息表</td>
+<td>已废弃</td>
+</tr>
+</tbody>
+</table>
+<h2 id="工作流使用"><a href="#工作流使用" class="headerlink" title="工作流使用"></a>工作流使用</h2><p>activiti7内置了Spring security框架,官方demo跟spring结合的必须与spring-security结合，这里我不用spring-security，因为现在没有用户表了，所以自定义一些用户角色表去结合，更容易理解。</p>
+<blockquote>
+<p>关于security问题<br>activiti7最新的类似Runtime API和Task API都集成了security。<br>如果使用上述的API,那么必须要使用security，不能屏蔽security，否则会报错。<br>使用引擎服务类的时候，可以排除security，因为这些是最原始的API。但是activiti7官方已经明确说了，随时可能会干掉这些API。不建议开发人员直接使用引擎类以及引擎配置了、服务类等。</p>
+</blockquote>
+<h3 id="相关配置类"><a href="#相关配置类" class="headerlink" title="相关配置类"></a>相关配置类</h3><h4 id="自定义id策略"><a href="#自定义id策略" class="headerlink" title="自定义id策略"></a>自定义id策略</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">package</span> <span class="selector-tag">org</span><span class="selector-class">.dinghuang</span><span class="selector-class">.activiti</span><span class="selector-class">.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">com</span><span class="selector-class">.baomidou</span><span class="selector-class">.mybatisplus</span><span class="selector-class">.core</span><span class="selector-class">.toolkit</span><span class="selector-class">.IdWorker</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.activiti</span><span class="selector-class">.engine</span><span class="selector-class">.impl</span><span class="selector-class">.cfg</span><span class="selector-class">.IdGenerator</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.stereotype</span><span class="selector-class">.Component</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义id策略</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * @since 2020/3/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">Component</span></span><br><span class="line"><span class="keyword">public</span> class ActivitiIdGeneratorConfiguration implements IdGenerator &#123;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Override</span></span><br><span class="line">    public String getNextId() &#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">String</span><span class="selector-class">.valueOf</span>(<span class="selector-tag">IdWorker</span><span class="selector-class">.getId</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义用户组"><a href="#自定义用户组" class="headerlink" title="自定义用户组"></a>自定义用户组</h4><p>activiti7已经抛弃了identity相关的表，同时与springSecurity结合，所以这边如果想自定义可以这么改，但是实际用途不大，最重要的是要结合自己的用户表设计来。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.api.runtime.shared.identity.UserGroupManager;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.<span class="built_in">List</span>;</span><br><span class="line"><span class="keyword">import</span> java.util.<span class="built_in">Map</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * 重写用户权限</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> *</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * @author dinghuang123@gmail.com</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * @since 2020/3/2</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ActivitiUserGroupManagerConfiguration</span> <span class="keyword">implements</span> <span class="title">UserGroupManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    private <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ActivitiUserGroupManagerConfiguration.<span class="keyword">class</span>);</span><br><span class="line"></span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; roles = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">3</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; groups = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; users = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">3</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; userRoleMap = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        roles.add(<span class="string">"workCreate"</span>);</span><br><span class="line">        roles.add(<span class="string">"workPermit"</span>);</span><br><span class="line">        roles.add(<span class="string">"workLeader"</span>);</span><br><span class="line"></span><br><span class="line">        groups.add(<span class="string">"workGroupA"</span>);</span><br><span class="line"></span><br><span class="line">        users.add(<span class="string">"admin"</span>);</span><br><span class="line">        users.add(<span class="string">"laowang"</span>);</span><br><span class="line">        users.add(<span class="string">"xiaofang"</span>);</span><br><span class="line"></span><br><span class="line">        userRoleMap.put(<span class="string">"admin"</span>, <span class="string">"workCreate"</span>);</span><br><span class="line">        userRoleMap.put(<span class="string">"laowang"</span>, <span class="string">"workPermit"</span>);</span><br><span class="line">        userRoleMap.put(<span class="string">"xiaofang"</span>, <span class="string">"workLeader"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUserGroups(<span class="built_in">String</span> s) &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get user groups"</span>);</span><br><span class="line">        <span class="keyword">return</span> groups;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUserRoles(<span class="built_in">String</span> s) &#123;</span><br><span class="line">        <span class="built_in">String</span> role = userRoleMap.<span class="keyword">get</span>(s);</span><br><span class="line">        <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(role);</span><br><span class="line">        LOGGER.info(<span class="string">"get user roles"</span>);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getGroups() &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get groups"</span>);</span><br><span class="line">        <span class="keyword">return</span> groups;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUsers() &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get users"</span>);</span><br><span class="line">        <span class="keyword">return</span> users;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="其他自定义配置"><a href="#其他自定义配置" class="headerlink" title="其他自定义配置"></a>其他自定义配置</h4><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.api.runtime.shared.identity.UserGroupManager;</span><br><span class="line"><span class="keyword">import</span> org.activiti.core.common.spring.project.ProjectModelService;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.impl.history.HistoryLevel;</span><br><span class="line"><span class="keyword">import</span> org.activiti.spring.SpringAsyncExecutor;</span><br><span class="line"><span class="keyword">import</span> org.activiti.spring.SpringProcessEngineConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.dinghuang.activiti.controller.ActivitiController;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Primary;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/3/2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivitiSpringIdentityAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ActivitiController.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_POOL_SIZE = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> KEEP_ALIVE_SECONDS = <span class="number">300</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> QUEUE_CAPACITY = <span class="number">300</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager platformTransactionManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserGroupManager userGroupManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ActivitiIdGeneratorConfiguration activitiIdGeneratorConfiguration;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ProjectModelService projectModelService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 处理引擎配置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">SpringProcessEngineConfiguration <span class="title">springProcessEngineConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SpringProcessEngineConfiguration configuration = <span class="keyword">new</span> SpringProcessEngineConfiguration(projectModelService);</span><br><span class="line">        configuration.setDataSource(<span class="keyword">this</span>.dataSource);</span><br><span class="line">        configuration.setTransactionManager(<span class="keyword">this</span>.platformTransactionManager);</span><br><span class="line">        SpringAsyncExecutor asyncExecutor = <span class="keyword">new</span> SpringAsyncExecutor();</span><br><span class="line">        asyncExecutor.setTaskExecutor(workFlowAsync());</span><br><span class="line">        configuration.setAsyncExecutor(asyncExecutor);</span><br><span class="line">        configuration.setDatabaseSchemaUpdate(<span class="string">"true"</span>);</span><br><span class="line">        configuration.setUserGroupManager(<span class="keyword">this</span>.userGroupManager);</span><br><span class="line">        configuration.setHistoryLevel(HistoryLevel.FULL);</span><br><span class="line">        configuration.setDbHistoryUsed(<span class="keyword">true</span>);</span><br><span class="line">        configuration.setIdGenerator(<span class="keyword">this</span>.activitiIdGeneratorConfiguration);</span><br><span class="line">        Resource[] resources = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 启动自动部署流程</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            resources = <span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath*:bpmn/*.bpmn"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LOGGER.<span class="keyword">error</span>(<span class="string">"Start the automated deployment process error"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        configuration.setDeploymentResources(resources);</span><br><span class="line">        <span class="keyword">return</span> configuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线程池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"workFlowTaskExecutor"</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="function">ThreadPoolTaskExecutor <span class="title">workFlowAsync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ThreadPoolTaskExecutor executor = <span class="keyword">new</span> ThreadPoolTaskExecutor();</span><br><span class="line">        executor.setCorePoolSize(CORE_POOL_SIZE);</span><br><span class="line">        executor.setMaxPoolSize(MAX_POOL_SIZE);</span><br><span class="line">        executor.setKeepAliveSeconds(KEEP_ALIVE_SECONDS);</span><br><span class="line">        executor.setQueueCapacity(QUEUE_CAPACITY);</span><br><span class="line">        executor.setThreadNamePrefix(<span class="string">"workFlowTaskExecutor-"</span>);</span><br><span class="line">        executor.initialize();</span><br><span class="line">        <span class="keyword">return</span> executor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为去掉了springSecurity,所以启动类得排除springSecurity的自动配置。<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.view.InternalResourceViewResolver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@SpringBootApplication</span>(exclude = &#123;</span><br><span class="line">        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.<span class="keyword">class</span>,</span><br><span class="line">        org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration.<span class="keyword">class</span>,</span><br><span class="line">        org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration.<span class="keyword">class</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> ActivitiApplication &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ActivitiApplication.<span class="keyword">class</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> InternalResourceViewResolver setupViewResolver() &#123;</span><br><span class="line">        InternalResourceViewResolver resolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line">        <span class="comment">/** 设置视图路径的前缀 */</span></span><br><span class="line">        resolver.setPrefix(<span class="string">"resources/templates"</span>);</span><br><span class="line">        <span class="comment">/** 设置视图路径的后缀 */</span></span><br><span class="line">        resolver.setSuffix(<span class="string">".html"</span>);</span><br><span class="line">        <span class="keyword">return</span> resolver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="流程绘制"><a href="#流程绘制" class="headerlink" title="流程绘制"></a>流程绘制</h2><p>流程绘制这里提供2种，一种用IDEA下载ActiBPM插件去画，这里给一段我自己画的xml<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span><span class="meta">?&gt;</span></span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">xmlns</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/MODEL"</span> <span class="attr">xmlns:activiti</span>=<span class="string">"http://activiti.org/bpmn"</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/DI"</span> <span class="attr">xmlns:dc</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DC"</span> <span class="attr">xmlns:di</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DI"</span> <span class="attr">xmlns:tns</span>=<span class="string">"http://sourceforge.net/bpmn/definitions/a123123"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:yaoqiang</span>=<span class="string">"http://bpmn.sourceforge.net"</span> <span class="attr">expressionLanguage</span>=<span class="string">"http://www.w3.org/1999/XPath"</span> <span class="attr">id</span>=<span class="string">"m1583310491794"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">targetNamespace</span>=<span class="string">"http://sourceforge.net/bpmn/definitions/a123123"</span> <span class="attr">typeLanguage</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">process</span> <span class="attr">id</span>=<span class="string">"dinghuangTest"</span> <span class="attr">isClosed</span>=<span class="string">"false"</span> <span class="attr">isExecutable</span>=<span class="string">"true"</span> <span class="attr">name</span>=<span class="string">"请假流程"</span> <span class="attr">processType</span>=<span class="string">"None"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"_2"</span> <span class="attr">name</span>=<span class="string">"开始"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">activiti:assignee</span>=<span class="string">"bilu"</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"manager"</span> <span class="attr">activiti:exclusive</span>=<span class="string">"true"</span> <span class="attr">id</span>=<span class="string">"_3"</span> <span class="attr">name</span>=<span class="string">"部门经理审批"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"_4"</span> <span class="attr">name</span>=<span class="string">"结束"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_5"</span> <span class="attr">sourceRef</span>=<span class="string">"_2"</span> <span class="attr">targetRef</span>=<span class="string">"_3"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_6"</span> <span class="attr">name</span>=<span class="string">"事情不重要"</span> <span class="attr">sourceRef</span>=<span class="string">"_3"</span> <span class="attr">targetRef</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">"tFormalExpression"</span>&gt;</span>&lt;![CDATA[$</span><span class="template-variable">&#123;!important&#125;</span><span class="xml">]]&gt;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"admin"</span> <span class="attr">activiti:exclusive</span>=<span class="string">"true"</span> <span class="attr">id</span>=<span class="string">"_7"</span> <span class="attr">name</span>=<span class="string">"总经理审批"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_8"</span> <span class="attr">name</span>=<span class="string">"事情重要"</span> <span class="attr">sourceRef</span>=<span class="string">"_3"</span> <span class="attr">targetRef</span>=<span class="string">"_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">"tFormalExpression"</span>&gt;</span>&lt;![CDATA[$</span><span class="template-variable">&#123;important&#125;</span><span class="xml">]]&gt;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_9"</span> <span class="attr">name</span>=<span class="string">"审批通过"</span> <span class="attr">sourceRef</span>=<span class="string">"_7"</span> <span class="attr">targetRef</span>=<span class="string">"_4"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">process</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">documentation</span>=<span class="string">"background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0"</span> <span class="attr">id</span>=<span class="string">"Diagram-_1"</span> <span class="attr">name</span>=<span class="string">"New Diagram"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">bpmnElement</span>=<span class="string">"dinghuangTest"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_2"</span> <span class="attr">id</span>=<span class="string">"Shape-_2"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"100.0"</span> <span class="attr">y</span>=<span class="string">"135.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_3"</span> <span class="attr">id</span>=<span class="string">"Shape-_3"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"235.0"</span> <span class="attr">y</span>=<span class="string">"140.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_4"</span> <span class="attr">id</span>=<span class="string">"Shape-_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"160.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_7"</span> <span class="attr">id</span>=<span class="string">"Shape-_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"415.0"</span> <span class="attr">y</span>=<span class="string">"55.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_5"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__5"</span> <span class="attr">sourceElement</span>=<span class="string">"_2"</span> <span class="attr">targetElement</span>=<span class="string">"_3"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"132.0"</span> <span class="attr">y</span>=<span class="string">"151.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"235.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_6"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__6"</span> <span class="attr">sourceElement</span>=<span class="string">"_3"</span> <span class="attr">targetElement</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"320.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"176.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_8"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__8"</span> <span class="attr">sourceElement</span>=<span class="string">"_3"</span> <span class="attr">targetElement</span>=<span class="string">"_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"320.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"415.0"</span> <span class="attr">y</span>=<span class="string">"82.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_9"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__9"</span> <span class="attr">sourceElement</span>=<span class="string">"_7"</span> <span class="attr">targetElement</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"500.0"</span> <span class="attr">y</span>=<span class="string">"82.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"176.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这是一个很简单的流程，如图所示:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG432.png" alt="image"></p>
+<h3 id="前端实现自定义流程、输出流程图"><a href="#前端实现自定义流程、输出流程图" class="headerlink" title="前端实现自定义流程、输出流程图"></a>前端实现自定义流程、输出流程图</h3><p>官方提供bpmn.js可以实现前端拖动画图，github地址：<a href="https://github.com/bpmn-io/bpmn-js" target="_blank" rel="noopener">https://github.com/bpmn-io/bpmn-js</a></p>
+<p>可以把这个加到项目中，这里就不解释了。</p>
+<p>前端实现输出流程图效果如下，流程节点会高亮显示：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG433.png" alt="image"></p>
+<p>这里是我写的一个小demo，代码可以查看我的github代码库。项目启动后，访问<a href="http://localhost:8080/v1/activiti/index" target="_blank" rel="noopener">http://localhost:8080/v1/activiti/index</a></p>
+<h2 id="接口调试"><a href="#接口调试" class="headerlink" title="接口调试"></a>接口调试</h2><p>服务启动后访问地址：<a href="http://localhost:8080/swagger-ui.html#/" target="_blank" rel="noopener">http://localhost:8080/swagger-ui.html#/</a><br>接口已经写在代码中，如果需要调试的话，顺序是</p>
+<ul>
+<li>启动实例流程</li>
+<li>根据用户名称查询任务列表（用户名bilu，拿到任务id后去完成任务）</li>
+<li>部门经理审批</li>
+<li>总经理审批<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG434.png" alt="image"></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/09/18/面试分享(七).操作系统相关/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2659,12 +3008,12 @@
 <p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。</p>
 <p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""></p>
 <p>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
-<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
+<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即使是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
 <ul>
 <li>创建一个原表一模一样的临时表1 <code>create table test_a_serial_1 like test_a_serial</code>;</li>
 <li>将原表命名为临时表2 <code>alter table test_a_serial rename test_a_serial_{date}</code>;</li>
 <li>将临时表1改为原表 <code>alter table able test_a_serial_1 rename able test_a_serial</code>; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。</li>
-<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
+<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即使是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
 </ul>
 <p>如此，便完成了流水数据的迁移；<br>根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；</p>
 <p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
@@ -7379,498 +7728,11 @@ HashMap扩容的条件是：当size大于threshold时，对HashMap进行扩容
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/02/22/数据库优化方案/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="强壮的病猫">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dinghuang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只病猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/22/数据库优化方案/" itemprop="url">数据库优化方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T11:47:00+08:00">
-                2019-02-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/02/22/数据库优化方案/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/02/22/数据库优化方案/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SQL优化方案"><a href="#SQL优化方案" class="headerlink" title="SQL优化方案"></a>SQL优化方案</h1><p><a href="https://mp.weixin.qq.com/s/DBeVzJyR9_PXnoAIfJiHfg" target="_blank" rel="noopener">参考博客</a></p>
-<h2 id="优化的哲学"><a href="#优化的哲学" class="headerlink" title="优化的哲学"></a>优化的哲学</h2><h3 id="优化可能带来的影响"><a href="#优化可能带来的影响" class="headerlink" title="优化可能带来的影响"></a>优化可能带来的影响</h3><ul>
-<li>优化不总是对一个单纯的环境进行，还很可能是一个复杂的已投产的系统；</li>
-<li>优化手段本来就有很大的风险，只不过你没能力意识到和预见到；</li>
-<li>任何的技术可以解决一个问题，但必然存在带来一个问题的风险；</li>
-<li>对于优化来说解决问题而带来的问题，控制在可接受的范围内才是有成果；</li>
-<li>保持现状或出现更差的情况都是失败！</li>
-</ul>
-<h3 id="优化的需求"><a href="#优化的需求" class="headerlink" title="优化的需求"></a>优化的需求</h3><ul>
-<li>稳定性和业务可持续性，通常比性能更重要；</li>
-<li>优化不可避免涉及到变更，变更就有风险；</li>
-<li>优化使性能变好，维持和变差是等概率事件；</li>
-<li>切记优化，应该是各部门协同，共同参与的工作，任何单一部门都不能对数据库进行优化！</li>
-</ul>
-<p>所以优化工作，是由业务需要驱使的！</p>
-<h3 id="优化参与"><a href="#优化参与" class="headerlink" title="优化参与"></a>优化参与</h3><p>在进行数据库优化时，应由数据库管理员、业务部门代表、应用程序架构师、应用程序设计人员、应用程序开发人员、硬件及系统管理员、存储管理员等，业务相关人员共同参与。 </p>
-<h2 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h2><h3 id="优化对象"><a href="#优化对象" class="headerlink" title="优化对象"></a>优化对象</h3><p>在数据库优化上有两个主要方面：即安全与性能。</p>
-<ul>
-<li>安全-&gt;数据可持续性</li>
-<li>性能-&gt;数据的高性能访问</li>
-</ul>
-<h3 id="优化的范围"><a href="#优化的范围" class="headerlink" title="优化的范围"></a>优化的范围</h3><ul>
-<li>存储、主机和操作系统方面：<ul>
-<li>主机架构稳定性；</li>
-<li>I/O规划及配置；</li>
-<li>Swap交换分区；</li>
-<li>OS内核参数和网络问题。</li>
-</ul>
-</li>
-<li>应用程序方面：<ul>
-<li>应用程序稳定性；</li>
-<li>SQL语句性能；</li>
-<li>串行访问资源；</li>
-<li>能欠佳会话管理；</li>
-<li>这个应用适不适合用MySQL。</li>
-</ul>
-</li>
-<li>数据库优化方面：<ul>
-<li>内存；</li>
-<li>数据库结构（物理&amp;逻辑）；</li>
-<li>实例配置。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>不管是设计系统、定位问题还是优化，都可以按照这个顺序执行。</p>
-</blockquote>
-<h3 id="优化维度"><a href="#优化维度" class="headerlink" title="优化维度"></a>优化维度</h3><p>数据库优化维度有四个：</p>
-<p>硬件、系统配置、数据库表结构、SQL及索引。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0cvkxgfrpj20iw09yad5.jpg" alt=""></p>
-<p>优化选择：</p>
-<p>优化成本：硬件&gt;系统配置&gt;数据库表结构&gt;SQL及索引。</p>
-<p>优化效果：硬件&lt;系统配置&lt;数据库表结构&lt;SQL及索引。</p>
-<h2 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h2><h3 id="数据库层面"><a href="#数据库层面" class="headerlink" title="数据库层面"></a>数据库层面</h3><p>检查问题常用工具：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1）MySQL</span><br><span class="line"></span><br><span class="line">2）msyqladmin：MySQL客户端，可进行管理操作</span><br><span class="line"></span><br><span class="line">3）mysqlshow：功能强大的查看shell命令</span><br><span class="line"></span><br><span class="line">4）<span class="keyword">show</span> [<span class="keyword">SESSION</span> | <span class="keyword">GLOBAL</span>] <span class="keyword">variables</span>：查看数据库参数信息</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）<span class="keyword">SHOW</span> [<span class="keyword">SESSION</span> | <span class="keyword">GLOBAL</span>] <span class="keyword">STATUS</span>：查看数据库的状态信息</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）information_schema：获取元数据的方法</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）<span class="keyword">SHOW</span> <span class="keyword">ENGINE</span> <span class="keyword">INNODB</span> <span class="keyword">STATUS</span>：<span class="keyword">Innodb</span>引擎的所有状态</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）<span class="keyword">SHOW</span> <span class="keyword">PROCESSLIST</span>：查看当前所有连接<span class="keyword">session</span>状态</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）<span class="keyword">explain</span>：获取查询语句的执行计划</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>）<span class="keyword">show</span> <span class="keyword">index</span>：查看表的索引信息</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>）slow-<span class="keyword">log</span>：记录慢查询语句</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>）mysqldumpslow：分析slowlog文件的</span><br></pre></td></tr></table></figure>
-<p>不常用但好用的工具：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）Zabbix：监控主机、系统、数据库（部署zabbix监控平台）</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）pt-query-digest：分析慢日志</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）MySQL slap：分析慢日志</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）sysbench：压力测试工具</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）MySQL profiling：统计数据库整体状态工具    </span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）Performance Schema：MySQL性能状态统计的数据</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）workbench：管理、备份、监控、分析、优化工具（比较费资源）</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p><a href="http://www.cnblogs.com/clsn/p/7885990.html" target="_blank" rel="noopener">关于Zabbix参考</a></p>
-</blockquote>
-<h3 id="数据库层面问题解决思路"><a href="#数据库层面问题解决思路" class="headerlink" title="数据库层面问题解决思路"></a>数据库层面问题解决思路</h3><p>一般应急调优的思路：针对突然的业务办理卡顿，无法进行正常的业务处理，需要立马解决的场景。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）show processlist；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）explain  select <span class="built_in">id</span> ,<span class="built_in">name</span> <span class="keyword">from</span> stu <span class="keyword">where</span> <span class="built_in">name</span>='clsn'; <span class="comment"># ALL  id name age  sex；</span></span><br><span class="line"></span><br><span class="line">select <span class="built_in">id</span>,<span class="built_in">name</span> <span class="keyword">from</span> stu  <span class="keyword">where</span> <span class="built_in">id</span>=<span class="number">2</span><span class="number">-1</span> 函数 结果集&gt;<span class="number">30</span>；show index <span class="keyword">from</span> table；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）通过执行计划判断，索引问题（有没有、合不合理）或者语句本身问题；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）show status  like '%lock%';    <span class="comment"># 查询锁状态</span></span><br><span class="line"></span><br><span class="line">kill SESSION_ID;   <span class="comment"># 杀掉有问题的session。</span></span><br></pre></td></tr></table></figure></p>
-<p>常规调优思路：针对业务周期性的卡顿，例如在每天10-11点业务特别慢，但是还能够使用，过了这段时间就好了。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）查看slowlog，分析slowlog，分析出查询慢的语句；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）按照一定优先级，一个一个排查所有慢语句；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）分析top SQL，进行explain调试，查看语句执行时间；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）调整索引或语句本身。</span><br></pre></td></tr></table></figure></p>
-<h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p><strong>Cpu方面</strong><br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmstat、sar <span class="built_in">top</span>、htop、nmon、mpstat；</span><br></pre></td></tr></table></figure></p>
-<p><strong>内存</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">free</span>、ps-aux；</span><br></pre></td></tr></table></figure></p>
-<p>IO设备（磁盘、网络）<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">iostat</span>、ss、netstat、iptraf、iftop、lsof；</span><br></pre></td></tr></table></figure></p>
-<p><strong>vmstat命令说明</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）Procs：r显示有多少进程正在等待CPU时间。b显示处于不可中断的休眠的进程数量。在等待I/O。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）Memory：swpd显示被交换到磁盘的数据块的数量。未被使用的数据块，用户缓冲数据块，用于操作系统的数据块的数量。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）Swap：操作系统每秒从磁盘上交换到内存和从内存交换到磁盘的数据块的数量。s1和s0最好是<span class="number">0</span>。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）Io：每秒从设备中读入b1的写入到设备b0的数据块的数量。反映了磁盘I/O。</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）System：显示了每秒发生中断的数量（in）和上下文交换（cs）的数量。</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）Cpu：显示用于运行用户代码，系统代码，空闲，等待I/O的Cpu时间。</span><br></pre></td></tr></table></figure></p>
-<p><strong>iostat命令说明</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">实例命令：iostat -dk <span class="number">1</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">　　　　   iostat -d -k -x <span class="number">5</span> （查看设备使用率（%util）和响应时间（await））</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）tps：该设备每秒的传输次数。“一次传输”意思是“一次I/O请求”。多个逻辑请求可能会被合并为“一次I/O请求”。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）iops ：硬件出厂的时候，厂家定义的一个每秒最大的IO次数</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）<span class="string">"一次传输"</span>请求的大小是未知的。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）kB_read/s：每秒从设备（drive expressed）读取的数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）KB_wrtn/s：每秒向设备（drive expressed）写入的数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）kB_read：读取的总数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）kB_wrtn：写入的总数量数据量；这些单位都为Kilobytes。</span><br></pre></td></tr></table></figure></p>
-<h3 id="系统层面问题解决办法"><a href="#系统层面问题解决办法" class="headerlink" title="系统层面问题解决办法"></a>系统层面问题解决办法</h3><p>你认为到底负载高好，还是低好呢？在实际的生产中，一般认为Cpu只要不超过90%都没什么问题。</p>
-<p>当然不排除下面这些特殊情况：</p>
-<p><strong>Cpu负载高，IO负载低</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）内存不够；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）磁盘性能差；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）SQL问题---&gt;去数据库层，进一步排查SQL 问题；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）IO出问题了（磁盘到临界了、raid设计不好、raid降级、锁、在单位时间内tps过高）；</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）tps过高：大量的小数据IO、大量的全表扫描。</span><br></pre></td></tr></table></figure></p>
-<p><strong>IO负载高，Cpu负载低</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）大量小的IO写操作：</span><br><span class="line"></span><br><span class="line">autocommit，产生大量小IO；IO/PS，磁盘的一个定值，硬件出厂的时候，厂家定义的一个每秒最大的IO次数。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）大量大的IO 写操作：SQL问题的几率比较大</span><br></pre></td></tr></table></figure></p>
-<p><strong>IO和cpu负载都很高</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">硬件不够了或SQL存在问题。</span><br></pre></td></tr></table></figure></p>
-<h2 id="基础优化"><a href="#基础优化" class="headerlink" title="基础优化"></a>基础优化</h2><h3 id="优化思路-1"><a href="#优化思路-1" class="headerlink" title="优化思路"></a>优化思路</h3><p><strong>定位问题点吮吸</strong>：硬件–&gt;系统–&gt;应用–&gt;数据库–&gt;架构（高可用、读写分离、分库分表）。</p>
-<p><strong>处理方向</strong>：明确优化目标、性能和安全的折中、防患未然。</p>
-<h3 id="硬件优化"><a href="#硬件优化" class="headerlink" title="硬件优化"></a>硬件优化</h3><p><strong>主机方面</strong><br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">根据数据库类型，主机CPU选择、内存容量选择、磁盘选择：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）平衡内存和磁盘资源；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）随机的<span class="keyword">I</span>/<span class="keyword">O</span>和顺序的<span class="keyword">I</span>/<span class="keyword">O</span>；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）主机 RAID卡的BBU（Battery Backup Unit）关闭。</span><br></pre></td></tr></table></figure></p>
-<p><strong>CPU的选择</strong><br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">CPU</span>的两个关键因素：核数、主频</span><br><span class="line"></span><br><span class="line">根据不同的业务类型进行选择：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）<span class="meta">CPU</span>密集型：计算比较多，OLTP - 主频很高的<span class="meta">cpu</span>、核数还要多</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）IO密集型：查询比较，OLAP - 核数要多，主频不一定高的</span><br></pre></td></tr></table></figure></p>
-<p><strong>内存的选择</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLAP类型数据库，需要更多内存，和数据获取量级有关。</span><br><span class="line"></span><br><span class="line">OLTP类型数据一般内存是Cpu核心数量的<span class="number">2</span>倍到<span class="number">4</span>倍，没有最佳实践。</span><br></pre></td></tr></table></figure></p>
-<p><strong>存储方面</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）根据存储数据种类的不同，选择不同的存储设备；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）配置合理的RAID级别（raid5、raid10、热备盘）；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）对与操作系统来讲，不需要太特殊的选择，最好做好冗余（raid1）（ssd、sas、sata）。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）raid卡：</span><br><span class="line"></span><br><span class="line">       主机raid卡选择：</span><br><span class="line"></span><br><span class="line">           实现操作系统磁盘的冗余（raid1）；</span><br><span class="line"></span><br><span class="line">           平衡内存和磁盘资源；</span><br><span class="line"></span><br><span class="line">           随机的I/O和顺序的I/O；</span><br><span class="line"></span><br><span class="line">           主机raid卡的BBU（Battery Backup Unit）要关闭。</span><br></pre></td></tr></table></figure></p>
-<p>网络设备方面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用流量支持更高的网络设备（交换机、路由器、网线、网卡、HBA卡）</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>注意：以上这些规划应该在初始设计系统时就应该考虑好。</p>
-</blockquote>
-<h3 id="服务器硬件优化"><a href="#服务器硬件优化" class="headerlink" title="服务器硬件优化"></a>服务器硬件优化</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）物理状态灯</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）自带管理设备：远程控制卡（FENCE设备：ipmi ilo idarc）、开关机、硬件监控。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）第三方的监控软件、设备（snmp、agent）对物理设施进行监控。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）存储设备：自带的监控平台。EMC2（hp收购了）、 日立（hds）、IBM低端OEM hds、高端存储是自己技术，华为存储。</span><br></pre></td></tr></table></figure>
-<h3 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a>系统优化</h3><p><strong>Cpu</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本不需要调整，在硬件选择方面下功夫即可。</span><br></pre></td></tr></table></figure></p>
-<p><strong>内存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本不需要调整，在硬件选择方面下功夫即可。</span><br></pre></td></tr></table></figure></p>
-<p><strong>SWAP</strong><br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MySQL尽量避免使用<span class="keyword">swap</span>。</span><br><span class="line"></span><br><span class="line">阿里云的服务器中默认<span class="keyword">swap</span>为<span class="number">0</span>。</span><br></pre></td></tr></table></figure></p>
-<p><strong>IO</strong><br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raid、<span class="literal">no</span> lvm、ext4或xfs、ssd、IO调度策略。</span><br></pre></td></tr></table></figure></p>
-<p><strong>Swap调整(不使用swap分区)</strong><br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/vm/</span>swappiness的内容改成<span class="number">0</span>（临时），<span class="regexp">/etc/</span>sysctl. conf上添加vm.swappiness=<span class="number">0</span>（永久）</span><br></pre></td></tr></table></figure></p>
-<p>这个参数决定了Linux是倾向于使用swap，还是倾向于释放文件系统cache。在内存紧张的情况下，数值越低越倾向于释放文件系统cache。</p>
-<p>当然，这个参数只能减少使用swap的概率，并不能避免Linux使用swap。</p>
-<p><strong>修改MySQL的配置参数<code>innodb_flush_ method</code>，开启O_DIRECT模式</strong>：</p>
-<p>这种情况下，InnoDB的buffer pool会直接绕过文件系统cache来访问磁盘，但是redo log依旧会使用文件系统cache。</p>
-<p>值得注意的是，Redo log是覆写模式的，即使使用了文件系统的cache，也不会占用太多。</p>
-<p><strong>IO调度策略</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">echo</span> deadline&gt;/sys/block/sda/queue/scheduler   临时修改为deadline</span></span><br></pre></td></tr></table></figure></p>
-<p>永久修改<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /boot/grub/grub.conf</span><br><span class="line"></span><br><span class="line">更改到如下内容:</span><br><span class="line"></span><br><span class="line">kernel /boot/vmlinuz-2.6.18-8.el5 ro <span class="attribute">root</span>=LABEL=/ <span class="attribute">elevator</span>=deadline rhgb quiet</span><br></pre></td></tr></table></figure></p>
-<h3 id="系统参数调整"><a href="#系统参数调整" class="headerlink" title="系统参数调整"></a>系统参数调整</h3><p><strong>Linux系统内核参数优化</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim/etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">net.ipv4.ip_local_port_range = <span class="number">1024</span> <span class="number">65535</span>：# 用户端口范围</span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_max_syn_backlog = <span class="number">4096</span> </span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_fin_timeout = <span class="number">30</span> </span><br><span class="line"></span><br><span class="line">fs.file-max=<span class="number">65535</span>：# 系统最大文件句柄，控制的是能打开文件最大数量</span><br></pre></td></tr></table></figure></p>
-<p><strong>用户限制参数（MySQL可以不设置以下配置）</strong><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim/etc/security/limits.<span class="keyword">conf</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">* soft nproc 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* hard nproc 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* soft nofile 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* hard nofile 65535</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="应用优化"><a href="#应用优化" class="headerlink" title="应用优化"></a>应用优化</h3><p>业务应用和数据库应用独立；</p>
-<p><strong>防火墙</strong>：iptables、selinux等其他无用服务（关闭）：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> --level <span class="number">23456</span> acpid <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> anacron <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> autofs <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> avahi-daemon <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> bluetooth <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> cups <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> firstboot <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> haldaemon <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> hplip <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> ip6tables <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> iptables  <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> isdn <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> pcscd <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> sendmail  <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> yum-updatesd  <span class="literal">off</span></span><br></pre></td></tr></table></figure></p>
-<p>安装图形界面的服务器不要启动图形界面runlevel 3。 </p>
-<p>另外，思考将来我们的业务是否真的需要MySQL，还是使用其他种类的数据库。用数据库的最高境界就是不用数据库。</p>
-<h2 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h2><p>SQL优化方向：执行计划、索引、SQL改写。</p>
-<p>架构优化方向：高可用架构、高性能架构、分库分表。</p>
-<h3 id="数据库参数优化"><a href="#数据库参数优化" class="headerlink" title="数据库参数优化"></a>数据库参数优化</h3><p><strong>调整</strong></p>
-<p>实例整体（高级优化，扩展）：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">thread_concurrency：# 并发线程数量个数</span><br><span class="line"></span><br><span class="line">sort_buffer_size：# 排序缓存</span><br><span class="line"></span><br><span class="line">read_buffer_size：# 顺序读取缓存</span><br><span class="line"></span><br><span class="line">read_rnd_buffer_size：# 随机读取缓存</span><br><span class="line"></span><br><span class="line">key_buffer_size：# 索引缓存</span><br><span class="line"></span><br><span class="line">thread_cache_size：# (<span class="number">1</span>G—&gt;<span class="number">8</span>, <span class="number">2</span>G—&gt;<span class="number">16</span>, <span class="number">3</span>G—&gt;<span class="number">32</span>, &gt;<span class="number">3</span>G—&gt;<span class="number">64</span>)</span><br></pre></td></tr></table></figure></p>
-<p><strong>连接层（基础优化）</strong><br>设置合理的连接客户和连接方式：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">max_connections           <span class="comment"># 最大连接数，看交易笔数设置    </span></span><br><span class="line"></span><br><span class="line">max_<span class="keyword">connect</span>_errors        <span class="comment"># 最大错误连接数，能大则大</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">connect</span>_timeout           <span class="comment"># 连接超时</span></span><br><span class="line"></span><br><span class="line">max_user_connections      <span class="comment"># 最大用户连接数</span></span><br><span class="line"></span><br><span class="line">skip-name-resolve         <span class="comment"># 跳过域名解析</span></span><br><span class="line"></span><br><span class="line">wait_timeout              <span class="comment"># 等待超时</span></span><br><span class="line"></span><br><span class="line">back_log                  <span class="comment"># 可以在堆栈中的连接数量</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>SQL层（基础优化）</strong><br>query_cache_size： 查询缓存  &gt;&gt;&gt;  OLAP类型数据库,需要重点加大此内存缓存，但是一般不会超过GB。</p>
-<p>对于经常被修改的数据，缓存会立马失效。</p>
-<p>我们可以实用内存数据库（redis、memecache），替代他的功能。</p>
-<p><strong>存储引擎层（innodb基础优化参数）</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">default</span>-storage-engine</span><br><span class="line"></span><br><span class="line">innodb_buffer_pool_size       # 没有固定大小，<span class="number">50</span>%测试值，看看情况再微调。但是尽量设置不要超过物理内存<span class="number">70</span>%</span><br><span class="line"></span><br><span class="line">innodb_file_per_table=(<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">innodb_flush_log_at_trx_commit=(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>) # <span class="number">1</span>是最安全的，<span class="number">0</span>是性能最高，<span class="number">2</span>折中</span><br><span class="line"></span><br><span class="line">binlog_sync</span><br><span class="line"></span><br><span class="line">Innodb_flush_method=(O_DIRECT, fdatasync)</span><br><span class="line"></span><br><span class="line">innodb_log_buffer_size           # <span class="number">100</span>M以下</span><br><span class="line"></span><br><span class="line">innodb_log_file_size               # <span class="number">100</span>M 以下</span><br><span class="line"></span><br><span class="line">innodb_log_files_in_group       # <span class="number">5</span>个成员以下,一般<span class="number">2</span><span class="number">-3</span>个够用（iblogfile0-N）</span><br><span class="line"></span><br><span class="line">innodb_max_dirty_pages_pct   # 达到百分之<span class="number">75</span>的时候刷写 内存脏页到磁盘。</span><br><span class="line"></span><br><span class="line">log_bin</span><br><span class="line"></span><br><span class="line">max_binlog_cache_size                     # 可以不设置</span><br><span class="line"></span><br><span class="line">max_binlog_size                               # 可以不设置</span><br><span class="line"></span><br><span class="line">innodb_additional_mem_pool_size     #小于<span class="number">2</span>G内存的机器，推荐值是<span class="number">20</span>M。<span class="number">32</span>G内存以上<span class="number">100</span>M</span><br></pre></td></tr></table></figure></p>
-<h2 id="SQL语句优化"><a href="#SQL语句优化" class="headerlink" title="SQL语句优化"></a>SQL语句优化</h2><p><a href="https://juejin.im/post/5aa7703c6fb9a028c8128739" target="_blank" rel="noopener">原文博客</a></p>
-<ol>
-<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</li>
-<li>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">is</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>可以在 num 上设置默认值 0,确保表中 num 列没有 null 值，然后这样查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</li>
-<li>应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">10</span> <span class="keyword">or</span> <span class="keyword">num</span>=<span class="number">20</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>可以这样查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">20</span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="5">
-<li>in 和 not in 也要慎用，否则会导致全表扫描，如：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>对于连续的数值，能用 between 就不要用 in 了：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="6">
-<li>下面的查询也将导致全表扫描：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'%c%'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>若要提高效率，可以考虑<a href="https://www.jianshu.com/p/c48106149b6a" target="_blank" rel="noopener">全文检索</a>。</p>
-<ol start="7">
-<li>如果在 where 子句中使用参数，也会导致全表扫描。因为 SQL 只有在运行时才会解析局部变量，但优 化程序不能将访问计划的选择推迟到运行时;它必须在编译时进行选择。然 而，如果在编译时建立访问计 划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=@<span class="keyword">num</span> ;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>可以改为强制查询使用索引：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">with</span>(<span class="keyword">index</span>(索引名)) <span class="keyword">where</span> <span class="keyword">num</span>=@<span class="keyword">num</span> ;</span><br></pre></td></tr></table></figure></p>
-<ol start="8">
-<li>应尽量避免在 where 子句中对字段进行表达式操作， 这将导致引擎放弃使用索引而进行全表扫描。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>/<span class="number">2</span>=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>可以这样查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">100</span>*<span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="9">
-<li>应尽量避免在 where 子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> <span class="title">substring</span>(<span class="params">name,<span class="number">1</span>,<span class="number">3</span></span>)</span>=<span class="string">'abc'</span>;<span class="meta">#name 以 abc 开头的 id</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>应改为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'abc%'</span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="10">
-<li>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用 索引。</li>
-<li>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件 时才能保证系统使用该索引， 否则该索引将不会 被使用， 并且应尽可能的让字段顺序与索引顺序相一致。</li>
-<li>不要写一些没有意义的查询，如需要生成一个空表结构：<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">into</span> #t <span class="keyword">from</span> t <span class="keyword">where</span> <span class="number">1</span>=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：<br><figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table <span class="function"><span class="keyword">#</span><span class="title">t</span><span class="params">(…)</span></span>;</span><br></pre></td></tr></table></figure></p>
-<ol start="13">
-<li>很多时候用 exists 代替 in 是一个好的选择：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> b);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>用下面的语句替换：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> b <span class="keyword">where</span> <span class="keyword">num</span>=a.num);</span><br></pre></td></tr></table></figure></p>
-<ol start="14">
-<li>并不是所有索引对查询都有效，SQL 是根据表中数据来进行查询优化的，当索引列有大量数据重复时， SQL 查询可能不会去利用索引，如一表中有字段 sex,male、female 几乎各一半，那么即使在 sex 上建 了索引也对查询效率起不了作用。</li>
-<li>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过 6 个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</li>
-<li>应尽可能的避免更新 clustered 索引数据列， 因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</li>
-<li>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并 会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言 只需要比较一次就够了。</li>
-<li>尽可能的使用 <code>varchar/nvarchar</code> 代替 <code>char/nchar</code> , 因为首先变长字段存储空间小， 可以节省存储空间， 其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</li>
-<li>任何地方都不要使用 <code>select * from t</code> ,用具体的字段列表代替“*”,不要返回用不到的任何字段。</li>
-<li>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限(只有主键索引)。</li>
-<li>避免频繁创建和删除临时表，以减少系统表资源的消耗。</li>
-<li>临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用。 表中的某个数据集时。但是，对于一次性事件， 最好使用导出表。</li>
-<li>在新建临时表时，如果一次性插入数据量很大，那么可以使用 <code>select into</code> 代替 <code>create table</code>,避免造成大量 log ,以提高速度;如果数据量不大，为了缓和系统表的资源，应先 <code>create table</code>,然后 <code>insert</code>。</li>
-<li>如果使用到了临时表， 在存储过程的最后务必将所有的临时表显式删除， 先 <code>truncate table</code> ,然后 <code>drop table</code> ,这样可以避免系统表的较长时间锁定。</li>
-<li>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过 1 万行，那么就应该考虑改写。</li>
-<li>使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</li>
-<li>与临时表一样，游标并不是不可使用。对小型数据集使用 <code>FAST_FORWARD</code> 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</li>
-<li>在所有的存储过程和触发器的开始处设置 <code>SET NOCOUNT ON</code>,在结束时设置 <code>SET NOCOUNT OFF</code> .无需在执行存储过程和触发器的每个语句后向客户端发送<code>DONE_IN_PROC</code>消息。</li>
-<li><p>尽量避免大事务操作，提高系统并发能力。 sql 优化方法使用索引来更快地遍历表。 缺省情况下建立的索引是非群集索引，但有时它并不是最佳的。在非群集索引下，数据在物理上随机存放在数据页上。合理的索引设计要建立在对各种查询的分析和预测上。一般来说：</p>
-<ul>
-<li>有大量重复值、且经常有范围查询( &gt; ,&lt; ,&gt; =,&lt; =)和 order by、group by 发生的列，可考虑建立集群索引;</li>
-<li>经常同时存取多列，且每列都含有重复值可考虑建立组合索引;</li>
-<li>组合索引要尽量使关键查询形成索引覆盖，其前导列一定是使用最频繁的列。索引虽有助于提高性能但 不是索引越多越好，恰好相反过多的索引会导致系统低效。用户在表中每加进一个索引，维护索引集合就 要做相应的更新工作。</li>
-</ul>
-</li>
-<li>定期分析表和检查表<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分析表的语法：<span class="keyword">ANALYZE</span> [<span class="keyword">LOCAL</span> | <span class="keyword">NO_WRITE_TO_BINLOG</span>] <span class="keyword">TABLE</span> tb1_name[, tbl_name]...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>以上语句用于分析和存储表的关键字分布，分析的结果将可以使得系统得到准确的统计信息，使得SQL能够生成正确的执行计划。如果用户感觉实际执行计划并不是预期的执行计划，执行一次分析表可能会解决问题。在分析期间，使用一个读取锁定对表进行锁定。这对于MyISAM，DBD和InnoDB表有作用。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如分析一个数据表：<span class="keyword">analyze</span> <span class="keyword">table</span> table_name</span><br><span class="line"></span><br><span class="line">检查表的语法：<span class="keyword">CHECK</span> <span class="keyword">TABLE</span> tb1_name[,tbl_name]...[<span class="keyword">option</span>]...option = &#123;<span class="keyword">QUICK</span> | <span class="keyword">FAST</span> | <span class="keyword">MEDIUM</span> | <span class="keyword">EXTENDED</span> | <span class="keyword">CHANGED</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>检查表的作用是检查一个或多个表是否有错误，CHECK TABLE 对MyISAM 和 InnoDB表有作用，对于MyISAM表，关键字统计数据被更新</p>
-<p>CHECK TABLE 也可以检查视图是否有错误，比如在视图定义中被引用的表不存在。</p>
-<ol start="31">
-<li>定期优化表。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">优化表的语法：<span class="keyword">OPTIMIZE</span> [<span class="keyword">LOCAL</span> | <span class="keyword">NO_WRITE_TO_BINLOG</span>] <span class="keyword">TABLE</span> tb1_name [,tbl_name]...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>如果删除了表的一大部分，或者如果已经对含有可变长度行的表(含有 VARCHAR、BLOB或TEXT列的表)进行更多更改，则应使用OPTIMIZE TABLE命令来进行表优化。这个命令可以将表中的空间碎片进行合并，并且可以消除由于删除或者更新造成的空间浪费，但OPTIMIZE TABLE 命令只对MyISAM、 BDB 和InnoDB表起作用。</p>
-<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如： optimize <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意： analyze、check、optimize执行期间将对表进行锁定，因此一定注意要在MySQL数据库不繁忙的时候执行相关的操作。</p>
-</blockquote>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
-<li>在海量查询时尽量少用格式转换。</li>
-<li>ORDER BY 和 GROPU BY:使用 ORDER BY 和 GROUP BY 短语，任何一种索引都有助于 SELECT 的性能提高。</li>
-<li>任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边。</li>
-<li>IN、OR 子句常会使用工作表，使索引失效。如果不产生大量重复值，可以考虑把子句拆开。拆开的子 句中应该包含索引。</li>
-<li>只要能满足你的需求，应尽可能使用更小的数据类型：例如使用 MEDIUMINT 代替 INT</li>
-<li>尽量把所有的列设置为 NOT NULL,如果你要保存 NULL,手动去设置它，而不是把它设为默认值。</li>
-<li>尽量少用 VARCHAR、TEXT、BLOB 类型</li>
-<li>如果你的数据只有你所知的少量的几个。最好使用 ENUM 类型</li>
-<li>正如 graymice 所讲的那样，建立索引。</li>
-<li>合理用运分表与分区表提高数据存放和提取速度。</li>
-</ol>
-<h2 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h2><p><a href="https://www.tuicool.com/articles/2EzuQr7" target="_blank" rel="noopener">原文</a></p>
-<h3 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h3><p>项目背景是企业级的统一消息处理平台，客户数据在5千万加，每分钟处理消息流水1千万，每天消息流水1亿左右。 虽说Mysql单表可以存储10亿级的数据，但这个时候性能非常差，项目中大量的实验证明，Mysql单表容量在500万左右，性能处于最佳状态，此时，Mysql的BTREE索引树高在3～5之间。既然一张表无法搞定，那么就想办法将数据放到多个地方来解决问题吧，于是，数据库分库分表的方案便产生了，目前比较普遍的方案有三个： 分区，分库分表，NoSql/NewSql 。</p>
-<p>在实际的项目中，往往是这三种方案的结合来解决问题，目前绝大部分系统的核心数据都是以RDBMS存储为主，NoSql/NewSql存储为辅。</p>
-<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p>首先来了解一下分区方案。</p>
-<p>分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg" alt=""><br>查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg" alt=""><br>在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。</p>
-<p>然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。</p>
-<p>作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。</p>
-<h3 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h3><p>如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：</p>
-<ul>
-<li>阿里的<a href="https://github.com/alibaba/tb_tddl" target="_blank" rel="noopener">TDDL</a>，<a href="https://cn.aliyun.com/product/drds" target="_blank" rel="noopener">DRDS</a>和<a href="https://github.com/alibaba/cobar" target="_blank" rel="noopener">cobar</a></li>
-<li><a href="https://yq.aliyun.com/articles/658786" target="_blank" rel="noopener">京东金融的sharding-jdbc</a></li>
-<li>民间组织的<a href="https://github.com/MyCATApache/Mycat-Server" target="_blank" rel="noopener">MyCAT</a></li>
-<li>360的<a href="https://github.com/Qihoo360/Atlas" target="_blank" rel="noopener">Atlas</a></li>
-<li>美团的<a href="https://github.com/Meituan-Dianping/Zebra" target="_blank" rel="noopener">zebra</a></li>
-</ul>
-<p>其他比如网易，58，京东等公司都有自研的中间件。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg" alt=""><br>百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。</p>
-<p><strong>client模式</strong><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg" alt=""></p>
-<p><strong>proxy模式</strong><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg" alt=""></p>
-<p>无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg" alt=""></p>
-<p>我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。</p>
-<p>前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。</p>
-<h3 id="垂直拆分"><a href="#垂直拆分" class="headerlink" title="垂直拆分"></a>垂直拆分</h3><h4 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h4><p>也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。</p>
-<h4 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h4><p>垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg" alt=""><br><strong>优点</strong></p>
-<p>数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。</p>
-<p><strong>缺点</strong></p>
-<ul>
-<li>跨库 join 的问题</li>
-<li>跨库事务（分布式事务）的问题</li>
-</ul>
-<p><strong>解决方式</strong></p>
-<ul>
-<li>全局表 <ul>
-<li>所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。</li>
-</ul>
-</li>
-<li>字段冗余 <ul>
-<li>这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。</li>
-</ul>
-</li>
-<li>数据同步<ul>
-<li>定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。</li>
-</ul>
-</li>
-<li>系统层组装<ul>
-<li>在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。</li>
-</ul>
-</li>
-</ul>
-<p>对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg" alt=""><br>这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。</p>
-<p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""><br>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
-<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
-<ol>
-<li>创建一个原表一模一样的临时表1 <code>create table test_a_serial_1 like test_a_serial</code>;</li>
-<li>将原表命名为临时表2 <code>alter table test_a_serial rename test_a_serial_{date}</code>;</li>
-<li>将临时表1改为原表 <code>alter table able test_a_serial_1 rename able test_a_serial</code>; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。</li>
-<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
-</ol>
-<p>如此，便完成了流水数据的迁移；</p>
-<p>根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；</p>
-<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
-<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
-<p>以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。</p>
-<h3 id="水平拆分"><a href="#水平拆分" class="headerlink" title="水平拆分"></a>水平拆分</h3><h4 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h4><p>针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg" alt=""><br>某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。</p>
-<h4 id="水平分库分表"><a href="#水平分库分表" class="headerlink" title="水平分库分表"></a>水平分库分表</h4><p>将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。</p>
-<p><strong>水平分库分表切分规则</strong></p>
-<ul>
-<li>RANGE<ul>
-<li>从0到10000一个表，10001到20000一个表；</li>
-</ul>
-</li>
-<li><a href="http://www.uml.org.cn/sjjm/201412301.asp?artid=15741" target="_blank" rel="noopener">HASH取模</a><ul>
-<li>一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。</li>
-</ul>
-</li>
-<li>地理区域<ul>
-<li>比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。</li>
-</ul>
-</li>
-<li>时间<ul>
-<li>按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。</li>
-</ul>
-</li>
-</ul>
-<h2 id="唯一ID方案"><a href="#唯一ID方案" class="headerlink" title="唯一ID方案"></a>唯一ID方案</h2><p>这个方案也很多，主流的有那么几种:</p>
-<ul>
-<li>利用数据库自增ID<ul>
-<li>优点：最简单。 </li>
-<li>缺点：单点风险、单机性能瓶颈。</li>
-</ul>
-</li>
-<li>利用数据库集群并设置相应的步长（Flickr方案）<ul>
-<li>优点：高可用、ID较简洁。 </li>
-<li>缺点：需要单独的数据库集群。</li>
-</ul>
-</li>
-<li>Twitter Snowflake<ul>
-<li>优点：高性能高可用、易拓展。</li>
-<li>缺点：需要独立的集群以及ZK。</li>
-</ul>
-</li>
-<li>一大波GUID、Random算法<ul>
-<li>优点：简单。 </li>
-<li>缺点：生成ID较长，有重复几率。</li>
-</ul>
-</li>
-<li>带有业务属性的方案： &gt; 时间戳+用户标识码+随机数<ul>
-<li>优点：方便、成本低。基本无重复的可能。自带分库规则，这里的用户标识码即为用户ID的后四位，在查询的场景下，只需要订单号就可以匹配到相应的库表而无需用户ID，只取四位是希望订单号尽可能的短一些，并且评估下来四位已经足够。可排序，因为时间戳在最前面。</li>
-<li>缺点：比如长度稍长，性能要比int/bigint的稍差等。</li>
-</ul>
-</li>
-</ul>
-<h2 id="数据迁移"><a href="#数据迁移" class="headerlink" title="数据迁移"></a>数据迁移</h2><p>数据库拆分一般是业务发展到一定规模后的优化和重构，为了支持业务快速上线，很难一开始就分库分表，垂直拆分还好办，改改数据源就搞定了，一旦开始水平拆分，数据清洗就是个大问题，为此，我们经历了以下几个阶段。</p>
-<h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f15jmuu7j20j80ibgmv.jpg" alt=""></p>
-<ul>
-<li>数据库双写（事务成功以老模型为准），查询走老模型。</li>
-<li>每日job数据对账（通过DW），并将差异补平。</li>
-<li>通过job导历史数据。</li>
-</ul>
-<h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f164jbhbj20j80ewgmg.jpg" alt=""><br>历史数据导入完毕并且数据对账无误。<br>依然是数据库双写，但是事务成功与否以新模型为准，在线查询切新模型。<br>每日job数据对账，将差异补平。</p>
-<h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f16or9y7j20j80ibtam.jpg" alt=""></p>
-<ul>
-<li>老模型不再同步写入，仅当订单有终态时才会异步补上。</li>
-<li>此阶段只有离线数据依然依赖老的模型，并且下游的依赖非常多，待DW改造完就可以完全废除老模型了。</li>
-</ul>
-<h2 id="报表统计"><a href="#报表统计" class="headerlink" title="报表统计"></a>报表统计</h2><p>待我后续更新。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -7922,7 +7784,7 @@ HashMap扩容的条件是：当size大于threshold时，对HashMap进行扩容
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -7991,7 +7853,7 @@ HashMap扩容的条件是：当size大于threshold时，对HashMap进行扩容
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

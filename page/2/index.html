@@ -301,6 +301,493 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/02/22/数据库优化方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/22/数据库优化方案/" itemprop="url">数据库优化方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-22T11:47:00+08:00">
+                2019-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/02/22/数据库优化方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/02/22/数据库优化方案/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="SQL优化方案"><a href="#SQL优化方案" class="headerlink" title="SQL优化方案"></a>SQL优化方案</h1><p><a href="https://mp.weixin.qq.com/s/DBeVzJyR9_PXnoAIfJiHfg" target="_blank" rel="noopener">参考博客</a></p>
+<h2 id="优化的哲学"><a href="#优化的哲学" class="headerlink" title="优化的哲学"></a>优化的哲学</h2><h3 id="优化可能带来的影响"><a href="#优化可能带来的影响" class="headerlink" title="优化可能带来的影响"></a>优化可能带来的影响</h3><ul>
+<li>优化不总是对一个单纯的环境进行，还很可能是一个复杂的已投产的系统；</li>
+<li>优化手段本来就有很大的风险，只不过你没能力意识到和预见到；</li>
+<li>任何的技术可以解决一个问题，但必然存在带来一个问题的风险；</li>
+<li>对于优化来说解决问题而带来的问题，控制在可接受的范围内才是有成果；</li>
+<li>保持现状或出现更差的情况都是失败！</li>
+</ul>
+<h3 id="优化的需求"><a href="#优化的需求" class="headerlink" title="优化的需求"></a>优化的需求</h3><ul>
+<li>稳定性和业务可持续性，通常比性能更重要；</li>
+<li>优化不可避免涉及到变更，变更就有风险；</li>
+<li>优化使性能变好，维持和变差是等概率事件；</li>
+<li>切记优化，应该是各部门协同，共同参与的工作，任何单一部门都不能对数据库进行优化！</li>
+</ul>
+<p>所以优化工作，是由业务需要驱使的！</p>
+<h3 id="优化参与"><a href="#优化参与" class="headerlink" title="优化参与"></a>优化参与</h3><p>在进行数据库优化时，应由数据库管理员、业务部门代表、应用程序架构师、应用程序设计人员、应用程序开发人员、硬件及系统管理员、存储管理员等，业务相关人员共同参与。 </p>
+<h2 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h2><h3 id="优化对象"><a href="#优化对象" class="headerlink" title="优化对象"></a>优化对象</h3><p>在数据库优化上有两个主要方面：即安全与性能。</p>
+<ul>
+<li>安全-&gt;数据可持续性</li>
+<li>性能-&gt;数据的高性能访问</li>
+</ul>
+<h3 id="优化的范围"><a href="#优化的范围" class="headerlink" title="优化的范围"></a>优化的范围</h3><ul>
+<li>存储、主机和操作系统方面：<ul>
+<li>主机架构稳定性；</li>
+<li>I/O规划及配置；</li>
+<li>Swap交换分区；</li>
+<li>OS内核参数和网络问题。</li>
+</ul>
+</li>
+<li>应用程序方面：<ul>
+<li>应用程序稳定性；</li>
+<li>SQL语句性能；</li>
+<li>串行访问资源；</li>
+<li>能欠佳会话管理；</li>
+<li>这个应用适不适合用MySQL。</li>
+</ul>
+</li>
+<li>数据库优化方面：<ul>
+<li>内存；</li>
+<li>数据库结构（物理&amp;逻辑）；</li>
+<li>实例配置。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>不管是设计系统、定位问题还是优化，都可以按照这个顺序执行。</p>
+</blockquote>
+<h3 id="优化维度"><a href="#优化维度" class="headerlink" title="优化维度"></a>优化维度</h3><p>数据库优化维度有四个：</p>
+<p>硬件、系统配置、数据库表结构、SQL及索引。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0cvkxgfrpj20iw09yad5.jpg" alt=""></p>
+<p>优化选择：</p>
+<p>优化成本：硬件&gt;系统配置&gt;数据库表结构&gt;SQL及索引。</p>
+<p>优化效果：硬件&lt;系统配置&lt;数据库表结构&lt;SQL及索引。</p>
+<h2 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h2><h3 id="数据库层面"><a href="#数据库层面" class="headerlink" title="数据库层面"></a>数据库层面</h3><p>检查问题常用工具：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">1）MySQL</span><br><span class="line"></span><br><span class="line">2）msyqladmin：MySQL客户端，可进行管理操作</span><br><span class="line"></span><br><span class="line">3）mysqlshow：功能强大的查看shell命令</span><br><span class="line"></span><br><span class="line">4）<span class="keyword">show</span> [<span class="keyword">SESSION</span> | <span class="keyword">GLOBAL</span>] <span class="keyword">variables</span>：查看数据库参数信息</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）<span class="keyword">SHOW</span> [<span class="keyword">SESSION</span> | <span class="keyword">GLOBAL</span>] <span class="keyword">STATUS</span>：查看数据库的状态信息</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）information_schema：获取元数据的方法</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）<span class="keyword">SHOW</span> <span class="keyword">ENGINE</span> <span class="keyword">INNODB</span> <span class="keyword">STATUS</span>：<span class="keyword">Innodb</span>引擎的所有状态</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>）<span class="keyword">SHOW</span> <span class="keyword">PROCESSLIST</span>：查看当前所有连接<span class="keyword">session</span>状态</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>）<span class="keyword">explain</span>：获取查询语句的执行计划</span><br><span class="line"></span><br><span class="line"><span class="number">10</span>）<span class="keyword">show</span> <span class="keyword">index</span>：查看表的索引信息</span><br><span class="line"></span><br><span class="line"><span class="number">11</span>）slow-<span class="keyword">log</span>：记录慢查询语句</span><br><span class="line"></span><br><span class="line"><span class="number">12</span>）mysqldumpslow：分析slowlog文件的</span><br></pre></td></tr></table></figure>
+<p>不常用但好用的工具：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）Zabbix：监控主机、系统、数据库（部署zabbix监控平台）</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）pt-query-digest：分析慢日志</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）MySQL slap：分析慢日志</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）sysbench：压力测试工具</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）MySQL profiling：统计数据库整体状态工具    </span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）Performance Schema：MySQL性能状态统计的数据</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）workbench：管理、备份、监控、分析、优化工具（比较费资源）</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><a href="http://www.cnblogs.com/clsn/p/7885990.html" target="_blank" rel="noopener">关于Zabbix参考</a></p>
+</blockquote>
+<h3 id="数据库层面问题解决思路"><a href="#数据库层面问题解决思路" class="headerlink" title="数据库层面问题解决思路"></a>数据库层面问题解决思路</h3><p>一般应急调优的思路：针对突然的业务办理卡顿，无法进行正常的业务处理，需要立马解决的场景。<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）show processlist；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）explain  select <span class="built_in">id</span> ,<span class="built_in">name</span> <span class="keyword">from</span> stu <span class="keyword">where</span> <span class="built_in">name</span>='clsn'; <span class="comment"># ALL  id name age  sex；</span></span><br><span class="line"></span><br><span class="line">select <span class="built_in">id</span>,<span class="built_in">name</span> <span class="keyword">from</span> stu  <span class="keyword">where</span> <span class="built_in">id</span>=<span class="number">2</span><span class="number">-1</span> 函数 结果集&gt;<span class="number">30</span>；show index <span class="keyword">from</span> table；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）通过执行计划判断，索引问题（有没有、合不合理）或者语句本身问题；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）show status  like '%lock%';    <span class="comment"># 查询锁状态</span></span><br><span class="line"></span><br><span class="line">kill SESSION_ID;   <span class="comment"># 杀掉有问题的session。</span></span><br></pre></td></tr></table></figure></p>
+<p>常规调优思路：针对业务周期性的卡顿，例如在每天10-11点业务特别慢，但是还能够使用，过了这段时间就好了。<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）查看slowlog，分析slowlog，分析出查询慢的语句；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）按照一定优先级，一个一个排查所有慢语句；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）分析top SQL，进行explain调试，查看语句执行时间；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）调整索引或语句本身。</span><br></pre></td></tr></table></figure></p>
+<h3 id="系统层面"><a href="#系统层面" class="headerlink" title="系统层面"></a>系统层面</h3><p><strong>Cpu方面</strong><br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vmstat、sar <span class="built_in">top</span>、htop、nmon、mpstat；</span><br></pre></td></tr></table></figure></p>
+<p><strong>内存</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">free</span>、ps-aux；</span><br></pre></td></tr></table></figure></p>
+<p>IO设备（磁盘、网络）<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">iostat</span>、ss、netstat、iptraf、iftop、lsof；</span><br></pre></td></tr></table></figure></p>
+<p><strong>vmstat命令说明</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）Procs：r显示有多少进程正在等待CPU时间。b显示处于不可中断的休眠的进程数量。在等待I/O。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）Memory：swpd显示被交换到磁盘的数据块的数量。未被使用的数据块，用户缓冲数据块，用于操作系统的数据块的数量。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）Swap：操作系统每秒从磁盘上交换到内存和从内存交换到磁盘的数据块的数量。s1和s0最好是<span class="number">0</span>。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）Io：每秒从设备中读入b1的写入到设备b0的数据块的数量。反映了磁盘I/O。</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）System：显示了每秒发生中断的数量（in）和上下文交换（cs）的数量。</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）Cpu：显示用于运行用户代码，系统代码，空闲，等待I/O的Cpu时间。</span><br></pre></td></tr></table></figure></p>
+<p><strong>iostat命令说明</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">实例命令：iostat -dk <span class="number">1</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line">　　　　   iostat -d -k -x <span class="number">5</span> （查看设备使用率（%util）和响应时间（await））</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）tps：该设备每秒的传输次数。“一次传输”意思是“一次I/O请求”。多个逻辑请求可能会被合并为“一次I/O请求”。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）iops ：硬件出厂的时候，厂家定义的一个每秒最大的IO次数</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）<span class="string">"一次传输"</span>请求的大小是未知的。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）kB_read/s：每秒从设备（drive expressed）读取的数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）KB_wrtn/s：每秒向设备（drive expressed）写入的数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>）kB_read：读取的总数据量；</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>）kB_wrtn：写入的总数量数据量；这些单位都为Kilobytes。</span><br></pre></td></tr></table></figure></p>
+<h3 id="系统层面问题解决办法"><a href="#系统层面问题解决办法" class="headerlink" title="系统层面问题解决办法"></a>系统层面问题解决办法</h3><p>你认为到底负载高好，还是低好呢？在实际的生产中，一般认为Cpu只要不超过90%都没什么问题。</p>
+<p>当然不排除下面这些特殊情况：</p>
+<p><strong>Cpu负载高，IO负载低</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）内存不够；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）磁盘性能差；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）SQL问题---&gt;去数据库层，进一步排查SQL 问题；</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）IO出问题了（磁盘到临界了、raid设计不好、raid降级、锁、在单位时间内tps过高）；</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>）tps过高：大量的小数据IO、大量的全表扫描。</span><br></pre></td></tr></table></figure></p>
+<p><strong>IO负载高，Cpu负载低</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）大量小的IO写操作：</span><br><span class="line"></span><br><span class="line">autocommit，产生大量小IO；IO/PS，磁盘的一个定值，硬件出厂的时候，厂家定义的一个每秒最大的IO次数。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）大量大的IO 写操作：SQL问题的几率比较大</span><br></pre></td></tr></table></figure></p>
+<p><strong>IO和cpu负载都很高</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">硬件不够了或SQL存在问题。</span><br></pre></td></tr></table></figure></p>
+<h2 id="基础优化"><a href="#基础优化" class="headerlink" title="基础优化"></a>基础优化</h2><h3 id="优化思路-1"><a href="#优化思路-1" class="headerlink" title="优化思路"></a>优化思路</h3><p><strong>定位问题点吮吸</strong>：硬件–&gt;系统–&gt;应用–&gt;数据库–&gt;架构（高可用、读写分离、分库分表）。</p>
+<p><strong>处理方向</strong>：明确优化目标、性能和安全的折中、防患未然。</p>
+<h3 id="硬件优化"><a href="#硬件优化" class="headerlink" title="硬件优化"></a>硬件优化</h3><p><strong>主机方面</strong><br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">根据数据库类型，主机CPU选择、内存容量选择、磁盘选择：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）平衡内存和磁盘资源；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）随机的<span class="keyword">I</span>/<span class="keyword">O</span>和顺序的<span class="keyword">I</span>/<span class="keyword">O</span>；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）主机 RAID卡的BBU（Battery Backup Unit）关闭。</span><br></pre></td></tr></table></figure></p>
+<p><strong>CPU的选择</strong><br><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">CPU</span>的两个关键因素：核数、主频</span><br><span class="line"></span><br><span class="line">根据不同的业务类型进行选择：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>）<span class="meta">CPU</span>密集型：计算比较多，OLTP - 主频很高的<span class="meta">cpu</span>、核数还要多</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）IO密集型：查询比较，OLAP - 核数要多，主频不一定高的</span><br></pre></td></tr></table></figure></p>
+<p><strong>内存的选择</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OLAP类型数据库，需要更多内存，和数据获取量级有关。</span><br><span class="line"></span><br><span class="line">OLTP类型数据一般内存是Cpu核心数量的<span class="number">2</span>倍到<span class="number">4</span>倍，没有最佳实践。</span><br></pre></td></tr></table></figure></p>
+<p><strong>存储方面</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）根据存储数据种类的不同，选择不同的存储设备；</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）配置合理的RAID级别（raid5、raid10、热备盘）；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）对与操作系统来讲，不需要太特殊的选择，最好做好冗余（raid1）（ssd、sas、sata）。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）raid卡：</span><br><span class="line"></span><br><span class="line">       主机raid卡选择：</span><br><span class="line"></span><br><span class="line">           实现操作系统磁盘的冗余（raid1）；</span><br><span class="line"></span><br><span class="line">           平衡内存和磁盘资源；</span><br><span class="line"></span><br><span class="line">           随机的I/O和顺序的I/O；</span><br><span class="line"></span><br><span class="line">           主机raid卡的BBU（Battery Backup Unit）要关闭。</span><br></pre></td></tr></table></figure></p>
+<p>网络设备方面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用流量支持更高的网络设备（交换机、路由器、网线、网卡、HBA卡）</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：以上这些规划应该在初始设计系统时就应该考虑好。</p>
+</blockquote>
+<h3 id="服务器硬件优化"><a href="#服务器硬件优化" class="headerlink" title="服务器硬件优化"></a>服务器硬件优化</h3><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>）物理状态灯</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>）自带管理设备：远程控制卡（FENCE设备：ipmi ilo idarc）、开关机、硬件监控。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>）第三方的监控软件、设备（snmp、agent）对物理设施进行监控。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>）存储设备：自带的监控平台。EMC2（hp收购了）、 日立（hds）、IBM低端OEM hds、高端存储是自己技术，华为存储。</span><br></pre></td></tr></table></figure>
+<h3 id="系统优化"><a href="#系统优化" class="headerlink" title="系统优化"></a>系统优化</h3><p><strong>Cpu</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本不需要调整，在硬件选择方面下功夫即可。</span><br></pre></td></tr></table></figure></p>
+<p><strong>内存</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本不需要调整，在硬件选择方面下功夫即可。</span><br></pre></td></tr></table></figure></p>
+<p><strong>SWAP</strong><br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MySQL尽量避免使用<span class="keyword">swap</span>。</span><br><span class="line"></span><br><span class="line">阿里云的服务器中默认<span class="keyword">swap</span>为<span class="number">0</span>。</span><br></pre></td></tr></table></figure></p>
+<p><strong>IO</strong><br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">raid、<span class="literal">no</span> lvm、ext4或xfs、ssd、IO调度策略。</span><br></pre></td></tr></table></figure></p>
+<p><strong>Swap调整(不使用swap分区)</strong><br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/proc/</span>sys<span class="regexp">/vm/</span>swappiness的内容改成<span class="number">0</span>（临时），<span class="regexp">/etc/</span>sysctl. conf上添加vm.swappiness=<span class="number">0</span>（永久）</span><br></pre></td></tr></table></figure></p>
+<p>这个参数决定了Linux是倾向于使用swap，还是倾向于释放文件系统cache。在内存紧张的情况下，数值越低越倾向于释放文件系统cache。</p>
+<p>当然，这个参数只能减少使用swap的概率，并不能避免Linux使用swap。</p>
+<p><strong>修改MySQL的配置参数<code>innodb_flush_ method</code>，开启O_DIRECT模式</strong>：</p>
+<p>这种情况下，InnoDB的buffer pool会直接绕过文件系统cache来访问磁盘，但是redo log依旧会使用文件系统cache。</p>
+<p>值得注意的是，Redo log是覆写模式的，即使使用了文件系统的cache，也不会占用太多。</p>
+<p><strong>IO调度策略</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">echo</span> deadline&gt;/sys/block/sda/queue/scheduler   临时修改为deadline</span></span><br></pre></td></tr></table></figure></p>
+<p>永久修改<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi /boot/grub/grub.conf</span><br><span class="line"></span><br><span class="line">更改到如下内容:</span><br><span class="line"></span><br><span class="line">kernel /boot/vmlinuz-2.6.18-8.el5 ro <span class="attribute">root</span>=LABEL=/ <span class="attribute">elevator</span>=deadline rhgb quiet</span><br></pre></td></tr></table></figure></p>
+<h3 id="系统参数调整"><a href="#系统参数调整" class="headerlink" title="系统参数调整"></a>系统参数调整</h3><p><strong>Linux系统内核参数优化</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim/etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">net.ipv4.ip_local_port_range = <span class="number">1024</span> <span class="number">65535</span>：# 用户端口范围</span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_max_syn_backlog = <span class="number">4096</span> </span><br><span class="line"></span><br><span class="line">net.ipv4.tcp_fin_timeout = <span class="number">30</span> </span><br><span class="line"></span><br><span class="line">fs.file-max=<span class="number">65535</span>：# 系统最大文件句柄，控制的是能打开文件最大数量</span><br></pre></td></tr></table></figure></p>
+<p><strong>用户限制参数（MySQL可以不设置以下配置）</strong><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim/etc/security/limits.<span class="keyword">conf</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">* soft nproc 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* hard nproc 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* soft nofile 65535</span></span><br><span class="line"></span><br><span class="line"><span class="comment">* hard nofile 65535</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="应用优化"><a href="#应用优化" class="headerlink" title="应用优化"></a>应用优化</h3><p>业务应用和数据库应用独立；</p>
+<p><strong>防火墙</strong>：iptables、selinux等其他无用服务（关闭）：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">chkconfig</span> --level <span class="number">23456</span> acpid <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> anacron <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> autofs <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> avahi-daemon <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> bluetooth <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> cups <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> firstboot <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> haldaemon <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> hplip <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> ip6tables <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> iptables  <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> isdn <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> pcscd <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> sendmail  <span class="literal">off</span></span><br><span class="line"></span><br><span class="line">chkconfig --level <span class="number">23456</span> yum-updatesd  <span class="literal">off</span></span><br></pre></td></tr></table></figure></p>
+<p>安装图形界面的服务器不要启动图形界面runlevel 3。 </p>
+<p>另外，思考将来我们的业务是否真的需要MySQL，还是使用其他种类的数据库。用数据库的最高境界就是不用数据库。</p>
+<h2 id="数据库优化"><a href="#数据库优化" class="headerlink" title="数据库优化"></a>数据库优化</h2><p>SQL优化方向：执行计划、索引、SQL改写。</p>
+<p>架构优化方向：高可用架构、高性能架构、分库分表。</p>
+<h3 id="数据库参数优化"><a href="#数据库参数优化" class="headerlink" title="数据库参数优化"></a>数据库参数优化</h3><p><strong>调整</strong></p>
+<p>实例整体（高级优化，扩展）：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">thread_concurrency：# 并发线程数量个数</span><br><span class="line"></span><br><span class="line">sort_buffer_size：# 排序缓存</span><br><span class="line"></span><br><span class="line">read_buffer_size：# 顺序读取缓存</span><br><span class="line"></span><br><span class="line">read_rnd_buffer_size：# 随机读取缓存</span><br><span class="line"></span><br><span class="line">key_buffer_size：# 索引缓存</span><br><span class="line"></span><br><span class="line">thread_cache_size：# (<span class="number">1</span>G—&gt;<span class="number">8</span>, <span class="number">2</span>G—&gt;<span class="number">16</span>, <span class="number">3</span>G—&gt;<span class="number">32</span>, &gt;<span class="number">3</span>G—&gt;<span class="number">64</span>)</span><br></pre></td></tr></table></figure></p>
+<p><strong>连接层（基础优化）</strong><br>设置合理的连接客户和连接方式：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">max_connections           <span class="comment"># 最大连接数，看交易笔数设置    </span></span><br><span class="line"></span><br><span class="line">max_<span class="keyword">connect</span>_errors        <span class="comment"># 最大错误连接数，能大则大</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">connect</span>_timeout           <span class="comment"># 连接超时</span></span><br><span class="line"></span><br><span class="line">max_user_connections      <span class="comment"># 最大用户连接数</span></span><br><span class="line"></span><br><span class="line">skip-name-resolve         <span class="comment"># 跳过域名解析</span></span><br><span class="line"></span><br><span class="line">wait_timeout              <span class="comment"># 等待超时</span></span><br><span class="line"></span><br><span class="line">back_log                  <span class="comment"># 可以在堆栈中的连接数量</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>SQL层（基础优化）</strong><br>query_cache_size： 查询缓存  &gt;&gt;&gt;  OLAP类型数据库,需要重点加大此内存缓存，但是一般不会超过GB。</p>
+<p>对于经常被修改的数据，缓存会立马失效。</p>
+<p>我们可以实用内存数据库（redis、memecache），替代他的功能。</p>
+<p><strong>存储引擎层（innodb基础优化参数）</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">default</span>-storage-engine</span><br><span class="line"></span><br><span class="line">innodb_buffer_pool_size       # 没有固定大小，<span class="number">50</span>%测试值，看看情况再微调。但是尽量设置不要超过物理内存<span class="number">70</span>%</span><br><span class="line"></span><br><span class="line">innodb_file_per_table=(<span class="number">1</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">innodb_flush_log_at_trx_commit=(<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>) # <span class="number">1</span>是最安全的，<span class="number">0</span>是性能最高，<span class="number">2</span>折中</span><br><span class="line"></span><br><span class="line">binlog_sync</span><br><span class="line"></span><br><span class="line">Innodb_flush_method=(O_DIRECT, fdatasync)</span><br><span class="line"></span><br><span class="line">innodb_log_buffer_size           # <span class="number">100</span>M以下</span><br><span class="line"></span><br><span class="line">innodb_log_file_size               # <span class="number">100</span>M 以下</span><br><span class="line"></span><br><span class="line">innodb_log_files_in_group       # <span class="number">5</span>个成员以下,一般<span class="number">2</span><span class="number">-3</span>个够用（iblogfile0-N）</span><br><span class="line"></span><br><span class="line">innodb_max_dirty_pages_pct   # 达到百分之<span class="number">75</span>的时候刷写 内存脏页到磁盘。</span><br><span class="line"></span><br><span class="line">log_bin</span><br><span class="line"></span><br><span class="line">max_binlog_cache_size                     # 可以不设置</span><br><span class="line"></span><br><span class="line">max_binlog_size                               # 可以不设置</span><br><span class="line"></span><br><span class="line">innodb_additional_mem_pool_size     #小于<span class="number">2</span>G内存的机器，推荐值是<span class="number">20</span>M。<span class="number">32</span>G内存以上<span class="number">100</span>M</span><br></pre></td></tr></table></figure></p>
+<h2 id="SQL语句优化"><a href="#SQL语句优化" class="headerlink" title="SQL语句优化"></a>SQL语句优化</h2><p><a href="https://juejin.im/post/5aa7703c6fb9a028c8128739" target="_blank" rel="noopener">原文博客</a></p>
+<ol>
+<li>对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</li>
+<li>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">is</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以在 num 上设置默认值 0,确保表中 num 列没有 null 值，然后这样查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">0</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。</li>
+<li>应尽量避免在 where 子句中使用 or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">10</span> <span class="keyword">or</span> <span class="keyword">num</span>=<span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以这样查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">10</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">20</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="5">
+<li>in 和 not in 也要慎用，否则会导致全表扫描，如：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>对于连续的数值，能用 between 就不要用 in 了：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="6">
+<li>下面的查询也将导致全表扫描：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'%c%'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>若要提高效率，可以考虑<a href="https://www.jianshu.com/p/c48106149b6a" target="_blank" rel="noopener">全文检索</a>。</p>
+<ol start="7">
+<li>如果在 where 子句中使用参数，也会导致全表扫描。因为 SQL 只有在运行时才会解析局部变量，但优 化程序不能将访问计划的选择推迟到运行时;它必须在编译时进行选择。然 而，如果在编译时建立访问计 划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=@<span class="keyword">num</span> ;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以改为强制查询使用索引：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">with</span>(<span class="keyword">index</span>(索引名)) <span class="keyword">where</span> <span class="keyword">num</span>=@<span class="keyword">num</span> ;</span><br></pre></td></tr></table></figure></p>
+<ol start="8">
+<li>应尽量避免在 where 子句中对字段进行表达式操作， 这将导致引擎放弃使用索引而进行全表扫描。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>/<span class="number">2</span>=<span class="number">100</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以这样查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">num</span>=<span class="number">100</span>*<span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="9">
+<li>应尽量避免在 where 子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> <span class="title">substring</span>(<span class="params">name,<span class="number">1</span>,<span class="number">3</span></span>)</span>=<span class="string">'abc'</span>;<span class="meta">#name 以 abc 开头的 id</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>应改为：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> t <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'abc%'</span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="10">
+<li>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用 索引。</li>
+<li>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件 时才能保证系统使用该索引， 否则该索引将不会 被使用， 并且应尽可能的让字段顺序与索引顺序相一致。</li>
+<li>不要写一些没有意义的查询，如需要生成一个空表结构：<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">into</span> #t <span class="keyword">from</span> t <span class="keyword">where</span> <span class="number">1</span>=<span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：<br><figure class="highlight leaf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create table <span class="function"><span class="keyword">#</span><span class="title">t</span><span class="params">(…)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<ol start="13">
+<li>很多时候用 exists 代替 in 是一个好的选择：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">num</span> <span class="keyword">in</span>(<span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> b);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>用下面的语句替换：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">num</span> <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">exists</span>(<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> b <span class="keyword">where</span> <span class="keyword">num</span>=a.num);</span><br></pre></td></tr></table></figure></p>
+<ol start="14">
+<li>并不是所有索引对查询都有效，SQL 是根据表中数据来进行查询优化的，当索引列有大量数据重复时， SQL 查询可能不会去利用索引，如一表中有字段 sex,male、female 几乎各一半，那么即使在 sex 上建 了索引也对查询效率起不了作用。</li>
+<li>索引并不是越多越好，索引固然可以提高相应的 select 的效率，但同时也降低了 insert 及 update 的效率，因为 insert 或 update 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过 6 个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</li>
+<li>应尽可能的避免更新 clustered 索引数据列， 因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</li>
+<li>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并 会增加存储开销。这是因为引擎在处理查询和连接时会逐个比较字符串中每一个字符，而对于数字型而言 只需要比较一次就够了。</li>
+<li>尽可能的使用 <code>varchar/nvarchar</code> 代替 <code>char/nchar</code> , 因为首先变长字段存储空间小， 可以节省存储空间， 其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</li>
+<li>任何地方都不要使用 <code>select * from t</code> ,用具体的字段列表代替“*”,不要返回用不到的任何字段。</li>
+<li>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限(只有主键索引)。</li>
+<li>避免频繁创建和删除临时表，以减少系统表资源的消耗。</li>
+<li>临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用。 表中的某个数据集时。但是，对于一次性事件， 最好使用导出表。</li>
+<li>在新建临时表时，如果一次性插入数据量很大，那么可以使用 <code>select into</code> 代替 <code>create table</code>,避免造成大量 log ,以提高速度;如果数据量不大，为了缓和系统表的资源，应先 <code>create table</code>,然后 <code>insert</code>。</li>
+<li>如果使用到了临时表， 在存储过程的最后务必将所有的临时表显式删除， 先 <code>truncate table</code> ,然后 <code>drop table</code> ,这样可以避免系统表的较长时间锁定。</li>
+<li>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过 1 万行，那么就应该考虑改写。</li>
+<li>使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</li>
+<li>与临时表一样，游标并不是不可使用。对小型数据集使用 <code>FAST_FORWARD</code> 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</li>
+<li>在所有的存储过程和触发器的开始处设置 <code>SET NOCOUNT ON</code>,在结束时设置 <code>SET NOCOUNT OFF</code> .无需在执行存储过程和触发器的每个语句后向客户端发送<code>DONE_IN_PROC</code>消息。</li>
+<li><p>尽量避免大事务操作，提高系统并发能力。 sql 优化方法使用索引来更快地遍历表。 缺省情况下建立的索引是非群集索引，但有时它并不是最佳的。在非群集索引下，数据在物理上随机存放在数据页上。合理的索引设计要建立在对各种查询的分析和预测上。一般来说：</p>
+<ul>
+<li>有大量重复值、且经常有范围查询( &gt; ,&lt; ,&gt; =,&lt; =)和 order by、group by 发生的列，可考虑建立集群索引;</li>
+<li>经常同时存取多列，且每列都含有重复值可考虑建立组合索引;</li>
+<li>组合索引要尽量使关键查询形成索引覆盖，其前导列一定是使用最频繁的列。索引虽有助于提高性能但 不是索引越多越好，恰好相反过多的索引会导致系统低效。用户在表中每加进一个索引，维护索引集合就 要做相应的更新工作。</li>
+</ul>
+</li>
+<li>定期分析表和检查表<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分析表的语法：<span class="keyword">ANALYZE</span> [<span class="keyword">LOCAL</span> | <span class="keyword">NO_WRITE_TO_BINLOG</span>] <span class="keyword">TABLE</span> tb1_name[, tbl_name]...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>以上语句用于分析和存储表的关键字分布，分析的结果将可以使得系统得到准确的统计信息，使得SQL能够生成正确的执行计划。如果用户感觉实际执行计划并不是预期的执行计划，执行一次分析表可能会解决问题。在分析期间，使用一个读取锁定对表进行锁定。这对于MyISAM，DBD和InnoDB表有作用。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例如分析一个数据表：<span class="keyword">analyze</span> <span class="keyword">table</span> table_name</span><br><span class="line"></span><br><span class="line">检查表的语法：<span class="keyword">CHECK</span> <span class="keyword">TABLE</span> tb1_name[,tbl_name]...[<span class="keyword">option</span>]...option = &#123;<span class="keyword">QUICK</span> | <span class="keyword">FAST</span> | <span class="keyword">MEDIUM</span> | <span class="keyword">EXTENDED</span> | <span class="keyword">CHANGED</span>&#125;</span><br></pre></td></tr></table></figure></p>
+<p>检查表的作用是检查一个或多个表是否有错误，CHECK TABLE 对MyISAM 和 InnoDB表有作用，对于MyISAM表，关键字统计数据被更新</p>
+<p>CHECK TABLE 也可以检查视图是否有错误，比如在视图定义中被引用的表不存在。</p>
+<ol start="31">
+<li>定期优化表。<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">优化表的语法：<span class="keyword">OPTIMIZE</span> [<span class="keyword">LOCAL</span> | <span class="keyword">NO_WRITE_TO_BINLOG</span>] <span class="keyword">TABLE</span> tb1_name [,tbl_name]...</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>如果删除了表的一大部分，或者如果已经对含有可变长度行的表(含有 VARCHAR、BLOB或TEXT列的表)进行更多更改，则应使用OPTIMIZE TABLE命令来进行表优化。这个命令可以将表中的空间碎片进行合并，并且可以消除由于删除或者更新造成的空间浪费，但OPTIMIZE TABLE 命令只对MyISAM、 BDB 和InnoDB表起作用。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">例如： optimize <span class="keyword">table</span> table_name</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意： analyze、check、optimize执行期间将对表进行锁定，因此一定注意要在MySQL数据库不繁忙的时候执行相关的操作。</p>
+</blockquote>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ol>
+<li>在海量查询时尽量少用格式转换。</li>
+<li>ORDER BY 和 GROPU BY:使用 ORDER BY 和 GROUP BY 短语，任何一种索引都有助于 SELECT 的性能提高。</li>
+<li>任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边。</li>
+<li>IN、OR 子句常会使用工作表，使索引失效。如果不产生大量重复值，可以考虑把子句拆开。拆开的子 句中应该包含索引。</li>
+<li>只要能满足你的需求，应尽可能使用更小的数据类型：例如使用 MEDIUMINT 代替 INT</li>
+<li>尽量把所有的列设置为 NOT NULL,如果你要保存 NULL,手动去设置它，而不是把它设为默认值。</li>
+<li>尽量少用 VARCHAR、TEXT、BLOB 类型</li>
+<li>如果你的数据只有你所知的少量的几个。最好使用 ENUM 类型</li>
+<li>正如 graymice 所讲的那样，建立索引。</li>
+<li>合理用运分表与分区表提高数据存放和提取速度。</li>
+</ol>
+<h2 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h2><p><a href="https://www.tuicool.com/articles/2EzuQr7" target="_blank" rel="noopener">原文</a></p>
+<h3 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h3><p>项目背景是企业级的统一消息处理平台，客户数据在5千万加，每分钟处理消息流水1千万，每天消息流水1亿左右。 虽说Mysql单表可以存储10亿级的数据，但这个时候性能非常差，项目中大量的实验证明，Mysql单表容量在500万左右，性能处于最佳状态，此时，Mysql的BTREE索引树高在3～5之间。既然一张表无法搞定，那么就想办法将数据放到多个地方来解决问题吧，于是，数据库分库分表的方案便产生了，目前比较普遍的方案有三个： 分区，分库分表，NoSql/NewSql 。</p>
+<p>在实际的项目中，往往是这三种方案的结合来解决问题，目前绝大部分系统的核心数据都是以RDBMS存储为主，NoSql/NewSql存储为辅。</p>
+<h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><p>首先来了解一下分区方案。</p>
+<p>分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg" alt=""><br>查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg" alt=""><br>在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。</p>
+<p>然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。</p>
+<p>作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。</p>
+<h3 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h3><p>如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：</p>
+<ul>
+<li>阿里的<a href="https://github.com/alibaba/tb_tddl" target="_blank" rel="noopener">TDDL</a>，<a href="https://cn.aliyun.com/product/drds" target="_blank" rel="noopener">DRDS</a>和<a href="https://github.com/alibaba/cobar" target="_blank" rel="noopener">cobar</a></li>
+<li><a href="https://yq.aliyun.com/articles/658786" target="_blank" rel="noopener">京东金融的sharding-jdbc</a></li>
+<li>民间组织的<a href="https://github.com/MyCATApache/Mycat-Server" target="_blank" rel="noopener">MyCAT</a></li>
+<li>360的<a href="https://github.com/Qihoo360/Atlas" target="_blank" rel="noopener">Atlas</a></li>
+<li>美团的<a href="https://github.com/Meituan-Dianping/Zebra" target="_blank" rel="noopener">zebra</a></li>
+</ul>
+<p>其他比如网易，58，京东等公司都有自研的中间件。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg" alt=""><br>百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。</p>
+<p><strong>client模式</strong><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg" alt=""></p>
+<p><strong>proxy模式</strong><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg" alt=""></p>
+<p>无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg" alt=""></p>
+<p>我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。</p>
+<p>前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。</p>
+<h3 id="垂直拆分"><a href="#垂直拆分" class="headerlink" title="垂直拆分"></a>垂直拆分</h3><h4 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h4><p>也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。</p>
+<h4 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h4><p>垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg" alt=""><br><strong>优点</strong></p>
+<p>数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>跨库 join 的问题</li>
+<li>跨库事务（分布式事务）的问题</li>
+</ul>
+<p><strong>解决方式</strong></p>
+<ul>
+<li>全局表 <ul>
+<li>所谓全局表，就是有可能系统中所有模块都可能会依赖到的一些表。比较类似我们理解的“数据字典”。为了避免跨库 join 查询，我们可以将这类表在其他每个数据库中均保存一份。同时，这类数据通常也很少发生修改（甚至几乎不会），所以也不用太担心“一致性”问题。</li>
+</ul>
+</li>
+<li>字段冗余 <ul>
+<li>这是一种典型的反范式设计，在互联网行业中比较常见，通常是为了性能来避免 join 查询。</li>
+</ul>
+</li>
+<li>数据同步<ul>
+<li>定时 A 库中的 tab_a 表和 B 库中 tbl_b 有关联，可以定时将指定的表做同步。当然，同步本来会对数据库带来一定的影响，需要性能影响和数据时效性中取得一个平衡。这样来避免复杂的跨库查询。例如ETL工具。</li>
+</ul>
+</li>
+<li>系统层组装<ul>
+<li>在系统层面，通过调用不同模块的组件或者服务，获取到数据并进行字段拼装。说起来很容易，但实践起来可真没有这么简单，尤其是数据库设计上存在问题但又无法轻易调整的时候。</li>
+</ul>
+</li>
+</ul>
+<p>对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg" alt=""><br>这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。</p>
+<p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""><br>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
+<p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即时是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
+<ol>
+<li>创建一个原表一模一样的临时表1 <code>create table test_a_serial_1 like test_a_serial</code>;</li>
+<li>将原表命名为临时表2 <code>alter table test_a_serial rename test_a_serial_{date}</code>;</li>
+<li>将临时表1改为原表 <code>alter table able test_a_serial_1 rename able test_a_serial</code>; 此时，当日流水表就是一张新的空表了，继续保存当日的流水，而临时表2则保存的是昨天的数据和部分今天的数据，临时表2到名字中的date时间是通过计算获得的昨日的日期；每天会产生一张带有昨日日期的临时表2，每个表内的数据大约是有1000万。</li>
+<li>将当日表中的历史数据迁移到昨日流水表中去 这样的操作都是用的定时任务进行处理，定时任务触发一般会选择凌晨12点以后，这个操作即时是几秒内完成，也有可能会有几条数据落入到当日表中去。因此我们最后还需要将当日表内的历史流水数据插入到昨日表内； <code>insert into test_a_serial_{date}(cloumn1,cloumn2….) select(cloumn1,cloumn2….) from test_a_serial where LEFT(create_time,8) &gt; CONCAT(date); commit</code>;</li>
+</ol>
+<p>如此，便完成了流水数据的迁移；</p>
+<p>根据业务需要，有些业务数据需要保存半年，超过半年的进行删除,在进行删除的时候，就可以根据表名中的_{date}筛选出大于半年的流水直接删表；</p>
+<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进实时计算统计行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
+<p>半年的时间，对于一个业务流水表大约就会有180多张表，每张表又有20个分区表，那么如何进行查询呢？由于我们的项目对于流水的查询实时性要求不是特别高，因此我们在做查询时，进行了根据查询时间区间段进行路由查询的做法。大致做法时，根据客户选择的时间区间段，带上查询条件，分别去时间区间段内的每一张表内查询，将查询结果保存到一张临时表内，然后，再去查询临时表获得最终的查询结果。</p>
+<p>以上便是我们面对大数据量的场景下，数据库层面做的相应的优化，一张每天一亿的表，经过拆分后，每个表分区内的数据在500万左右。</p>
+<h3 id="水平拆分"><a href="#水平拆分" class="headerlink" title="水平拆分"></a>水平拆分</h3><h4 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h4><p>针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg" alt=""><br>某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。</p>
+<h4 id="水平分库分表"><a href="#水平分库分表" class="headerlink" title="水平分库分表"></a>水平分库分表</h4><p>将单张表的数据切分到多个服务器上去，每个服务器具有相应的库与表，只是表中数据集合不同。 水平分库分表能够有效的缓解单机和单库的性能瓶颈和压力，突破IO、连接数、硬件资源等的瓶颈。</p>
+<p><strong>水平分库分表切分规则</strong></p>
+<ul>
+<li>RANGE<ul>
+<li>从0到10000一个表，10001到20000一个表；</li>
+</ul>
+</li>
+<li><a href="http://www.uml.org.cn/sjjm/201412301.asp?artid=15741" target="_blank" rel="noopener">HASH取模</a><ul>
+<li>一个商场系统，一般都是将用户，订单作为主表，然后将和它们相关的作为附表，这样不会造成跨库事务之类的问题。 取用户id，然后hash取模，分配到不同的数据库上。</li>
+</ul>
+</li>
+<li>地理区域<ul>
+<li>比如按照华东，华南，华北这样来区分业务，七牛云应该就是如此。</li>
+</ul>
+</li>
+<li>时间<ul>
+<li>按照时间切分，就是将6个月前，甚至一年前的数据切出去放到另外的一张表，因为随着时间流逝，这些表的数据 被查询的概率变小，所以没必要和“热数据”放在一起，这个也是“冷热数据分离”。</li>
+</ul>
+</li>
+</ul>
+<h2 id="唯一ID方案"><a href="#唯一ID方案" class="headerlink" title="唯一ID方案"></a>唯一ID方案</h2><p>这个方案也很多，主流的有那么几种:</p>
+<ul>
+<li>利用数据库自增ID<ul>
+<li>优点：最简单。 </li>
+<li>缺点：单点风险、单机性能瓶颈。</li>
+</ul>
+</li>
+<li>利用数据库集群并设置相应的步长（Flickr方案）<ul>
+<li>优点：高可用、ID较简洁。 </li>
+<li>缺点：需要单独的数据库集群。</li>
+</ul>
+</li>
+<li>Twitter Snowflake<ul>
+<li>优点：高性能高可用、易拓展。</li>
+<li>缺点：需要独立的集群以及ZK。</li>
+</ul>
+</li>
+<li>一大波GUID、Random算法<ul>
+<li>优点：简单。 </li>
+<li>缺点：生成ID较长，有重复几率。</li>
+</ul>
+</li>
+<li>带有业务属性的方案： &gt; 时间戳+用户标识码+随机数<ul>
+<li>优点：方便、成本低。基本无重复的可能。自带分库规则，这里的用户标识码即为用户ID的后四位，在查询的场景下，只需要订单号就可以匹配到相应的库表而无需用户ID，只取四位是希望订单号尽可能的短一些，并且评估下来四位已经足够。可排序，因为时间戳在最前面。</li>
+<li>缺点：比如长度稍长，性能要比int/bigint的稍差等。</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据迁移"><a href="#数据迁移" class="headerlink" title="数据迁移"></a>数据迁移</h2><p>数据库拆分一般是业务发展到一定规模后的优化和重构，为了支持业务快速上线，很难一开始就分库分表，垂直拆分还好办，改改数据源就搞定了，一旦开始水平拆分，数据清洗就是个大问题，为此，我们经历了以下几个阶段。</p>
+<h3 id="第一阶段"><a href="#第一阶段" class="headerlink" title="第一阶段"></a>第一阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f15jmuu7j20j80ibgmv.jpg" alt=""></p>
+<ul>
+<li>数据库双写（事务成功以老模型为准），查询走老模型。</li>
+<li>每日job数据对账（通过DW），并将差异补平。</li>
+<li>通过job导历史数据。</li>
+</ul>
+<h3 id="第二阶段"><a href="#第二阶段" class="headerlink" title="第二阶段"></a>第二阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f164jbhbj20j80ewgmg.jpg" alt=""><br>历史数据导入完毕并且数据对账无误。<br>依然是数据库双写，但是事务成功与否以新模型为准，在线查询切新模型。<br>每日job数据对账，将差异补平。</p>
+<h3 id="第三阶段"><a href="#第三阶段" class="headerlink" title="第三阶段"></a>第三阶段</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f16or9y7j20j80ibtam.jpg" alt=""></p>
+<ul>
+<li>老模型不再同步写入，仅当订单有终态时才会异步补上。</li>
+<li>此阶段只有离线数据依然依赖老的模型，并且下游的依赖非常多，待DW改造完就可以完全废除老模型了。</li>
+</ul>
+<h2 id="报表统计"><a href="#报表统计" class="headerlink" title="报表统计"></a>报表统计</h2><p>待我后续更新。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/02/18/分布式应用监控/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -5419,930 +5906,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2017/10/09/Git学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="强壮的病猫">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dinghuang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只病猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/09/Git学习/" itemprop="url">Git学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-09T17:50:00+08:00">
-                2017-10-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/09/Git学习/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/10/09/Git学习/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">Git中文文档</a></p>
-<h1 id="Git-起步"><a href="#Git-起步" class="headerlink" title="Git 起步"></a>Git 起步</h1><h2 id="1-Git历史"><a href="#1-Git历史" class="headerlink" title="1.Git历史"></a>1.Git历史</h2><p>同生活中的许多伟大事物一样，Git 诞生于一个极富纷争大举创新的年代。<br>Linux 内核开源项目有着为数众广的参与者。 绝大多数的 Linux</p>
-<p>内核维护工作都花在了提交补丁和保存归档的繁琐事务上（1991－2002年间）。 到 2002 年，整个项目组开始启用一个专有的分布式版本控制系统 BitKeeper 来管理和维护代码。</p>
-<p>到了 2005 年，开发 BitKeeper 的商业公司同 Linux 内核开源社区的合作关系结束，他们收回了 Linux 内核社区免费使用 BitKeeper 的权力。 这就迫使 Linux 开源社区（特别是 Linux 的缔造者 Linus Torvalds）基于使用 BitKeeper 时的经验教训，开发出自己的版本系统。 他们对新的系统制订了若干目标：</p>
-<ul>
-<li><p>速度</p>
-</li>
-<li><p>简单的设计</p>
-</li>
-<li><p>对非线性开发模式的强力支持（允许成千上万个并行开发的分支）</p>
-</li>
-<li><p>完全分布式</p>
-</li>
-</ul>
-<p>有能力高效管理类似 Linux 内核一样的超大规模项目（速度和数据量）</p>
-<p>自诞生于 2005 年以来，Git 日臻成熟完善，在高度易用的同时，仍然保留着初期设定的目标。 它的速度飞快，极其适合管理大项目，有着令人难以置信的非线性分支管理系统。</p>
-<h2 id="2-Git机制"><a href="#2-Git机制" class="headerlink" title="2.Git机制"></a>2.Git机制</h2><h3 id="2-1-Git-保证完整性"><a href="#2-1-Git-保证完整性" class="headerlink" title="2.1. Git 保证完整性"></a>2.1. Git 保证完整性</h3><p>Git 中所有数据在存储前都计算校验和，然后以校验和来引用。 这意味着不可能在 Git 不知情时更改任何文件内容或目录内容。 这个功能建构在 Git 底层，是构成 Git 哲学不可或缺的部分。 若你在传送过程中丢失信息或损坏文件，Git 就能发现。</p>
-<p>Git 用以计算校验和的机制叫做 SHA-1 散列（hash，哈希）。 这是一个由 40 个十六进制字符（0-9 和 a-f）组成字符串，基于 Git 中文件的内容或目录结构计算出来。 SHA-1 哈希看起来是这样：</p>
-<pre><code>24b9da6552252987aa493b52f8696cd6d3b00373
-</code></pre><p>Git 中使用这种哈希值的情况很多，你将经常看到这种哈希值。 实际上，Git 数据库中保存的信息都是以文件内容的哈希值来索引，而不是文件名。</p>
-<h3 id="2-2-三种状态"><a href="#2-2-三种状态" class="headerlink" title="2.2. 三种状态"></a>2.2. 三种状态</h3><p> Git 有三种状态，你的文件可能处于其中之一：已提交（committed）、已修改（modified）和已暂存（staged）。 已提交表示数据已经安全的保存在本地数据库中。 已修改表示修改了文件，但还没保存到数据库中。 已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。</p>
-<p>由此引入 Git 项目的三个工作区域的概念：<strong>Git 仓库</strong>、<strong>工作目录</strong> 以及<strong>暂存区域</strong>。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/areas.png" alt="此处输入图片的描述"></p>
-<h3 id="2-3-Git-仓库、工作目录-、暂存区域"><a href="#2-3-Git-仓库、工作目录-、暂存区域" class="headerlink" title="2.3. Git 仓库、工作目录 、暂存区域"></a>2.3. Git 仓库、工作目录 、暂存区域</h3><p>  <strong>Git 仓库目录</strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</p>
-<p><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</p>
-<p><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</p>
-<p>基本的 Git 工作流程如下：</p>
-<p>在工作目录中修改文件。</p>
-<p>暂存文件，将文件的快照放入暂存区域。</p>
-<p>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录。</p>
-<p>如果 Git 目录中保存着的特定版本文件，就属于已提交状态。 如果作了修改并已放入暂存区域，就属于已暂存状态。 如果自上次取出后，作了修改但还没有放到暂存区域，就是已修改状态。</p>
-<h2 id="3-初次运行-Git-前的配置"><a href="#3-初次运行-Git-前的配置" class="headerlink" title="3.初次运行 Git 前的配置"></a>3.初次运行 Git 前的配置</h2><p>Git 自带一个 <code>git config</code> 的工具来帮助设置控制 Git 外观和行为的配置变量。 这些变量存储在三个不同的位置：</p>
-<p><code>/etc/gitconfig</code> 文件: 包含系统上每一个用户及他们仓库的通用配置。 如果使用带有 <code>--system</code> 选项的 <code>git config</code> 时，它会从此文件读写配置变量。</p>
-<p><code>~/.gitconfig</code> 或 <code>~/.config/git/config</code> 文件：只针对当前用户。 可以传递 <code>--global</code> 选项让 Git 读写此文件。</p>
-<p>当前使用仓库的 Git 目录中的 config 文件（就是 <code>.git/config</code>）：针对该仓库。</p>
-<p>每一个级别覆盖上一级别的配置，所以 <code>.git/config</code> 的配置变量会覆盖 <code>/etc/gitconfig</code> 中的配置变量。</p>
-<p>在 Windows 系统中，Git 会查找 <code>$HOME</code> 目录下（一般情况下是 <code>C:\Users\$USER</code>）的 .gitconfig 文件。 Git 同样也会寻找 <code>/etc/gitconfig</code> 文件，但只限于 MSys 的根目录下，即安装 Git 时所选的目标位置。</p>
-<h3 id="3-1-用户配置"><a href="#3-1-用户配置" class="headerlink" title="3.1. 用户配置"></a>3.1. 用户配置</h3><p>当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 这样做很重要，因为每一个 Git 的提交都会使用这些信息，并且它会写入到你的每一次提交中，不可更改：</p>
-<pre><code>$ git config --global user.name &quot;John Doe&quot;
-$ git config --global user.email johndoe@example.com
-</code></pre><p>再次强调，如果使用了 <code>--global</code> 选项，那么该命令只需要运行一次，因为之后无论你在该系统上做任何事情， Git 都会使用那些信息。 当你想针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 <code>--global</code> 选项的命令来配置。</p>
-<p>很多 GUI 工具都会在第一次运行时帮助你配置这些信息。</p>
-<h3 id="3-2-文本编辑器"><a href="#3-2-文本编辑器" class="headerlink" title="3.2. 文本编辑器"></a>3.2. 文本编辑器</h3><p>既然用户信息已经设置完毕，你可以配置默认文本编辑器了，当 Git 需要你输入信息时会调用它。 如果未配置，Git 会使用操作系统默认的文本编辑器，通常是 <code>Vim</code>。 如果你想使用不同的文本编辑器，例如 <code>Emacs</code>，可以这样做：</p>
-<pre><code>$ git config --global core.editor emacs
-Warning
-</code></pre><p><code>Vim</code> 和 <code>Emacs</code> 是像 Linux 与 Mac 等基于 Unix 的系统上开发者经常使用的流行的文本编辑器。 如果你对这些编辑器都不是很了解或者你使用的是 Windows 系统，那么可能需要搜索如何在 Git 中配置你最常用的编辑器。 如果你不设置编辑器并且不知道 <code>Vim</code> 或 <code>Emacs</code> 是什么，当它们运行起来后你可能会被弄糊涂、不知所措。</p>
-<h3 id="3-3-检查配置信息"><a href="#3-3-检查配置信息" class="headerlink" title="3.3. 检查配置信息"></a>3.3. 检查配置信息</h3><p>如果想要检查你的配置，可以使用 <code>git config --list</code> 命令来列出所有 Git 当时能找到的配置。</p>
-<pre><code>$ git config --list
-user.name=John Doe
-user.email=johndoe@example.com
-color.status=auto
-color.branch=auto
-color.interactive=auto
-color.diff=auto
-...
-</code></pre><p>你可能会看到重复的变量名，因为 Git 会从不同的文件中读取同一个配置（例如：<code>/etc/gitconfig</code> 与 <code>~/.gitconfig</code>）。 这种情况下，Git 会使用它找到的每一个变量的最后一个配置。</p>
-<p>你可以通过输入 <code>git config &lt;key&gt;：</code> 来检查 Git 的某一项配置</p>
-<pre><code>$ git config user.name
-John Doe
-</code></pre><h1 id="Git-基础"><a href="#Git-基础" class="headerlink" title="Git 基础"></a>Git 基础</h1><h2 id="1-获取-Git-仓库"><a href="#1-获取-Git-仓库" class="headerlink" title="1.获取 Git 仓库"></a>1.获取 Git 仓库</h2><p>在现有目录中初始化仓库<br>如果你打算使用 Git 来对现有的项目进行管理，你只需要进入该项目目录并输入：</p>
-<pre><code>$ git init
-$ git add *.c
-$ git add LICENSE
-$ git commit -m &apos;initial project version&apos;
-</code></pre><h2 id="2-克隆现有的仓库"><a href="#2-克隆现有的仓库" class="headerlink" title="2.克隆现有的仓库"></a>2.克隆现有的仓库</h2><pre><code>$ git clone https://github.com/libgit2/libgit2
-$ git clone https://github.com/libgit2/libgit2 mylibgit
-</code></pre><p>这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 mylibgit。</p>
-<h2 id="3-记录每次更新到仓库"><a href="#3-记录每次更新到仓库" class="headerlink" title="3.记录每次更新到仓库"></a>3.记录每次更新到仓库</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/lifecycle.png" alt="文件的状态变化周期"></p>
-<h3 id="2-1-检查当前文件状态"><a href="#2-1-检查当前文件状态" class="headerlink" title="2.1. 检查当前文件状态"></a>2.1. 检查当前文件状态</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch <span class="literal">master</span></span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
-<p>现在，让我们在项目下创建一个新的 README 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：</p>
-<pre><code>$ echo &apos;My Project&apos; &gt; README
-$ git status
-On branch master
-Untracked files:
-  (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)
-
-    README
-
-nothing added to commit but untracked files present (use &quot;git add&quot; to track)
-</code></pre><p>在状态报告中可以看到新建的 README 文件出现在 <code>Untracked files</code> 下面。 未跟踪的文件意味着 Git 在之前的快照（提交）中没有这些文件；Git 不会自动将之纳入跟踪范围，除非你明明白白地告诉它“我需要跟踪该文件”， 这样的处理让你不必担心将生成的二进制文件或其它不想被跟踪的文件包含进来。 不过现在的例子中，我们确实想要跟踪管理 README 这个文件。</p>
-<h3 id="2-2-跟踪新文件"><a href="#2-2-跟踪新文件" class="headerlink" title="2.2. 跟踪新文件"></a>2.2. 跟踪新文件</h3><p>使用命令 <code>git add</code> 开始跟踪一个文件。 所以，要跟踪 README 文件，运行：</p>
-<pre><code>$ git add README
-</code></pre><p>此时再运行 git status 命令，会看到 README 文件已被跟踪，并处于暂存状态：</p>
-<pre><code>$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    new file:   README
-</code></pre><p>只要在 <code>Changes to be committed</code> 这行下面的，就说明是已暂存状态。 如果此时提交，那么该文件此时此刻的版本将被留存在历史记录中。 你可能会想起之前我们使用 <code>git init</code> 后就运行了 <code>git add (files)</code> 命令，开始跟踪当前目录下的文件。 <code>git add</code> 命令使用文件或目录的路径作为参数；如果参数是目录的路径，该命令将递归地跟踪该目录下的所有文件。</p>
-<h3 id="2-3-暂存已修改文件"><a href="#2-3-暂存已修改文件" class="headerlink" title="2.3. 暂存已修改文件"></a>2.3. 暂存已修改文件</h3><p>现在我们来修改一个已被跟踪的文件。 如果你修改了一个名为 <code>CONTRIBUTING.md</code> 的已被跟踪的文件，然后运行 <code>git status</code> 命令，会看到下面内容：</p>
-<pre><code>$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    new file:   README
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>文件 <code>CONTRIBUTING.md</code> 出现在 <code>Changes not staged for commit</code> 这行下面，说明已跟踪文件的内容发生了变化，但还没有放到暂存区。 要暂存这次更新，需要运行 <code>git add</code> 命令。 这是个多功能命令：可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等。 将这个命令理解为“添加内容到下一次提交中”而不是“将一个文件添加到项目中”要更加合适。 现在让我们运行 <code>git add</code> 将”<code>CONTRIBUTING.md</code>“放到暂存区，然后再看看 <code>git status</code> 的输出：</p>
-<pre><code>$ git add CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    new file:   README
-    modified:   CONTRIBUTING.md
-</code></pre><p>现在两个文件都已暂存，下次提交时就会一并记录到仓库。 假设此时，你想要在 <code>CONTRIBUTING.md</code> 里再加条注释， 重新编辑存盘后，准备好提交。 不过且慢，再运行 <code>git status</code> 看看：</p>
-<pre><code>$ vim CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    new file:   README
-    modified:   CONTRIBUTING.md
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>怎么回事？ 现在 <code>CONTRIBUTING.md</code> 文件同时出现在暂存区和非暂存区。 这怎么可能呢？ 好吧，实际上 Git 只不过暂存了你运行 <code>git add</code> 命令时的版本， 如果你现在提交<code>，CONTRIBUTING.md</code> 的版本是你最后一次运行 <code>git add</code> 命令时的那个版本，而不是你运行 <code>git commit</code> 时，在工作目录中的当前版本。 所以，运行了 <code>git add</code> 之后又作了修订的文件，需要重新运行 <code>git add</code> 把最新版本重新暂存起来：</p>
-<pre><code>$ git add CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    new file:   README
-    modified:   CONTRIBUTING.md
-</code></pre><h3 id="2-4-状态简览"><a href="#2-4-状态简览" class="headerlink" title="2.4. 状态简览"></a>2.4. 状态简览</h3><p><code>git status</code> 命令的输出十分详细，但其用语有些繁琐。 如果你使用 <code>git status -s</code> 命令或 <code>git status --short</code> 命令，你将得到一种更为紧凑的格式输出。 运行 <code>git status -s</code> ，状态报告输出如下：</p>
-<pre><code>$ git status -s
-M README
-MM Rakefile
-A  lib/git.rb
-M  lib/simplegit.rb
-?? LICENSE.txt
-</code></pre><p>新添加的未跟踪文件前面有 <code>??</code> 标记，新添加到暂存区中的文件前面有 <code>A</code> 标记，修改过的文件前面有 <code>M</code> 标记。 你可能注意到了 <code>M</code> 有两个可以出现的位置，出现在右边的 <code>M</code> 表示该文件被修改了但是还没放入暂存区，出现在靠左边的 <code>M</code> 表示该文件被修改了并放入了暂存区。 例如，上面的状态报告显示： README 文件在工作区被修改了但是还没有将修改后的文件放入暂存区,<code>lib/simplegit.rb</code> 文件被修改了并将修改后的文件放入了暂存区。 而 Rakefile 在工作区被修改并提交到暂存区后又在工作区中被修改了，所以在暂存区和工作区都有该文件被修改了的记录。</p>
-<h3 id="2-5-忽略文件"><a href="#2-5-忽略文件" class="headerlink" title="2.5. 忽略文件"></a>2.5. 忽略文件</h3><p>一般我们总会有些文件无需纳入 Git 的管理，也不希望它们总出现在未跟踪文件列表。 通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。 在这种情况下，我们可以创建一个名为 <code>.gitignore</code> 的文件，列出要忽略的文件模式。 来看一个实际的例子：</p>
-<pre><code>$ cat .gitignore
-*.[oa]
-*~
-</code></pre><p>第一行告诉 Git 忽略所有以 <code>.o</code> 或 <code>.a</code> 结尾的文件。一般这类对象文件和存档文件都是编译过程中出现的。 第二行告诉 Git 忽略所有以波浪符（~）结尾的文件，许多文本编辑软件（比如 <code>Emacs</code>）都用这样的文件名保存副本。 此外，你可能还需要忽略 <code>log</code>，<code>tmp</code> 或者 <code>pid</code> 目录，以及自动生成的文档等等。 要养成一开始就设置好 <code>.gitignore</code> 文件的习惯，以免将来误提交这类无用的文件。</p>
-<p>文件 <code>.gitignore</code> 的格式规范如下：</p>
-<ul>
-<li>列表项</li>
-<li>所有空行或者以 ＃ 开头的行都会被 Git 忽略。</li>
-<li>可以使用标准的 glob 模式匹配。</li>
-<li>匹配模式可以以（/）开头防止递归。</li>
-<li>匹配模式可以以（/）结尾指定目录。</li>
-<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
-</ul>
-<p>所谓的 <code>glob</code> 模式是指 <code>shell</code> 所使用的简化了的正则表达式。 星号<code>（*）</code>匹配零个或多个任意字符；<code>[abc]</code> 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；问号<code>（?）</code>只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 <code>[0-9]</code> 表示匹配所有 0 到 9 的数字）。 使用两个星号<code>（*)</code> 表示匹配任意中间目录，比如<code>a/**/z</code> 可以匹配 <code>a/z</code>, <code>a/b/z</code> 或 <code>a/b/c/z</code>等。</p>
-<h3 id="2-6-查看已暂存和未暂存的修改"><a href="#2-6-查看已暂存和未暂存的修改" class="headerlink" title="2.6. 查看已暂存和未暂存的修改"></a>2.6. 查看已暂存和未暂存的修改</h3><p>如果 <code>git status</code> 命令的输出对于你来说过于模糊，你想知道具体修改了什么地方，可以用 <code>git diff</code> 命令。<code>git diff</code> 将通过文件补丁的格式显示具体哪些行发生了改变。</p>
-<p>假如再次修改 <code>README</code> 文件后暂存，然后编辑 <code>CONTRIBUTING.md</code> 文件后先不暂存， 运行 <code>status</code> 命令将会看到：</p>
-<pre><code>$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    modified:   README
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 <code>git diff</code>：</p>
-<pre><code>$ git diff
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 8ebb991..643e24f 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -65,7 +65,8 @@ branch directly, things can get messy.
- Please include a nice description of your changes when you submit your PR;
- if we have to read the whole diff to figure out why you&apos;re contributing
- in the first place, you&apos;re less likely to get feedback and have your change
--merged in.
-+merged in. Also, split your changes into comprehensive chunks if your patch is
-+longer than a dozen lines.
-
- If you are starting to work on a particular area, feel free to submit a PR
- that highlights your work in progress (and note in the PR title that it&apos;s
-</code></pre><p>此命令比较的是工作目录中当前文件和暂存区域快照之间的差异， 也就是修改之后还没有暂存起来的变化内容。</p>
-<p>若要查看已暂存的将要添加到下次提交里的内容，可以用 <code>git diff --cached</code> 命令。（<code>Git 1.6.1</code> 及更高版本还允许使用 <code>git diff --staged</code>，效果是相同的，但更好记些。）</p>
-<pre><code>$ git diff --staged
-diff --git a/README b/README
-new file mode 100644
-index 0000000..03902a1
---- /dev/null
-+++ b/README
-@@ -0,0 +1 @@
-+My Project
-</code></pre><p>请注意，<code>git diff</code> 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。 所以有时候你一下子暂存了所有更新过的文件后，运行 <code>git diff</code> 后却什么也没有，就是这个原因。</p>
-<p>像之前说的，暂存 <code>CONTRIBUTING.md</code> 后再编辑，运行 <code>git status</code> 会看到暂存前后的两个版本。 如果我们的环境（终端输出）看起来如下：</p>
-<pre><code>$ git add CONTRIBUTING.md
-$ echo &apos;# test line&apos; &gt;&gt; CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    modified:   CONTRIBUTING.md
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>现在运行 <code>git diff</code> 看暂存前后的变化：</p>
-<pre><code>$ git diff
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 643e24f..87f08c8 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -119,3 +119,4 @@ at the
- ## Starter Projects
-
- See our [projects list](https://github.com/libgit2/libgit2/blob/development/PROJECTS.md).
-+# test line
-</code></pre><p>然后用 <code>git diff --cached</code> 查看已经暂存起来的变化：（<code>--staged</code> 和 <code>--cached</code> 是同义词）</p>
-<pre><code>$ git diff --cached
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 8ebb991..643e24f 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -65,7 +65,8 @@ branch directly, things can get messy.
- Please include a nice description of your changes when you submit your PR;
- if we have to read the whole diff to figure out why you&apos;re contributing
- in the first place, you&apos;re less likely to get feedback and have your change
--merged in.
-+merged in. Also, split your changes into comprehensive chunks if your patch is
-+longer than a dozen lines.
-
- If you are starting to work on a particular area, feel free to submit a PR
- that highlights your work in progress (and note in the PR title that it&apos;s
-Note
-</code></pre><p><code>Git Diff</code> 的插件版本<br>在本书中，我们使用 <code>git diff</code> 来分析文件差异。 但是，如果你喜欢通过图形化的方式或其它格式输出方式的话，可以使用 <code>git difftool</code> 命令来用 <code>Araxis</code> ，<code>emerge</code> 或 <code>vimdiff</code> 等软件输出 <code>diff</code> 分析结果。 使用 <code>git difftool --tool-help</code> 命令来看你的系统支持哪些 <code>Git Diff</code> 插件。</p>
-<h3 id="2-7-提交更新"><a href="#2-7-提交更新" class="headerlink" title="2.7. 提交更新"></a>2.7. 提交更新</h3><p>现在的暂存区域已经准备妥当可以提交了。 在此之前，请一定要确认还有什么修改过的或新建的文件还没有 <code>git add</code> 过，否则提交的时候不会记录这些还没暂存起来的变化。 这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 <code>git status</code> 看下，是不是都已暂存起来了， 然后再运行提交命令 <code>git commit</code>：</p>
-<pre><code>$ git commit
-</code></pre><p>这种方式会启动文本编辑器以便输入本次提交的说明。 (默认会启用 <code>shell</code> 的环境变量 <code>$EDITOR</code> 所指定的软件，一般都是 <code>vim</code> 或 <code>emacs</code>。当然也可以按照 起步 介绍的方式，使用 <code>git config --global core.editor</code> 命令设定你喜欢的编辑软件。）</p>
-<p>编辑器会显示类似下面的文本信息（本例选用 Vim 的屏显方式展示）：</p>
-<pre><code># Please enter the commit message for your changes. Lines starting
-# with &apos;#&apos; will be ignored, and an empty message aborts the commit.
-# On branch master
-# Changes to be committed:
-#    new file:   README
-#    modified:   CONTRIBUTING.md
-#
-~
-~
-~
-&quot;.git/COMMIT_EDITMSG&quot; 9L, 283C
-</code></pre><p>可以看到，默认的提交消息包含最后一次运行 <code>git status</code> 的输出，放在注释行里，另外开头还有一空行，供你输入提交说明。 你完全可以去掉这些注释行，不过留着也没关系，多少能帮你回想起这次更新的内容有哪些。 (如果想要更详细的对修改了哪些内容的提示，可以用 <code>-v</code> 选项，这会将你所做的改变的 <code>diff</code> 输出放到编辑器中从而使你知道本次提交具体做了哪些修改。） 退出编辑器时，Git 会丢掉注释行，用你输入提交附带信息生成一次提交。</p>
-<p>另外，你也可以在 <code>commit</code> 命令后添加 <code>-m</code> 选项，将提交信息与命令放在同一行，如下所示：</p>
-<pre><code>$ git commit -m &quot;Story 182: Fix benchmarks for speed&quot;
-[master 463dc4f] Story 182: Fix benchmarks for speed
- 2 files changed, 2 insertions(+)
- create mode 100644 README
-</code></pre><p>好，现在你已经创建了第一个提交！ 可以看到，提交后它会告诉你，当前是在哪个分支（<code>master</code>）提交的，本次提交的完整 <code>SHA-1</code> 校验和是什么（<code>463dc4f</code>），以及在本次提交中，有多少文件修订过，多少行添加和删改过。</p>
-<p>请记住，提交时记录的是放在暂存区域的快照。 任何还未暂存的仍然保持已修改状态，可以在下次提交时纳入版本管理。 每一次运行提交操作，都是对你项目作一次快照，以后可以回到这个状态，或者进行比较。</p>
-<h3 id="2-8-跳过使用暂存区域"><a href="#2-8-跳过使用暂存区域" class="headerlink" title="2.8. 跳过使用暂存区域"></a>2.8. 跳过使用暂存区域</h3><p>尽管使用暂存区域的方式可以精心准备要提交的细节，但有时候这么做略显繁琐。 Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 <code>git commit</code> 加上 <code>-a</code> 选项，Git 就会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 <code>git add</code> 步骤：</p>
-<pre><code>$ git status
-On branch master
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-$ git commit -a -m &apos;added new benchmarks&apos;
-[master 83e38c7] added new benchmarks
- 1 file changed, 5 insertions(+), 0 deletions(-)
-</code></pre><h3 id="2-9-移除文件"><a href="#2-9-移除文件" class="headerlink" title="2.9. 移除文件"></a>2.9. 移除文件</h3><p>要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。 可以用 <code>git rm</code> 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
-<p>如果只是简单地从工作目录中手工删除文件，运行 <code>git status</code> 时就会在 <code>“Changes not staged for commit”</code> 部分（也就是 未暂存清单）看到：</p>
-<pre><code>$ rm PROJECTS.md
-$ git status
-On branch master
-Your branch is up-to-date with &apos;origin/master&apos;.
-Changes not staged for commit:
-  (use &quot;git add/rm &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-        deleted:    PROJECTS.md
-
-no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
-</code></pre><p>然后再运行 <code>git rm</code> 记录此次移除文件的操作：</p>
-<pre><code>$ git rm PROJECTS.md
-rm &apos;PROJECTS.md&apos;
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    deleted:    PROJECTS.md
-</code></pre><p>下一次提交时，该文件就不再纳入版本管理了。 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 <code>-f</code>（译注：即 <code>force</code> 的首字母）。 这是一种安全特性，用于防止误删还没有添加到快照的数据，这样的数据不能被 Git 恢复。</p>
-<p><strong>另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。 换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪。 当你忘记添加 <code>.gitignore</code> 文件，不小心把一个很大的日志文件或一堆 <code>.a</code> 这样的编译生成文件添加到暂存区时，这一做法尤其有用。 为达到这一目的，使用 <code>--cached</code> 选项</strong>：</p>
-<pre><code>$ git rm --cached README
-</code></pre><p><code>git rm</code> 命令后面可以列出文件或者目录的名字，也可以使用 <code>glob</code> 模式。 比方说：</p>
-<pre><code>$ git rm log/\*.log
-</code></pre><p>注意到星号 <code>*</code> 之前的反斜杠 <code>\</code>， 因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 <code>shell</code> 来帮忙展开。 此命令删除 <code>log/</code> 目录下扩展名为 <code>.log</code> 的所有文件。 类似的比如：</p>
-<pre><code>$ git rm \*~
-</code></pre><p>该命令为删除以 <code>~</code> 结尾的所有文件。</p>
-<h3 id="2-10-移动文件"><a href="#2-10-移动文件" class="headerlink" title="2.10. 移动文件"></a>2.10. 移动文件</h3><p>不像其它的 <code>VCS</code> 系统，Git 并不显式跟踪文件移动操作。 如果在 Git 中重命名了某个文件，仓库中存储的元数据并不会体现出这是一次改名操作。 不过 Git 非常聪明，它会推断出究竟发生了什么，至于具体是如何做到的，我们稍后再谈。</p>
-<p>既然如此，当你看到 Git 的 <code>mv</code> 命令时一定会困惑不已。 要在 Git 中对文件改名，可以这么做：</p>
-<pre><code>$ git mv file_from file_to
-</code></pre><p>它会恰如预期般正常工作。 实际上，即便此时查看状态信息，也会明白无误地看到关于重命名操作的说明：</p>
-<pre><code>$ git mv README.md README
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    renamed:    README.md -&gt; README
-</code></pre><p>其实，运行 <code>git mv</code> 就相当于运行了下面三条命令：</p>
-<pre><code>$ mv README.md README
-$ git rm README.md
-$ git add README
-</code></pre><p>如此分开操作，Git 也会意识到这是一次改名，所以不管何种方式结果都一样。 两者唯一的区别是，<code>mv</code> 是一条命令而另一种方式需要三条命令，直接用 <code>git mv</code> 轻便得多。 不过有时候用其他工具批处理改名的话，要记得在提交前删除老的文件名，再添加新的文件名。</p>
-<h2 id="3-查看提交历史"><a href="#3-查看提交历史" class="headerlink" title="3.查看提交历史"></a>3.查看提交历史</h2><h3 id="3-1-查看提交历史"><a href="#3-1-查看提交历史" class="headerlink" title="3.1. 查看提交历史"></a>3.1. 查看提交历史</h3><p>在提交了若干更新，又或者克隆了某个项目之后，你也许想回顾下提交历史。 完成这个任务最简单而又有效的工具是 <code>git log</code> 命令。</p>
-<p>接下来的例子会用我专门用于演示的 <code>simplegit</code> 项目， 运行下面的命令获取该项目源代码：</p>
-<pre><code>git clone https://github.com/schacon/simplegit-progit
-</code></pre><p>然后在此项目中运行 <code>git log</code>，应该会看到下面的输出：</p>
-<pre><code>$ git log
-commit ca82a6dff817ec66f44342007202690a93763949
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Mar 17 21:52:11 2008 -0700
-
-    changed the version number
-
-commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Sat Mar 15 16:40:33 2008 -0700
-
-    removed unnecessary test
-
-commit a11bef06a3f659402fe7563abf99ad00de2209e6
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Sat Mar 15 10:31:28 2008 -0700
-
-    first commit
-</code></pre><p>默认不用任何参数的话，<code>git log</code> 会按提交时间列出所有的更新，最近的更新排在最上面。 正如你所看到的，这个命令会列出每个提交的 <code>SHA-1</code> 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。</p>
-<p><code>git log</code> 有许多选项可以帮助你搜寻你所要找的提交， 接下来我们介绍些最常用的。</p>
-<p>一个常用的选项是 <code>-p</code>，用来显示每次提交的内容差异。 你也可以加上 <code>-2</code> 来仅显示最近两次提交：</p>
-<pre><code>$ git log -p -2
-commit ca82a6dff817ec66f44342007202690a93763949
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Mar 17 21:52:11 2008 -0700
-
-    changed the version number
-
-diff --git a/Rakefile b/Rakefile
-index a874b73..8f94139 100644
---- a/Rakefile
-+++ b/Rakefile
-@@ -5,7 +5,7 @@ require &apos;rake/gempackagetask&apos;
- spec = Gem::Specification.new do |s|
-     s.platform  =   Gem::Platform::RUBY
-     s.name      =   &quot;simplegit&quot;
--    s.version   =   &quot;0.1.0&quot;
-+    s.version   =   &quot;0.1.1&quot;
-     s.author    =   &quot;Scott Chacon&quot;
-     s.email     =   &quot;schacon@gee-mail.com&quot;
-     s.summary   =   &quot;A simple gem for using Git in Ruby code.&quot;
-
-commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Sat Mar 15 16:40:33 2008 -0700
-
-    removed unnecessary test
-
-diff --git a/lib/simplegit.rb b/lib/simplegit.rb
-index a0a60ae..47c6340 100644
---- a/lib/simplegit.rb
-+++ b/lib/simplegit.rb
-@@ -18,8 +18,3 @@ class SimpleGit
-     end
-
- end
--
--if $0 == __FILE__
--  git = SimpleGit.new
--  puts git.show
--end
-\ No newline at end of file
-</code></pre><p>该选项除了显示基本信息之外，还附带了每次 <code>commit</code> 的变化。 当进行代码审查，或者快速浏览某个搭档提交的 <code>commit</code> 所带来的变化的时候，这个参数就非常有用了。 你也可以为 <code>git log</code> 附带一系列的总结性选项。 比如说，如果你想看到每次提交的简略的统计信息，你可以使用 –stat 选项：</p>
-<pre><code>$ git log --stat
-commit ca82a6dff817ec66f44342007202690a93763949
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Mar 17 21:52:11 2008 -0700
-
-    changed the version number
-
- Rakefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-commit 085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Sat Mar 15 16:40:33 2008 -0700
-
-    removed unnecessary test
-
- lib/simplegit.rb | 5 -----
- 1 file changed, 5 deletions(-)
-
-commit a11bef06a3f659402fe7563abf99ad00de2209e6
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Sat Mar 15 10:31:28 2008 -0700
-
-    first commit
-
- README           |  6 ++++++
- Rakefile         | 23 +++++++++++++++++++++++
- lib/simplegit.rb | 25 +++++++++++++++++++++++++
- 3 files changed, 54 insertions(+)
-</code></pre><p>正如你所看到的，<code>--stat</code> 选项在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。</p>
-<p>另外一个常用的选项是 <code>--pretty</code>。 这个选项可以指定使用不同于默认格式的方式展示提交历史。 这个选项有一些内建的子选项供你使用。 比如用 <code>oneline</code> 将每个提交放在一行显示，查看的提交数很大时非常有用。 另外还有 <code>short</code>，<code>full</code> 和 <code>fuller</code> 可以用，展示的信息或多或少有些不同，请自己动手实践一下看看效果如何。</p>
-<pre><code>$ git log --pretty=oneline
-ca82a6dff817ec66f44342007202690a93763949 changed the version number
-085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 removed unnecessary test
-a11bef06a3f659402fe7563abf99ad00de2209e6 first commit
-</code></pre><p>但最有意思的是 <code>format</code>，可以定制要显示的记录格式。 这样的输出对后期提取分析格外有用 — 因为你知道输出的格式不会随着 Git 的更新而发生改变：</p>
-<pre><code>$ git log --pretty=format:&quot;%h - %an, %ar : %s&quot;
-ca82a6d - Scott Chacon, 6 years ago : changed the version number
-085bb3b - Scott Chacon, 6 years ago : removed unnecessary test
-a11bef0 - Scott Chacon, 6 years ago : first commit
-</code></pre><p><code>git log --pretty=format</code> 常用的选项 列出了常用的格式占位符写法及其代表的意义。</p>
-<p><code>git log --pretty=format</code> 常用的选项：</p>
-<p>|—————–+————|<br>| 选项        | 说明   |<br>|—————–|:———–|<br>| %H     | 提交对象（commit）的完整哈希字串 |<br>| %h        |   提交对象的简短哈希字串   |<br>| %T        |    树对象（tree）的完整哈希字串    |<br>| %t     | 树对象的简短哈希字串 |<br>| %P        |   父对象（parent）的完整哈希字串   |<br>| %p        |    父对象的简短哈希字串    |<br>| %an     | 作者（author）的名字|<br>| %ae       |   作者的电子邮件地址   |<br>| %ad        |    作者修订日期（可以用 –date= 选项定制格式）    |<br>| %ar     | 作者修订日期，按多久以前的方式显示 |<br>| %cn        |  提交者（committer）的名字   |<br>| %ce        |    提交者的电子邮件地址    |<br>| %cd     | 提交日期 |<br>| %cr        |   提交日期，按多久以前的方式显示   |<br>| %s       |    提交说明    |<br>|—————–+————|</p>
-<p>你一定奇怪 作者 和 提交者 之间究竟有何差别， 其实作者指的是实际作出修改的人，提交者指的是最后将此工作成果提交到仓库的人。 所以，当你为某个项目发布补丁，然后某个核心成员将你的补丁并入项目时，你就是作者，而那个核心成员就是提交者。 我们会在 分布式 Git 再详细介绍两者之间的细微差别。</p>
-<p>当 <code>oneline</code> 或 <code>format</code> 与另一个 <code>log</code> 选项 <code>--graph</code> 结合使用时尤其有用。 这个选项添加了一些<code>ASCII</code>字符串来形象地展示你的分支、合并历史：</p>
-<pre><code>$ git log --pretty=format:&quot;%h %s&quot; --graph
-* 2d3acf9 ignore errors from SIGCHLD on trap
-*  5e3ee11 Merge branch &apos;master&apos; of git://github.com/dustin/grit
-|\
-| * 420eac9 Added a method for getting the current branch.
-* | 30e367c timeout code and tests
-* | 5a09431 add timeout protection to grit
-* | e1193f8 support for heads with slashes in them
-|/
-* d6016bc require time for xmlschema
-*  11d191e Merge branch &apos;defunkt&apos; into local
-</code></pre><p>以上只是简单介绍了一些 <code>git log</code> 命令支持的选项。 <code>git log</code> 的常用选项 列出了我们目前涉及到的和没涉及到的选项，以及它们是如何影响 <code>log</code> 命令的输出的：<br><code>git log</code> 的常用选项：</p>
-<p>|—————–+————|<br>| 选项        | 说明   |<br>|—————–|:———–|<br>| -p     | 按补丁格式显示每个更新之间的差异 |<br>| –stat        |   显示每次更新的文件修改统计信息   |<br>| –shortstat        |    只显示 –stat 中最后的行数修改添加移除统计    |<br>| –name-only     | 仅在提交信息后显示已修改的文件清单 |<br>| –name-status        |   显示新增、修改、删除的文件清单   |<br>| –abbrev-commit        |    仅显示 SHA-1 的前几个字符，而非所有的 40 个字符    |<br>| –relative-date     | 使用较短的相对时间显示（比如，“2 weeks ago”）|<br>| –graph       |   显示 ASCII 图形表示的分支合并历史   |<br>| –pretty        |    使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式））    |<br>|—————–+————|</p>
-<h3 id="3-2-限制输出长度"><a href="#3-2-限制输出长度" class="headerlink" title="3.2. 限制输出长度"></a>3.2. 限制输出长度</h3><p>除了定制输出格式的选项之外，<code>git log</code> 还有许多非常实用的限制输出长度的选项，也就是只输出部分提交信息。 之前你已经看到过 <code>-2</code> 了，它只显示最近的两条提交， 实际上，这是 <code>-&lt;n&gt;</code> 选项的写法，其中的 <code>n</code> 可以是任何整数，表示仅显示最近的若干条提交。 不过实践中我们是不太用这个选项的，Git 在输出所有提交时会自动调用分页程序，所以你一次只会看到一页的内容。</p>
-<p>另外还有按照时间作限制的选项，比如 <code>--since</code> 和 <code>--until</code> 也很有用。 例如，下面的命令列出所有最近两周内的提交：</p>
-<pre><code>$ git log --since=2.weeks
-</code></pre><p>这个命令可以在多种格式下工作，比如说具体的某一天 “2008-01-15”，或者是相对地多久以前 “2 years 1 day 3 minutes ago”。</p>
-<p>还可以给出若干搜索条件，列出符合的提交。 用 <code>--author</code> 选项显示指定作者的提交，用 <code>--grep</code> 选项搜索提交说明中的关键字。 （请注意，如果要得到同时满足这两个选项搜索条件的提交，就必须用 <code>--all-match</code> 选项。否则，满足任意一个条件的提交都会被匹配出来）</p>
-<p>另一个非常有用的筛选选项是 <code>-S</code>，可以列出那些添加或移除了某些字符串的提交。 比如说，你想找出添加或移除了某一个特定函数的引用的提交，你可以这样使用：</p>
-<pre><code>$ git log -Sfunction_name
-</code></pre><p>最后一个很实用的 <code>git log</code> 选项是路径（<code>path</code>）， 如果只关心某些文件或者目录的历史提交，可以在 <code>git log</code> 选项的最后指定它们的路径。 因为是放在最后位置上的选项，所以用两个短划线（<code>--</code>）隔开之前的选项和后面限定的路径名。</p>
-<p>在 限制 <code>git log</code> 输出的选项 中列出了常用的选项：</p>
-<p>|—————–+————|<br>| 选项        | 说明   |<br>|—————–|:———–|<br>| -(n)     | 仅显示最近的 n 条提交 |<br>| –since, –after        |   仅显示指定时间之后的提交   |<br>| –until, –before        |    仅显示指定时间之前的提交    |<br>| –author     | 仅显示指定作者相关的提交 |<br>| –committer        |   仅显示指定提交者相关的提交   |<br>| –grep        |    仅显示含指定关键字的提交    |<br>| -S     | 仅显示添加或移除了某个关键字的提交 |<br>|—————–+————|</p>
-<p>来看一个实际的例子，如果要查看 Git 仓库中，2008 年 10 月期间，Junio Hamano 提交的但未合并的测试文件，可以用下面的查询命令：</p>
-<pre><code>$ git log --pretty=&quot;%h - %s&quot; --author=gitster --since=&quot;2008-10-01&quot; \
-   --before=&quot;2008-11-01&quot; --no-merges -- t/
-5610e3b - Fix testcase failure when extended attributes are in use
-acd3b9e - Enhance hold_lock_file_for_{update,append}() API
-f563754 - demonstrate breakage of detached checkout with symbolic link HEAD
-d1a43f2 - reset --hard/read-tree --reset -u: remove unmerged new paths
-51a94af - Fix &quot;checkout --track -b newbranch&quot; on detached HEAD
-b0ad11e - pull: allow &quot;git pull origin $something:$current_branch&quot; into an unborn branch
-</code></pre><p>在近 40000 条提交中，上面的输出仅列出了符合条件的 6 条记录。</p>
-<h2 id="4-撤消操作"><a href="#4-撤消操作" class="headerlink" title="4.撤消操作"></a>4.撤消操作</h2><h3 id="4-1-撤消操作"><a href="#4-1-撤消操作" class="headerlink" title="4.1. 撤消操作"></a>4.1. 撤消操作</h3><p>在任何一个阶段，你都有可能想要撤消某些操作。 这里，我们将会学习几个撤消你所做修改的基本工具。 注意，有些撤消操作是不可逆的。 这是在使用 Git 的过程中，会因为操作失误而导致之前的工作丢失的少有的几个地方之一。</p>
-<p>有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 <code>--amend</code> 选项的提交命令尝试重新提交：</p>
-<pre><code>$ git commit --amend
-</code></pre><p>这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。</p>
-<p>文本编辑器启动后，可以看到之前的提交信息。 编辑后保存会覆盖原来的提交信息。</p>
-<p>例如，你提交后发现忘记了暂存某些需要的修改，可以像下面这样操作：</p>
-<pre><code>$ git commit -m &apos;initial commit&apos;
-$ git add forgotten_file
-$ git commit --amend
-</code></pre><p>最终你只会有一个提交 - 第二次提交将代替第一次提交的结果。</p>
-<p>取消暂存的文件<br>接下来的两个小节演示如何操作暂存区域与工作目录中已修改的文件。 这些命令在修改文件状态的同时，也会提示如何撤消操作。 例如，你已经修改了两个文件并且想要将它们作为两次独立的修改提交，但是却意外地输入了 <code>git add *</code> 暂存了它们两个。 如何只取消暂存两个中的一个呢？ <code>git status</code> 命令提示了你：</p>
-<pre><code>$ git add *
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    renamed:    README.md -&gt; README
-    modified:   CONTRIBUTING.md
-</code></pre><p>在 “<code>Changes to be committed</code>” 文字正下方，提示使用 <code>git reset HEAD &lt;file&gt;...</code> 来取消暂存。 所以，我们可以这样来取消暂存 <code>CONTRIBUTING.md</code> 文件：</p>
-<pre><code>$ git reset HEAD CONTRIBUTING.md
-Unstaged changes after reset:
-M    CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    renamed:    README.md -&gt; README
-
-Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>这个命令有点儿奇怪，但是起作用了。 <code>CONTRIBUTING.md</code> 文件已经是修改未暂存的状态了。</p>
-<p>Note<br>虽然在调用时加上 <code>--hard</code> 选项可以令 <code>git reset</code> 成为一个危险的命令（译注：可能导致工作目录中所有当前进度丢失！），但本例中工作目录内的文件并不会被修改。 不加选项地调用 <code>git reset</code> 并不危险 — 它只会修改暂存区域。</p>
-<p>到目前为止这个神奇的调用就是你需要对 <code>git reset</code> 命令了解的全部。我们将会在 重置揭密 中了解 <code>reset</code> 的更多细节以及如何掌握它做一些真正有趣的事。</p>
-<h3 id="4-2-撤消对文件的修改"><a href="#4-2-撤消对文件的修改" class="headerlink" title="4.2. 撤消对文件的修改"></a>4.2. 撤消对文件的修改</h3><p>如果你并不想保留对 <code>CONTRIBUTING.md</code> 文件的修改怎么办？ 你该如何方便地撤消修改 - 将它还原成上次提交时的样子（或者刚克隆完的样子，或者刚把它放入工作目录时的样子）？ 幸运的是，<code>git status</code> 也告诉了你应该如何做。 在最后一个例子中，未暂存区域是这样：</p>
-<pre><code>Changes not staged for commit:
-  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
-  (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
-
-    modified:   CONTRIBUTING.md
-</code></pre><p>它非常清楚地告诉了你如何撤消之前所做的修改。 让我们来按照提示执行：</p>
-<pre><code>$ git checkout -- CONTRIBUTING.md
-$ git status
-On branch master
-Changes to be committed:
-  (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
-
-    renamed:    README.md -&gt; README
-</code></pre><p>可以看到那些修改已经被撤消了。</p>
-<p>Important<br>你需要知道 <code>git checkout -- [file]</code> 是一个危险的命令，这很重要。 你对那个文件做的任何修改都会消失 - 你只是拷贝了另一个文件来覆盖它。 除非你确实清楚不想要那个文件了，否则不要使用这个命令。</p>
-<p>如果你仍然想保留对那个文件做出的修改，但是现在仍然需要撤消，我们将会在 Git 分支 介绍保存进度与分支；这些通常是更好的做法。</p>
-<p>记住，在 Git 中任何 已提交的 东西几乎总是可以恢复的。 甚至那些被删除的分支中的提交或使用 <code>--amend</code> 选项覆盖的提交也可以恢复（阅读 数据恢复 了解数据恢复）。 然而，任何你未提交的东西丢失后很可能再也找不到了。</p>
-<h2 id="5-远程仓库的使用"><a href="#5-远程仓库的使用" class="headerlink" title="5.远程仓库的使用"></a>5.远程仓库的使用</h2><h3 id="5-1-远程仓库的使用"><a href="#5-1-远程仓库的使用" class="headerlink" title="5.1. 远程仓库的使用"></a>5.1. 远程仓库的使用</h3><p>为了能在任意 Git 项目上协作，你需要知道如何管理自己的远程仓库。 远程仓库是指托管在因特网或其他网络中的你的项目的版本库。 你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。 与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。 管理远程仓库包括了解如何添加远程仓库、移除无效的远程仓库、管理不同的远程分支并定义它们是否被跟踪等等。</p>
-<p>查看远程仓库<br>如果想查看你已经配置的远程仓库服务器，可以运行 <code>git remote</code> 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 <code>origin -</code> 这是 Git 给你克隆的仓库服务器的默认名字：</p>
-<pre><code>$ git clone https://github.com/schacon/ticgit
-Cloning into &apos;ticgit&apos;...
-remote: Reusing existing pack: 1857, done.
-remote: Total 1857 (delta 0), reused 0 (delta 0)
-Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
-Resolving deltas: 100% (772/772), done.
-Checking connectivity... done.
-$ cd ticgit
-$ git remote
-origin
-</code></pre><p>你也可以指定选项 <code>-v</code>，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。</p>
-<pre><code>$ git remote -v
-origin    https://github.com/schacon/ticgit (fetch)
-origin    https://github.com/schacon/ticgit (push)
-</code></pre><p>如果你的远程仓库不止一个，该命令会将它们全部列出。 例如，与几个协作者合作的，拥有多个远程仓库的仓库看起来像下面这样：</p>
-<pre><code>$ cd grit
-$ git remote -v
-bakkdoor  https://github.com/bakkdoor/grit (fetch)
-bakkdoor  https://github.com/bakkdoor/grit (push)
-cho45     https://github.com/cho45/grit (fetch)
-cho45     https://github.com/cho45/grit (push)
-defunkt   https://github.com/defunkt/grit (fetch)
-defunkt   https://github.com/defunkt/grit (push)
-koke      git://github.com/koke/grit.git (fetch)
-koke      git://github.com/koke/grit.git (push)
-origin    git@github.com:mojombo/grit.git (fetch)
-origin    git@github.com:mojombo/grit.git (push)
-</code></pre><p>这样我们可以轻松拉取其中任何一个用户的贡献。 此外，我们大概还会有某些远程仓库的推送权限，虽然我们目前还不会在此介绍。</p>
-<p>注意这些远程仓库使用了不同的协议；我们将会在 在服务器上搭建 Git 中了解关于它们的更多信息。</p>
-<h3 id="5-2-添加远程仓库"><a href="#5-2-添加远程仓库" class="headerlink" title="5.2. 添加远程仓库"></a>5.2. 添加远程仓库</h3><p>我在之前的章节中已经提到并展示了如何添加远程仓库的示例，不过这里将告诉你如何明确地做到这一点。 运行 <code>git remote add &lt;shortname&gt; &lt;url&gt;</code> 添加一个新的远程 Git 仓库，同时指定一个你可以轻松引用的简写：</p>
-<pre><code>$ git remote origin
-$ git remote add pb https://github.com/paulboone/ticgit
-$ git remote -v
-origin    https://github.com/schacon/ticgit (fetch)
-origin    https://github.com/schacon/ticgit (push)
-pb    https://github.com/paulboone/ticgit (fetch)
-pb    https://github.com/paulboone/ticgit (push)
-</code></pre><p>现在你可以在命令行中使用字符串 <code>pb</code> 来代替整个 URL。 例如，如果你想拉取 <code>Paul</code> 的仓库中有但你没有的信息，可以运行 <code>git fetch pb</code>：</p>
-<pre><code>$ git fetch pb
-remote: Counting objects: 43, done.
-remote: Compressing objects: 100% (36/36), done.
-remote: Total 43 (delta 10), reused 31 (delta 5)
-Unpacking objects: 100% (43/43), done.
-From https://github.com/paulboone/ticgit
- * [new branch]      master     -&gt; pb/master
- * [new branch]      ticgit     -&gt; pb/ticgit
-</code></pre><p>现在 <code>Paul</code> 的 <code>master</code> 分支可以在本地通过 <code>pb/master</code> 访问到 - 你可以将它合并到自己的某个分支中，或者如果你想要查看它的话，可以检出一个指向该点的本地分支。 </p>
-<h3 id="5-3-从远程仓库中抓取与拉取"><a href="#5-3-从远程仓库中抓取与拉取" class="headerlink" title="5.3. 从远程仓库中抓取与拉取"></a>5.3. 从远程仓库中抓取与拉取</h3><p>就如刚才所见，从远程仓库中获得数据，可以执行：</p>
-<pre><code>$ git fetch [remote-name]
-</code></pre><p>这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看。</p>
-<p>如果你使用 <code>clone</code> 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 <code>“origin”</code> 为简写。 所以，<code>git fetch origin</code> 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 <code>git fetch</code> 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。</p>
-<p>如果你有一个分支设置为跟踪一个远程分支，可以使用 <code>git pull</code> 命令来自动的抓取然后合并远程分支到当前分支。 这对你来说可能是一个更简单或更舒服的工作流程；默认情况下，<code>git clone</code> 命令会自动设置本地 <code>master</code> 分支跟踪克隆的远程仓库的 <code>master</code> 分支（或不管是什么名字的默认分支）。 运行 <code>git pull</code> 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。</p>
-<p>推送到远程仓库<br>当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：<code>git push [remote-name] [branch-name]</code>。 当你想要将 <code>master</code> 分支推送到 <code>origin</code> 服务器时（再次说明，克隆时通常会自动帮你设置好那两个名字），那么运行这个命令就可以将你所做的备份到服务器：</p>
-<pre><code>$ git push origin master
-</code></pre><p>只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送。</p>
-<h3 id="5-4-查看远程仓库"><a href="#5-4-查看远程仓库" class="headerlink" title="5.4. 查看远程仓库"></a>5.4. 查看远程仓库</h3><p>如果想要查看某一个远程仓库的更多信息，可以使用 <code>git remote show [remote-name]</code> 命令。 如果想以一个特定的缩写名运行这个命令，例如 <code>origin</code>，会得到像下面类似的信息：</p>
-<pre><code>$ git remote show origin
-* remote origin
-  Fetch URL: https://github.com/schacon/ticgit
-  Push  URL: https://github.com/schacon/ticgit
-  HEAD branch: master
-  Remote branches:
-    master                               tracked
-    dev-branch                           tracked
-  Local branch configured for &apos;git pull&apos;:
-    master merges with remote master
-  Local ref configured for &apos;git push&apos;:
-    master pushes to master (up to date)
-</code></pre><p>它同样会列出远程仓库的 URL 与跟踪分支的信息。 这些信息非常有用，它告诉你正处于 <code>master</code> 分支，并且如果运行 <code>git pull</code>，就会抓取所有的远程引用，然后将远程 <code>master</code> 分支合并到本地 <code>master</code> 分支。 它也会列出拉取到的所有远程引用。</p>
-<p>这是一个经常遇到的简单例子。 如果你是 Git 的重度使用者，那么还可以通过 <code>git remote show</code> 看到更多的信息。</p>
-<pre><code>$ git remote show origin
-* remote origin
-  URL: https://github.com/my-org/complex-project
-  Fetch URL: https://github.com/my-org/complex-project
-  Push  URL: https://github.com/my-org/complex-project
-  HEAD branch: master
-  Remote branches:
-    master                           tracked
-    dev-branch                       tracked
-    markdown-strip                   tracked
-    issue-43                         new (next fetch will store in remotes/origin)
-    issue-45                         new (next fetch will store in remotes/origin)
-    refs/remotes/origin/issue-11     stale (use &apos;git remote prune&apos; to remove)
-  Local branches configured for &apos;git pull&apos;:
-    dev-branch merges with remote dev-branch
-    master     merges with remote master
-  Local refs configured for &apos;git push&apos;:
-    dev-branch                     pushes to dev-branch                     (up to date)
-    markdown-strip                 pushes to markdown-strip                 (up to date)
-    master                         pushes to master                         (up to date)
-</code></pre><p>这个命令列出了当你在特定的分支上执行 <code>git push</code> 会自动地推送到哪一个远程分支。 它也同样地列出了哪些远程分支不在你的本地，哪些远程分支已经从服务器上移除了，还有当你执行 <code>git pull</code> 时哪些分支会自动合并。</p>
-<p>远程仓库的移除与重命名<br>如果想要重命名引用的名字可以运行 <code>git remote rename</code> 去修改一个远程仓库的简写名。 例如，想要将 <code>pb</code> 重命名为 <code>paul</code>，可以用 git remote rename 这样做：</p>
-<pre><code>$ git remote rename pb paul
-$ git remote
-origin
-paul
-</code></pre><p>值得注意的是这同样也会修改你的远程分支名字。 那些过去引用 <code>pb/master</code> 的现在会引用 <code>paul/master</code>。</p>
-<p>如果因为一些原因想要移除一个远程仓库 - 你已经从服务器上搬走了或不再想使用某一个特定的镜像了，又或者某一个贡献者不再贡献了 - 可以使用 <code>git remote rm</code> ：</p>
-<pre><code>$ git remote rm paul
-$ git remote
-origin
-</code></pre><h2 id="6-打标签"><a href="#6-打标签" class="headerlink" title="6.打标签"></a>6.打标签</h2><h3 id="6-1-列出标签"><a href="#6-1-列出标签" class="headerlink" title="6.1. 列出标签"></a>6.1. 列出标签</h3><p>在 Git 中列出已有的标签是非常简单直观的。 只需要输入 <code>git tag</code>：</p>
-<pre><code>$ git tag
-v0.1
-v1.3
-</code></pre><p>这个命令以字母顺序列出标签；但是它们出现的顺序并不重要。</p>
-<p>你也可以使用特定的模式查找标签。 例如，Git 自身的源代码仓库包含标签的数量超过 500 个。 如果只对 1.8.5 系列感兴趣，可以运行：</p>
-<pre><code>$ git tag -l &apos;v1.8.5*&apos;
-v1.8.5
-v1.8.5-rc0
-v1.8.5-rc1
-v1.8.5-rc2
-v1.8.5-rc3
-v1.8.5.1
-v1.8.5.2
-v1.8.5.3
-v1.8.5.4
-v1.8.5.5
-</code></pre><h3 id="6-2-创建标签"><a href="#6-2-创建标签" class="headerlink" title="6.2. 创建标签"></a>6.2. 创建标签</h3><p>Git 使用两种主要类型的标签：轻量标签（<code>lightweight</code>）与附注标签（<code>annotated</code>）。</p>
-<p>一个轻量标签很像一个不会改变的分支 - 它只是一个特定提交的引用。</p>
-<p>然而，附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 <code>GNU Privacy Guard</code> （<code>GPG</code>）签名与验证。 通常建议创建附注标签，这样你可以拥有以上所有信息；但是如果你只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。</p>
-<h3 id="6-3-附注标签"><a href="#6-3-附注标签" class="headerlink" title="6.3. 附注标签"></a>6.3. 附注标签</h3><p>在 Git 中创建一个附注标签是很简单的。 最简单的方式是当你在运行 <code>tag</code> 命令时指定 <code>-a</code> 选项：</p>
-<pre><code>$ git tag -a v1.4 -m &apos;my version 1.4&apos;
-$ git tag
-v0.1
-v1.3
-v1.4
-</code></pre><p><code>-m</code> 选项指定了一条将会存储在标签中的信息。 如果没有为附注标签指定一条信息，Git 会运行编辑器要求你输入信息。</p>
-<p>通过使用 <code>git show</code> 命令可以看到标签信息与对应的提交信息：</p>
-<pre><code>$ git show v1.4
-tag v1.4
-Tagger: Ben Straub &lt;ben@straub.cc&gt;
-Date:   Sat May 3 20:19:12 2014 -0700
-
-my version 1.4
-
-commit ca82a6dff817ec66f44342007202690a93763949
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Mar 17 21:52:11 2008 -0700
-
-    changed the version number
-</code></pre><p>输出显示了打标签者的信息、打标签的日期时间、附注信息，然后显示具体的提交信息。</p>
-<h3 id="6-4-轻量标签"><a href="#6-4-轻量标签" class="headerlink" title="6.4. 轻量标签"></a>6.4. 轻量标签</h3><p>另一种给提交打标签的方式是使用轻量标签。 轻量标签本质上是将提交校验和存储到一个文件中 - 没有保存任何其他信息。 创建轻量标签，不需要使用 <code>-a</code>、<code>-s</code> 或 <code>-m</code> 选项，只需要提供标签名字：</p>
-<pre><code>$ git tag v1.4-lw
-$ git tag
-v0.1
-v1.3
-v1.4
-v1.4-lw
-v1.5
-</code></pre><p>这时，如果在标签上运行 <code>git show</code>，你不会看到额外的标签信息。 命令只会显示出提交信息：</p>
-<pre><code>$ git show v1.4-lw
-commit ca82a6dff817ec66f44342007202690a93763949
-Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Mar 17 21:52:11 2008 -0700
-
-changed the version number
-</code></pre><h3 id="6-5-后期打标签"><a href="#6-5-后期打标签" class="headerlink" title="6.5. 后期打标签"></a>6.5. 后期打标签</h3><p>你也可以对过去的提交打标签。 假设提交历史是这样的：</p>
-<pre><code>$ git log --pretty=oneline
-15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch &apos;experiment&apos;
-a6b4c97498bd301d84096da251c98a07c7723e65 beginning write support
-0d52aaab4479697da7686c15f77a3d64d9165190 one more thing
-6d52a271eda8725415634dd79daabbc4d9b6008e Merge branch &apos;experiment&apos;
-0b7434d86859cc7b8c3d5e1dddfed66ff742fcbc added a commit function
-4682c3261057305bdd616e23b64b0857d832627b added a todo file
-166ae0c4d3f420721acbb115cc33848dfcc2121a started write support
-9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
-964f16d36dfccde844893cac5b347e7b3d44abbc commit the todo
-8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme
-</code></pre><p>现在，假设在 <code>v1.2</code> 时你忘记给项目打标签，也就是在 “<code>updated rakefile</code>” 提交。 你可以在之后补上标签。 要在那个提交上打标签，你需要在命令的末尾指定提交的校验和（或部分校验和）:</p>
-<pre><code>$ git tag -a v1.2 9fceb02
-</code></pre><p>可以看到你已经在那次提交上打上标签了：</p>
-<pre><code>$ git tag
-v0.1
-v1.2
-v1.3
-v1.4
-v1.4-lw
-v1.5
-
-$ git show v1.2
-tag v1.2
-Tagger: Scott Chacon &lt;schacon@gee-mail.com&gt;
-Date:   Mon Feb 9 15:32:16 2009 -0800
-
-version 1.2
-commit 9fceb02d0ae598e95dc970b74767f19372d61af8
-Author: Magnus Chacon &lt;mchacon@gee-mail.com&gt;
-Date:   Sun Apr 27 20:43:35 2008 -0700
-
-    updated rakefile
-...
-</code></pre><h3 id="6-6-共享标签"><a href="#6-6-共享标签" class="headerlink" title="6.6. 共享标签"></a>6.6. 共享标签</h3><p>默认情况下，<code>git push</code> 命令并不会传送标签到远程仓库服务器上。 在创建完标签后你必须显式地推送标签到共享服务器上。 这个过程就像共享远程分支一样 - 你可以运行 g<code>it push origin [tagname]</code>。</p>
-<pre><code>$ git push origin v1.5
-Counting objects: 14, done.
-Delta compression using up to 8 threads.
-Compressing objects: 100% (12/12), done.
-Writing objects: 100% (14/14), 2.05 KiB | 0 bytes/s, done.
-Total 14 (delta 3), reused 0 (delta 0)
-To git@github.com:schacon/simplegit.git
- * [new tag]         v1.5 -&gt; v1.5
-</code></pre><p>如果想要一次性推送很多标签，也可以使用带有 <code>--tags</code> 选项的 <code>git push</code> 命令。 这将会把所有不在远程仓库服务器上的标签全部传送到那里。</p>
-<pre><code>$ git push origin --tags
-Counting objects: 1, done.
-Writing objects: 100% (1/1), 160 bytes | 0 bytes/s, done.
-Total 1 (delta 0), reused 0 (delta 0)
-To git@github.com:schacon/simplegit.git
- * [new tag]         v1.4 -&gt; v1.4
- * [new tag]         v1.4-lw -&gt; v1.4-lw
-</code></pre><p>现在，当其他人从仓库中克隆或拉取，他们也能得到你的那些标签。</p>
-<p>检出标签<br>在 Git 中你并不能真的检出一个标签，因为它们并不能像分支一样来回移动。 如果你想要工作目录与仓库中特定的标签版本完全一样，可以使用 <code>git checkout -b [branchname] [tagname]</code> 在特定的标签上创建一个新分支：</p>
-<pre><code>$ git checkout -b version2 v2.0.0
-Switched to a new branch &apos;version2&apos;
-</code></pre><p>当然，如果在这之后又进行了一次提交，<code>version2</code> 分支会因为改动向前移动了，那么 <code>version2</code> 分支就会和 <code>v2.0.0</code> 标签稍微有些不同，这时就应该当心了。</p>
-<h2 id="7-Git-别名"><a href="#7-Git-别名" class="headerlink" title="7.Git 别名"></a>7.Git 别名</h2><p>在我们结束本章 Git 基础之前，正好有一个小技巧可以使你的 Git 体验更简单、容易、熟悉：别名。 我们不会在之后的章节中引用到或假定你使用过它们，但是你大概应该知道如何使用它们。</p>
-<p>Git 并不会在你输入部分命令时自动推断出你想要的命令。 如果不想每次都输入完整的 Git 命令，可以通过 <code>git config</code> 文件来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试：</p>
-<pre><code>$ git config --global alias.co checkout
-$ git config --global alias.br branch
-$ git config --global alias.ci commit
-$ git config --global alias.st status
-</code></pre><p>这意味着，当要输入 <code>git commit</code> 时，只需要输入 <code>git ci</code>。 随着你继续不断地使用 Git，可能也会经常使用其他命令，所以创建别名时不要犹豫。</p>
-<p>在创建你认为应该存在的命令时这个技术会很有用。 例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：</p>
-<pre><code>$ git config --global alias.unstage &apos;reset HEAD --&apos;
-</code></pre><p>这会使下面的两个命令等价：</p>
-<pre><code>$ git unstage fileA
-$ git reset HEAD -- fileA
-</code></pre><p>这样看起来更清楚一些。 通常也会添加一个 <code>last</code> 命令，像这样：</p>
-<pre><code>$ git config --global alias.last &apos;log -1 HEAD&apos;
-</code></pre><p>这样，可以轻松地看到最后一次提交：</p>
-<pre><code>$ git last
-commit 66938dae3329c7aebe598c2246a8e6af90d04646
-Author: Josh Goebel &lt;dreamer3@example.com&gt;
-Date:   Tue Aug 26 19:48:51 2008 +0800
-
-    test for current head
-
-    Signed-off-by: Scott Chacon &lt;schacon@example.com&gt;
-</code></pre><p>可以看出，Git 只是简单地将别名替换为对应的命令。 然而，你可能想要执行外部命令，而不是一个 Git 子命令。 如果是那样的话，可以在命令前面加入 ! 符号。 如果你自己要写一些与 Git 仓库协作的工具的话，那会很有用。 我们现在演示将 <code>git visual</code> 定义为 <code>gitk</code> 的别名：</p>
-<pre><code>$ git config --global alias.visual &apos;!gitk&apos;
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -6394,7 +5962,7 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -6463,7 +6031,7 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

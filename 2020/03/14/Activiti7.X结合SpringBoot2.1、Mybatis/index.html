@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Activiti7.X结合SpringBoot2.1、MybatisActiviti简介Activiti介绍 Activiti 是由 jBPM 的创建者 Tom Baeyens 离开 JBoss 之后建立的项目，构建在开发 jBPM 版本 1 到 4 时积累的多年经验的基础之上，旨在创建下一代的 BPM 解决方案。 Activiti是一个开源的工作流引擎，它实现了BPMN 2.0规范，可以发布设计">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti7.X结合SpringBoot2.1、Mybatis">
+<meta property="og:url" content="https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="Activiti7.X结合SpringBoot2.1、MybatisActiviti简介Activiti介绍 Activiti 是由 jBPM 的创建者 Tom Baeyens 离开 JBoss 之后建立的项目，构建在开发 jBPM 版本 1 到 4 时积累的多年经验的基础之上，旨在创建下一代的 BPM 解决方案。 Activiti是一个开源的工作流引擎，它实现了BPMN 2.0规范，可以发布设计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LHE-A0W4uh4yR1u7ql8%2F-LHE-EAcoOsHLfdz-Di9%2F-LHE-FC7enBS3Fh9WnbR%2FAcitiviti_Icon_FullColor_GitHub_400x400.png?generation=1531407568078053&alt=media">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/activiti.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG430.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG432.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG433.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG434.png">
+<meta property="og:updated_time" content="2020-03-04T09:32:40.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activiti7.X结合SpringBoot2.1、Mybatis">
+<meta name="twitter:description" content="Activiti7.X结合SpringBoot2.1、MybatisActiviti简介Activiti介绍 Activiti 是由 jBPM 的创建者 Tom Baeyens 离开 JBoss 之后建立的项目，构建在开发 jBPM 版本 1 到 4 时积累的多年经验的基础之上，旨在创建下一代的 BPM 解决方案。 Activiti是一个开源的工作流引擎，它实现了BPMN 2.0规范，可以发布设计">
+<meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LHE-A0W4uh4yR1u7ql8%2F-LHE-EAcoOsHLfdz-Di9%2F-LHE-FC7enBS3Fh9WnbR%2FAcitiviti_Icon_FullColor_GitHub_400x400.png?generation=1531407568078053&alt=media">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/"/>
+
+
+
+
+
+  <title>Activiti7.X结合SpringBoot2.1、Mybatis | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Activiti7.X结合SpringBoot2.1、Mybatis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-14T18:33:00+08:00">
+                2020-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Activiti7-X结合SpringBoot2-1、Mybatis"><a href="#Activiti7-X结合SpringBoot2-1、Mybatis" class="headerlink" title="Activiti7.X结合SpringBoot2.1、Mybatis"></a>Activiti7.X结合SpringBoot2.1、Mybatis</h1><h2 id="Activiti简介"><a href="#Activiti简介" class="headerlink" title="Activiti简介"></a>Activiti简介</h2><h3 id="Activiti介绍"><a href="#Activiti介绍" class="headerlink" title="Activiti介绍"></a>Activiti介绍</h3><p><img src="https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/assets%2F-LHE-A0W4uh4yR1u7ql8%2F-LHE-EAcoOsHLfdz-Di9%2F-LHE-FC7enBS3Fh9WnbR%2FAcitiviti_Icon_FullColor_GitHub_400x400.png?generation=1531407568078053&amp;alt=media" alt="image"></p>
+<p>Activiti 是由 jBPM 的创建者 Tom Baeyens 离开 JBoss 之后建立的项目，构建在开发 jBPM 版本 1 到 4 时积累的多年经验的基础之上，旨在创建下一代的 BPM 解决方案。</p>
+<p>Activiti是一个开源的工作流引擎，它实现了BPMN 2.0规范，可以发布设计好的流程定义，并通过api进行流程调度。</p>
+<p>Activiti 作为一个遵从 Apache 许可的工作流和业务流程管理开源平台，其核心是基于Java的超快速、超稳定的 BPMN2.0 流程引擎，强调流程服务的可嵌入性和可扩展性，同时更加强调面向业务人员。</p>
+<p>Activiti 流程引擎重点关注在系统开发的易用性和轻量性上。每一项 BPM 业务功能 Activiti 流程引擎都以服务的形式提供给开发人员。通过使用这些服务，开发人员能够构建出功能丰富、轻便且高效的 BPM 应用程序。</p>
+<p>Activiti是一个针对企业用户、开发人员、系统管理员的轻量级工作流业务管理平台，其核心是使用Java开发的快速、稳定的BPMN e 2.0流程引擎。Activiti是在ApacheV2许可下发布的，可以运行在任何类型的Java程序中，例如服务器、集群、云服务等。Activiti可以完美地与Spring集成。同时，基于简约思想的设计使Activiti非常轻量级。</p>
+<p>目前Activiti有2个版本，一个本地的core，一个可以支持分布式的cloud，本文只介绍core，新版 Activiti 7.0.0 发布后，Activiti Cloud 现在是新一代商业自动化平台，提供一组旨在在分布式基础架构上运行的 Cloud原生构建块。Cloud可以参考<a href="https://activiti.gitbook.io/activiti-7-developers-guide/getting-started" target="_blank" rel="noopener">官网</a></p>
+<p>Activiti 7.x 主要突出了 Spring Boot 2.x 应用程序中的 ProcessRuntime 和 TaskRuntime API 的使用。</p>
+<h3 id="BPMN"><a href="#BPMN" class="headerlink" title="BPMN"></a>BPMN</h3><p>BPMN（Business Process Model And Notation）-业务流程模型和符号是由BPMI（Business Process Management Initiative）开发的一套标准的业务流程建模符号，使用BPMN提供的符号可以创建业务流程。</p>
+<p>Activiti 就是使用BPMN 2.0 进行流程建模、流程执行管理，它包括很多的建模符号，比如：Event 用一个圆圈表示，它是流程中运行过程中发生的事情。</p>
+<p>一个bpmn图形的例子：</p>
+<p>首先当事人发起一个请假单<br>其次他所在部门的经理对请假单进行审核<br>然后人事经理进行复核并进行备案<br>最后请假流程结束</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><p>代码库地址：<a href="https://github.com/dinghuang/activiti-service.git" target="_blank" rel="noopener">https://github.com/dinghuang/activiti-service.git</a></p>
+<p>创建maven应用，pom引入包<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></span><br><span class="line"><span class="xml">         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dinghuang-framework-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dinghuang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0-RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>activiti<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>activiti project for Spring Boot<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mapstruct</span>&gt;</span>1.3.0.Final<span class="tag">&lt;/<span class="name">mapstruct</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">activiti.version</span>&gt;</span>7.1.0.M6<span class="tag">&lt;/<span class="name">activiti.version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">spring-boot</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">spring-boot</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">fastjson</span>&gt;</span>1.2.47<span class="tag">&lt;/<span class="name">fastjson</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">commons-collections</span>&gt;</span>3.2.2<span class="tag">&lt;/<span class="name">commons-collections</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">commons-lang3</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">commons-lang3</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">swagger-annotations</span>&gt;</span>1.5.16<span class="tag">&lt;/<span class="name">swagger-annotations</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">springfox-swagger2</span>&gt;</span>2.7.0<span class="tag">&lt;/<span class="name">springfox-swagger2</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">druid</span>&gt;</span>1.1.10<span class="tag">&lt;/<span class="name">druid</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mybatis-plus-boot-starter</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">mybatis-plus-boot-starter</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">feign-hystrix</span>&gt;</span>9.5.0<span class="tag">&lt;/<span class="name">feign-hystrix</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">lombok</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">lombok</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">mysql-connector-java</span>&gt;</span>8.0.15<span class="tag">&lt;/<span class="name">mysql-connector-java</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">liquibase-core</span>&gt;</span>3.5.3<span class="tag">&lt;/<span class="name">liquibase-core</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">validation-api</span>&gt;</span>2.0.1.Final<span class="tag">&lt;/<span class="name">validation-api</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">hibernate-validator</span>&gt;</span>6.0.15.Final<span class="tag">&lt;/<span class="name">hibernate-validator</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti.dependencies<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;activiti.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.12.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;activiti.version&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.postgresql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>postgresql<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>42.2.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- Activiti生成流程图 --&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.activiti<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activiti-image-generator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;spring-boot&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dinghuang<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dinghuang-framework-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0-RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-compiler-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">source</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">target</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">annotationProcessorPaths</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="comment">&lt;!--这个配置是因为lombok跟mapstruct一起用的时候maven对注解的解析器选择有点问题--&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mapstruct<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapstruct-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$</span><span class="template-variable">&#123;mapstruct&#125;</span><span class="xml"><span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">path</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">annotationProcessorPaths</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;<span class="name">compilerArgs</span>&gt;</span></span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;<span class="name">compilerArg</span>&gt;</span></span></span><br><span class="line"><span class="xml">                            -Amapstruct.defaultComponentModel=spring</span></span><br><span class="line"><span class="xml">                        <span class="tag">&lt;/<span class="name">compilerArg</span>&gt;</span></span></span><br><span class="line"><span class="xml">                    <span class="tag">&lt;/<span class="name">compilerArgs</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>demo<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="与mysql结合"><a href="#与mysql结合" class="headerlink" title="与mysql结合"></a>与mysql结合</h3><p>在<code>resource</code>目录下准备文件<code>activiti.cfg.xml</code>，内容如下：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml <span class="built_in">version</span>=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;beans xmlns=<span class="string">"http://www.springframework.org/schema/beans"</span></span><br><span class="line">       xmlns:xsi=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span><br><span class="line">       xsi:schemaLocation=<span class="string">"http://www.springframework.org/schema/beans</span></span><br><span class="line"><span class="string">                           http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span><br><span class="line">    &lt;bean <span class="built_in">id</span>=<span class="string">"processEngineConfiguration"</span> <span class="built_in">class</span>=<span class="string">"org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration"</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"databaseType"</span> value=<span class="string">"mysql"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcUrl"</span> value=<span class="string">"jdbc:mysql://localhost:3306/activiti"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcDriver"</span> value=<span class="string">"com.mysql.jdbc.Driver"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcUsername"</span> value=<span class="string">"root"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"jdbcPassword"</span> value=<span class="string">"root"</span>&gt;&lt;/<span class="keyword">property</span>&gt;</span><br><span class="line">    &lt;/bean&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure></p>
+<p>执行下面的代码，初始化db数据库或者配置springboot配置文件，会自动生成25个表，代码执行如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.impl.db.DbSchemaCreate;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/2/28</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DbSchemaCreate.main(args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>配置文件如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr"> activiti:</span></span><br><span class="line">  <span class="comment"># 自动建表</span></span><br><span class="line"><span class="attr">  database-schema:</span> <span class="string">ACTIVITI</span></span><br><span class="line">  <span class="comment">#表示启动时检查数据库表，不存在则创建</span></span><br><span class="line"><span class="attr">  database-schema-update:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment">#表示哪种情况下使用历史表，这里配置为full表示全部记录历史，方便绘制流程图</span></span><br><span class="line"><span class="attr">  history-level:</span> <span class="string">full</span></span><br><span class="line">  <span class="comment">#表示使用历史表，如果不配置，则工程启动后可以检查数据库，只建立了17张表，历史表没有建立，则流程图及运行节点无法展示</span></span><br><span class="line"><span class="attr">  db-history-used:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">project:</span></span><br><span class="line"><span class="attr">  manifest:</span></span><br><span class="line"><span class="attr">    file:</span></span><br><span class="line"><span class="attr">      path:</span> <span class="attr">classpath:/default-project.json</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line"><span class="attr">  level:</span></span><br><span class="line">    <span class="string">org.activiti:</span> <span class="string">debug</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="数据库说明"><a href="#数据库说明" class="headerlink" title="数据库说明"></a>数据库说明</h4><p>数据库会生成25张表，ER图如图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/activiti.png" alt="image"><br>表的列表：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG430.png" alt="image"></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ACT_RE_*</span>: RE表示repository，这个前缀的表包含了流程定义和流程静态资源</span><br><span class="line"><span class="attribute">ACT_RU_*</span>: RU表示runtime，这些运行时的表，包含流程实例，任务，变量，异步任务等运行中的数据。Activiti只在流程实例执行过程中保存这些数据， 在流程结束时就会删除这些记录。</span><br><span class="line"><span class="attribute">ACT_ID_*</span>: ID表示identity，这些表包含身份信息，比如用户，组等。这些表现在已废弃。</span><br><span class="line"><span class="attribute">ACT_HI_*</span>: HI表示history，这些表包含历史数据，比如历史流程实例， 变量，任务等。</span><br><span class="line"><span class="attribute">ACT_GE_*</span>: 通用数据， 用于不同场景下。</span><br><span class="line"><span class="attribute">ACT_EVT_*</span>: EVT表示EVENT，目前只有一张表ACT_EVT_LOG，存储事件处理日志，方便管理员跟踪处理</span><br></pre></td></tr></table></figure>
+<p>具体表详解可以参考<a href="https://www.chenmin.info/2018/07/28/Activiti-23%E5%BC%A0%E8%A1%A8%E5%8F%8A7%E5%A4%A7%E6%9C%8D%E5%8A%A1%E8%AF%A6%E8%A7%A3/#7%E5%A4%A7%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D" target="_blank" rel="noopener">文章</a></p>
+<h3 id="表详解"><a href="#表详解" class="headerlink" title="表详解"></a>表详解</h3><table>
+<thead>
+<tr>
+<th>表</th>
+<th>意义</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACT_EVT_LOG</td>
+<td>事件处理日志</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_GE_BYTEARRAY</td>
+<td>二进制数据表</td>
+<td>存储流程定义相关的部署信息。即流程定义文档的存放地。每部署一次就会增加两条记录，一条是关于bpmn规则文件的，一条是图片的（如果部署时只指定了bpmn一个文件，activiti会在部署时解析bpmn文件内容自动生成流程图）。两个文件不是很大，都是以二进制形式存储在数据库中。</td>
+</tr>
+<tr>
+<td>ACT_GE_PROPERTY</td>
+<td>主键生成表</td>
+<td>主张表将生成下次流程部署的主键ID。    </td>
+</tr>
+<tr>
+<td>ACT_HI_ACTINST</td>
+<td>历史节点表</td>
+<td>只记录usertask内容,某一次流程的执行一共经历了多少个活动</td>
+</tr>
+<tr>
+<td>ACT_HI_ATTACHMENT</td>
+<td>历史附件表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_COMMENT</td>
+<td>历史意见表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_DETAIL</td>
+<td>历史详情表，提供历史变量的查询</td>
+<td>流程中产生的变量详细，包括控制流程流转的变量等</td>
+</tr>
+<tr>
+<td>ACT_HI_IDENTITYLINK</td>
+<td>历史流程人员表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_PROCINST</td>
+<td>历史流程实例表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_HI_TASKINST</td>
+<td>历史任务实例表</td>
+<td>一次流程的执行一共经历了多少个任务</td>
+</tr>
+<tr>
+<td>ACT_HI_VARINST</td>
+<td>历史变量表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_PROCDEF_INFO</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RE_DEPLOYMENT</td>
+<td>部署信息表</td>
+<td>存放流程定义的显示名和部署时间，每部署一次增加一条记录</td>
+</tr>
+<tr>
+<td>ACT_RE_MODEL</td>
+<td>流程设计模型部署表</td>
+<td>流程设计器设计流程后，保存数据到该表</td>
+</tr>
+<tr>
+<td>ACT_RE_PROCDEF</td>
+<td>流程定义数据表</td>
+<td>存放流程定义的属性信息，部署每个新的流程定义都会在这张表中增加一条记录。注意：当流程定义的key相同的情况下，使用的是版本升级</td>
+</tr>
+<tr>
+<td>ACT_RU_EVENT_SUBSCR</td>
+<td>throwEvent，catchEvent时间监听信息表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_EXECUTION</td>
+<td>运行时流程执行实例表</td>
+<td>历史流程变量</td>
+</tr>
+<tr>
+<td>ACT_RU_IDENTITYLINK</td>
+<td>运行时流程人员表</td>
+<td>主要存储任务节点与参与者的相关信息</td>
+</tr>
+<tr>
+<td>ACT_RU_INTEGRATION</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_JOB</td>
+<td>运行时定时任务数据表    </td>
+</tr>
+<tr>
+<td>ACT_RU_TIMER_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_SUSPENDED_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_TASK</td>
+<td>运行时任务节点表</td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_TIMER_JOB</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ACT_RU_VARIABLE</td>
+<td>运行时流程变量数据表</td>
+<td>通过JavaBean设置的流程变量，在act_ru_variable中存储的类型为serializable，变量真正存储的地方在act_ge_bytearray中。</td>
+</tr>
+<tr>
+<td>ACT_ID_GROUP</td>
+<td>用户组信息表</td>
+<td>已废弃    </td>
+</tr>
+<tr>
+<td>ACT_ID_INFO</td>
+<td>用户扩展信息表</td>
+<td>已废弃</td>
+</tr>
+<tr>
+<td>ACT_ID_MEMBERSHIP</td>
+<td>用户与用户组对应信息表</td>
+<td>已废弃    </td>
+</tr>
+<tr>
+<td>ACT_ID_USER</td>
+<td>用户信息表</td>
+<td>已废弃</td>
+</tr>
+</tbody>
+</table>
+<h2 id="工作流使用"><a href="#工作流使用" class="headerlink" title="工作流使用"></a>工作流使用</h2><p>activiti7内置了Spring security框架,官方demo跟spring结合的必须与spring-security结合，这里我不用spring-security，因为现在没有用户表了，所以自定义一些用户角色表去结合，更容易理解。</p>
+<blockquote>
+<p>关于security问题<br>activiti7最新的类似Runtime API和Task API都集成了security。<br>如果使用上述的API,那么必须要使用security，不能屏蔽security，否则会报错。<br>使用引擎服务类的时候，可以排除security，因为这些是最原始的API。但是activiti7官方已经明确说了，随时可能会干掉这些API。不建议开发人员直接使用引擎类以及引擎配置了、服务类等。</p>
+</blockquote>
+<h3 id="相关配置类"><a href="#相关配置类" class="headerlink" title="相关配置类"></a>相关配置类</h3><h4 id="自定义id策略"><a href="#自定义id策略" class="headerlink" title="自定义id策略"></a>自定义id策略</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">package</span> <span class="selector-tag">org</span><span class="selector-class">.dinghuang</span><span class="selector-class">.activiti</span><span class="selector-class">.conf</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">com</span><span class="selector-class">.baomidou</span><span class="selector-class">.mybatisplus</span><span class="selector-class">.core</span><span class="selector-class">.toolkit</span><span class="selector-class">.IdWorker</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.activiti</span><span class="selector-class">.engine</span><span class="selector-class">.impl</span><span class="selector-class">.cfg</span><span class="selector-class">.IdGenerator</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.stereotype</span><span class="selector-class">.Component</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义id策略</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @author dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * @since 2020/3/4</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">Component</span></span><br><span class="line"><span class="keyword">public</span> class ActivitiIdGeneratorConfiguration implements IdGenerator &#123;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Override</span></span><br><span class="line">    public String getNextId() &#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">String</span><span class="selector-class">.valueOf</span>(<span class="selector-tag">IdWorker</span><span class="selector-class">.getId</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义用户组"><a href="#自定义用户组" class="headerlink" title="自定义用户组"></a>自定义用户组</h4><p>activiti7已经抛弃了identity相关的表，同时与springSecurity结合，所以这边如果想自定义可以这么改，但是实际用途不大，最重要的是要结合自己的用户表设计来。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">package org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.api.runtime.shared.identity.UserGroupManager;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.<span class="built_in">List</span>;</span><br><span class="line"><span class="keyword">import</span> java.util.<span class="built_in">Map</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * 重写用户权限</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> *</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * @author dinghuang123@gmail.com</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> * @since 2020/3/2</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">ActivitiUserGroupManagerConfiguration</span> <span class="keyword">implements</span> <span class="title">UserGroupManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    private <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ActivitiUserGroupManagerConfiguration.<span class="keyword">class</span>);</span><br><span class="line"></span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; roles = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">3</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; groups = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">1</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; users = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="number">3</span>);</span><br><span class="line">    public <span class="keyword">static</span> <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">String</span>&gt; userRoleMap = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        roles.add(<span class="string">"workCreate"</span>);</span><br><span class="line">        roles.add(<span class="string">"workPermit"</span>);</span><br><span class="line">        roles.add(<span class="string">"workLeader"</span>);</span><br><span class="line"></span><br><span class="line">        groups.add(<span class="string">"workGroupA"</span>);</span><br><span class="line"></span><br><span class="line">        users.add(<span class="string">"admin"</span>);</span><br><span class="line">        users.add(<span class="string">"laowang"</span>);</span><br><span class="line">        users.add(<span class="string">"xiaofang"</span>);</span><br><span class="line"></span><br><span class="line">        userRoleMap.put(<span class="string">"admin"</span>, <span class="string">"workCreate"</span>);</span><br><span class="line">        userRoleMap.put(<span class="string">"laowang"</span>, <span class="string">"workPermit"</span>);</span><br><span class="line">        userRoleMap.put(<span class="string">"xiaofang"</span>, <span class="string">"workLeader"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUserGroups(<span class="built_in">String</span> s) &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get user groups"</span>);</span><br><span class="line">        <span class="keyword">return</span> groups;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUserRoles(<span class="built_in">String</span> s) &#123;</span><br><span class="line">        <span class="built_in">String</span> role = userRoleMap.<span class="keyword">get</span>(s);</span><br><span class="line">        <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        list.add(role);</span><br><span class="line">        LOGGER.info(<span class="string">"get user roles"</span>);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getGroups() &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get groups"</span>);</span><br><span class="line">        <span class="keyword">return</span> groups;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt; getUsers() &#123;</span><br><span class="line">        LOGGER.info(<span class="string">"get users"</span>);</span><br><span class="line">        <span class="keyword">return</span> users;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="其他自定义配置"><a href="#其他自定义配置" class="headerlink" title="其他自定义配置"></a>其他自定义配置</h4><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti.conf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.api.runtime.shared.identity.UserGroupManager;</span><br><span class="line"><span class="keyword">import</span> org.activiti.core.common.spring.project.ProjectModelService;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.impl.history.HistoryLevel;</span><br><span class="line"><span class="keyword">import</span> org.activiti.spring.SpringAsyncExecutor;</span><br><span class="line"><span class="keyword">import</span> org.activiti.spring.SpringProcessEngineConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.dinghuang.activiti.controller.ActivitiController;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Primary;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.transaction.PlatformTransactionManager;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/3/2</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivitiSpringIdentityAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(ActivitiController.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CORE_POOL_SIZE = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_POOL_SIZE = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> KEEP_ALIVE_SECONDS = <span class="number">300</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> QUEUE_CAPACITY = <span class="number">300</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PlatformTransactionManager platformTransactionManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserGroupManager userGroupManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ActivitiIdGeneratorConfiguration activitiIdGeneratorConfiguration;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ProjectModelService projectModelService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 处理引擎配置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">SpringProcessEngineConfiguration <span class="title">springProcessEngineConfiguration</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SpringProcessEngineConfiguration configuration = <span class="keyword">new</span> SpringProcessEngineConfiguration(projectModelService);</span><br><span class="line">        configuration.setDataSource(<span class="keyword">this</span>.dataSource);</span><br><span class="line">        configuration.setTransactionManager(<span class="keyword">this</span>.platformTransactionManager);</span><br><span class="line">        SpringAsyncExecutor asyncExecutor = <span class="keyword">new</span> SpringAsyncExecutor();</span><br><span class="line">        asyncExecutor.setTaskExecutor(workFlowAsync());</span><br><span class="line">        configuration.setAsyncExecutor(asyncExecutor);</span><br><span class="line">        configuration.setDatabaseSchemaUpdate(<span class="string">"true"</span>);</span><br><span class="line">        configuration.setUserGroupManager(<span class="keyword">this</span>.userGroupManager);</span><br><span class="line">        configuration.setHistoryLevel(HistoryLevel.FULL);</span><br><span class="line">        configuration.setDbHistoryUsed(<span class="keyword">true</span>);</span><br><span class="line">        configuration.setIdGenerator(<span class="keyword">this</span>.activitiIdGeneratorConfiguration);</span><br><span class="line">        Resource[] resources = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 启动自动部署流程</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            resources = <span class="keyword">new</span> PathMatchingResourcePatternResolver().getResources(<span class="string">"classpath*:bpmn/*.bpmn"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LOGGER.<span class="keyword">error</span>(<span class="string">"Start the automated deployment process error"</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">        configuration.setDeploymentResources(resources);</span><br><span class="line">        <span class="keyword">return</span> configuration;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 线程池</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Primary</span></span><br><span class="line">    <span class="meta">@Bean</span>(<span class="string">"workFlowTaskExecutor"</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="function">ThreadPoolTaskExecutor <span class="title">workFlowAsync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ThreadPoolTaskExecutor executor = <span class="keyword">new</span> ThreadPoolTaskExecutor();</span><br><span class="line">        executor.setCorePoolSize(CORE_POOL_SIZE);</span><br><span class="line">        executor.setMaxPoolSize(MAX_POOL_SIZE);</span><br><span class="line">        executor.setKeepAliveSeconds(KEEP_ALIVE_SECONDS);</span><br><span class="line">        executor.setQueueCapacity(QUEUE_CAPACITY);</span><br><span class="line">        executor.setThreadNamePrefix(<span class="string">"workFlowTaskExecutor-"</span>);</span><br><span class="line">        executor.initialize();</span><br><span class="line">        <span class="keyword">return</span> executor;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为去掉了springSecurity,所以启动类得排除springSecurity的自动配置。<br><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.dinghuang.activiti;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.EnableWebMvc;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.view.InternalResourceViewResolver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@SpringBootApplication</span>(exclude = &#123;</span><br><span class="line">        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.<span class="keyword">class</span>,</span><br><span class="line">        org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration.<span class="keyword">class</span>,</span><br><span class="line">        org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration.<span class="keyword">class</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">@EnableWebMvc</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> ActivitiApplication &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(ActivitiApplication.<span class="keyword">class</span>, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> InternalResourceViewResolver setupViewResolver() &#123;</span><br><span class="line">        InternalResourceViewResolver resolver = <span class="keyword">new</span> InternalResourceViewResolver();</span><br><span class="line">        <span class="comment">/** 设置视图路径的前缀 */</span></span><br><span class="line">        resolver.setPrefix(<span class="string">"resources/templates"</span>);</span><br><span class="line">        <span class="comment">/** 设置视图路径的后缀 */</span></span><br><span class="line">        resolver.setSuffix(<span class="string">".html"</span>);</span><br><span class="line">        <span class="keyword">return</span> resolver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="流程绘制"><a href="#流程绘制" class="headerlink" title="流程绘制"></a>流程绘制</h2><p>流程绘制这里提供2种，一种用IDEA下载ActiBPM插件去画，这里给一段我自己画的xml<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span> standalone=<span class="string">"yes"</span><span class="meta">?&gt;</span></span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">xmlns</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/MODEL"</span> <span class="attr">xmlns:activiti</span>=<span class="string">"http://activiti.org/bpmn"</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/DI"</span> <span class="attr">xmlns:dc</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DC"</span> <span class="attr">xmlns:di</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DI"</span> <span class="attr">xmlns:tns</span>=<span class="string">"http://sourceforge.net/bpmn/definitions/a123123"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:yaoqiang</span>=<span class="string">"http://bpmn.sourceforge.net"</span> <span class="attr">expressionLanguage</span>=<span class="string">"http://www.w3.org/1999/XPath"</span> <span class="attr">id</span>=<span class="string">"m1583310491794"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">targetNamespace</span>=<span class="string">"http://sourceforge.net/bpmn/definitions/a123123"</span> <span class="attr">typeLanguage</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">process</span> <span class="attr">id</span>=<span class="string">"dinghuangTest"</span> <span class="attr">isClosed</span>=<span class="string">"false"</span> <span class="attr">isExecutable</span>=<span class="string">"true"</span> <span class="attr">name</span>=<span class="string">"请假流程"</span> <span class="attr">processType</span>=<span class="string">"None"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"_2"</span> <span class="attr">name</span>=<span class="string">"开始"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">activiti:assignee</span>=<span class="string">"bilu"</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"manager"</span> <span class="attr">activiti:exclusive</span>=<span class="string">"true"</span> <span class="attr">id</span>=<span class="string">"_3"</span> <span class="attr">name</span>=<span class="string">"部门经理审批"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"_4"</span> <span class="attr">name</span>=<span class="string">"结束"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_5"</span> <span class="attr">sourceRef</span>=<span class="string">"_2"</span> <span class="attr">targetRef</span>=<span class="string">"_3"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_6"</span> <span class="attr">name</span>=<span class="string">"事情不重要"</span> <span class="attr">sourceRef</span>=<span class="string">"_3"</span> <span class="attr">targetRef</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">"tFormalExpression"</span>&gt;</span>&lt;![CDATA[$</span><span class="template-variable">&#123;!important&#125;</span><span class="xml">]]&gt;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"admin"</span> <span class="attr">activiti:exclusive</span>=<span class="string">"true"</span> <span class="attr">id</span>=<span class="string">"_7"</span> <span class="attr">name</span>=<span class="string">"总经理审批"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_8"</span> <span class="attr">name</span>=<span class="string">"事情重要"</span> <span class="attr">sourceRef</span>=<span class="string">"_3"</span> <span class="attr">targetRef</span>=<span class="string">"_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">conditionExpression</span> <span class="attr">xsi:type</span>=<span class="string">"tFormalExpression"</span>&gt;</span>&lt;![CDATA[$</span><span class="template-variable">&#123;important&#125;</span><span class="xml">]]&gt;<span class="tag">&lt;/<span class="name">conditionExpression</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"_9"</span> <span class="attr">name</span>=<span class="string">"审批通过"</span> <span class="attr">sourceRef</span>=<span class="string">"_7"</span> <span class="attr">targetRef</span>=<span class="string">"_4"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">process</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">documentation</span>=<span class="string">"background=#3C3F41;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0"</span> <span class="attr">id</span>=<span class="string">"Diagram-_1"</span> <span class="attr">name</span>=<span class="string">"New Diagram"</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">bpmnElement</span>=<span class="string">"dinghuangTest"</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_2"</span> <span class="attr">id</span>=<span class="string">"Shape-_2"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"100.0"</span> <span class="attr">y</span>=<span class="string">"135.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_3"</span> <span class="attr">id</span>=<span class="string">"Shape-_3"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"235.0"</span> <span class="attr">y</span>=<span class="string">"140.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_4"</span> <span class="attr">id</span>=<span class="string">"Shape-_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"160.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"32.0"</span> <span class="attr">width</span>=<span class="string">"32.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"_7"</span> <span class="attr">id</span>=<span class="string">"Shape-_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"415.0"</span> <span class="attr">y</span>=<span class="string">"55.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"85.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_5"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__5"</span> <span class="attr">sourceElement</span>=<span class="string">"_2"</span> <span class="attr">targetElement</span>=<span class="string">"_3"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"132.0"</span> <span class="attr">y</span>=<span class="string">"151.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"235.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_6"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__6"</span> <span class="attr">sourceElement</span>=<span class="string">"_3"</span> <span class="attr">targetElement</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"320.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"176.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_8"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__8"</span> <span class="attr">sourceElement</span>=<span class="string">"_3"</span> <span class="attr">targetElement</span>=<span class="string">"_7"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"320.0"</span> <span class="attr">y</span>=<span class="string">"167.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"415.0"</span> <span class="attr">y</span>=<span class="string">"82.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"_9"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge__9"</span> <span class="attr">sourceElement</span>=<span class="string">"_7"</span> <span class="attr">targetElement</span>=<span class="string">"_4"</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"500.0"</span> <span class="attr">y</span>=<span class="string">"82.5"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">di:waypoint</span> <span class="attr">x</span>=<span class="string">"565.0"</span> <span class="attr">y</span>=<span class="string">"176.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">dc:Bounds</span> <span class="attr">height</span>=<span class="string">"0.0"</span> <span class="attr">width</span>=<span class="string">"0.0"</span> <span class="attr">x</span>=<span class="string">"0.0"</span> <span class="attr">y</span>=<span class="string">"0.0"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">bpmndi:BPMNLabel</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这是一个很简单的流程，如图所示:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG432.png" alt="image"></p>
+<h3 id="前端实现自定义流程、输出流程图"><a href="#前端实现自定义流程、输出流程图" class="headerlink" title="前端实现自定义流程、输出流程图"></a>前端实现自定义流程、输出流程图</h3><p>官方提供bpmn.js可以实现前端拖动画图，github地址：<a href="https://github.com/bpmn-io/bpmn-js" target="_blank" rel="noopener">https://github.com/bpmn-io/bpmn-js</a></p>
+<p>可以把这个加到项目中，这里就不解释了。</p>
+<p>前端实现输出流程图效果如下，流程节点会高亮显示：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG433.png" alt="image"></p>
+<p>这里是我写的一个小demo，代码可以查看我的github代码库。项目启动后，访问<a href="http://localhost:8080/v1/activiti/index" target="_blank" rel="noopener">http://localhost:8080/v1/activiti/index</a></p>
+<h2 id="接口调试"><a href="#接口调试" class="headerlink" title="接口调试"></a>接口调试</h2><p>服务启动后访问地址：<a href="http://localhost:8080/swagger-ui.html#/" target="_blank" rel="noopener">http://localhost:8080/swagger-ui.html#/</a><br>接口已经写在代码中，如果需要调试的话，顺序是</p>
+<ul>
+<li>启动实例流程</li>
+<li>根据用户名称查询任务列表（用户名bilu，拿到任务id后去完成任务）</li>
+<li>部门经理审批</li>
+<li>总经理审批<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG434.png" alt="image"></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/" title="Activiti7.X结合SpringBoot2.1、Mybatis">https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/18/面试分享(七).操作系统相关/" rel="next" title="面试分享(七).操作系统相关">
+                <i class="fa fa-chevron-left"></i> 面试分享(七).操作系统相关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activiti7-X结合SpringBoot2-1、Mybatis"><span class="nav-number">1.</span> <span class="nav-text">Activiti7.X结合SpringBoot2.1、Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activiti简介"><span class="nav-number">1.1.</span> <span class="nav-text">Activiti简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activiti介绍"><span class="nav-number">1.1.1.</span> <span class="nav-text">Activiti介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BPMN"><span class="nav-number">1.1.2.</span> <span class="nav-text">BPMN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用"><span class="nav-number">1.2.</span> <span class="nav-text">创建应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#与mysql结合"><span class="nav-number">1.2.1.</span> <span class="nav-text">与mysql结合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据库说明"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">数据库说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表详解"><span class="nav-number">1.2.2.</span> <span class="nav-text">表详解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作流使用"><span class="nav-number">1.3.</span> <span class="nav-text">工作流使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#相关配置类"><span class="nav-number">1.3.1.</span> <span class="nav-text">相关配置类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义id策略"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">自定义id策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义用户组"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">自定义用户组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他自定义配置"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">其他自定义配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程绘制"><span class="nav-number">1.4.</span> <span class="nav-text">流程绘制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前端实现自定义流程、输出流程图"><span class="nav-number">1.4.1.</span> <span class="nav-text">前端实现自定义流程、输出流程图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口调试"><span class="nav-number">1.5.</span> <span class="nav-text">接口调试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/';
+          this.page.identifier = '2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/';
+          this.page.title = 'Activiti7.X结合SpringBoot2.1、Mybatis';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

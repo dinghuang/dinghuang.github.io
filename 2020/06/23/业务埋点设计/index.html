@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="程序设计," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概念可以先看一本书《精通Web Analytics 2.0》 埋点是什么所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（Visits），访客数（Visitor），停留时长（Time On Site），页面浏览数（Page Views）和跳出率（Bounce Rate）。这样的信息收集可以大致分为两种：页面统计（track">
+<meta name="keywords" content="程序设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="业务埋点设计">
+<meta property="og:url" content="https://dinghuang.github.io/2020/06/23/业务埋点设计/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="概念可以先看一本书《精通Web Analytics 2.0》 埋点是什么所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（Visits），访客数（Visitor），停留时长（Time On Site），页面浏览数（Page Views）和跳出率（Bounce Rate）。这样的信息收集可以大致分为两种：页面统计（track">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://mta.qq.com/v3/docs/assets/autotrack05.png">
+<meta property="og:image" content="http://qiniu.zlt2000.cn/FncpOSYb_pvFPf0kr9H7tU4ktdvq">
+<meta property="og:image" content="http://qiniu.zlt2000.cn/FgAqw5FNDtsLfwUdNnlxShiJ64hk">
+<meta property="og:image" content="https://img.shangyexinzhi.com/xztest-image/article/417f5f73ed680cfbab173acbf316212c.jpeg">
+<meta property="og:image" content="https://img.36krcdn.com/20200409/v2_d43dfb858dae4481bcefe8567e2b55fe_img_000">
+<meta property="og:updated_time" content="2020-06-23T01:29:23.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="业务埋点设计">
+<meta name="twitter:description" content="概念可以先看一本书《精通Web Analytics 2.0》 埋点是什么所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（Visits），访客数（Visitor），停留时长（Time On Site），页面浏览数（Page Views）和跳出率（Bounce Rate）。这样的信息收集可以大致分为两种：页面统计（track">
+<meta name="twitter:image" content="https://mta.qq.com/v3/docs/assets/autotrack05.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/06/23/业务埋点设计/"/>
+
+
+
+
+
+  <title>业务埋点设计 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/06/23/业务埋点设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">业务埋点设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-23T18:33:00+08:00">
+                2020-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/06/23/业务埋点设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/06/23/业务埋点设计/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>可以先看一本书《精通Web Analytics 2.0》</p>
+<h2 id="埋点是什么"><a href="#埋点是什么" class="headerlink" title="埋点是什么"></a>埋点是什么</h2><p>所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（Visits），访客数（Visitor），停留时长（Time On Site），页面浏览数（Page Views）和跳出率（Bounce Rate）。这样的信息收集可以大致分为两种：页面统计（track this virtual page view），统计操作行为（track this button by an event）。</p>
+<h2 id="埋点是谁的工作"><a href="#埋点是谁的工作" class="headerlink" title="埋点是谁的工作"></a>埋点是谁的工作</h2><p>现在公司通常都会有数据产品经理或业务线数据分析师，结合版本迭代过程进行埋点规划。如果是代码埋点，还需要开发完成相应的埋点代码。</p>
+<h2 id="埋点的意义"><a href="#埋点的意义" class="headerlink" title="埋点的意义"></a>埋点的意义</h2><p>埋点就是为了对产品进行持续追踪，通过深度数据分析不断优化产品。好比去医院体检，医生测了你身体的各个健康指标，以此来判断你的健康状况。埋点的目的，其实就是随时或者定期监测你的产品的“健康”状况。</p>
+<p>任何一个系统在设计初始阶段只关心核心业务的功能，等到系统上线以后，数据分析师对用户行为分析时会发现缺少很多数据，此时需要采用埋点的方法进行采集需要的数据。</p>
+<p>业务人员主要通过自有或第三方的数据统计平台了解产品的概览性数据指标，包括新增用户数、活跃用户数等。这些指标能帮助企业宏观的了解用户访问的整体情况和趋势，从整体上把握产品的运营状况，但很难基于这些指标直接得到切实的产品改进策略。</p>
+<p>而埋点将产品数据分析的深度下钻到流量分布和流动层面，通过对产品中的用户交互行为的统计分析，对宏观指标进行深入剖析，发现指标背后的问题，寻找人群的行为特点和关系，洞察用户行为与提升业务价值之间的潜在关联，了解组成特定数据现象的原因，并据此构建产品优化 迭代 和运营策略。</p>
+<p>对于产品来说，用户在你的产品里做了什么、停留了多久、有什么异样，都是需要关注的。比如用户点击率怎么样？用户在核心使用路径上是否顺畅？有没有得到用户的认可？有没有因为设计按钮过多导致用户行为无效？用户希望有什么样的功能更新等等问题都可以通过埋点的方法实现。</p>
+<p>埋点做好才能用来进行数据驱动产品和精细化运营。而埋点质量的好坏也直接影响到了产品运营的质量。因此它贯穿了产品的整个生命周期，为产品优化指明了方向。所以说，好的数据埋点，就成功了一半。</p>
+<h2 id="when-amp-amp-where"><a href="#when-amp-amp-where" class="headerlink" title="when &amp;&amp; where"></a>when &amp;&amp; where</h2><p>埋点是目的导向。</p>
+<p>在产品规划时就要思考数据埋点问题，如果在产品外发后再考虑怎么埋点，就会导致前期版本用户的数据无法收集，想要看某个数据时就会非常无奈，只有等到新版本完善来弥补。</p>
+<p>思考要埋哪些点、埋点的形式，需要紧密结合产品迭代的方向、运营需求，并和数据开发等进行充分沟通以确认：</p>
+<ul>
+<li>埋点能够得到想要的数据解决/支持；</li>
+<li>能够得到当前版本的复盘情况；</li>
+<li>后续版本的数据支撑。</li>
+</ul>
+<p>通常的沟通过程以 埋点文档为载体；数据埋点评审为终结。</p>
+<h3 id="当前版本的复盘情况："><a href="#当前版本的复盘情况：" class="headerlink" title="当前版本的复盘情况："></a>当前版本的复盘情况：</h3><ul>
+<li>新版本功能使用情况，是否符合预期；</li>
+<li>新功能上线后对其他功能点的影响？是否为整体均有积极作用；</li>
+<li>版本运营活动目标群体的特征获取;</li>
+<li>新增商业化目标的监测……</li>
+</ul>
+<h3 id="后续版本的数据支撑："><a href="#后续版本的数据支撑：" class="headerlink" title="后续版本的数据支撑："></a>后续版本的数据支撑：</h3><ul>
+<li>规划方向的用户行为分析</li>
+<li>画像特征分析</li>
+</ul>
+<h1 id="埋点指标："><a href="#埋点指标：" class="headerlink" title="埋点指标："></a>埋点指标：</h1><h2 id="基础指标"><a href="#基础指标" class="headerlink" title="基础指标"></a>基础指标</h2><p>基础指标是一些常用的参数指标，比如用户行为相关的，有用户数、新增用户数、活跃用户数等；用户设备相关的，比如电脑系统、地区、语言、国家、产品版本等；用户属性相关的，性别、年龄等。这一部分一般很难通过埋点拿到，但是通过一般第三方工具可以看个大概。</p>
+<h2 id="用户行为数据指标"><a href="#用户行为数据指标" class="headerlink" title="用户行为数据指标"></a>用户行为数据指标</h2><p>用户行为的行为数据，就是埋点的核心了。这一部分根据不同的产品，收集的数据也不同。再拿PC端的腾讯视频举例，每个用户每天使用腾讯视频的时长是多少？每次看的是哪些视频？用户最喜欢看哪个频道的视频？每个频道的使用情况是怎么样的？用户一般是在一天中的哪个时间段打开腾讯视频的。想要看的数据非常多，而这些，都是要提前规划好，有目的性得去决定要埋什么点、怎么埋。如果你的目的是为了研究一下用户对弹幕的接受程度，那围绕弹幕，设置一些指标数据，比如发布弹幕的次数和频率？看视频时是否开启了弹幕？这样的话，就能够通过数据，看出用户对弹幕的真实反映，对于提升产品功能和运营都有很大帮助。</p>
+<h2 id="核心质量指标"><a href="#核心质量指标" class="headerlink" title="核心质量指标"></a>核心质量指标</h2><p>Crash等一些因为产品质量引起的问题，都是用户所不能忍受的。而且用户量越大，越容易出现产品质量问题。尤其是一些产品，他的产品属性决定了，产品质量是吸引用户购买的一个很重要的因素。比如迅雷、photoshop等软件，核心质量的指标能帮助我们监控产品的“健康”情况。</p>
+<p>这里说的质量指标，不单单指产品的 异常退出率、Crash率， 还包括和产品自身业务相关的指标。比如，对于视频编辑产品， 编辑成功率 是很重要的指标；对于迅雷， 下载成功率 是核心指标；对于在线类产品， 资源解析 成功率 是核心指标……</p>
+<h2 id="访问与访客"><a href="#访问与访客" class="headerlink" title="访问与访客"></a>访问与访客</h2><p>访问次数（Visits）与访问人数（Vistors）是几乎所有应用都需要统计的指标，这也是最基础的指标。对于应用的统计来说，经常看到的DAU（日活跃用户数量），MAU（用户数量统计），UV（独立（IP）访客）等指标都是指统计访客（Vistors）。访问（Visits）是指会话层，用户打开应用花一段时间浏览又离开，从指标定义（访问次数）来说这被称之为统计会话（Session）数。一次会话（Session 或 Visit）是打开应用的第一个请求（打开应用）和最后一个请求决定的。如果用户打开应用然后放下手机或是离开电脑，并在接下来30分钟内没有任何动作，此次会话自动结束，通常也算作一次访问或会话期（30分钟是早起网页版应用约定俗成的会话数定义，目前用户停留在应用的时长变长，30分钟的限定也可能随之不同，总之是能代表一次用户访问的时长）。在计算访问人数（Vistors）时，埋点上报的数据是尽可能接近真实访客的人数。对于有需要统计独立访客这个指标的场景，这里还是需要强调一下，访问人数（Vistors）并不是真实独立的人，因此收集数据时必须知道访问人数虽然能够很好的反映使用应用的真实访问者的数量，但不等于使用应用的真实人数。（原因是，重复安装的应用，或是手机参数被修改都会使得独立访客的指标收到影响。计算访问人数的埋点都是依赖Cookie，用户打开应用，应用都会在此人的终端创建一个独立Cookie, Cookie会被保留，但还是难免会被用户手动清理或是Cookie被禁用导致同一用户使用应用Cookie不一致，所以独立访客只能高度接近于使用应用的真实人数。）</p>
+<h2 id="停留时长"><a href="#停留时长" class="headerlink" title="停留时长"></a>停留时长</h2><p>停留时长用来衡量用户在应用的某一个页面或是一次访问（会话）所停留的时间。页面停留时长，表示在每个页面所花费的时间；例如：首页就是进入首页（10：00）到离开首页进入下一个页面(10:01)的时长，首页停留时长计算为1分钟。页面A是2分钟。停留时长的数据并不都是一定采集得到的，比如页面B进入时间（10：03），离开出现异常或是退出时间没有记录，这时候计算就是0 （所以指标计算时需要了解埋点的状况，剔除这样的无效数据）。应用的停留时长，表示一次访问（会话）所停留的时间，计算起来就是所有页面的访问时长，同样是上一个流程，应用的停留时长就是4分钟。</p>
+<h2 id="跳出率"><a href="#跳出率" class="headerlink" title="跳出率"></a>跳出率</h2><p>跳出率的计算方法现在在各个公司还是很多种，最经常被使用的是：用户只访问了一个页面所占的会话比例（原因是：假设这种场景，用户来了访问了一个页面就离开了，想想用户使用的心里画面应该是：打开应用，心想什么鬼，然后关闭应用甚至卸载了。这个场景多可怕，这也是为什么跳出率指标被如此关注）跳出率可以分解到两个层次：一是整个应用的跳出率，二是重点的着陆页的跳出率，甚至是搜索关键词的跳出率。跳出率的指标可操作性非常强，通过统计跳出率可以直接发现页面的问题发现关键词的问题。</p>
+<h2 id="退出率"><a href="#退出率" class="headerlink" title="退出率"></a>退出率</h2><p>退出率是针对页面的，这个指标的目标很简单，就是在针对某个页面有多少用户离开了应用，主要用户反映用户从应用离开的情况。哪些页面需要被改进最快的方式被发掘。（注意：退出率高不一定是坏事。例如：预测流程的最终节点的退出率就应该是高的）</p>
+<h2 id="转化率"><a href="#转化率" class="headerlink" title="转化率"></a>转化率</h2><p>我们在产品上投入这么多，不就是为了衡量产出么？所以对于电商类应用，还有比转化率更值得关注的指标吗？转化率的计算方法是某种产出除以独立访客或是访问量，对于电商产品来说，就是提交订单用户数除以独立访客。转化率的计算看起来想到那简单，但却是埋点中最贴近业务的数据收集。这也是最体现埋点技巧的指标，需要结合业务特点制定计算方法。提交订单量/访客数是最基本的转化率，转化率还可以分层次，指定用户路径的，如：完成某条路径的提交订单数/访客数。</p>
+<h2 id="参与度"><a href="#参与度" class="headerlink" title="参与度"></a>参与度</h2><p>参与度并不是一个指标，而是一系列的指标的统称，例如访问深度，访问频次，针对电商的下单次数，针对内容服务商的播放次数，及用户行为序列这些都可以是衡量参与度的指标。之所以把参与度列为一个指标，是希望大家明白把指标结合业务，产生化学反应，活学活用去发现事物的本质。</p>
+<h1 id="数据采集普遍遇到的几个问题"><a href="#数据采集普遍遇到的几个问题" class="headerlink" title="数据采集普遍遇到的几个问题"></a>数据采集普遍遇到的几个问题</h1><ul>
+<li>实时性，对于工具性产品在无网条件下的数据，无法实时上报；</li>
+<li>完整性，由于用户隐私协议&amp;欧盟通用数据保护条例的，部分数据无法采集；</li>
+<li>异常，android_id、idfa、idfv 随版本升级变化或无法获取。</li>
+</ul>
+<h1 id="怎么埋点"><a href="#怎么埋点" class="headerlink" title="怎么埋点"></a>怎么埋点</h1><h2 id="代码埋点"><a href="#代码埋点" class="headerlink" title="代码埋点"></a>代码埋点</h2><p>以为需要监测网站上/app上用户的行为，是需要在网页/app中加上一些代码的，当用户触发相应行为时，进行数据上报，也就是代码埋点。这样的代码，在网站上叫监测代码，在app中叫SDK（Software Development Kit）。市场上的第三方数据采集均支持代码埋点，GA, GrowingIO，神策等。</p>
+<ul>
+<li>优点<ul>
+<li>采集的数据比较具有针对性，更加适合精细化数据分析。</li>
+<li>同时也能提高数据的准确性。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>每一个控件的埋点都需要添加相应的代码，不仅工作量大，而且限定了必须是技术开发人员才能完成。</li>
+<li>每一次产品迭代，都需要更新埋点方案。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>有具体的业务分析需求，且按照各个事件埋点的方式不能满足。</li>
+<li>需要对埋点事件进行传参等自定义属性设置。代码埋点虽然较复杂，但功能最完善，覆盖了埋点中的不同业务需求。</li>
+</ul>
+</li>
+</ul>
+<h2 id="可视化埋点"><a href="#可视化埋点" class="headerlink" title="可视化埋点"></a>可视化埋点</h2><p>利用可视化交互手段，数据产品/数据分析师可以通过可视化界面（管理后台连接设备） 配置事件，如下是腾讯移动分析的可视化埋点界面。可视化埋点仍需要先配置相关事件，再采集。</p>
+<p>例如腾讯的<a href="https://mta.qq.com/" target="_blank" rel="noopener">https://mta.qq.com/</a><br><img src="https://mta.qq.com/v3/docs/assets/autotrack05.png" alt="image"></p>
+<p>蚂蚁金服的移动开发平台<br><a href="https://tech.antfin.com/docs/2/49549" target="_blank" rel="noopener">https://tech.antfin.com/docs/2/49549</a></p>
+<ul>
+<li>优点<ul>
+<li>业务人员可用，无需技术人员进行SDK嵌入，不懂代码的产品运营人员也可通过后台可视化界面配置和统计埋点并实时下发到客户端生效。</li>
+<li>无需版本更新，由于不需要嵌入新SDK，不需要发布新版本，可谓即时生效。</li>
+<li>对所有版本生效：新增埋点在所有版本生效，不存在迭代问题。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>可覆盖的功能有限，目前并不是所有控件操作都可以通过这种方案进行定制。</li>
+<li>不能自定义交互事件属性，由于获取的是交互事件元素的DOMpath，无法对具体事件设置参数。</li>
+<li>不支持可以不断加载的内容瀑布流交互。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>分析或统计需求简单，不需要对埋点事件进行传参等自定义属性设置。</li>
+<li>频繁上线或更新的H5类型的运营活动</li>
+</ul>
+</li>
+</ul>
+<h2 id="无埋点"><a href="#无埋点" class="headerlink" title="无埋点"></a>无埋点</h2><p>无埋点是指开发人员集成采集 SDK 后，SDK 便直接开始捕捉和监测用户在应用里的所有行为，并全部上报，不需要开发人员添加额外代码。</p>
+<p>数据分析师/数据产品 通过管理后台的圈选功能来选出自己关注的用户行为，并给出事件命名。之后就可以结合时间属性、用户属性、事件进行分析了。所以无埋点并不是真的不用埋点了。目前市场第三方工具GrowingIO支持无埋点全量行为数据抓取<a href="https://growingio.jinshuju.com/" target="_blank" rel="noopener">https://growingio.jinshuju.com/</a></p>
+<ul>
+<li>优点<ul>
+<li>因为无埋点对页面所有元素进行埋点，那么这个页面每个元素被点击的概率你也就知道，对点击概率比较大的元素可以进行深入分析。</li>
+<li>可以在系统上线后使用，支持基于全量的数据回溯，因为无埋点在你部署SDK的时候数据就一直在收集，可帮助进行启发式、探索式的数据分析。</li>
+<li>它技术门槛低，部署简单。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>无埋点无法采集自定义属性，只使用通用大部门，通用的场景。</li>
+<li>数据形式非业务导向，因为是对所有事件数据的自动收集，没有按照业务需求进行事件或区域设置，业务或数据人员在使用时或许不能直接使用，需要二次计算或处理。</li>
+<li>兼容性不好，传输时效性较差等问题，因为是对所有的元素数据都收集，会给数据传输和服务器带来较大的压力。</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>分析或统计需求简单，不需要对埋点事件进行传参等自定义属性设置的事件。</li>
+<li>针对快速、频繁上线和迭代的H5类型的运营活动的评估。</li>
+</ul>
+</li>
+</ul>
+<p>总体来说，无埋点和可视化埋点更侧重结果的展现，对过程追溯少，更适合产品经理分析基础的产品功能流畅度、用户体验、产品路径设置等。代码埋点和后端埋点，不仅能展现结果，也会记录用户行为过程，支持深度的行为分析和偏好洞察，还可将行为数据与业务数据打通，适合产品和运营人员深度使用。</p>
+<p>无论采用哪种埋点方式，都应该根据业务场景和产品阶段，梳理和构建数据分析体系。埋点规划混乱、数据采集无序、数据分析断层，最终将会让企业陷入“有数据而无价值”的境地。</p>
+<h1 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h1><p><img src="http://qiniu.zlt2000.cn/FncpOSYb_pvFPf0kr9H7tU4ktdvq" alt="image"></p>
+<p>通过 日志埋点 来实现业务监控和行为分析主要需要以下4个步骤</p>
+<p>数据生成(埋点)<br>数据收集<br>数据解析(结构化)<br>数据落盘<br>数据使用(展示/分析)</p>
+<h2 id="数据使用"><a href="#数据使用" class="headerlink" title="数据使用"></a>数据使用</h2><p><img src="http://qiniu.zlt2000.cn/FgAqw5FNDtsLfwUdNnlxShiJ64hk" alt="image"></p>
+<h1 id="如何做数据埋点"><a href="#如何做数据埋点" class="headerlink" title="如何做数据埋点"></a>如何做数据埋点</h1><p>其实这个问题不应该问别人，应该问你自己，通过上文，我们已经知道了，如果你想绘制基础的人群画像你就需要获取用户机型、网络类型、操作系统，IP地域等数据；如果你想分析每一个注册转化率，你就需要获取每一个步骤的点击次数，然后制作成漏斗，看那一步转化率出现了问题……目的不一样，获取的数据也不一样，使用的埋点技术也不一样。<br><img src="https://img.shangyexinzhi.com/xztest-image/article/417f5f73ed680cfbab173acbf316212c.jpeg" alt="image"></p>
+<p>那么，我们该如何选择埋点方式呢？</p>
+<p>我们的目的是实现深度数据分析，不应该采用与其他企业通用的埋点方法，应该采用适合自己的埋点方法。也就是做到“因系统而异、避免千系统一面的情况。</p>
+<p>在系统刚上线的初期阶段，我们可以采用无埋点的方式。因为我们通过UV、PV、点击率等基本指标及即可满足数据分析需求。如果产品上线时间很长，我们需要进行深度数据分析则选择代码埋点。它可以帮我们收集需要的属性。另外，如何埋点既可以在前端实现，也可以在后端实现，我们推荐在后端实现。因为后端数据可以保证数据的准确性。最后，如果您为了方便快捷并且免费，可以选择第三方统计工具，但是一定要选择适合自己业务的统计工具。</p>
+<p>从业务过程中采集埋点，是数据驱动型公司的必要条件。一般公司的产品功能评审环节，不仅有 PRD (Product requirement document），还加入了对应的 DRD ( Data requirement document）。对于埋点而言，DRD 需要明确业务目标与埋点缺口之间的关系以及需求的优先级。埋点的需求大多来自于 DRD，整个过程会涉及多个角色，主要包括产品经理、业务数据负责人、开发工程师、测试工程师，如图所示。</p>
+<p><img src="https://img.36krcdn.com/20200409/v2_d43dfb858dae4481bcefe8567e2b55fe_img_000" alt="image"></p>
+<p>总之，如果您需要深度分析，选择后端（手动）埋点和无埋点组合的方案；如果您只是想看宏观数据，可以选择无埋点。无论采用哪种埋点方法，一定要慎重，根据需要来设置，最好不要出现错埋或者漏埋的情况。最后，数据分析师一定要和业务工程团队（部署实施埋点的部门）配合好才能实现完美的数据采集方案，有时候沟通比选择埋点方式更重。</p>
+<h1 id="优秀的实践案例"><a href="#优秀的实践案例" class="headerlink" title="优秀的实践案例"></a>优秀的实践案例</h1><p>有赞埋点实践<a href="https://tech.youzan.com/track-1/" target="_blank" rel="noopener">https://tech.youzan.com/track-1/</a></p>
+<p>美团点评前端无痕埋点实践<a href="https://tech.meituan.com/2017/03/02/mt-mobile-analytics-practice.html" target="_blank" rel="noopener">https://tech.meituan.com/2017/03/02/mt-mobile-analytics-practice.html</a></p>
+<p>产品经理该如何做好数据埋点<a href="https://www.uisdc.com/product-manager-makes-data-event-tracking" target="_blank" rel="noopener">https://www.uisdc.com/product-manager-makes-data-event-tracking</a></p>
+<p>数据统计埋点工作框架及细节规范<a href="https://www.inneed.club/articles/detail/pkx0epxgew" target="_blank" rel="noopener">https://www.inneed.club/articles/detail/pkx0epxgew</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/06/23/业务埋点设计/" title="业务埋点设计">https://dinghuang.github.io/2020/06/23/业务埋点设计/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/程序设计/" rel="tag"># 程序设计</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/14/Activiti7.X结合SpringBoot2.1、Mybatis/" rel="next" title="Activiti7.X结合SpringBoot2.1、Mybatis">
+                <i class="fa fa-chevron-left"></i> Activiti7.X结合SpringBoot2.1、Mybatis
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#埋点是什么"><span class="nav-number">1.1.</span> <span class="nav-text">埋点是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#埋点是谁的工作"><span class="nav-number">1.2.</span> <span class="nav-text">埋点是谁的工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#埋点的意义"><span class="nav-number">1.3.</span> <span class="nav-text">埋点的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#when-amp-amp-where"><span class="nav-number">1.4.</span> <span class="nav-text">when &amp;&amp; where</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前版本的复盘情况："><span class="nav-number">1.4.1.</span> <span class="nav-text">当前版本的复盘情况：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后续版本的数据支撑："><span class="nav-number">1.4.2.</span> <span class="nav-text">后续版本的数据支撑：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#埋点指标："><span class="nav-number">2.</span> <span class="nav-text">埋点指标：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础指标"><span class="nav-number">2.1.</span> <span class="nav-text">基础指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户行为数据指标"><span class="nav-number">2.2.</span> <span class="nav-text">用户行为数据指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心质量指标"><span class="nav-number">2.3.</span> <span class="nav-text">核心质量指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问与访客"><span class="nav-number">2.4.</span> <span class="nav-text">访问与访客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停留时长"><span class="nav-number">2.5.</span> <span class="nav-text">停留时长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跳出率"><span class="nav-number">2.6.</span> <span class="nav-text">跳出率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#退出率"><span class="nav-number">2.7.</span> <span class="nav-text">退出率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转化率"><span class="nav-number">2.8.</span> <span class="nav-text">转化率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参与度"><span class="nav-number">2.9.</span> <span class="nav-text">参与度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据采集普遍遇到的几个问题"><span class="nav-number">3.</span> <span class="nav-text">数据采集普遍遇到的几个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么埋点"><span class="nav-number">4.</span> <span class="nav-text">怎么埋点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码埋点"><span class="nav-number">4.1.</span> <span class="nav-text">代码埋点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化埋点"><span class="nav-number">4.2.</span> <span class="nav-text">可视化埋点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无埋点"><span class="nav-number">4.3.</span> <span class="nav-text">无埋点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构设计"><span class="nav-number">5.</span> <span class="nav-text">架构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据使用"><span class="nav-number">5.1.</span> <span class="nav-text">数据使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何做数据埋点"><span class="nav-number">6.</span> <span class="nav-text">如何做数据埋点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优秀的实践案例"><span class="nav-number">7.</span> <span class="nav-text">优秀的实践案例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/06/23/业务埋点设计/';
+          this.page.identifier = '2020/06/23/业务埋点设计/';
+          this.page.title = '业务埋点设计';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

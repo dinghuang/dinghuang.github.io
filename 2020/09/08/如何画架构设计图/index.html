@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="架构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="如何画架构设计图转载于知乎 定义什么是架构架构就是对系统中的实体以及实体之间的关系所进行的抽象描述，是一系列的决策。 架构是结构和愿景。 系统架构是概念的体现，是对物/信息的功能与形式元素之间的对应情况所做的分配，是对元素之间的关系以及元素同周边环境之间的关系所做的定义。 做好架构是个复杂的任务有了架构之后，就需要让干系人理解、遵循相关决策。 什么是架构图系统架构图是为了抽象的表示软件系统的整体轮">
+<meta name="keywords" content="架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何画架构设计图">
+<meta property="og:url" content="https://dinghuang.github.io/2020/09/08/如何画架构设计图/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="如何画架构设计图转载于知乎 定义什么是架构架构就是对系统中的实体以及实体之间的关系所进行的抽象描述，是一系列的决策。 架构是结构和愿景。 系统架构是概念的体现，是对物/信息的功能与形式元素之间的对应情况所做的分配，是对元素之间的关系以及元素同周边环境之间的关系所做的定义。 做好架构是个复杂的任务有了架构之后，就需要让干系人理解、遵循相关决策。 什么是架构图系统架构图是为了抽象的表示软件系统的整体轮">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-d85450f5fde7b1b952c375aeb5b08ef9_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-e3e7793037d994f51a70875c976bae8d_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f8aa7bd39f8c1ff151d42abe295eac1e_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f75cf601674f20a7b06df2a3cc2fb934_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-594b11d0f1c0b0e2bba824f5d489e403_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1542f3d3594594c88b2abad7926f32af_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-8576e8884006dfb5e2e88fa4405ae0f9_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-cf751ecece5c86fef705d44e422f088b_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-542d65da584b32dbfe6e63d208484670_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b320fa5f7733cb8e7b9f45a910aadb3f_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-bbfef0211b32a11ee209140f964ae233_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-a6bc2de3271462f663b3d0203ba42050_1440w.jpg">
+<meta property="og:updated_time" content="2020-09-08T07:12:38.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何画架构设计图">
+<meta name="twitter:description" content="如何画架构设计图转载于知乎 定义什么是架构架构就是对系统中的实体以及实体之间的关系所进行的抽象描述，是一系列的决策。 架构是结构和愿景。 系统架构是概念的体现，是对物/信息的功能与形式元素之间的对应情况所做的分配，是对元素之间的关系以及元素同周边环境之间的关系所做的定义。 做好架构是个复杂的任务有了架构之后，就需要让干系人理解、遵循相关决策。 什么是架构图系统架构图是为了抽象的表示软件系统的整体轮">
+<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-d85450f5fde7b1b952c375aeb5b08ef9_1440w.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/09/08/如何画架构设计图/"/>
+
+
+
+
+
+  <title>如何画架构设计图 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/09/08/如何画架构设计图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何画架构设计图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-08T15:47:00+08:00">
+                2020-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/09/08/如何画架构设计图/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/09/08/如何画架构设计图/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="如何画架构设计图"><a href="#如何画架构设计图" class="headerlink" title="如何画架构设计图"></a>如何画架构设计图</h1><p>转载于<a href="https://www.zhihu.com/question/27440059/answer/780182558?utm_campaign=shareopn&amp;utm_content=group2_Answer&amp;utm_medium=social&amp;utm_oi=771100730449731584&amp;utm_source=wechat_session&amp;s_r=0" target="_blank" rel="noopener">知乎</a></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="什么是架构"><a href="#什么是架构" class="headerlink" title="什么是架构"></a>什么是架构</h3><p>架构就是对系统中的实体以及实体之间的关系所进行的抽象描述，是一系列的决策。</p>
+<p>架构是结构和愿景。</p>
+<p>系统架构是概念的体现，是对物/信息的功能与形式元素之间的对应情况所做的分配，是对元素之间的关系以及元素同周边环境之间的关系所做的定义。</p>
+<p>做好架构是个复杂的任务有了架构之后，就需要让干系人理解、遵循相关决策。</p>
+<h3 id="什么是架构图"><a href="#什么是架构图" class="headerlink" title="什么是架构图"></a>什么是架构图</h3><p>系统架构图是为了抽象的表示软件系统的整体轮廓和各个组件之间的相互关系和约束边界，以及软件系统的物理部署和软件系统的演进方向的整体视图。</p>
+<h3 id="架构图的作用"><a href="#架构图的作用" class="headerlink" title="架构图的作用"></a>架构图的作用</h3><p>一图胜千言。要让干系人理解、遵循架构决策，就需要把架构信息传递出去。架构图就是一个很好的载体。那么，画架构图是为了：</p>
+<ul>
+<li>解决沟通障碍</li>
+<li>达成共识</li>
+<li>减少歧义</li>
+</ul>
+<h2 id="架构图分类"><a href="#架构图分类" class="headerlink" title="架构图分类"></a>架构图分类</h2><p>搜集了很多资料，分类有很多，有一种比较流行的是4+1视图，分别为场景视图、逻辑视图、物理视图、处理流程视图和开发视图。</p>
+<h3 id="场景视图"><a href="#场景视图" class="headerlink" title="场景视图"></a>场景视图</h3><p>场景视图用于描述系统的参与者与功能用例间的关系,反映系统的最终需求和交互设计,通常由用例图表示。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-d85450f5fde7b1b952c375aeb5b08ef9_1440w.jpg" alt="image"></p>
+<h3 id="逻辑视图"><a href="#逻辑视图" class="headerlink" title="逻辑视图"></a>逻辑视图</h3><p>逻辑视图用于描述系统软件功能拆解后的组件关系,组件约束和边界,反映系统整体组成与系统如何构建的过程,通常由UML的组件图和类图来表示。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-e3e7793037d994f51a70875c976bae8d_1440w.jpg" alt="image"></p>
+<h3 id="物理视图"><a href="#物理视图" class="headerlink" title="物理视图"></a>物理视图</h3><p>物理视图用于描述系统软件到物理硬件的映射关系,反映出系统的组件是如何部署到一组可计算机器节点上,用于指导软件系统的部署实施过程</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f8aa7bd39f8c1ff151d42abe295eac1e_1440w.jpg" alt="image"></p>
+<h3 id="处理流程视图"><a href="#处理流程视图" class="headerlink" title="处理流程视图"></a>处理流程视图</h3><p>处理流程视图用于描述系统软件组件之间的通信时序,数据的输入输出,反映系统的功能流程与数据流程,通常由时序图和流程图表示。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f75cf601674f20a7b06df2a3cc2fb934_1440w.jpg" alt="image"></p>
+<h3 id="开发视图"><a href="#开发视图" class="headerlink" title="开发视图"></a>开发视图</h3><p>开发视图用于描述系统的模块划分和组成,以及细化到内部包的组成设计,服务于开发人员,反映系统开发实施过程。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-594b11d0f1c0b0e2bba824f5d489e403_1440w.jpg" alt="image"></p>
+<p>5 种架构视图从不同角度表示一个软件系统的不同特征，组合到一起作为架构蓝图描述系统架构。</p>
+<h2 id="好的架构图"><a href="#好的架构图" class="headerlink" title="好的架构图"></a>好的架构图</h2><p>上面的分类是前人的经验总结，图也是从网上摘来的，那么这些图画的好不好呢？是不是我们要依葫芦画瓢去画这样一些图？</p>
+<p>先不去管这些图好不好，我们通过对这些图的分类以及作用，思考了一下，总结下来，我们认为，在画出一个好的架构图之前， 首先应该要明确其受众，再想清楚要给他们传递什么信息 ，所以，不要为了画一个物理视图去画物理视图，为了画一个逻辑视图去画逻辑视图，而应该根据受众的不同，传递的信息的不同，用图准确地表达出来，最后的图可能就是在这样一些分类里。那么，画出的图好不好的一个直接标准就是：受众有没有准确接收到想传递的信息。</p>
+<p>明确这两点之后，从受众角度来说，一个好的架构图是不需要解释的，它应该是自描述的，并且要具备一致性和足够的准确性，能够与代码相呼应。</p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
+<li>方框代表什么？</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1542f3d3594594c88b2abad7926f32af_1440w.jpg" alt="image"></p>
+<p>为什么适用方框而不是圆形，它有什么特殊的含义吗？随意使用方框或者其它形状可能会引起混淆。</p>
+<ul>
+<li>虚线、实线什么意思？箭头什么意思？颜色什么意思？</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg" alt="image"></p>
+<p>随意使用线条或者箭头可能会引起误会。</p>
+<ul>
+<li>运行时与编译时冲突？层级冲突？</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg" alt="image"></p>
+<p>架构是一项复杂的工作，只使用单个图表来表示架构很容易造成莫名其妙的语义混乱。</p>
+<h2 id="如何更好的表达软件架构"><a href="#如何更好的表达软件架构" class="headerlink" title="如何更好的表达软件架构"></a>如何更好的表达软件架构</h2><h3 id="C4"><a href="#C4" class="headerlink" title="C4"></a>C4</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-8576e8884006dfb5e2e88fa4405ae0f9_1440w.jpg" alt="image"></p>
+<p>C4 模型使用容器（应用程序、数据存储、微服务等）、组件和代码来描述一个软件系统的静态结构。这几种图比较容易画，也给出了画图要点，但最关键的是，我们认为，它明确指出了每种图可能的受众以及意义。</p>
+<p>下面的案例来自C4官网，然后加上了一些我们的理解。</p>
+<h3 id="语境图-System-Context-Diagram"><a href="#语境图-System-Context-Diagram" class="headerlink" title="语境图(System Context Diagram)"></a>语境图(System Context Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-cf751ecece5c86fef705d44e422f088b_1440w.jpg" alt="image"></p>
+<p>这是一个想象的待建设的互联网银行系统，它使用外部的大型机银行系统存取客户账户、交易信息，通过外部电邮系统给客户发邮件。可以看到，非常简单、清晰，相信不需要解释，都看的明白，里面包含了需要建设的系统本身，系统的客户，和这个系统有交互的周边系统。</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>这样一个简单的图，可以告诉我们，要构建的系统是什么；它的用户是谁，谁会用它，它要如何融入已有的IT环境。这个图的受众可以是开发团队的内部人员、外部的技术或非技术人员。即：</p>
+<ul>
+<li>构建的系统是什么</li>
+<li>谁会用它</li>
+<li>如何融入已有的IT环境</li>
+</ul>
+<h4 id="怎么画"><a href="#怎么画" class="headerlink" title="怎么画"></a>怎么画</h4><p>中间是自己的系统，周围是用户和其它与之相互作用的系统。这个图的关键就是梳理清楚待建设系统的用户和高层次的依赖，梳理清楚了画下来只需要几分钟时间。</p>
+<h3 id="容器图-Container-Diagram"><a href="#容器图-Container-Diagram" class="headerlink" title="容器图(Container Diagram)"></a>容器图(Container Diagram)</h3><p>容器图是把语境图里待建设的系统做了一个展开。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-542d65da584b32dbfe6e63d208484670_1440w.jpg" alt="image"></p>
+<p>上图中，除了用户和外围系统，要建设的系统包括一个基于java\spring mvc的web应用提供系统的功能入口，基于xamarin架构的手机app提供手机端的功能入口，一个基于java的api应用提供服务，一个mysql数据库用于存储，各个应用之间的交互都在箭头线上写明了。</p>
+<p>看这张图的时候，不会去关注到图中是直角方框还是圆角方框，不会关注是实线箭头还是虚线箭头，甚至箭头的指向也没有引起太多注意。</p>
+<p>我们有许多的画图方式，都对框、线的含义做了定义，这就需要画图的人和看图的人都清晰的理解这些定义，才能读全图里的信息，而现实是，这往往是非常高的一个要求，所以，很多图只能看个大概的含义。</p>
+<h4 id="用途-1"><a href="#用途-1" class="headerlink" title="用途"></a>用途</h4><p>这个图的受众可以是团队内部或外部的开发人员，也可以是运维人员。用途可以罗列为：</p>
+<ul>
+<li>展现了软件系统的整体形态</li>
+<li>体现了高层次的技术决策</li>
+<li>系统中的职责是如何分布的，容器间的是如何交互的</li>
+<li>告诉开发者在哪里写代码</li>
+</ul>
+<h4 id="怎么画-1"><a href="#怎么画-1" class="headerlink" title="怎么画"></a>怎么画</h4><p>用一个框图来表示，内部可能包括名称、技术选择、职责，以及这些框图之间的交互，如果涉及外部系统，最好明确边界</p>
+<h3 id="组件图-Component-Diagram"><a href="#组件图-Component-Diagram" class="headerlink" title="组件图(Component Diagram)"></a>组件图(Component Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b320fa5f7733cb8e7b9f45a910aadb3f_1440w.jpg" alt="image"></p>
+<p>组件图是把某个容器进行展开，描述其内部的模块。</p>
+<h4 id="用途-2"><a href="#用途-2" class="headerlink" title="用途"></a>用途</h4><p>这个图主要是给内部开发人员看的，怎么去做代码的组织和构建。其用途有</p>
+<ul>
+<li>描述了系统由哪些组件/服务组成</li>
+<li>厘清了组件之间的关系和依赖</li>
+<li>为软件开发如何分解交付提供了框架</li>
+</ul>
+<h3 id="类图-Code-Class-Diagram"><a href="#类图-Code-Class-Diagram" class="headerlink" title="类图(Code/Class Diagram)"></a>类图(Code/Class Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-bbfef0211b32a11ee209140f964ae233_1440w.jpg" alt="image"></p>
+<h2 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h2><h3 id="本地协作"><a href="#本地协作" class="headerlink" title="本地协作"></a>本地协作</h3><h4 id="Mac-OmniGraffle"><a href="#Mac-OmniGraffle" class="headerlink" title="Mac:OmniGraffle"></a>Mac:OmniGraffle</h4><p>OmniGraffle 是由 The Omni Group 制作的一款绘图软件，它曾获得苹果设计奖。OmniGraffle 可以支持流程图、逻辑图或者网页产品模型设计等，功能非常强大。与 Graffle 对应的是在Windows平台广泛应用的 MS Visio（ Graffle 这个词据说就是为了和Visio区分而硬造出来的）</p>
+<h4 id="Windows-Visio"><a href="#Windows-Visio" class="headerlink" title="Windows:Visio"></a>Windows:Visio</h4><p>Office Visio 是office软件系列中的负责绘制流程图和示意图的软件，是一款便于IT和商务人员就复杂信息、系统和流程进行可视化处理、分析和交流的软件。使用具有专业外观的 Office Visio 图表，可以促进对系统和流程的了解，深入了解复杂信息并利用这些知识做出更好的业务决策。<br>Microsoft Office Visio帮助您创建具有专业外观的图表，以便理解、记录和分析信息、数据、系统和过程。</p>
+<h3 id="在线协作"><a href="#在线协作" class="headerlink" title="在线协作"></a>在线协作</h3><h4 id="Process-On"><a href="#Process-On" class="headerlink" title="Process On"></a>Process On</h4><p>是一款用HTML5、Canvas以及JavaScript技术开发而成的在线网页版作图工具。只需在工具栏拖放对应的图形到画布中,就可进行编辑，还支持流程图、思维导图、原型、拓扑图等，最让人心动的就是有实时协助的功能，从此再也不需要和同学、老师、领导之间来回传送文件，直接邀请，一起协作完成。</p>
+<h2 id="案例分享"><a href="#案例分享" class="headerlink" title="案例分享"></a>案例分享</h2><p>下面是 城市运营态势 工具的一个架构图。作为一个应该自描述的架构图，这里不多做解释了。如果有看不明白的，那肯定是还画的不够好。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-a6bc2de3271462f663b3d0203ba42050_1440w.jpg" alt="image"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/09/08/如何画架构设计图/" title="如何画架构设计图">https://dinghuang.github.io/2020/09/08/如何画架构设计图/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/架构/" rel="tag"># 架构</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/06/ELK日志管理系统/" rel="next" title="ELK日志管理系统">
+                <i class="fa fa-chevron-left"></i> ELK日志管理系统
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何画架构设计图"><span class="nav-number">1.</span> <span class="nav-text">如何画架构设计图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是架构"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是架构图"><span class="nav-number">1.1.2.</span> <span class="nav-text">什么是架构图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构图的作用"><span class="nav-number">1.1.3.</span> <span class="nav-text">架构图的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构图分类"><span class="nav-number">1.2.</span> <span class="nav-text">架构图分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景视图"><span class="nav-number">1.2.1.</span> <span class="nav-text">场景视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑视图"><span class="nav-number">1.2.2.</span> <span class="nav-text">逻辑视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理视图"><span class="nav-number">1.2.3.</span> <span class="nav-text">物理视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理流程视图"><span class="nav-number">1.2.4.</span> <span class="nav-text">处理流程视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发视图"><span class="nav-number">1.2.5.</span> <span class="nav-text">开发视图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好的架构图"><span class="nav-number">1.3.</span> <span class="nav-text">好的架构图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常见问题"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何更好的表达软件架构"><span class="nav-number">1.4.</span> <span class="nav-text">如何更好的表达软件架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C4"><span class="nav-number">1.4.1.</span> <span class="nav-text">C4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语境图-System-Context-Diagram"><span class="nav-number">1.4.2.</span> <span class="nav-text">语境图(System Context Diagram)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用途"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么画"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">怎么画</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器图-Container-Diagram"><span class="nav-number">1.4.3.</span> <span class="nav-text">容器图(Container Diagram)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用途-1"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么画-1"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">怎么画</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件图-Component-Diagram"><span class="nav-number">1.4.4.</span> <span class="nav-text">组件图(Component Diagram)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用途-2"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">用途</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类图-Code-Class-Diagram"><span class="nav-number">1.4.5.</span> <span class="nav-text">类图(Code/Class Diagram)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具使用"><span class="nav-number">1.5.</span> <span class="nav-text">工具使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地协作"><span class="nav-number">1.5.1.</span> <span class="nav-text">本地协作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Mac-OmniGraffle"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Mac:OmniGraffle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-Visio"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">Windows:Visio</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线协作"><span class="nav-number">1.5.2.</span> <span class="nav-text">在线协作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Process-On"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Process On</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例分享"><span class="nav-number">1.6.</span> <span class="nav-text">案例分享</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/09/08/如何画架构设计图/';
+          this.page.identifier = '2020/09/08/如何画架构设计图/';
+          this.page.title = '如何画架构设计图';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介官网地址 官方文档 Spring Security，这是一种基于 Spring AOP 和 Servlet 过滤器的安全框架。它提供全面的安全性解决方案，同时在 Web 请求级和方法调用级处理身份确认和授权。 Spring Security当前支持与所有以下技术的身份验证集  HTTP BASIC authentication headers (an IETF RFC-based standa">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot2.X Security Oauth2 JWT">
+<meta property="og:url" content="https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="简介官网地址 官方文档 Spring Security，这是一种基于 Spring AOP 和 Servlet 过滤器的安全框架。它提供全面的安全性解决方案，同时在 Web 请求级和方法调用级处理身份确认和授权。 Spring Security当前支持与所有以下技术的身份验证集  HTTP BASIC authentication headers (an IETF RFC-based standa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/spring-boot-authentication-spring-security-architecture.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/oauth-auth-code_c4oi91.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/viaL4.png">
+<meta property="og:updated_time" content="2020-10-20T07:49:36.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot2.X Security Oauth2 JWT">
+<meta name="twitter:description" content="简介官网地址 官方文档 Spring Security，这是一种基于 Spring AOP 和 Servlet 过滤器的安全框架。它提供全面的安全性解决方案，同时在 Web 请求级和方法调用级处理身份确认和授权。 Spring Security当前支持与所有以下技术的身份验证集  HTTP BASIC authentication headers (an IETF RFC-based standa">
+<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/spring-boot-authentication-spring-security-architecture.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/"/>
+
+
+
+
+
+  <title>SpringBoot2.X Security Oauth2 JWT | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot2.X Security Oauth2 JWT</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-10-20T15:47:00+08:00">
+                2020-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/10/20/SpringBoot2.X Security Oauth2 JWT/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/10/20/SpringBoot2.X Security Oauth2 JWT/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><a href="hhttps://spring.io/projects/spring-security" target="_blank" rel="noopener">官网地址</a></p>
+<p><a href="https://docs.spring.io/spring-security/site/docs/4.0.x/reference/html/introduction.html#what-is-acegi-security" target="_blank" rel="noopener">官方文档</a></p>
+<p>Spring Security，这是一种基于 Spring AOP 和 Servlet 过滤器的安全框架。它提供全面的安全性解决方案，同时在 Web 请求级和方法调用级处理身份确认和授权。</p>
+<p>Spring Security当前支持与所有以下技术的身份验证集</p>
+<ul>
+<li>HTTP BASIC authentication headers (an IETF RFC-based standard)</li>
+<li>HTTP Digest authentication headers (an IETF RFC-based standard)</li>
+<li>HTTP X.509 client certificate exchange (an IETF RFC-based standard)</li>
+<li>LDAP (a very common approach to cross-platform authentication needs, especially in large environments)</li>
+<li>Form-based authentication (for simple user interface needs)</li>
+<li>OpenID authentication</li>
+<li>Authentication based on pre-established request headers (such as Computer Associates Siteminder)</li>
+<li>JA-SIG Central Authentication Service (otherwise known as CAS, which is a popular open source single sign-on system)</li>
+<li>Transparent authentication context propagation for Remote Method Invocation (RMI) and HttpInvoker (a Spring remoting protocol)</li>
+<li>Automatic “remember-me” authentication (so you can tick a box to avoid re-authentication for a predetermined period of time)</li>
+<li>Anonymous authentication (allowing every unauthenticated call to automatically assume a particular security identity)</li>
+<li>Run-as authentication (which is useful if one call should proceed with a different security identity)</li>
+<li>Java Authentication and Authorization Service (JAAS)</li>
+<li>JEE container autentication (so you can still use Container - Managed Authentication if desired)</li>
+<li>Kerberos</li>
+<li>Java Open Source Single Sign On (JOSSO) *</li>
+<li>OpenNMS Network Management Platform *</li>
+<li>AppFuse *</li>
+<li>AndroMDA *</li>
+<li>Mule ESB *</li>
+<li>Direct Web Request (DWR) *</li>
+<li>Grails *</li>
+<li>Tapestry *</li>
+<li>JTrac *</li>
+<li>Jasypt *</li>
+<li>Roller *</li>
+<li>Elastic Path *</li>
+<li>Atlassian Crowd *</li>
+<li>Your own authentication systems (see below) </li>
+</ul>
+<p>涉及以下系统组件：<br>客户端：它可以是任何平台上的任何Web服务使用者。简而言之，它可以是另一个WebService，UI应用程序或Mobile平台，它们希望通过应用程序以安全的方式读写数据。<br>授权服务器：验证用户凭据，并颁发令牌。它根据不同的授予类型发行令牌。下面列出了最常见的<a href="hhttps://tools.ietf.org/html/draft-ietf-oauth-v2-31" target="_blank" rel="noopener">OAuth 2.0</a>授权类型：</p>
+<ul>
+<li>Authorization Code</li>
+<li>Implicit</li>
+<li>Password</li>
+<li>Client Credentials</li>
+<li>Device Code</li>
+<li>Refresh Token</li>
+</ul>
+<p>名词解释可以看<a href="https://projects.spring.io/spring-security-oauth/docs/oauth2.html" target="_blank" rel="noopener">SpringOauth2官方文档</a></p>
+<h1 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h1><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/spring-boot-authentication-spring-security-architecture.png" alt="image"></p>
+<h2 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h2><p>– WebSecurityConfigurerAdapter 是我们安全实施的关键。它提供HttpSecurity配置以配置cors，csrf，会话管理以及受保护资源的规则。我们还可以扩展和定制包含以下元素的默认配置。</p>
+<p>– UserDetailsService 接口有一种方法可以按用户名加载User并返回UserDetailsSpring Security可以用于认证和验证的对象。</p>
+<p>– UserDetails 包含用于构建身份验证对象的必要信息（例如：用户名，密码，授权机构）。</p>
+<p>– UsernamePasswordAuthenticationToken 从登录请求中获取{用户名，密码}，AuthenticationManager将使用它来认证登录帐户。</p>
+<p>– AuthenticationManager 有一个DaoAuthenticationProvider（与帮助UserDetailsService＆PasswordEncoder）来验证UsernamePasswordAuthenticationToken对象。如果成功，则AuthenticationManager返回完全填充的身份验证对象（包括授予的权限）。</p>
+<p>– OncePerRequestFilter 对我们API的每个请求执行一次。它提供了一种doFilterInternal()方法，我们将实现解析和验证JWT，加载用户详细信息（使用UserDetailsService），检查授权（使用UsernamePasswordAuthenticationToken）。</p>
+<p>– AuthenticationEntryPoint 当客户端未经身份验证访问受保护的资源时，将捕获未经授权的错误并返回401。</p>
+<h2 id="认证流程"><a href="#认证流程" class="headerlink" title="认证流程"></a>认证流程</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/oauth-auth-code_c4oi91.png" alt="image"></p>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><h2 id="引入maven包"><a href="#引入maven包" class="headerlink" title="引入maven包"></a>引入maven包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security.oauth2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-oauth2-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0.BUILD-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span>auth-server<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span>client-app<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">module</span>&gt;</span>resource-server<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security.oauth<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-oauth2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security.oauth.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-oauth2-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-jwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>核心代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.AuthenticationException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.web.AuthenticationEntryPoint;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerAuthenticationEntryPointConfiguration</span> <span class="keyword">implements</span> <span class="title">AuthenticationEntryPoint</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commence</span><span class="params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        <span class="comment">//处理异常消息通知</span></span><br><span class="line">        httpServletResponse.getWriter().write(<span class="string">"暂无权限访问"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.authentication.AuthenticationProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.authentication.UsernamePasswordAuthenticationToken;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.Authentication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.AuthenticationException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.authority.AuthorityUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.context.SecurityContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.User;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerAuthenticationProviderConfiguration</span> <span class="keyword">implements</span> <span class="title">AuthenticationProvider</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Authentication <span class="title">authenticate</span><span class="params">(Authentication authentication)</span> <span class="keyword">throws</span> AuthenticationException </span>&#123;</span><br><span class="line">        <span class="comment">//这里做自定义的用户校验,可以对用户进行继承扩展</span></span><br><span class="line">        User user = <span class="keyword">new</span> User((String) authentication.getPrincipal(), (String) authentication.getCredentials(), AuthorityUtils.commaSeparatedStringToAuthorityList(<span class="string">"admin"</span>));</span><br><span class="line">        <span class="comment">//这里可以通过继承AbstractAuthenticationToken进行扩展</span></span><br><span class="line">        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = <span class="keyword">new</span> UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials());</span><br><span class="line">        usernamePasswordAuthenticationToken.setDetails(user);</span><br><span class="line">        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);</span><br><span class="line">        <span class="keyword">return</span> usernamePasswordAuthenticationToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">supports</span><span class="params">(Class&lt;?&gt; aClass)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">package</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.oauth</span><span class="selector-class">.config</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.beans</span><span class="selector-class">.factory</span><span class="selector-class">.annotation</span><span class="selector-class">.Autowired</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.context</span><span class="selector-class">.annotation</span><span class="selector-class">.Configuration</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.authentication</span><span class="selector-class">.AuthenticationManager</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.core</span><span class="selector-class">.Authentication</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.core</span><span class="selector-class">.AuthenticationException</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @author dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * @since 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">Configuration</span></span><br><span class="line"><span class="keyword">public</span> class CustomerAuthenticationManager implements AuthenticationManager &#123;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Autowired</span></span><br><span class="line">    private CustomerAuthenticationProviderConfiguration customerAuthenticationProviderConfiguration;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Override</span></span><br><span class="line">    public Authentication authenticate(Authentication authentication) throws AuthenticationException &#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">customerAuthenticationProviderConfiguration</span><span class="selector-class">.authenticate</span>(<span class="selector-tag">authentication</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth.properties.Oauth2ClientProperties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth.properties.Oauth2Properties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.TokenStore;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerAuthorizationServerConfiguration</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TokenStore tokenStore;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> JwtAccessTokenConverter jwtAccessTokenConverter;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerAuthenticationManager customerAuthenticationManager;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Oauth2Properties oauth2Properties;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerWebResponseExceptionTranslator customerWebResponseExceptionTranslator;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer)</span> </span>&#123;</span><br><span class="line">        authorizationServerEndpointsConfigurer.tokenEnhancer(jwtAccessTokenConverter)</span><br><span class="line">                .tokenStore(tokenStore)</span><br><span class="line">                .authenticationManager(customerAuthenticationManager)</span><br><span class="line">                .exceptionTranslator(customerWebResponseExceptionTranslator);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerSecurityConfigurer authorizationServerSecurityConfigurer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        authorizationServerSecurityConfigurer.tokenKeyAccess(<span class="string">"permitAll()"</span>)</span><br><span class="line">                .allowFormAuthenticationForClients()</span><br><span class="line">                .checkTokenAccess(<span class="string">"isAuthenticated"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clientDetailsServiceConfigurer)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        InMemoryClientDetailsServiceBuilder inMemoryClientDetailsServiceBuilder = clientDetailsServiceConfigurer.inMemory();</span><br><span class="line">        <span class="keyword">for</span> (Oauth2ClientProperties oauth2ClientProperties : oauth2Properties.getClients()) &#123;</span><br><span class="line">            inMemoryClientDetailsServiceBuilder.withClient(oauth2ClientProperties.getClientId())</span><br><span class="line">                    .secret(bCryptPasswordEncoder().encode(oauth2ClientProperties.getClientSecret()))</span><br><span class="line">                    .accessTokenValiditySeconds(oauth2ClientProperties.getAccessTokenValiditySeconds())</span><br><span class="line">                    .refreshTokenValiditySeconds(oauth2ClientProperties.getRefreshTokenValiditySeconds())</span><br><span class="line">                    .authorizedGrantTypes(<span class="string">"refresh_token"</span>, <span class="string">"password"</span>, <span class="string">"authorization_code"</span>)</span><br><span class="line">                    .scopes(oauth2ClientProperties.getScopes());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BCryptPasswordEncoder <span class="title">bCryptPasswordEncoder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BCryptPasswordEncoder();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">package</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.oauth</span><span class="selector-class">.config</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.beans</span><span class="selector-class">.factory</span><span class="selector-class">.annotation</span><span class="selector-class">.Autowired</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.context</span><span class="selector-class">.annotation</span><span class="selector-class">.Configuration</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.authentication</span><span class="selector-class">.AuthenticationManager</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.config</span><span class="selector-class">.annotation</span><span class="selector-class">.web</span><span class="selector-class">.builders</span><span class="selector-class">.HttpSecurity</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.config</span><span class="selector-class">.annotation</span><span class="selector-class">.web</span><span class="selector-class">.configuration</span><span class="selector-class">.EnableWebSecurity</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.config</span><span class="selector-class">.annotation</span><span class="selector-class">.web</span><span class="selector-class">.configuration</span><span class="selector-class">.WebSecurityConfigurerAdapter</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.oauth</span><span class="selector-class">.filter</span><span class="selector-class">.CustomerOauth2AuthenticationProcessingFilter</span>;</span><br><span class="line"><span class="selector-tag">import</span> <span class="selector-tag">org</span><span class="selector-class">.springframework</span><span class="selector-class">.security</span><span class="selector-class">.web</span><span class="selector-class">.authentication</span><span class="selector-class">.AnonymousAuthenticationFilter</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @author dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * @since 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">@<span class="keyword">Configuration</span></span><br><span class="line">@<span class="keyword">EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> class CustomerSecurityConfiguration extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Autowired</span></span><br><span class="line">    private CustomerAuthenticationManager customerAuthenticationManager;</span><br><span class="line">    @<span class="keyword">Autowired</span></span><br><span class="line">    private CustomerAuthenticationEntryPointConfiguration customerAuthenticationEntryPointConfiguration;</span><br><span class="line">    @<span class="keyword">Autowired</span></span><br><span class="line">    private CustomerOauth2AuthenticationProcessingFilter customerOauth2AuthenticationProcessingFilter;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Override</span></span><br><span class="line">    protected void configure(HttpSecurity httpSecurity) throws  Exception&#123;</span><br><span class="line">        <span class="selector-tag">httpSecurity</span><span class="selector-class">.authorizeRequests</span>()<span class="selector-class">.anyRequest</span>()<span class="selector-class">.authenticated</span>()<span class="selector-class">.and</span>()<span class="selector-class">.addFilterBefore</span>(<span class="selector-tag">customerOauth2AuthenticationProcessingFilter</span>, <span class="selector-tag">AnonymousAuthenticationFilter</span><span class="selector-class">.class</span>)</span><br><span class="line">                <span class="selector-class">.csrf</span>()<span class="selector-class">.disable</span>()<span class="selector-class">.exceptionHandling</span>()<span class="selector-class">.authenticationEntryPoint</span>(<span class="selector-tag">customerAuthenticationEntryPointConfiguration</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">Override</span></span><br><span class="line">    public AuthenticationManager authenticationManager()&#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">customerAuthenticationManager</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.common.exceptions.OAuth2Exception;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerWebResponseExceptionTranslator</span> <span class="keyword">implements</span> <span class="title">WebResponseExceptionTranslator</span>&lt;<span class="title">OAuth2Exception</span>&gt; </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ResponseEntity&lt;OAuth2Exception&gt; <span class="title">translate</span><span class="params">(Exception e)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//自定义认证失败信息</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config.token;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.authentication.AbstractAuthenticationToken;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.OAuth2Authentication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.AuthenticationKeyGenerator;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerAuthenticationKeyGeneratorConfiguration</span> <span class="keyword">implements</span> <span class="title">AuthenticationKeyGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">extractKey</span><span class="params">(OAuth2Authentication authentication)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//自定义token生成，可以用来实现ip控制登录用户只能有一个，顶掉登录</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config.token;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.jsonwebtoken.<span class="type">JwtHandlerAdapter</span>;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.<span class="type">Configuration</span>;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.common.<span class="type">OAuth2AccessToken</span>;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.<span class="type">OAuth2Authentication</span>;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.store.<span class="type">JwtAccessTokenConverter</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @author dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * @since 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">CustomerJwtAccessTokenConverterConfiguration</span> <span class="keyword">extends</span> <span class="title">JwtAccessTokenConverter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">OAuth2AccessToken</span> enhance(<span class="type">OAuth2AccessToken</span> oAuth2AccessToken, <span class="type">OAuth2Authentication</span> oAuth2Authentication)&#123;</span><br><span class="line">       <span class="comment">//可以实现jwt的token放一些用户信息</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.enhance(oAuth2AccessToken,oAuth2Authentication);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.config.token;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.<span class="keyword">annotation</span>.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.<span class="keyword">annotation</span>.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.<span class="keyword">annotation</span>.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.<span class="keyword">data</span>.redis.connection.RedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth.properties.Oauth2Properties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.TokenStore;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123<span class="doctag">@gmail</span>.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerJwtStoreConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisConnectionFactory redisConnectionFactory;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Oauth2Properties oauth2Properties;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerAuthenticationKeyGeneratorConfiguration customerAuthenticationKeyGeneratorConfiguration;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerJwtAccessTokenConverterConfiguration customerJwtAccessTokenConverterConfiguration;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> TokenStore redisTokenStore() &#123;</span><br><span class="line">        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);</span><br><span class="line">        redisTokenStore.setAuthenticationKeyGenerator(customerAuthenticationKeyGeneratorConfiguration);</span><br><span class="line">        <span class="keyword">return</span> redisTokenStore;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JwtAccessTokenConverter jwtAccessTokenConverter() &#123;</span><br><span class="line">        customerJwtAccessTokenConverterConfiguration.setSigningKey(oauth2Properties.getJwtSigningKey());</span><br><span class="line">        <span class="keyword">return</span> customerJwtAccessTokenConverterConfiguration;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.filter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.InitializingBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.Authentication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.context.SecurityContextHolder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth.config.CustomerAuthenticationProviderConfiguration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.oauth.properties.Oauth2Properties;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.AntPathMatcher;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.*;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomerOauth2AuthenticationProcessingFilter</span> <span class="keyword">implements</span> <span class="title">Filter</span>, <span class="title">InitializingBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Oauth2Properties oauth2Properties;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CustomerAuthenticationProviderConfiguration customerAuthenticationProviderConfiguration;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)</span> <span class="keyword">throws</span> IOException, ServletException </span>&#123;</span><br><span class="line">        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;</span><br><span class="line">        <span class="comment">//白名单过滤</span></span><br><span class="line">        AntPathMatcher antPathMatcher = <span class="keyword">new</span> AntPathMatcher();</span><br><span class="line">        <span class="keyword">for</span> (String path : oauth2Properties.getPermitUrl().split(<span class="string">","</span>)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (antPathMatcher.match(path, httpServletRequest.getPathInfo())) &#123;</span><br><span class="line">                filterChain.doFilter(servletRequest, servletResponse);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//自定义验证</span></span><br><span class="line">        Authentication authentication = getFromRequest(httpServletRequest);</span><br><span class="line">        <span class="keyword">if</span> (authentication == <span class="keyword">null</span>) &#123;</span><br><span class="line">            SecurityContextHolder.clearContext();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            SecurityContextHolder.getContext().setAuthentication(customerAuthenticationProviderConfiguration.authenticate(authentication));</span><br><span class="line">        &#125;</span><br><span class="line">        filterChain.doFilter(servletRequest, servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Authentication <span class="title">getFromRequest</span><span class="params">(HttpServletRequest httpServletRequest)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//todo 这里可以自己去实现</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterPropertiesSet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Oauth2ClientProperties</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String clientId;</span><br><span class="line">    <span class="keyword">private</span> String clientSecret;</span><br><span class="line">    <span class="keyword">private</span> String scopes;</span><br><span class="line">    <span class="keyword">private</span> Integer accessTokenValiditySeconds;</span><br><span class="line">    <span class="keyword">private</span> Integer refreshTokenValiditySeconds;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getClientId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> clientId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setClientId</span><span class="params">(String clientId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.clientId = clientId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getClientSecret</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> clientSecret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setClientSecret</span><span class="params">(String clientSecret)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.clientSecret = clientSecret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getScopes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> scopes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setScopes</span><span class="params">(String scopes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.scopes = scopes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getAccessTokenValiditySeconds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> accessTokenValiditySeconds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAccessTokenValiditySeconds</span><span class="params">(Integer accessTokenValiditySeconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.accessTokenValiditySeconds = accessTokenValiditySeconds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">getRefreshTokenValiditySeconds</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> refreshTokenValiditySeconds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRefreshTokenValiditySeconds</span><span class="params">(Integer refreshTokenValiditySeconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.refreshTokenValiditySeconds = refreshTokenValiditySeconds;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.security.oauth.properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> dinghuang123@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020/10/20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"security.oauth2"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Oauth2Properties</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String jwtSigningKey;</span><br><span class="line">    <span class="keyword">private</span> String permitUrl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Oauth2ClientProperties[] clients = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getJwtSigningKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jwtSigningKey;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setJwtSigningKey</span><span class="params">(String jwtSigningKey)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.jwtSigningKey = jwtSigningKey;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPermitUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> permitUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPermitUrl</span><span class="params">(String permitUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.permitUrl = permitUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Oauth2ClientProperties[] getClients() &#123;</span><br><span class="line">        <span class="keyword">return</span> clients;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setClients</span><span class="params">(Oauth2ClientProperties[] clients)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.clients = clients;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">server:</span></span><br><span class="line"><span class="symbol">  port:</span> <span class="number">8090</span></span><br><span class="line"><span class="symbol">spring:</span></span><br><span class="line"><span class="symbol">  redis:</span></span><br><span class="line"><span class="symbol">    host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"><span class="symbol">    port:</span> <span class="number">6379</span></span><br><span class="line"><span class="symbol">    password:</span></span><br><span class="line"><span class="symbol">security:</span></span><br><span class="line"><span class="symbol">  oauth2:</span></span><br><span class="line"><span class="symbol">    jwtSigningKey:</span> admin</span><br><span class="line"><span class="symbol">    permitUrl:</span> <span class="meta-keyword">/oauth/</span>**</span><br><span class="line">    clients[<span class="number">0</span>]:</span><br><span class="line"><span class="symbol">      clientId:</span> client</span><br><span class="line"><span class="symbol">      clientSecret:</span> client</span><br><span class="line"><span class="symbol">      scopes:</span> all</span><br><span class="line"><span class="symbol">      accessTokenValiditySeconds:</span> <span class="number">864000</span></span><br><span class="line"><span class="symbol">      refreshTokenValiditySeconds:</span> <span class="number">864000</span></span><br><span class="line"><span class="symbol">logging:</span></span><br><span class="line"><span class="symbol">  level:</span></span><br><span class="line"><span class="symbol">    root:</span> WARN</span><br><span class="line">    org.springframework.web: INFO</span><br><span class="line">    org.springframework.security: INFO</span><br><span class="line">    org.springframework.security.oauth2: INFO</span><br></pre></td></tr></table></figure>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">curl</span> -H <span class="string">"Content-Type: application/json"</span> -X POST <span class="string">"http://localhost:8090/oauth/token?client_id=client&amp;client_secret=client&amp;grant_type=pwssword&amp;username=admin&amp;password&amp;admin"</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/dinghuang/spring-security-oauth2-demo.git" target="_blank" rel="noopener">代码地址</a></p>
+<h1 id="结合网关"><a href="#结合网关" class="headerlink" title="结合网关"></a>结合网关</h1><h2 id="架构设计-1"><a href="#架构设计-1" class="headerlink" title="架构设计"></a>架构设计</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/viaL4.png" alt="image"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/" title="SpringBoot2.X Security Oauth2 JWT">https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/09/08/如何画架构设计图/" rel="next" title="如何画架构设计图">
+                <i class="fa fa-chevron-left"></i> 如何画架构设计图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#架构设计"><span class="nav-number">2.</span> <span class="nav-text">架构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#名词解释"><span class="nav-number">2.1.</span> <span class="nav-text">名词解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认证流程"><span class="nav-number">2.2.</span> <span class="nav-text">认证流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引入maven包"><span class="nav-number">3.1.</span> <span class="nav-text">引入maven包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">3.2.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结合网关"><span class="nav-number">4.</span> <span class="nav-text">结合网关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#架构设计-1"><span class="nav-number">4.1.</span> <span class="nav-text">架构设计</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/10/20/SpringBoot2.X Security Oauth2 JWT/';
+          this.page.identifier = '2020/10/20/SpringBoot2.X Security Oauth2 JWT/';
+          this.page.title = 'SpringBoot2.X Security Oauth2 JWT';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

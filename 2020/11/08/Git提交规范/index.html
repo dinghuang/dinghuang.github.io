@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="GIT," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="设置用户首次拉代码后，在目录下用命令行设置用户信息 123git config core.ignorecase falsegit config --global user.name &quot;张三&quot;git config --global user.email san.zhang@gmail.com Git Commit规范规定格式如下：123&amp;lt;type&amp;gt;(&amp;lt;scope&amp;gt;): &amp;lt">
+<meta name="keywords" content="GIT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git提交规范">
+<meta property="og:url" content="https://dinghuang.github.io/2020/11/08/Git提交规范/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="设置用户首次拉代码后，在目录下用命令行设置用户信息 123git config core.ignorecase falsegit config --global user.name &quot;张三&quot;git config --global user.email san.zhang@gmail.com Git Commit规范规定格式如下：123&amp;lt;type&amp;gt;(&amp;lt;scope&amp;gt;): &amp;lt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-08T09:47:03.599Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git提交规范">
+<meta name="twitter:description" content="设置用户首次拉代码后，在目录下用命令行设置用户信息 123git config core.ignorecase falsegit config --global user.name &quot;张三&quot;git config --global user.email san.zhang@gmail.com Git Commit规范规定格式如下：123&amp;lt;type&amp;gt;(&amp;lt;scope&amp;gt;): &amp;lt">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/11/08/Git提交规范/"/>
+
+
+
+
+
+  <title>Git提交规范 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/11/08/Git提交规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git提交规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-11-08T15:47:00+08:00">
+                2020-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GIT/" itemprop="url" rel="index">
+                    <span itemprop="name">GIT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/11/08/Git提交规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/11/08/Git提交规范/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="设置用户"><a href="#设置用户" class="headerlink" title="设置用户"></a>设置用户</h1><p>首次拉代码后，在目录下用命令行设置用户信息</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>core.ignorecase <span class="literal">false</span></span><br><span class="line">git<span class="built_in"> config </span>--global user.name <span class="string">"张三"</span></span><br><span class="line">git<span class="built_in"> config </span>--global user.email san.zhang@gmail.com</span><br></pre></td></tr></table></figure>
+<h1 id="Git-Commit规范"><a href="#Git-Commit规范" class="headerlink" title="Git Commit规范"></a>Git Commit规范</h1><p>规定格式如下：<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">&lt;type&gt;</span>(<span class="params">&lt;scope&gt;</span>): <span class="params">&lt;subject&gt;</span> <span class="meta">#issue_number</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;description&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其中，type、scope、subject是必需的，description 可以省略。不管是哪一个部分，任何一行都不得超过72个字符（或100个字符）。这是为了避免自动换行影响美观。</p>
+<h2 id="type-必须-取值说明"><a href="#type-必须-取值说明" class="headerlink" title="type(必须)取值说明"></a>type(必须)取值说明</h2><p>type用于说明 commit 的类别:</p>
+<ul>
+<li>feat: (feature)增加新功能</li>
+<li>fix: 修补bug</li>
+<li>docs: 文档（documentation）， 只改动了文档相关的内容</li>
+<li>style: 不影响代码含义的改动，例如去掉空格、改变缩进、增删分号</li>
+<li>build: 构造工具的或者外部依赖的改动，例如webpack，npm</li>
+<li>refactor: 代码重构时使用</li>
+<li>revert：回滚到上一个版本,执行git revert打印的message</li>
+<li>test:  添加测试或者修改现有测试</li>
+<li>pref: 提高性能的改动</li>
+<li>chore: 不修改src或者test的其余修改，例如构建过程或辅助工具的变动</li>
+<li>merge：代码合并</li>
+<li>sync：同步主线或分支的Bug</li>
+<li>ci: 与CI（持续集成服务）有关的改动</li>
+</ul>
+<h2 id="scope-可选-取值说明"><a href="#scope-可选-取值说明" class="headerlink" title="scope(可选)取值说明"></a>scope(可选)取值说明</h2><p>scope用于说明 commit影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同。例如：<br>node-pc/common rrd-h5/activity，而we-sdk不需指定模块名。如果一次commit修改多个模块，建议拆分成多次commit，以便更好追踪和维护。后加入项目的新成员应遵循已有的 scope 约定（通过 git log可以查看某个文件的提交历史），不要自己编造。使用首字母小写的驼峰命名。除具体的模块、组件名之外，可以使用 base 表示基础结构、框架相关的改动，用 misc 表示杂项改动，用 all 表示大范围重构。</p>
+<p>例如在Angular，可以是location，browser，compile，compile，rootScope， ngHref，ngClick，ngView等。如果你的修改影响了不止一个scope，你可以使用*代替。</p>
+<h2 id="subject-必须"><a href="#subject-必须" class="headerlink" title="subject(必须)"></a>subject(必须)</h2><p>subject是 commit 目的的简短描述，50 个字符左右的简要说明。</p>
+<h2 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h2><ul>
+<li>结尾不加句号或其他标点符号。</li>
+<li>根据以上规范git commit message将是如下的格式：<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">fix</span><span class="params">(DAO)</span></span>:用户查询缺少username属性 </span><br><span class="line"><span class="function"><span class="title">feat</span><span class="params">(Controller)</span></span>:用户查询接口开发</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上就是我们梳理的git commit规范，那么我们这样规范git commit到底有哪些好处呢？</p>
+<ul>
+<li>便于程序员对提交历史进行追溯，了解发生了什么情况。</li>
+<li>一旦约束了commit message，意味着我们将慎重的进行每一次提交，不能再一股脑的把各种各样的改动都放在一个git commit里面，这样一来整个代码改动的历史也将更加清晰。</li>
+<li>格式化的commit message才可以用于自动化输出Change log。</li>
+</ul>
+<h2 id="英文"><a href="#英文" class="headerlink" title="英文"></a>英文</h2><p>首字母小写，通常是动宾结构，描述做了什么事情，动词用一般现在时，禁止出现 update code ， fix bug 等无实际意义的描述，好的例子： select connector by sorting free memory （不需要形如 update about how to select connector … 的啰嗦写法）, fix success tip can not show on IE8 （不需要形如 fix bug of … 的啰嗦写法）</p>
+<ul>
+<li>以动词开头，使用第一人称现在时，比如change，而不是changed或changes</li>
+<li>尽量使用简单句保证简洁性</li>
+<li>第一个字母小写</li>
+<li>结尾不加句号（.）</li>
+<li>通过翻译检测工具确认英文的正确性和可读性</li>
+</ul>
+<h2 id="body"><a href="#body" class="headerlink" title="body"></a>body</h2><p>body填写详细描述，主要描述改动之前的情况及修改动机，对于小的修改不作要求，但是重大需求、更新等必须添加body来作说明。</p>
+<h2 id="break-changes"><a href="#break-changes" class="headerlink" title="break changes"></a>break changes</h2><p>break changes指明是否产生了破坏性修改，涉及break changes的改动必须指明该项，类似版本升级、接口参数减少、接口删除、迁移等。</p>
+<h2 id="affect-issues"><a href="#affect-issues" class="headerlink" title="affect issues"></a>affect issues</h2><p>affect issues指明是否影响了某个问题。例如我们使用jira时，我们在commit message中可以填写其影响的JIRA_ID，若要开启该功能需要先打通jira与gitlab。</p>
+<h2 id="使用Commitizen工具"><a href="#使用Commitizen工具" class="headerlink" title="使用Commitizen工具"></a>使用Commitizen工具</h2><p>安装commitizen<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g commitizen</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，使用<br><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">(base) [@dinghuangMacPro:test (master)]$git add .</span><br><span class="line">(base) [@dinghuangMacPro:test (master)]$git cz</span><br><span class="line"><span class="meta">#会出现下面的，按照提示写入</span></span><br><span class="line">(base) [@dinghuangMacPro:test (master)]$ git cz</span><br><span class="line">cz-cli@<span class="number">4.2</span><span class="number">.2</span>, cz-conventional-changelog@<span class="number">3.3</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">? <span class="keyword">Select</span> the type <span class="keyword">of</span> change that you<span class="comment">'re committing: (Use arrow keys)</span></span><br><span class="line">❯ feat:     A <span class="keyword">new</span> feature</span><br><span class="line">  fix:      A bug fix</span><br><span class="line">  docs:     Documentation only changes</span><br><span class="line">  style:    Changes that <span class="keyword">do</span> <span class="keyword">not</span> affect the meaning <span class="keyword">of</span> the code (white-space, formatting, missing semi-colons, etc)</span><br><span class="line">  refactor: A code change that neither fixes a bug nor adds a feature</span><br><span class="line">  perf:     A code change that improves performance</span><br><span class="line">  test:     Adding missing tests <span class="keyword">or</span> correcting existing tests</span><br><span class="line">(Move up <span class="keyword">and</span> down <span class="keyword">to</span> reveal more choices)</span><br><span class="line"></span><br><span class="line"><span class="meta">#选择类型后</span></span><br><span class="line">? <span class="keyword">Select</span> the type <span class="keyword">of</span> change that you<span class="comment">'re committing: feat:     A new feature</span></span><br><span class="line">? What <span class="keyword">is</span> the scope <span class="keyword">of</span> this change (e.g. component <span class="keyword">or</span> file name): (press enter <span class="keyword">to</span> <span class="keyword">skip</span>) add aa.txt</span><br><span class="line">? Write a <span class="built_in">short</span>, imperative tense description <span class="keyword">of</span> the change (max <span class="number">82</span> chars):</span><br><span class="line"> (<span class="number">4</span>) 新增文件</span><br><span class="line">? Provide a longer description <span class="keyword">of</span> the change: (press enter <span class="keyword">to</span> <span class="keyword">skip</span>)</span><br><span class="line"> 长描述：这是我第一次的提交</span><br><span class="line">? Are there any breaking changes? No</span><br><span class="line">? Does this change affect any open issues? Yes</span><br><span class="line">? Add issue references (e.g. <span class="string">"fix #123"</span>, <span class="string">"re #123"</span>.):</span><br><span class="line"> feat <span class="meta">#123</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#查看生成的git commit信息</span></span><br><span class="line">(base) [@dinghuangMacPro:test (master)]$ git log</span><br><span class="line">commit <span class="number">00</span>d63b2c54c502bb75725e5a461d6ce9499910bc (HEAD -&gt; master)</span><br><span class="line">Author: 丁煌 &lt;dinghuang123@gmail.com&gt;</span><br><span class="line"><span class="built_in">Date</span>:   Wed Nov <span class="number">25</span> <span class="number">13</span>:<span class="number">39</span>:<span class="number">13</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    feat(add aa.txt): 新增文件</span><br><span class="line"></span><br><span class="line">    长描述：这是我第一次的提交</span><br><span class="line"></span><br><span class="line">    feat <span class="meta">#123</span></span><br></pre></td></tr></table></figure></p>
+<p>自动生成Change log<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g conventional-changelog-cli</span><br><span class="line">conventional-changelog -<span class="selector-tag">p</span> angular -<span class="selector-tag">i</span> CHANGELOG<span class="selector-class">.md</span> -s</span><br></pre></td></tr></table></figure></p>
+<p>这个插件是根据当前分支提交的所有commit信息来生成对应的changelog，一般是在开发完成后，封代码后去进行生成。如果自动生成的有问题，可以根据自己的需求进行修改。</p>
+<h1 id="分支规范"><a href="#分支规范" class="headerlink" title="分支规范"></a>分支规范</h1><h2 id="分支基本原则"><a href="#分支基本原则" class="headerlink" title="分支基本原则"></a>分支基本原则</h2><p>基本原则：master为保护分支，不直接在master上进行代码修改和提交。</p>
+<p>开发日常需求或者项目时，从master分支上checkout一个feature分支进行开发或者bugfix分支进行bug修复，功能测试完毕并且项目发布上线后，将feature分支合并到主干master，并且打Tag发布，最后删除开发分支。</p>
+<h2 id="分支命名规范"><a href="#分支命名规范" class="headerlink" title="分支命名规范"></a>分支命名规范</h2><p>例如：</p>
+<ul>
+<li>分支版本命名规则：分支类型 分支发布时间 分支功能。比如：feature_20200401_#issueNum<ul>
+<li>分支类型包括：feature、bugfix、refactor三种类型，即新功能开发、bug修复和代码重构</li>
+<li>时间使用年月日进行命名，不足2位补0</li>
+<li>分支功能命名使用snake case命名法，即下划线命名。</li>
+</ul>
+</li>
+<li>Tag包括3位版本，前缀使用v。比如v1.2.31。Tag命名规范：<ul>
+<li>新功能开发使用第2位版本号，bug修复使用第3位版本号</li>
+<li>核心基础库或者Node中间价可以在大版本发布请使用灰度版本号，在版本后面加上后缀，用中划线分隔。alpha或者belta后面加上次数，即第几次alpha(具体可以查看语义化版本)：<ul>
+<li>v2.0.0-alpha-1</li>
+<li>v2.0.0-belta-1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/11/08/Git提交规范/" title="Git提交规范">https://dinghuang.github.io/2020/11/08/Git提交规范/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GIT/" rel="tag"># GIT</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/20/SpringBoot2.X Security Oauth2 JWT/" rel="next" title="SpringBoot2.X Security Oauth2 JWT">
+                <i class="fa fa-chevron-left"></i> SpringBoot2.X Security Oauth2 JWT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/08/Mysql最佳实践/" rel="prev" title="Mysql最佳实践">
+                Mysql最佳实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dinghuang123@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.strongsickcat.com" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设置用户"><span class="nav-number">1.</span> <span class="nav-text">设置用户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-Commit规范"><span class="nav-number">2.</span> <span class="nav-text">Git Commit规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#type-必须-取值说明"><span class="nav-number">2.1.</span> <span class="nav-text">type(必须)取值说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scope-可选-取值说明"><span class="nav-number">2.2.</span> <span class="nav-text">scope(可选)取值说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#subject-必须"><span class="nav-number">2.3.</span> <span class="nav-text">subject(必须)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文"><span class="nav-number">2.4.</span> <span class="nav-text">中文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#英文"><span class="nav-number">2.5.</span> <span class="nav-text">英文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#body"><span class="nav-number">2.6.</span> <span class="nav-text">body</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break-changes"><span class="nav-number">2.7.</span> <span class="nav-text">break changes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#affect-issues"><span class="nav-number">2.8.</span> <span class="nav-text">affect issues</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Commitizen工具"><span class="nav-number">2.9.</span> <span class="nav-text">使用Commitizen工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支规范"><span class="nav-number">3.</span> <span class="nav-text">分支规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分支基本原则"><span class="nav-number">3.1.</span> <span class="nav-text">分支基本原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支命名规范"><span class="nav-number">3.2.</span> <span class="nav-text">分支命名规范</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/11/08/Git提交规范/';
+          this.page.identifier = '2020/11/08/Git提交规范/';
+          this.page.title = 'Git提交规范';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

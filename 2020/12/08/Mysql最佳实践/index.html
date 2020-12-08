@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="数据库," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="建表规约强制要求 表达是与否概念的字段，必须使用 is_xxx 的方式命名，数据类型是 unsigned tinyint （1 表示是， 0 表示否）。 说明： 任何字段如果为非负数，必须是 unsigned。 正例： 表达逻辑删除的字段名 is_deleted， 1 表示删除， 0 表示未删除。   表名、字段名必须使用小写字母或数字，禁止出现数字开头，禁止两个下划线中间只出现数字。 数据库字段">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql最佳实践">
+<meta property="og:url" content="https://dinghuang.github.io/2020/12/08/Mysql最佳实践/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="建表规约强制要求 表达是与否概念的字段，必须使用 is_xxx 的方式命名，数据类型是 unsigned tinyint （1 表示是， 0 表示否）。 说明： 任何字段如果为非负数，必须是 unsigned。 正例： 表达逻辑删除的字段名 is_deleted， 1 表示删除， 0 表示未删除。   表名、字段名必须使用小写字母或数字，禁止出现数字开头，禁止两个下划线中间只出现数字。 数据库字段">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-08T09:35:41.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql最佳实践">
+<meta name="twitter:description" content="建表规约强制要求 表达是与否概念的字段，必须使用 is_xxx 的方式命名，数据类型是 unsigned tinyint （1 表示是， 0 表示否）。 说明： 任何字段如果为非负数，必须是 unsigned。 正例： 表达逻辑删除的字段名 is_deleted， 1 表示删除， 0 表示未删除。   表名、字段名必须使用小写字母或数字，禁止出现数字开头，禁止两个下划线中间只出现数字。 数据库字段">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/12/08/Mysql最佳实践/"/>
+
+
+
+
+
+  <title>Mysql最佳实践 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/12/08/Mysql最佳实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mysql最佳实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-08T15:47:00+08:00">
+                2020-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/08/Mysql最佳实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/12/08/Mysql最佳实践/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="建表规约"><a href="#建表规约" class="headerlink" title="建表规约"></a>建表规约</h1><h2 id="强制要求"><a href="#强制要求" class="headerlink" title="强制要求"></a>强制要求</h2><ol>
+<li>表达是与否概念的字段，必须使用 <code>is_xxx</code> 的方式命名，数据类型是 <code>unsigned tinyint</code> （<code>1</code> 表示是， <code>0</code> 表示否）。<ul>
+<li>说明： 任何字段如果为非负数，必须是 <code>unsigned</code>。</li>
+<li>正例： 表达逻辑删除的字段名 <code>is_deleted</code>， 1 表示删除， 0 表示未删除。</li>
+</ul>
+</li>
+<li>表名、字段名必须使用小写字母或数字，禁止出现数字开头，禁止两个下划线中间只出现数字。<ul>
+<li>数据库字段名的修改代价很大，因为无法进行预发布，所以字段名称需要慎重考虑。</li>
+<li>说明： MySQL 在 Windows 下不区分大小写，但在 Linux 下默认是区分大小写。因此，数据库名、表名、字段名，都不允许出现任何大写字母，避免节外生枝。</li>
+<li>正例： <code>hap_admin</code>， <code>rdc_config</code>， <code>level3_name</code></li>
+<li>反例： HapAdmin， rdcConfig， level_3_name</li>
+</ul>
+</li>
+<li>表名不使用复数名词。<ul>
+<li>说明： 表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于 DO 类名也是单数形式，符合表达习惯。</li>
+</ul>
+</li>
+<li>禁用保留字，如 <code>desc</code>、 <code>range</code>、 <code>match</code>、 <code>delayed</code> 等， 请参考 MySQL 官方保留字。</li>
+<li>主键索引名为 <code>pk_字段名</code>； 唯一索引名为 <code>uk_字段名</code>； 普通索引名则为 <code>idx_字段名</code>。<ul>
+<li>说明： pk_ 即 primary key； uk_ 即 unique key； idx_ 即 index 的简称。</li>
+</ul>
+</li>
+<li>小数类型为 <code>decimal</code>，禁止使用 float 和 double。<ul>
+<li>说明： float 和 double 在存储的时候，存在精度损失的问题，很可能在值的比较时，得到不正确的结果。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。</li>
+</ul>
+</li>
+<li>如果存储的字符串长度几乎相等，使用 char 定长字符串类型。</li>
+<li>varchar 是可变长字符串，不预先分配存储空间，长度不要超过5000，如果存储长度大于此值，定义字段类型为 text，独立出来一张表，用主键来对应，避免影响其它字段索引效率。<ul>
+<li>说明： 该表的命名以 <code>原表名_字段缩写</code> 的格式命名。</li>
+</ul>
+</li>
+<li><p>表必备字段： <code>id</code>, <code>create_date</code>, <code>last_update_date</code>, <code>create_by</code> , <code>last_update_by</code> , <code>object_version_number</code>。</p>
+<ul>
+<li>说明： 其中 id 必为主键，类型为 unsigned bigint、单表时自增、步长为 1。 </li>
+<li><p><code>create_date</code>, <code>last_update_date</code> 的类型均为 datetime 类型，前者现在时表示主动创建，后者过去分词表示被动更新。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">column</span>(<span class="attribute">name</span>: <span class="string">"object_version_number"</span>, <span class="attribute">type</span>: <span class="string">"BIGINT UNSIGNED"</span>, <span class="attribute">defaultValue</span>: <span class="string">"1"</span>)</span><br><span class="line"><span class="selector-tag">column</span>(<span class="attribute">name</span>: <span class="string">"created_by"</span>, <span class="attribute">type</span>: <span class="string">"BIGINT UNSIGNED"</span>, <span class="attribute">defaultValue</span>: <span class="string">"0"</span>)</span><br><span class="line"><span class="selector-tag">column</span>(<span class="attribute">name</span>: <span class="string">"creation_date"</span>, <span class="attribute">type</span>: <span class="string">"DATETIME"</span>, <span class="attribute">defaultValueComputed</span>: <span class="string">"CURRENT_TIMESTAMP"</span>)</span><br><span class="line"><span class="selector-tag">column</span>(<span class="attribute">name</span>: <span class="string">"last_updated_by"</span>, <span class="attribute">type</span>: <span class="string">"BIGINT UNSIGNED"</span>, <span class="attribute">defaultValue</span>: <span class="string">"0"</span>)</span><br><span class="line"><span class="selector-tag">column</span>(<span class="attribute">name</span>: <span class="string">"last_update_date"</span>, <span class="attribute">type</span>: <span class="string">"DATETIME"</span>, <span class="attribute">defaultValueComputed</span>: <span class="string">"CURRENT_TIMESTAMP"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>表的命名最好是加上“业务名称_表的作用”。</p>
+<ul>
+<li>正例： <code>kanban_task</code> / <code>devops_project</code> / <code>website_config</code></li>
+</ul>
+</li>
+<li><p>id类型没有特殊要求，必须使用bigint unsigned，禁止使用int，即使现在的数据量很小。id如果是数字类型的话，必须是8个字节。参见最后例子</p>
+<ul>
+<li>方便对接外部系统，还有可能产生很多废数据</li>
+<li>避免废弃数据对系统id的影响</li>
+<li>未来分库分表，自动生成id，一般也是8个字节</li>
+</ul>
+</li>
+<li><p>更新数据表记录时，必须同时更新记录对应的 last_update_date 字段值为当前时间,</p>
+<h2 id="推荐规约"><a href="#推荐规约" class="headerlink" title="推荐规约"></a>推荐规约</h2></li>
+</ol>
+<ol>
+<li>库名与应用名称尽量一致。</li>
+<li>如果修改字段含义或对字段表示的状态追加时，需要及时更新字段注释。</li>
+<li>字段允许适当冗余，以提高查询性能，但必须考虑数据一致。冗余字段应遵循：<ul>
+<li>不是频繁修改的字段。</li>
+<li>不是 <code>varchar</code> 超长字段，更不能是 <code>text</code> 字段。</li>
+</ul>
+<ul>
+<li>正例： 商品类目名称使用频率高， 字段长度短，名称基本一成不变， 可在相关联的表中冗余存储类目名称，避免关联查询。</li>
+</ul>
+</li>
+<li>单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。<ul>
+<li>说明： 如果预计三年后的数据量根本达不到这个级别，请不要在创建表时就分库分表。</li>
+</ul>
+</li>
+</ol>
+<h2 id="规约参考"><a href="#规约参考" class="headerlink" title="规约参考"></a>规约参考</h2><ol>
+<li><p>合适的字符存储长度，不但节约数据库表空间、节约索引存储，更重要的是提升检索速度。</p>
+<ul>
+<li><p>正例： 如下表，其中无符号值可以避免误存负数，且扩大了表示范围。</p>
+<p>|对象|年龄区间|类型|字节|表示范围|<br>|—-|——–|—-|—-|——–|<br>|人|150岁之内|<code>unsigned tinyint</code>|1|无符号值： 0 到 255|<br>|龟|数百岁|<code>unsigned smallint</code>|2|无符号值： 0 到 65535|<br>|恐龙化石|数千万年|<code>unsigned int</code>|4|无符号值： 0 到约 42.9 亿|<br>|太阳|约 50 亿年|<code>unsigned bigint</code>|8|无符号值： 0 到约 10 的 19 次方|</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="索引规约"><a href="#索引规约" class="headerlink" title="索引规约"></a>索引规约</h1><h2 id="强制要求-1"><a href="#强制要求-1" class="headerlink" title="强制要求"></a>强制要求</h2><ol>
+<li>业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。<ul>
+<li>说明：不要以为唯一索引影响了insert速度，这个速度损耗可以忽略，但提高查找速度是明显的；另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，根据墨菲定律，必然有脏数据产生。</li>
+</ul>
+</li>
+<li>超过三个表禁止join。需要join的字段，数据类型必须绝对一致；多表关联查询时，保证被关联的字段需要有索引。<ul>
+<li>说明：即使双表join也要注意表索引、SQL性能。</li>
+</ul>
+</li>
+<li>在varchar字段上建立索引时，必须指定索引长度，没必要对全字段建立索引，根据实际文本区分度决定索引长度即可。<ul>
+<li>说明：索引的长度与区分度是一对矛盾体，一般对字符串类型数据，长度为 20 的索引，区分度会高达90%以上，可以使用 count(distinct left(列名,索引长度))/count(*)的区分度来确定。</li>
+</ul>
+</li>
+<li>页面搜索严禁左模糊或者全模糊，如果需要请走搜索引擎来解决(项目前期数据量不大可以不遵循这个要求，后续改进，不过需要留痕)。<ul>
+<li>说明：索引文件具有B-Tree的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索引。</li>
+</ul>
+</li>
+</ol>
+<h2 id="推荐规约-1"><a href="#推荐规约-1" class="headerlink" title="推荐规约"></a>推荐规约</h2><ol>
+<li>如果有<code>order by</code>的场景，请注意利用索引的有序性。<code>order by</code> 最后的字段是组合索引的一部分，并且放在索引组合顺序的最后，避免出现file_sort的情况，影响查询性能。<ul>
+<li>正例： where a=? and b=? order by c; 索引： a_b_c</li>
+<li>反例： 索引中有范围查找，那么索引有序性无法利用，如： WHERE a&gt;10 ORDER BY b; 索引a_b无法排序。</li>
+</ul>
+</li>
+<li>利用覆盖索引来进行查询操作， 避免回表。<ul>
+<li>说明：如果一本书需要知道第 11 章是什么标题，会翻开第 11章对应的那一页吗？目录浏览一下就好，这个目录就是起到覆盖索引的作用。</li>
+<li>正例：能够建立索引的种类分为主键索引、唯一索引、普通索引三种，而覆盖索引只是一种查询的一种效果，用explain 的结果，extra 列会出现： using index。</li>
+</ul>
+</li>
+<li><p>利用延迟关联或者子查询优化超多分页场景。</p>
+<ul>
+<li>说明：MySQL 并不是跳过 offset 行，而是取 offset+N 行，然后返回放弃前offset行，返回N行，那当 offset 特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过特定阈值的页数进行SQL改写。</li>
+<li>正例：先快速定位需要获取的 id 段，然后再关联：  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.* <span class="keyword">FROM</span> 表 <span class="number">1</span> a, (<span class="keyword">select</span> <span class="keyword">id</span> <span class="keyword">from</span> 表 <span class="number">1</span> <span class="keyword">where</span> 条件 <span class="keyword">LIMIT</span> <span class="number">100000</span>,<span class="number">20</span> ) b <span class="keyword">where</span> a.id=b.id</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>SQL 性能优化的目标：至少要达到 range 级别，要求是ref级别，如果可以是consts最好。</p>
+<ul>
+<li>说明：<ol>
+<li>consts 单表中最多只有一个匹配行（主键或者唯一索引），在优化阶段即可读取到数据。</li>
+<li>ref 指的是使用普通的索引（<code>normal index</code>） 。</li>
+<li>range 对索引进行范围检索。</li>
+</ol>
+</li>
+<li>反例： explain 表的结果， type=index，索引物理文件全扫描，速度非常慢，这个 index 级别比较 range 还低，与全表扫描是小巫见大巫。</li>
+</ul>
+</li>
+<li>建组合索引的时候，区分度最高的在最左边。<ul>
+<li>正例： 如果 where a=? and b=? ， a列的几乎接近于唯一值，那么只需要单建 idx_a 索引即可。</li>
+<li>说明： 存在非等号和等号混合判断条件时，在建索引时，请把等号条件的列前置。如： where a&gt;? and b=? 那么即使 a 的区分度更高，也必须把 b 放在索引的最前列。</li>
+</ul>
+</li>
+<li>防止因字段类型不同造成的隐式转换，导致索引失效。</li>
+</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>索引占磁盘空间，不要重复的索引，尽量短  </li>
+<li>只给常用的查询条件加索引  </li>
+<li>过滤性高的列建索引，取值范围固定的列不建索引 </li>
+<li>唯一的记录添加唯一索引  </li>
+<li>频繁更新的列不要建索引  </li>
+<li>不要对索引列运算  </li>
+<li>同样过滤效果下，保持索引长度最小  </li>
+<li>合理利用组合索引，注意索引字段先后顺序  </li>
+<li>多列组合索引，过滤性高的字段最前  </li>
+<li>order by 字段建立索引，避免 filesort  </li>
+<li>组合索引，不同的排序顺序不能使用索引  </li>
+<li>&lt;&gt;!=无法使用索引</li>
+</ul>
+<h2 id="规约参考-1"><a href="#规约参考-1" class="headerlink" title="规约参考"></a>规约参考</h2><ol>
+<li>创建索引时避免有如下极端误解：<ol>
+<li>宁滥勿缺。 认为一个查询就需要建一个索引。</li>
+<li>宁缺勿滥。认为索引会消耗空间、严重拖慢更新和新增速度。</li>
+<li>抵制惟一索引。认为业务的惟一性一律需要在应用层通过“先查后插”方式解决。</li>
+</ol>
+</li>
+</ol>
+<h1 id="SQL-语句"><a href="#SQL-语句" class="headerlink" title="SQL 语句"></a>SQL 语句</h1><h2 id="强制要求-2"><a href="#强制要求-2" class="headerlink" title="强制要求"></a>强制要求</h2><ol>
+<li>不要使用 count(列名)或 count(常量)来替代 <code>count(\*)</code>， count(*)是 SQL92 定义的标准统计行数的语法，跟数据库无关，跟 NULL 和非 NULL 无关。<ul>
+<li>说明： count(*)会统计值为 NULL 的行，而 count(列名)不会统计此列为 NULL 值的行。</li>
+</ul>
+</li>
+<li><code>count(distinct col)</code> 计算该列除 NULL 之外的不重复行数， 注意 count(distinct col1, col2) 如果其中一列全为 NULL，那么即使另一列有不同的值，也返回为 0。</li>
+<li><p>当某一列的值全是 NULL 时， count(col)的返回结果为 0，但 sum(col)的返回结果为 NULL，因此使用 sum()时需注意 NPE 问题。</p>
+<ul>
+<li>正例： 可以使用如下方式来避免 sum 的 NPE 问题：   <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT IF(<span class="name">ISNULL</span>(<span class="name">SUM</span>(<span class="name">g</span>)),<span class="number">0</span>,SUM(<span class="name">g</span>))</span><br><span class="line">FROM table<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用 ISNULL()来判断是否为 NULL 值。</p>
+<ul>
+<li>说明： NULL 与任何值的直接比较都为 NULL。<ol>
+<li>NULL&lt;&gt;NULL 的返回结果是 NULL， 而不是 false。</li>
+<li>NULL=NULL 的返回结果是 NULL， 而不是 true。</li>
+<li>NULL&lt;&gt;1 的返回结果是 NULL，而不是 true。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>在代码中写分页查询逻辑时，若 count 为 0 应直接返回，避免执行后面的分页语句。</li>
+<li>不得使用外键与级联，一切外键概念必须在应用层解决。<ul>
+<li>说明：以学生和成绩的关系为例，学生表中的 student_id是主键，那么成绩表中的 student_id 则为外键。如果更新学生表中的 student_id，同时触发成绩表中的 student_id 更新， 即为级联更新。外键与级联更新适用于单机低并发，不适合分布式、高并发集群；级联更新是强阻塞，存在数据库更新风暴的风险:外键影响数据库的插入速度。</li>
+</ul>
+</li>
+<li>禁止使用存储过程，存储过程难以调试和扩展，更没有移植性。</li>
+<li>数据订正（特别是删除、 修改记录操作） 时，要先 select，避免出现误删除，确认无误才能执行更新语句。</li>
+</ol>
+<h2 id="推荐规约-2"><a href="#推荐规约-2" class="headerlink" title="推荐规约"></a>推荐规约</h2><ol>
+<li>in 操作能避免则避免，若实在避免不了，需要仔细评估 in 后边的集合元素数量，控制在 1000 个之内。(多的话用 EXISTS 或 NOT EXISTS 代替)</li>
+</ol>
+<h2 id="规约参考-2"><a href="#规约参考-2" class="headerlink" title="规约参考"></a>规约参考</h2><ol>
+<li><p>如果有全球化需要，所有的字符存储与表示，均以 utf-8 编码，注意字符统计函数的区别。</p>
+<ul>
+<li><p>说明：</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LENGTH</span>(<span class="string">"轻松工作"</span>)；\\返回为 <span class="number">12</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">CHARACTER_LENGTH</span>(<span class="string">"轻松工作"</span>)；\\返回为 <span class="number">4</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果需要存储表情，那么选择 utf8mb4 来进行存储，注意它与 utf-8 编码的区别。</p>
+</li>
+</ul>
+</li>
+<li>不建议在开发代码中使用此语句 TRUNCATE TABLE<ul>
+<li>TRUNCATE TABLE 比 DELETE 速度快，且使用的系统和事务日志资源少，但 TRUNCATE 无事务且不触发 trigger，有可能造成事故，故不建议在开发代码中使用此语句。</li>
+<li>说明： TRUNCATE TABLE 在功能上与不带 WHERE 子句的 DELETE 语句相同。</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>能够快速缩小结果集的 WHERE 条件写在前面，如果有恒量条 件，也尽量放在前面 ，例如 where 1=1  </li>
+<li>避免使用 GROUP BY、DISTINCT 等语句的使用，避免联表查 询和子查询 </li>
+<li>能够使用索引的字段尽量进行有效的合理排列  </li>
+<li>针对索引字段使用 &gt;, &gt;=, =, &lt;, &lt;=, IF NULL 和 BETWEEN 将会 使用索引，如果对某个索引字段进行 LIKE 查询，使用 LIKE   ‘%abc%’ 不能使用索引，使用 LIKE ‘abc%’ 将能够使用索引  </li>
+<li>如果在 SQL 里使用了 MySQL部分自带函数，索引将失效</li>
+<li>避免直接使用 select *,只取需要的字段，增加使用覆盖索引使用的可能  </li>
+<li>对于大数据量的查询，尽量避免在 SQL 语句中使用 order by 字<br>句 </li>
+<li>连表查询的情况下，要确保关联条件的数据类型一致，避免嵌<br>套子查询  </li>
+<li>对于连续的数值，使用 between 代替 in  </li>
+<li>where 语句中尽量不要使用 CASE 条件  </li>
+<li>当只要一行数据时使用 LIMIT 1</li>
+</ul>
+<h1 id="ORM-映射"><a href="#ORM-映射" class="headerlink" title="ORM 映射"></a>ORM 映射</h1><h2 id="强制要求-3"><a href="#强制要求-3" class="headerlink" title="强制要求"></a>强制要求</h2><ol>
+<li>在表查询中，一律不要使用 * 作为查询的字段列表，需要哪些字段必须明确写明。<ul>
+<li>说明： <ol>
+<li>增加查询分析器解析成本.</li>
+<li>增减字段容易与 resultMap 配置不一致。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>POJO 类的布尔属性不能加 is，而数据库字段必须加 is_，要求在 resultMap 中进行<br>字段与属性之间的映射。</li>
+<li>不要用 resultClass 当返回参数，即使所有类属性名与数据库字段一一对应，也需要定义；反过来，每一个表也必然有一个与之对应。<ul>
+<li>说明： 配置映射关系，使字段与 DO 类解耦，方便维护。</li>
+</ul>
+</li>
+<li>sql.xml 配置参数使用： <code>#{}</code>， <code>#param#</code> 不要使用${} 此种方式容易出现 SQL 注入。</li>
+<li><p>iBATIS 自带的 queryForList(String statementName,int start,int size)不推荐使用。</p>
+<ul>
+<li>说明：其实现方式是在数据库取到 statementName对应的SQL语句的所有记录，再通过 subList<br>取 start,size 的子集合。</li>
+<li>正例：   <figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> <span class="keyword">HashMap</span>&lt;<span class="keyword">String</span>, <span class="keyword">Object</span>&gt;();</span><br><span class="line"><span class="built_in">map</span>.put(<span class="string">"start"</span>, start);</span><br><span class="line"><span class="built_in">map</span>.put(<span class="string">"size"</span>, <span class="built_in">size</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>不允许直接拿 HashMap 与 Hashtable 作为查询结果集的输出。</p>
+<ul>
+<li>说明： resultClass=”Hashtable”， 会置入字段名和属性值，但是值的类型不可控。</li>
+</ul>
+</li>
+<li>更新数据表记录时，必须同时更新记录对应的 gmt_modified 字段值为当前时间。</li>
+</ol>
+<h2 id="推荐规约-3"><a href="#推荐规约-3" class="headerlink" title="推荐规约"></a>推荐规约</h2><ol>
+<li>不要写一个大而全的数据更新接口。 传入为 POJO 类，不管是不是自己的目标更新字<br>段，都进行 <code>update table set c1=value1,c2=value2,c3=value3;</code> 这是不对的。执行 SQL时， 不要更新无改动的字段，一是易出错； 二是效率低； 三是增加 binlog 存储。</li>
+</ol>
+<h2 id="规约参考-3"><a href="#规约参考-3" class="headerlink" title="规约参考"></a>规约参考</h2><ol>
+<li><code>@Transactional</code> 事务不要滥用。事务会影响数据库的 QPS，另外使用事务的地方需要考虑各方面的回滚方案，包括缓存回滚、搜索引擎回滚、消息补偿、统计修正等。</li>
+<li><code>&lt;isEqual&gt;</code>中的 <code>compareValue</code> 是与属性值对比的常量，一般是数字，表示相等时带上此条件； <code>&lt;isNotEmpty&gt;</code>表示不为空且不为 <code>null</code> 时执行；<code>&lt;isNotNull&gt;</code>表示不为 <code>null</code> 值时执行。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/12/08/Mysql最佳实践/" title="Mysql最佳实践">https://dinghuang.github.io/2020/12/08/Mysql最佳实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/10/20/SpringBoot2.X Security Oauth2 JWT/" rel="next" title="SpringBoot2.X Security Oauth2 JWT">
+                <i class="fa fa-chevron-left"></i> SpringBoot2.X Security Oauth2 JWT
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#建表规约"><span class="nav-number">1.</span> <span class="nav-text">建表规约</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强制要求"><span class="nav-number">1.1.</span> <span class="nav-text">强制要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐规约"><span class="nav-number">1.2.</span> <span class="nav-text">推荐规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规约参考"><span class="nav-number">1.3.</span> <span class="nav-text">规约参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引规约"><span class="nav-number">2.</span> <span class="nav-text">索引规约</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强制要求-1"><span class="nav-number">2.1.</span> <span class="nav-text">强制要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐规约-1"><span class="nav-number">2.2.</span> <span class="nav-text">推荐规约</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.2.1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规约参考-1"><span class="nav-number">2.3.</span> <span class="nav-text">规约参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL-语句"><span class="nav-number">3.</span> <span class="nav-text">SQL 语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强制要求-2"><span class="nav-number">3.1.</span> <span class="nav-text">强制要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐规约-2"><span class="nav-number">3.2.</span> <span class="nav-text">推荐规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规约参考-2"><span class="nav-number">3.3.</span> <span class="nav-text">规约参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ORM-映射"><span class="nav-number">4.</span> <span class="nav-text">ORM 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强制要求-3"><span class="nav-number">4.1.</span> <span class="nav-text">强制要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#推荐规约-3"><span class="nav-number">4.2.</span> <span class="nav-text">推荐规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规约参考-3"><span class="nav-number">4.3.</span> <span class="nav-text">规约参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/12/08/Mysql最佳实践/';
+          this.page.identifier = '2020/12/08/Mysql最佳实践/';
+          this.page.title = 'Mysql最佳实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

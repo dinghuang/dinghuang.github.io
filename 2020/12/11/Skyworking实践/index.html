@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="JAVA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介SkyWalking是一个开源的可观察性平台，用于收集，分析，聚合和可视化来自服务和云本机基础结构的数据。SkyWalking提供了一种简便的方法来维护您的分布式系统的清晰视图，即使在整个云中也是如此。它是一种现代APM，专门为基于云的基于容器的分布式系统而设计。 为什么要使用SkyWalkingSkyWalking提供了用于在许多不同情况下观察和监视分布式系统的解决方案。首先，与传统方法一样">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Skyworking实践">
+<meta property="og:url" content="https://dinghuang.github.io/2020/12/11/Skyworking实践/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="简介SkyWalking是一个开源的可观察性平台，用于收集，分析，聚合和可视化来自服务和云本机基础结构的数据。SkyWalking提供了一种简便的方法来维护您的分布式系统的清晰视图，即使在整个云中也是如此。它是一种现代APM，专门为基于云的基于容器的分布式系统而设计。 为什么要使用SkyWalkingSkyWalking提供了用于在许多不同情况下观察和监视分布式系统的解决方案。首先，与传统方法一样">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/687474703a2f2f736b7977616c6b696e672e6170616368652e6f72672f6173736574732f6672616d652d76382e6a70673f753d3230323030343233.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8155.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8158.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8162.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8153.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8154.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/plugin.intellij.assistant.mybaitslog-2020.1-1.0.3.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/0081Kckwly1gkl5gnpi0dj30zk0m843n.jpg">
+<meta property="og:updated_time" content="2020-12-11T05:52:53.006Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Skyworking实践">
+<meta name="twitter:description" content="简介SkyWalking是一个开源的可观察性平台，用于收集，分析，聚合和可视化来自服务和云本机基础结构的数据。SkyWalking提供了一种简便的方法来维护您的分布式系统的清晰视图，即使在整个云中也是如此。它是一种现代APM，专门为基于云的基于容器的分布式系统而设计。 为什么要使用SkyWalkingSkyWalking提供了用于在许多不同情况下观察和监视分布式系统的解决方案。首先，与传统方法一样">
+<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/687474703a2f2f736b7977616c6b696e672e6170616368652e6f72672f6173736574732f6672616d652d76382e6a70673f753d3230323030343233.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2020/12/11/Skyworking实践/"/>
+
+
+
+
+
+  <title>Skyworking实践 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/12/11/Skyworking实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Skyworking实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-11T15:47:00+08:00">
+                2020-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/12/11/Skyworking实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/12/11/Skyworking实践/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>SkyWalking是一个开源的可观察性平台，用于收集，分析，聚合和可视化来自服务和云本机基础结构的数据。SkyWalking提供了一种简便的方法来维护您的分布式系统的清晰视图，即使在整个云中也是如此。它是一种现代APM，专门为基于云的基于容器的分布式系统而设计。</p>
+<h2 id="为什么要使用SkyWalking"><a href="#为什么要使用SkyWalking" class="headerlink" title="为什么要使用SkyWalking"></a>为什么要使用SkyWalking</h2><p>SkyWalking提供了用于在许多不同情况下观察和监视分布式系统的解决方案。首先，与传统方法一样，SkyWalking为服务提供自动仪器代理，例如Java，C＃，Node.js，Go，PHP和Nginx LUA。（并呼吁提供Python和C ++ SDK贡献）。在多语言，持续部署的环境中，云本机基础架构变得越来越强大，但也越来越复杂。SkyWalking的服务网格接收器使SkyWalking能够从Istio / Envoy和Linkerd等服务网格框架接收遥测数据，从而使用户能够了解整个分布式系统。</p>
+<p>SkyWalking为服务，服务实例，端点提供可观察性功能。服务，实例和端点这些术语在当今到处都有使用，因此值得在SkyWalking的上下文中定义它们的特定含义：</p>
+<ul>
+<li>服务。表示一组/一组工作负载，这些工作负载为传入请求提供相同的行为。您可以在使用乐器代理或SDK时定义服务名称。SkyWalking也可以使用您在Istio等平台中定义的名称。</li>
+<li>服务实例。服务组中的每个单独工作负载都称为实例。像pods在Kubernetes中一样，它不必是单个OS进程，但是，如果您使用仪器代理，则实例实际上是一个真正的OS进程。</li>
+<li>端点。服务中用于传入请求的路径，例如HTTP URI路径或gRPC服务类+方法签名。<br>通过SkyWalking，用户可以了解服务和端点之间的拓扑关系，查看每个服务/服务实例/端点的指标并设置警报规则。</li>
+</ul>
+<p>此外，可以整合</p>
+<ul>
+<li>其他使用SkyWalking本机代理程序和SDK以及Zipkin，Jaeger和OpenCensus进行的分布式跟踪。</li>
+<li>其他度量系统，例如Prometheus，Sleuth（Micrometer）。</li>
+</ul>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>SkyWalking分为四个部分：</p>
+<ul>
+<li>探针：收集数据并重新格式化以符合SkyWalking要求（不同的探针支持不同的来源）。</li>
+<li>平台后端：支持数据聚合，分析并驱动从探针到UI的流程。该分析包括SkyWalking本机跟踪和度量标准，包括Istio和Envoy遥测的第三方，Zipkin跟踪格式等。您甚至可以通过使用针对本机度量标准的Observability Analysis Language和针对扩展度量标准的Meter System来定制聚合和分析。</li>
+<li>存储：存储设备通过开放/可插入的界面存储SkyWalking数据。您可以选择现有的实现，例如ElasticSearch，H2或由Sharding-Sphere管理的MySQL集群，也可以实现自己的实现。欢迎新存储实现者使用补丁！</li>
+<li>UI：是一个高度可定制的基于Web的界面，允许SkyWalking最终用户可视化和管理SkyWalking数据。</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/687474703a2f2f736b7977616c6b696e672e6170616368652e6f72672f6173736574732f6672616d652d76382e6a70673f753d3230323030343233.jpeg" alt="image"></p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>本文章基于官方源码tag:<code>v8.3.0</code></p>
+<h2 id="源码编译"><a href="#源码编译" class="headerlink" title="源码编译"></a>源码编译</h2><p>修改<code>.mvn/jvm.config</code><br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-Dhttp.<span class="attribute">proxyHost</span>=proxy_ip</span><br><span class="line">-Dhttp.<span class="attribute">proxyPort</span>=proxy_port</span><br><span class="line">-Dhttps.<span class="attribute">proxyHost</span>=proxy_ip</span><br><span class="line">-Dhttps.<span class="attribute">proxyPort</span>=proxy_port </span><br><span class="line">-Dhttp.<span class="attribute">proxyUser</span>=username</span><br><span class="line">-Dhttp.<span class="attribute">proxyPassword</span>=password</span><br></pre></td></tr></table></figure></p>
+<p>下载git源码<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">git</span> clone --<span class="keyword">branch </span><span class="built_in">v8</span>.<span class="number">3</span>.<span class="number">0</span> https://github.com/apache/skywalking.git</span><br><span class="line"><span class="symbol">git</span> <span class="keyword">submodule </span>init</span><br><span class="line"><span class="symbol">git</span> <span class="keyword">submodule </span>update</span><br></pre></td></tr></table></figure></p>
+<p>执行编译<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./mvnw clean <span class="keyword">package</span> <span class="title">-DskipTests</span></span><br></pre></td></tr></table></figure></p>
+<p>打包后的都会在<code>/dist</code>目录下</p>
+<h2 id="下载制品"><a href="#下载制品" class="headerlink" title="下载制品"></a>下载制品</h2><p>推荐直接下载<a href="https://mirror.bit.edu.cn/apache/skywalking/8.3.0/apache-skywalking-apm-8.3.0.tar.gz" target="_blank" rel="noopener">成品</a></p>
+<h2 id="服务启动"><a href="#服务启动" class="headerlink" title="服务启动"></a>服务启动</h2><p>进入目录<code>/bin</code>，windows和linux的启动脚本都在里面，可以直接启动。</p>
+<p>执行命令<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/dist-material/</span>bin<span class="regexp">/startup.sh</span></span><br></pre></td></tr></table></figure></p>
+<p>现在服务端就启起来了，可以打开后台地址查看(默认是8080端口): <a href="http://localhost:8080,界面如下：" target="_blank" rel="noopener">http://localhost:8080,界面如下：</a><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8155.png" alt="image"><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8158.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8162.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8153.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG8154.png" alt="image"></p>
+<p>客户端需要提前准备开墙信息，默认的启动端口是8080，数据采集的端口是11800</p>
+<p>默认的存储是用内存数据库H2来存储的，建议改掉，不然数据会跟着服务重启丢失，而且服务占用内存会很大。修改的话在目录<code>/config</code>下有3个文件可以改：</p>
+<ul>
+<li>application.yml</li>
+<li>log4j.xml</li>
+<li>alarm-settings.yml</li>
+</ul>
+<p>其中<code>application.yml</code>配置如下<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cluster:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_CLUSTER:standalone&#125;</span></span><br><span class="line"><span class="attr">  standalone:</span></span><br><span class="line">  <span class="comment"># Please check your ZooKeeper is 3.5+, However, it is also compatible with ZooKeeper 3.4.x. Replace the ZooKeeper 3.5+</span></span><br><span class="line">  <span class="comment"># library the oap-libs folder with your ZooKeeper 3.4.x library.</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    nameSpace:</span> <span class="string">$&#123;SW_NAMESPACE:""&#125;</span></span><br><span class="line"><span class="attr">    hostPort:</span> <span class="string">$&#123;SW_CLUSTER_ZK_HOST_PORT:localhost:2181&#125;</span></span><br><span class="line">    <span class="comment"># Retry Policy</span></span><br><span class="line"><span class="attr">    baseSleepTimeMs:</span> <span class="string">$&#123;SW_CLUSTER_ZK_SLEEP_TIME:1000&#125;</span> <span class="comment"># initial amount of time to wait between retries</span></span><br><span class="line"><span class="attr">    maxRetries:</span> <span class="string">$&#123;SW_CLUSTER_ZK_MAX_RETRIES:3&#125;</span> <span class="comment"># max number of times to retry</span></span><br><span class="line">    <span class="comment"># Enable ACL</span></span><br><span class="line"><span class="attr">    enableACL:</span> <span class="string">$&#123;SW_ZK_ENABLE_ACL:false&#125;</span> <span class="comment"># disable ACL in default</span></span><br><span class="line"><span class="attr">    schema:</span> <span class="string">$&#123;SW_ZK_SCHEMA:digest&#125;</span> <span class="comment"># only support digest schema</span></span><br><span class="line"><span class="attr">    expression:</span> <span class="string">$&#123;SW_ZK_EXPRESSION:skywalking:skywalking&#125;</span></span><br><span class="line"><span class="attr">  kubernetes:</span></span><br><span class="line"><span class="attr">    namespace:</span> <span class="string">$&#123;SW_CLUSTER_K8S_NAMESPACE:default&#125;</span></span><br><span class="line"><span class="attr">    labelSelector:</span> <span class="string">$&#123;SW_CLUSTER_K8S_LABEL:app=collector,release=skywalking&#125;</span></span><br><span class="line"><span class="attr">    uidEnvName:</span> <span class="string">$&#123;SW_CLUSTER_K8S_UID:SKYWALKING_COLLECTOR_UID&#125;</span></span><br><span class="line"><span class="attr">  consul:</span></span><br><span class="line"><span class="attr">    serviceName:</span> <span class="string">$&#123;SW_SERVICE_NAME:"SkyWalking_OAP_Cluster"&#125;</span></span><br><span class="line">    <span class="comment"># Consul cluster nodes, example: 10.0.0.1:8500,10.0.0.2:8500,10.0.0.3:8500</span></span><br><span class="line"><span class="attr">    hostPort:</span> <span class="string">$&#123;SW_CLUSTER_CONSUL_HOST_PORT:localhost:8500&#125;</span></span><br><span class="line"><span class="attr">    aclToken:</span> <span class="string">$&#123;SW_CLUSTER_CONSUL_ACLTOKEN:""&#125;</span></span><br><span class="line"><span class="attr">  etcd:</span></span><br><span class="line"><span class="attr">    serviceName:</span> <span class="string">$&#123;SW_SERVICE_NAME:"SkyWalking_OAP_Cluster"&#125;</span></span><br><span class="line">    <span class="comment"># etcd cluster nodes, example: 10.0.0.1:2379,10.0.0.2:2379,10.0.0.3:2379</span></span><br><span class="line"><span class="attr">    hostPort:</span> <span class="string">$&#123;SW_CLUSTER_ETCD_HOST_PORT:localhost:2379&#125;</span></span><br><span class="line"><span class="attr">  nacos:</span></span><br><span class="line"><span class="attr">    serviceName:</span> <span class="string">$&#123;SW_SERVICE_NAME:"SkyWalking_OAP_Cluster"&#125;</span></span><br><span class="line"><span class="attr">    hostPort:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_HOST_PORT:localhost:8848&#125;</span></span><br><span class="line">    <span class="comment"># Nacos Configuration namespace</span></span><br><span class="line"><span class="attr">    namespace:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_NAMESPACE:"public"&#125;</span></span><br><span class="line">    <span class="comment"># Nacos auth username</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_USERNAME:""&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_PASSWORD:""&#125;</span></span><br><span class="line">    <span class="comment"># Nacos auth accessKey</span></span><br><span class="line"><span class="attr">    accessKey:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_ACCESSKEY:""&#125;</span></span><br><span class="line"><span class="attr">    secretKey:</span> <span class="string">$&#123;SW_CLUSTER_NACOS_SECRETKEY:""&#125;</span></span><br><span class="line"><span class="attr">core:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_CORE:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line">    <span class="comment"># Mixed: Receive agent data, Level 1 aggregate, Level 2 aggregate</span></span><br><span class="line">    <span class="comment"># Receiver: Receive agent data, Level 1 aggregate</span></span><br><span class="line">    <span class="comment"># Aggregator: Level 2 aggregate</span></span><br><span class="line"><span class="attr">    role:</span> <span class="string">$&#123;SW_CORE_ROLE:Mixed&#125;</span> <span class="comment"># Mixed/Receiver/Aggregator</span></span><br><span class="line"><span class="attr">    restHost:</span> <span class="string">$&#123;SW_CORE_REST_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    restPort:</span> <span class="string">$&#123;SW_CORE_REST_PORT:12800&#125;</span></span><br><span class="line"><span class="attr">    restContextPath:</span> <span class="string">$&#123;SW_CORE_REST_CONTEXT_PATH:/&#125;</span></span><br><span class="line"><span class="attr">    restMinThreads:</span> <span class="string">$&#123;SW_CORE_REST_JETTY_MIN_THREADS:1&#125;</span></span><br><span class="line"><span class="attr">    restMaxThreads:</span> <span class="string">$&#123;SW_CORE_REST_JETTY_MAX_THREADS:200&#125;</span></span><br><span class="line"><span class="attr">    restIdleTimeOut:</span> <span class="string">$&#123;SW_CORE_REST_JETTY_IDLE_TIMEOUT:30000&#125;</span></span><br><span class="line"><span class="attr">    restAcceptorPriorityDelta:</span> <span class="string">$&#123;SW_CORE_REST_JETTY_DELTA:0&#125;</span></span><br><span class="line"><span class="attr">    restAcceptQueueSize:</span> <span class="string">$&#123;SW_CORE_REST_JETTY_QUEUE_SIZE:0&#125;</span></span><br><span class="line"><span class="attr">    gRPCHost:</span> <span class="string">$&#123;SW_CORE_GRPC_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    gRPCPort:</span> <span class="string">$&#123;SW_CORE_GRPC_PORT:11800&#125;</span></span><br><span class="line"><span class="attr">    maxConcurrentCallsPerConnection:</span> <span class="string">$&#123;SW_CORE_GRPC_MAX_CONCURRENT_CALL:0&#125;</span></span><br><span class="line"><span class="attr">    maxMessageSize:</span> <span class="string">$&#123;SW_CORE_GRPC_MAX_MESSAGE_SIZE:0&#125;</span></span><br><span class="line"><span class="attr">    gRPCThreadPoolQueueSize:</span> <span class="string">$&#123;SW_CORE_GRPC_POOL_QUEUE_SIZE:-1&#125;</span></span><br><span class="line"><span class="attr">    gRPCThreadPoolSize:</span> <span class="string">$&#123;SW_CORE_GRPC_THREAD_POOL_SIZE:-1&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslEnabled:</span> <span class="string">$&#123;SW_CORE_GRPC_SSL_ENABLED:false&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslKeyPath:</span> <span class="string">$&#123;SW_CORE_GRPC_SSL_KEY_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslCertChainPath:</span> <span class="string">$&#123;SW_CORE_GRPC_SSL_CERT_CHAIN_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslTrustedCAPath:</span> <span class="string">$&#123;SW_CORE_GRPC_SSL_TRUSTED_CA_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    downsampling:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">Hour</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">Day</span></span><br><span class="line">    <span class="comment"># Set a timeout on metrics data. After the timeout has expired, the metrics data will automatically be deleted.</span></span><br><span class="line"><span class="attr">    enableDataKeeperExecutor:</span> <span class="string">$&#123;SW_CORE_ENABLE_DATA_KEEPER_EXECUTOR:true&#125;</span> <span class="comment"># Turn it off then automatically metrics data delete will be close.</span></span><br><span class="line"><span class="attr">    dataKeeperExecutePeriod:</span> <span class="string">$&#123;SW_CORE_DATA_KEEPER_EXECUTE_PERIOD:5&#125;</span> <span class="comment"># How often the data keeper executor runs periodically, unit is minute</span></span><br><span class="line"><span class="attr">    recordDataTTL:</span> <span class="string">$&#123;SW_CORE_RECORD_DATA_TTL:3&#125;</span> <span class="comment"># Unit is day</span></span><br><span class="line"><span class="attr">    metricsDataTTL:</span> <span class="string">$&#123;SW_CORE_METRICS_DATA_TTL:7&#125;</span> <span class="comment"># Unit is day</span></span><br><span class="line">    <span class="comment"># Cache metrics data for 1 minute to reduce database queries, and if the OAP cluster changes within that minute,</span></span><br><span class="line">    <span class="comment"># the metrics may not be accurate within that minute.</span></span><br><span class="line"><span class="attr">    enableDatabaseSession:</span> <span class="string">$&#123;SW_CORE_ENABLE_DATABASE_SESSION:true&#125;</span></span><br><span class="line"><span class="attr">    topNReportPeriod:</span> <span class="string">$&#123;SW_CORE_TOPN_REPORT_PERIOD:10&#125;</span> <span class="comment"># top_n record worker report cycle, unit is minute</span></span><br><span class="line">    <span class="comment"># Extra model column are the column defined by in the codes, These columns of model are not required logically in aggregation or further query,</span></span><br><span class="line">    <span class="comment"># and it will cause more load for memory, network of OAP and storage.</span></span><br><span class="line">    <span class="comment"># But, being activated, user could see the name in the storage entities, which make users easier to use 3rd party tool, such as Kibana-&gt;ES, to query the data by themselves.</span></span><br><span class="line"><span class="attr">    activeExtraModelColumns:</span> <span class="string">$&#123;SW_CORE_ACTIVE_EXTRA_MODEL_COLUMNS:false&#125;</span></span><br><span class="line">    <span class="comment"># The max length of service + instance names should be less than 200</span></span><br><span class="line"><span class="attr">    serviceNameMaxLength:</span> <span class="string">$&#123;SW_SERVICE_NAME_MAX_LENGTH:70&#125;</span></span><br><span class="line"><span class="attr">    instanceNameMaxLength:</span> <span class="string">$&#123;SW_INSTANCE_NAME_MAX_LENGTH:70&#125;</span></span><br><span class="line">    <span class="comment"># The max length of service + endpoint names should be less than 240</span></span><br><span class="line"><span class="attr">    endpointNameMaxLength:</span> <span class="string">$&#123;SW_ENDPOINT_NAME_MAX_LENGTH:150&#125;</span></span><br><span class="line">    <span class="comment"># Define the set of span tag keys, which should be searchable through the GraphQL.</span></span><br><span class="line"><span class="attr">    searchableTracesTags:</span> <span class="string">$&#123;SW_SEARCHABLE_TAG_KEYS:http.method,status_code,db.type,db.instance,mq.queue,mq.topic,mq.broker&#125;</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_STORAGE:h2&#125;</span></span><br><span class="line"><span class="attr">  elasticsearch:</span></span><br><span class="line"><span class="attr">    nameSpace:</span> <span class="string">$&#123;SW_NAMESPACE:""&#125;</span></span><br><span class="line"><span class="attr">    clusterNodes:</span> <span class="string">$&#123;SW_STORAGE_ES_CLUSTER_NODES:localhost:9200&#125;</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">$&#123;SW_STORAGE_ES_HTTP_PROTOCOL:"http"&#125;</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">$&#123;SW_ES_USER:""&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;SW_ES_PASSWORD:""&#125;</span></span><br><span class="line"><span class="attr">    trustStorePath:</span> <span class="string">$&#123;SW_STORAGE_ES_SSL_JKS_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    trustStorePass:</span> <span class="string">$&#123;SW_STORAGE_ES_SSL_JKS_PASS:""&#125;</span></span><br><span class="line"><span class="attr">    secretsManagementFile:</span> <span class="string">$&#123;SW_ES_SECRETS_MANAGEMENT_FILE:""&#125;</span> <span class="comment"># Secrets management file in the properties format includes the username, password, which are managed by 3rd party tool.</span></span><br><span class="line"><span class="attr">    dayStep:</span> <span class="string">$&#123;SW_STORAGE_DAY_STEP:1&#125;</span> <span class="comment"># Represent the number of days in the one minute/hour/day index.</span></span><br><span class="line"><span class="attr">    indexShardsNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_INDEX_SHARDS_NUMBER:1&#125;</span> <span class="comment"># Shard number of new indexes</span></span><br><span class="line"><span class="attr">    indexReplicasNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_INDEX_REPLICAS_NUMBER:1&#125;</span> <span class="comment"># Replicas number of new indexes</span></span><br><span class="line">    <span class="comment"># Super data set has been defined in the codes, such as trace segments.The following 3 config would be improve es performance when storage super size data in es.</span></span><br><span class="line"><span class="attr">    superDatasetDayStep:</span> <span class="string">$&#123;SW_SUPERDATASET_STORAGE_DAY_STEP:-1&#125;</span> <span class="comment"># Represent the number of days in the super size dataset record index, the default value is the same as dayStep when the value is less than 0</span></span><br><span class="line"><span class="attr">    superDatasetIndexShardsFactor:</span> <span class="string">$&#123;SW_STORAGE_ES_SUPER_DATASET_INDEX_SHARDS_FACTOR:5&#125;</span> <span class="comment">#  This factor provides more shards for the super data set, shards number = indexShardsNumber * superDatasetIndexShardsFactor. Also, this factor effects Zipkin and Jaeger traces.</span></span><br><span class="line"><span class="attr">    superDatasetIndexReplicasNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_SUPER_DATASET_INDEX_REPLICAS_NUMBER:0&#125;</span> <span class="comment"># Represent the replicas number in the super size dataset record index, the default value is 0.</span></span><br><span class="line"><span class="attr">    bulkActions:</span> <span class="string">$&#123;SW_STORAGE_ES_BULK_ACTIONS:1000&#125;</span> <span class="comment"># Execute the async bulk record data every $&#123;SW_STORAGE_ES_BULK_ACTIONS&#125; requests</span></span><br><span class="line"><span class="attr">    syncBulkActions:</span> <span class="string">$&#123;SW_STORAGE_ES_SYNC_BULK_ACTIONS:50000&#125;</span> <span class="comment"># Execute the sync bulk metrics data every $&#123;SW_STORAGE_ES_SYNC_BULK_ACTIONS&#125; requests</span></span><br><span class="line"><span class="attr">    flushInterval:</span> <span class="string">$&#123;SW_STORAGE_ES_FLUSH_INTERVAL:10&#125;</span> <span class="comment"># flush the bulk every 10 seconds whatever the number of requests</span></span><br><span class="line"><span class="attr">    concurrentRequests:</span> <span class="string">$&#123;SW_STORAGE_ES_CONCURRENT_REQUESTS:2&#125;</span> <span class="comment"># the number of concurrent requests</span></span><br><span class="line"><span class="attr">    resultWindowMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_MAX_WINDOW_SIZE:10000&#125;</span></span><br><span class="line"><span class="attr">    metadataQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_MAX_SIZE:5000&#125;</span></span><br><span class="line"><span class="attr">    segmentQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_SEGMENT_SIZE:200&#125;</span></span><br><span class="line"><span class="attr">    profileTaskQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_PROFILE_TASK_SIZE:200&#125;</span></span><br><span class="line"><span class="attr">    advanced:</span> <span class="string">$&#123;SW_STORAGE_ES_ADVANCED:""&#125;</span></span><br><span class="line"><span class="attr">  elasticsearch7:</span></span><br><span class="line"><span class="attr">    nameSpace:</span> <span class="string">$&#123;SW_NAMESPACE:""&#125;</span></span><br><span class="line"><span class="attr">    clusterNodes:</span> <span class="string">$&#123;SW_STORAGE_ES_CLUSTER_NODES:localhost:9200&#125;</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">$&#123;SW_STORAGE_ES_HTTP_PROTOCOL:"http"&#125;</span></span><br><span class="line"><span class="attr">    trustStorePath:</span> <span class="string">$&#123;SW_STORAGE_ES_SSL_JKS_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    trustStorePass:</span> <span class="string">$&#123;SW_STORAGE_ES_SSL_JKS_PASS:""&#125;</span></span><br><span class="line"><span class="attr">    dayStep:</span> <span class="string">$&#123;SW_STORAGE_DAY_STEP:1&#125;</span> <span class="comment"># Represent the number of days in the one minute/hour/day index.</span></span><br><span class="line"><span class="attr">    indexShardsNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_INDEX_SHARDS_NUMBER:1&#125;</span> <span class="comment"># Shard number of new indexes</span></span><br><span class="line"><span class="attr">    indexReplicasNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_INDEX_REPLICAS_NUMBER:1&#125;</span> <span class="comment"># Replicas number of new indexes</span></span><br><span class="line">    <span class="comment"># Super data set has been defined in the codes, such as trace segments.The following 3 config would be improve es performance when storage super size data in es.</span></span><br><span class="line"><span class="attr">    superDatasetDayStep:</span> <span class="string">$&#123;SW_SUPERDATASET_STORAGE_DAY_STEP:-1&#125;</span> <span class="comment"># Represent the number of days in the super size dataset record index, the default value is the same as dayStep when the value is less than 0</span></span><br><span class="line"><span class="attr">    superDatasetIndexShardsFactor:</span> <span class="string">$&#123;SW_STORAGE_ES_SUPER_DATASET_INDEX_SHARDS_FACTOR:5&#125;</span> <span class="comment">#  This factor provides more shards for the super data set, shards number = indexShardsNumber * superDatasetIndexShardsFactor. Also, this factor effects Zipkin and Jaeger traces.</span></span><br><span class="line"><span class="attr">    superDatasetIndexReplicasNumber:</span> <span class="string">$&#123;SW_STORAGE_ES_SUPER_DATASET_INDEX_REPLICAS_NUMBER:0&#125;</span> <span class="comment"># Represent the replicas number in the super size dataset record index, the default value is 0.</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">$&#123;SW_ES_USER:""&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;SW_ES_PASSWORD:""&#125;</span></span><br><span class="line"><span class="attr">    secretsManagementFile:</span> <span class="string">$&#123;SW_ES_SECRETS_MANAGEMENT_FILE:""&#125;</span> <span class="comment"># Secrets management file in the properties format includes the username, password, which are managed by 3rd party tool.</span></span><br><span class="line"><span class="attr">    bulkActions:</span> <span class="string">$&#123;SW_STORAGE_ES_BULK_ACTIONS:1000&#125;</span> <span class="comment"># Execute the async bulk record data every $&#123;SW_STORAGE_ES_BULK_ACTIONS&#125; requests</span></span><br><span class="line"><span class="attr">    syncBulkActions:</span> <span class="string">$&#123;SW_STORAGE_ES_SYNC_BULK_ACTIONS:50000&#125;</span> <span class="comment"># Execute the sync bulk metrics data every $&#123;SW_STORAGE_ES_SYNC_BULK_ACTIONS&#125; requests</span></span><br><span class="line"><span class="attr">    flushInterval:</span> <span class="string">$&#123;SW_STORAGE_ES_FLUSH_INTERVAL:10&#125;</span> <span class="comment"># flush the bulk every 10 seconds whatever the number of requests</span></span><br><span class="line"><span class="attr">    concurrentRequests:</span> <span class="string">$&#123;SW_STORAGE_ES_CONCURRENT_REQUESTS:2&#125;</span> <span class="comment"># the number of concurrent requests</span></span><br><span class="line"><span class="attr">    resultWindowMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_MAX_WINDOW_SIZE:10000&#125;</span></span><br><span class="line"><span class="attr">    metadataQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_MAX_SIZE:5000&#125;</span></span><br><span class="line"><span class="attr">    segmentQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_SEGMENT_SIZE:200&#125;</span></span><br><span class="line"><span class="attr">    profileTaskQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_ES_QUERY_PROFILE_TASK_SIZE:200&#125;</span></span><br><span class="line"><span class="attr">    advanced:</span> <span class="string">$&#123;SW_STORAGE_ES_ADVANCED:""&#125;</span></span><br><span class="line"><span class="attr">  h2:</span></span><br><span class="line"><span class="attr">    driver:</span> <span class="string">$&#123;SW_STORAGE_H2_DRIVER:org.h2.jdbcx.JdbcDataSource&#125;</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$&#123;SW_STORAGE_H2_URL:jdbc:h2:mem:skywalking-oap-db&#125;</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">$&#123;SW_STORAGE_H2_USER:sa&#125;</span></span><br><span class="line"><span class="attr">    metadataQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_H2_QUERY_MAX_SIZE:5000&#125;</span></span><br><span class="line"><span class="attr">    maxSizeOfArrayColumn:</span> <span class="string">$&#123;SW_STORAGE_MAX_SIZE_OF_ARRAY_COLUMN:20&#125;</span></span><br><span class="line"><span class="attr">    numOfSearchableValuesPerTag:</span> <span class="string">$&#123;SW_STORAGE_NUM_OF_SEARCHABLE_VALUES_PER_TAG:2&#125;</span></span><br><span class="line"><span class="attr">  mysql:</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line"><span class="attr">      jdbcUrl:</span> <span class="string">$&#123;SW_JDBC_URL:"jdbc:mysql://localhost:3306/swtest"&#125;</span></span><br><span class="line">      <span class="string">dataSource.user:</span> <span class="string">$&#123;SW_DATA_SOURCE_USER:root&#125;</span></span><br><span class="line">      <span class="string">dataSource.password:</span> <span class="string">$&#123;SW_DATA_SOURCE_PASSWORD:root@1234&#125;</span></span><br><span class="line">      <span class="string">dataSource.cachePrepStmts:</span> <span class="string">$&#123;SW_DATA_SOURCE_CACHE_PREP_STMTS:true&#125;</span></span><br><span class="line">      <span class="string">dataSource.prepStmtCacheSize:</span> <span class="string">$&#123;SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_SIZE:250&#125;</span></span><br><span class="line">      <span class="string">dataSource.prepStmtCacheSqlLimit:</span> <span class="string">$&#123;SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_LIMIT:2048&#125;</span></span><br><span class="line">      <span class="string">dataSource.useServerPrepStmts:</span> <span class="string">$&#123;SW_DATA_SOURCE_USE_SERVER_PREP_STMTS:true&#125;</span></span><br><span class="line"><span class="attr">    metadataQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_MYSQL_QUERY_MAX_SIZE:5000&#125;</span></span><br><span class="line"><span class="attr">    maxSizeOfArrayColumn:</span> <span class="string">$&#123;SW_STORAGE_MAX_SIZE_OF_ARRAY_COLUMN:20&#125;</span></span><br><span class="line"><span class="attr">    numOfSearchableValuesPerTag:</span> <span class="string">$&#123;SW_STORAGE_NUM_OF_SEARCHABLE_VALUES_PER_TAG:2&#125;</span></span><br><span class="line"><span class="attr">  tidb:</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line"><span class="attr">      jdbcUrl:</span> <span class="string">$&#123;SW_JDBC_URL:"jdbc:mysql://localhost:4000/tidbswtest"&#125;</span></span><br><span class="line">      <span class="string">dataSource.user:</span> <span class="string">$&#123;SW_DATA_SOURCE_USER:root&#125;</span></span><br><span class="line">      <span class="string">dataSource.password:</span> <span class="string">$&#123;SW_DATA_SOURCE_PASSWORD:""&#125;</span></span><br><span class="line">      <span class="string">dataSource.cachePrepStmts:</span> <span class="string">$&#123;SW_DATA_SOURCE_CACHE_PREP_STMTS:true&#125;</span></span><br><span class="line">      <span class="string">dataSource.prepStmtCacheSize:</span> <span class="string">$&#123;SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_SIZE:250&#125;</span></span><br><span class="line">      <span class="string">dataSource.prepStmtCacheSqlLimit:</span> <span class="string">$&#123;SW_DATA_SOURCE_PREP_STMT_CACHE_SQL_LIMIT:2048&#125;</span></span><br><span class="line">      <span class="string">dataSource.useServerPrepStmts:</span> <span class="string">$&#123;SW_DATA_SOURCE_USE_SERVER_PREP_STMTS:true&#125;</span></span><br><span class="line">      <span class="string">dataSource.useAffectedRows:</span> <span class="string">$&#123;SW_DATA_SOURCE_USE_AFFECTED_ROWS:true&#125;</span></span><br><span class="line"><span class="attr">    metadataQueryMaxSize:</span> <span class="string">$&#123;SW_STORAGE_MYSQL_QUERY_MAX_SIZE:5000&#125;</span></span><br><span class="line"><span class="attr">    maxSizeOfArrayColumn:</span> <span class="string">$&#123;SW_STORAGE_MAX_SIZE_OF_ARRAY_COLUMN:20&#125;</span></span><br><span class="line"><span class="attr">    numOfSearchableValuesPerTag:</span> <span class="string">$&#123;SW_STORAGE_NUM_OF_SEARCHABLE_VALUES_PER_TAG:2&#125;</span></span><br><span class="line"><span class="attr">  influxdb:</span></span><br><span class="line">    <span class="comment"># InfluxDB configuration</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_URL:http://localhost:8086&#125;</span></span><br><span class="line"><span class="attr">    user:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_USER:root&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_PASSWORD:&#125;</span></span><br><span class="line"><span class="attr">    database:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_DATABASE:skywalking&#125;</span></span><br><span class="line"><span class="attr">    actions:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_ACTIONS:1000&#125;</span> <span class="comment"># the number of actions to collect</span></span><br><span class="line"><span class="attr">    duration:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_DURATION:1000&#125;</span> <span class="comment"># the time to wait at most (milliseconds)</span></span><br><span class="line"><span class="attr">    batchEnabled:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_BATCH_ENABLED:true&#125;</span></span><br><span class="line"><span class="attr">    fetchTaskLogMaxSize:</span> <span class="string">$&#123;SW_STORAGE_INFLUXDB_FETCH_TASK_LOG_MAX_SIZE:5000&#125;</span> <span class="comment"># the max number of fetch task log in a request</span></span><br><span class="line"></span><br><span class="line"><span class="attr">agent-analyzer:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_AGENT_ANALYZER:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    sampleRate:</span> <span class="string">$&#123;SW_TRACE_SAMPLE_RATE:10000&#125;</span> <span class="comment"># The sample rate precision is 1/10000. 10000 means 100% sample in default.</span></span><br><span class="line"><span class="attr">    slowDBAccessThreshold:</span> <span class="string">$&#123;SW_SLOW_DB_THRESHOLD:default:200,mongodb:100&#125;</span> <span class="comment"># The slow database access thresholds. Unit ms.</span></span><br><span class="line"><span class="attr">    forceSampleErrorSegment:</span> <span class="string">$&#123;SW_FORCE_SAMPLE_ERROR_SEGMENT:true&#125;</span> <span class="comment"># When sampling mechanism active, this config can open(true) force save some error segment. true is default.</span></span><br><span class="line"><span class="attr">    segmentStatusAnalysisStrategy:</span> <span class="string">$&#123;SW_SEGMENT_STATUS_ANALYSIS_STRATEGY:FROM_SPAN_STATUS&#125;</span> <span class="comment"># Determine the final segment status from the status of spans. Available values are `FROM_SPAN_STATUS` , `FROM_ENTRY_SPAN` and `FROM_FIRST_SPAN`. `FROM_SPAN_STATUS` represents the segment status would be error if any span is in error status. `FROM_ENTRY_SPAN` means the segment status would be determined by the status of entry spans only. `FROM_FIRST_SPAN` means the segment status would be determined by the status of the first span only.</span></span><br><span class="line">    <span class="comment"># Nginx and Envoy agents can't get the real remote address.</span></span><br><span class="line">    <span class="comment"># Exit spans with the component in the list would not generate the client-side instance relation metrics.</span></span><br><span class="line"><span class="attr">    noUpstreamRealAddressAgents:</span> <span class="string">$&#123;SW_NO_UPSTREAM_REAL_ADDRESS:6000,9000&#125;</span></span><br><span class="line"><span class="attr">    slowTraceSegmentThreshold:</span> <span class="string">$&#123;SW_SLOW_TRACE_SEGMENT_THRESHOLD:-1&#125;</span> <span class="comment"># Setting this threshold about the latency would make the slow trace segments sampled if they cost more time, even the sampling mechanism activated. The default value is `-1`, which means would not sample slow traces. Unit, millisecond.</span></span><br><span class="line"><span class="attr">    meterAnalyzerActiveFiles:</span> <span class="string">$&#123;SW_METER_ANALYZER_ACTIVE_FILES:&#125;</span> <span class="comment"># Which files could be meter analyzed, files split by ","</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-sharing-server:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_SERVER:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line">    <span class="comment"># For Jetty server</span></span><br><span class="line"><span class="attr">    restHost:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_REST_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    restPort:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_REST_PORT:0&#125;</span></span><br><span class="line"><span class="attr">    contextPath:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_REST_CONTEXT_PATH:/&#125;</span></span><br><span class="line"><span class="attr">    restMinThreads:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_JETTY_MIN_THREADS:1&#125;</span></span><br><span class="line"><span class="attr">    restMaxThreads:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_JETTY_MAX_THREADS:200&#125;</span></span><br><span class="line"><span class="attr">    restIdleTimeOut:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_JETTY_IDLE_TIMEOUT:30000&#125;</span></span><br><span class="line"><span class="attr">    restAcceptorPriorityDelta:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_JETTY_DELTA:0&#125;</span></span><br><span class="line"><span class="attr">    restAcceptQueueSize:</span> <span class="string">$&#123;SW_RECEIVER_SHARING_JETTY_QUEUE_SIZE:0&#125;</span></span><br><span class="line">    <span class="comment"># For gRPC server</span></span><br><span class="line"><span class="attr">    gRPCHost:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    gRPCPort:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_PORT:0&#125;</span></span><br><span class="line"><span class="attr">    maxConcurrentCallsPerConnection:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_MAX_CONCURRENT_CALL:0&#125;</span></span><br><span class="line"><span class="attr">    maxMessageSize:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_MAX_MESSAGE_SIZE:0&#125;</span></span><br><span class="line"><span class="attr">    gRPCThreadPoolQueueSize:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_POOL_QUEUE_SIZE:0&#125;</span></span><br><span class="line"><span class="attr">    gRPCThreadPoolSize:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_THREAD_POOL_SIZE:0&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslEnabled:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_SSL_ENABLED:false&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslKeyPath:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_SSL_KEY_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    gRPCSslCertChainPath:</span> <span class="string">$&#123;SW_RECEIVER_GRPC_SSL_CERT_CHAIN_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    authentication:</span> <span class="string">$&#123;SW_AUTHENTICATION:""&#125;</span></span><br><span class="line"><span class="attr">receiver-register:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_REGISTER:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-trace:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_TRACE:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-jvm:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_JVM:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-clr:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_CLR:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-profile:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_PROFILE:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">service-mesh:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_SERVICE_MESH:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">envoy-metric:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_ENVOY_METRIC:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    acceptMetricsService:</span> <span class="string">$&#123;SW_ENVOY_METRIC_SERVICE:true&#125;</span></span><br><span class="line"><span class="attr">    alsHTTPAnalysis:</span> <span class="string">$&#123;SW_ENVOY_METRIC_ALS_HTTP_ANALYSIS:""&#125;</span></span><br><span class="line">    <span class="comment"># `k8sServiceNameRule` allows you to customize the service name in ALS via Kubernetes metadata,</span></span><br><span class="line">    <span class="comment"># the available variables are `pod`, `service`, f.e., you can use `$&#123;service.metadata.name&#125;-$&#123;pod.metadata.labels.version&#125;`</span></span><br><span class="line">    <span class="comment"># to append the version number to the service name.</span></span><br><span class="line">    <span class="comment"># Be careful, when using environment variables to pass this configuration, use single quotes(`''`) to avoid it being evaluated by the shell.</span></span><br><span class="line"><span class="attr">    k8sServiceNameRule:</span> <span class="string">$&#123;K8S_SERVICE_NAME_RULE:"$&#123;service.metadata.name&#125;"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">prometheus-fetcher:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_PROMETHEUS_FETCHER:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    enabledRules:</span> <span class="string">$&#123;SW_PROMETHEUS_FETCHER_ENABLED_RULES:"self"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">kafka-fetcher:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_KAFKA_FETCHER:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    bootstrapServers:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_SERVERS:localhost:9092&#125;</span></span><br><span class="line"><span class="attr">    partitions:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_PARTITIONS:3&#125;</span></span><br><span class="line"><span class="attr">    replicationFactor:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_PARTITIONS_FACTOR:2&#125;</span></span><br><span class="line"><span class="attr">    enableMeterSystem:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_ENABLE_METER_SYSTEM:false&#125;</span></span><br><span class="line"><span class="attr">    isSharding:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_IS_SHARDING:false&#125;</span></span><br><span class="line"><span class="attr">    consumePartitions:</span> <span class="string">$&#123;SW_KAFKA_FETCHER_CONSUME_PARTITIONS:""&#125;</span></span><br><span class="line"><span class="attr">    kafkaHandlerThreadPoolSize:</span> <span class="string">$&#123;SW_KAFKA_HANDLER_THREAD_POOL_SIZE:-1&#125;</span></span><br><span class="line"><span class="attr">    kafkaHandlerThreadPoolQueueSize:</span> <span class="string">$&#123;SW_KAFKA_HANDLER_THREAD_POOL_QUEUE_SIZE:-1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-meter:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_METER:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-otel:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_OTEL_RECEIVER:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    enabledHandlers:</span> <span class="string">$&#123;SW_OTEL_RECEIVER_ENABLED_HANDLERS:"oc"&#125;</span></span><br><span class="line"><span class="attr">    enabledOcRules:</span> <span class="string">$&#123;SW_OTEL_RECEIVER_ENABLED_OC_RULES:"istio-controlplane"&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver_zipkin:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    host:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    port:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_PORT:9411&#125;</span></span><br><span class="line"><span class="attr">    contextPath:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_CONTEXT_PATH:/&#125;</span></span><br><span class="line"><span class="attr">    jettyMinThreads:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_JETTY_MIN_THREADS:1&#125;</span></span><br><span class="line"><span class="attr">    jettyMaxThreads:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_JETTY_MAX_THREADS:200&#125;</span></span><br><span class="line"><span class="attr">    jettyIdleTimeOut:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_JETTY_IDLE_TIMEOUT:30000&#125;</span></span><br><span class="line"><span class="attr">    jettyAcceptorPriorityDelta:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_JETTY_DELTA:0&#125;</span></span><br><span class="line"><span class="attr">    jettyAcceptQueueSize:</span> <span class="string">$&#123;SW_RECEIVER_ZIPKIN_QUEUE_SIZE:0&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver_jaeger:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_JAEGER:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    gRPCHost:</span> <span class="string">$&#123;SW_RECEIVER_JAEGER_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    gRPCPort:</span> <span class="string">$&#123;SW_RECEIVER_JAEGER_PORT:14250&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">receiver-browser:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_RECEIVER_BROWSER:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line">    <span class="comment"># The sample rate precision is 1/10000. 10000 means 100% sample in default.</span></span><br><span class="line"><span class="attr">    sampleRate:</span> <span class="string">$&#123;SW_RECEIVER_BROWSER_SAMPLE_RATE:10000&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">query:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_QUERY:graphql&#125;</span></span><br><span class="line"><span class="attr">  graphql:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">$&#123;SW_QUERY_GRAPHQL_PATH:/graphql&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">alarm:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_ALARM:default&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"></span><br><span class="line"><span class="attr">telemetry:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_TELEMETRY:none&#125;</span></span><br><span class="line"><span class="attr">  none:</span></span><br><span class="line"><span class="attr">  prometheus:</span></span><br><span class="line"><span class="attr">    host:</span> <span class="string">$&#123;SW_TELEMETRY_PROMETHEUS_HOST:0.0.0.0&#125;</span></span><br><span class="line"><span class="attr">    port:</span> <span class="string">$&#123;SW_TELEMETRY_PROMETHEUS_PORT:1234&#125;</span></span><br><span class="line"><span class="attr">    sslEnabled:</span> <span class="string">$&#123;SW_TELEMETRY_PROMETHEUS_SSL_ENABLED:false&#125;</span></span><br><span class="line"><span class="attr">    sslKeyPath:</span> <span class="string">$&#123;SW_TELEMETRY_PROMETHEUS_SSL_KEY_PATH:""&#125;</span></span><br><span class="line"><span class="attr">    sslCertChainPath:</span> <span class="string">$&#123;SW_TELEMETRY_PROMETHEUS_SSL_CERT_CHAIN_PATH:""&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">configuration:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_CONFIGURATION:none&#125;</span></span><br><span class="line"><span class="attr">  none:</span></span><br><span class="line"><span class="attr">  grpc:</span></span><br><span class="line"><span class="attr">    host:</span> <span class="string">$&#123;SW_DCS_SERVER_HOST:""&#125;</span></span><br><span class="line"><span class="attr">    port:</span> <span class="string">$&#123;SW_DCS_SERVER_PORT:80&#125;</span></span><br><span class="line"><span class="attr">    clusterName:</span> <span class="string">$&#123;SW_DCS_CLUSTER_NAME:SkyWalking&#125;</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_DCS_PERIOD:20&#125;</span></span><br><span class="line"><span class="attr">  apollo:</span></span><br><span class="line"><span class="attr">    apolloMeta:</span> <span class="string">$&#123;SW_CONFIG_APOLLO:http://localhost:8080&#125;</span></span><br><span class="line"><span class="attr">    apolloCluster:</span> <span class="string">$&#123;SW_CONFIG_APOLLO_CLUSTER:default&#125;</span></span><br><span class="line"><span class="attr">    apolloEnv:</span> <span class="string">$&#123;SW_CONFIG_APOLLO_ENV:""&#125;</span></span><br><span class="line"><span class="attr">    appId:</span> <span class="string">$&#123;SW_CONFIG_APOLLO_APP_ID:skywalking&#125;</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_APOLLO_PERIOD:5&#125;</span></span><br><span class="line"><span class="attr">  zookeeper:</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_ZK_PERIOD:60&#125;</span> <span class="comment"># Unit seconds, sync period. Default fetch every 60 seconds.</span></span><br><span class="line"><span class="attr">    nameSpace:</span> <span class="string">$&#123;SW_CONFIG_ZK_NAMESPACE:/default&#125;</span></span><br><span class="line"><span class="attr">    hostPort:</span> <span class="string">$&#123;SW_CONFIG_ZK_HOST_PORT:localhost:2181&#125;</span></span><br><span class="line">    <span class="comment"># Retry Policy</span></span><br><span class="line"><span class="attr">    baseSleepTimeMs:</span> <span class="string">$&#123;SW_CONFIG_ZK_BASE_SLEEP_TIME_MS:1000&#125;</span> <span class="comment"># initial amount of time to wait between retries</span></span><br><span class="line"><span class="attr">    maxRetries:</span> <span class="string">$&#123;SW_CONFIG_ZK_MAX_RETRIES:3&#125;</span> <span class="comment"># max number of times to retry</span></span><br><span class="line"><span class="attr">  etcd:</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_ETCD_PERIOD:60&#125;</span> <span class="comment"># Unit seconds, sync period. Default fetch every 60 seconds.</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">$&#123;SW_CONFIG_ETCD_GROUP:skywalking&#125;</span></span><br><span class="line"><span class="attr">    serverAddr:</span> <span class="string">$&#123;SW_CONFIG_ETCD_SERVER_ADDR:localhost:2379&#125;</span></span><br><span class="line"><span class="attr">    clusterName:</span> <span class="string">$&#123;SW_CONFIG_ETCD_CLUSTER_NAME:default&#125;</span></span><br><span class="line"><span class="attr">  consul:</span></span><br><span class="line">    <span class="comment"># Consul host and ports, separated by comma, e.g. 1.2.3.4:8500,2.3.4.5:8500</span></span><br><span class="line"><span class="attr">    hostAndPorts:</span> <span class="string">$&#123;SW_CONFIG_CONSUL_HOST_AND_PORTS:1.2.3.4:8500&#125;</span></span><br><span class="line">    <span class="comment"># Sync period in seconds. Defaults to 60 seconds.</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_CONSUL_PERIOD:60&#125;</span></span><br><span class="line">    <span class="comment"># Consul aclToken</span></span><br><span class="line"><span class="attr">    aclToken:</span> <span class="string">$&#123;SW_CONFIG_CONSUL_ACL_TOKEN:""&#125;</span></span><br><span class="line"><span class="attr">  k8s-configmap:</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_CONFIGMAP_PERIOD:60&#125;</span></span><br><span class="line"><span class="attr">    namespace:</span> <span class="string">$&#123;SW_CLUSTER_K8S_NAMESPACE:default&#125;</span></span><br><span class="line"><span class="attr">    labelSelector:</span> <span class="string">$&#123;SW_CLUSTER_K8S_LABEL:app=collector,release=skywalking&#125;</span></span><br><span class="line"><span class="attr">  nacos:</span></span><br><span class="line">    <span class="comment"># Nacos Server Host</span></span><br><span class="line"><span class="attr">    serverAddr:</span> <span class="string">$&#123;SW_CONFIG_NACOS_SERVER_ADDR:127.0.0.1&#125;</span></span><br><span class="line">    <span class="comment"># Nacos Server Port</span></span><br><span class="line"><span class="attr">    port:</span> <span class="string">$&#123;SW_CONFIG_NACOS_SERVER_PORT:8848&#125;</span></span><br><span class="line">    <span class="comment"># Nacos Configuration Group</span></span><br><span class="line"><span class="attr">    group:</span> <span class="string">$&#123;SW_CONFIG_NACOS_SERVER_GROUP:skywalking&#125;</span></span><br><span class="line">    <span class="comment"># Nacos Configuration namespace</span></span><br><span class="line"><span class="attr">    namespace:</span> <span class="string">$&#123;SW_CONFIG_NACOS_SERVER_NAMESPACE:&#125;</span></span><br><span class="line">    <span class="comment"># Unit seconds, sync period. Default fetch every 60 seconds.</span></span><br><span class="line"><span class="attr">    period:</span> <span class="string">$&#123;SW_CONFIG_NACOS_PERIOD:60&#125;</span></span><br><span class="line">    <span class="comment"># Nacos auth username</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">$&#123;SW_CONFIG_NACOS_USERNAME:""&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;SW_CONFIG_NACOS_PASSWORD:""&#125;</span></span><br><span class="line">    <span class="comment"># Nacos auth accessKey</span></span><br><span class="line"><span class="attr">    accessKey:</span> <span class="string">$&#123;SW_CONFIG_NACOS_ACCESSKEY:""&#125;</span></span><br><span class="line"><span class="attr">    secretKey:</span> <span class="string">$&#123;SW_CONFIG_NACOS_SECRETKEY:""&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">exporter:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_EXPORTER:-&#125;</span></span><br><span class="line"><span class="attr">  grpc:</span></span><br><span class="line"><span class="attr">    targetHost:</span> <span class="string">$&#123;SW_EXPORTER_GRPC_HOST:127.0.0.1&#125;</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="string">$&#123;SW_EXPORTER_GRPC_PORT:9870&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">health-checker:</span></span><br><span class="line"><span class="attr">  selector:</span> <span class="string">$&#123;SW_HEALTH_CHECKER:-&#125;</span></span><br><span class="line"><span class="attr">  default:</span></span><br><span class="line"><span class="attr">    checkIntervalSeconds:</span> <span class="string">$&#123;SW_HEALTH_CHECKER_INTERVAL_SECONDS:5&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><p>Java代理插件都是可插入的。可以optional-plugins在代理或第三方存储库下的文件夹中提供可选插件。要使用这些插件，需要将目标插件jar文件放入/plugins。</p>
+<p>目前已有的插件有：</p>
+<ul>
+<li><a href="https://github.com/apache/skywalking/blob/8.3.0/docs-hotfix/docs/en/setup/service-agent/java-agent/agent-optional-plugins/Spring-annotation-plugin.md" target="_blank" rel="noopener">Plugin of tracing Spring annotation beans</a></li>
+<li><a href="https://github.com/apache/skywalking/blob/8.3.0/docs-hotfix/docs/en/setup/service-agent/java-agent/agent-optional-plugins/Oracle-Resin-plugins.md" target="_blank" rel="noopener">tracing Oracle and Resin</a></li>
+<li><a href="https://github.com/apache/skywalking/blob/8.3.0/docs-hotfix/docs/en/setup/service-agent/java-agent/agent-optional-plugins/trace-ignore-plugin.md" target="_blank" rel="noopener">Filter traces through specified endpoint name patterns</a></li>
+<li>Plugin of Gson serialization lib in optional plugin folder.</li>
+<li>Plugin of Zookeeper 3.4.x in optional plugin folder. The reason of being optional plugin is, many business irrelevant traces are generated, which cause extra payload to agents and backends. At the same time, those traces may be just heartbeat(s).</li>
+<li>Customize enhance Trace methods based on description files, rather than write plugin or change source codes.</li>
+<li>Plugin of Spring Cloud Gateway 2.1.x in optional plugin folder. Please only active this plugin when you install agent in Spring Gateway. spring-cloud-gateway-2.x-plugin and spring-webflux-5.x-plugin are both required.</li>
+<li>Plugin of Spring Transaction in optional plugin folder. The reason of being optional plugin is, many local span are generated, which also spend more CPU, memory and network.</li>
+<li>Plugin of Kotlin coroutine provides the tracing across coroutines automatically. As it will add local spans to all across routines scenarios, Please assess the performance impact.</li>
+<li>Plugin of quartz-scheduler-2.x in the optional plugin folder. The reason for being an optional plugin is, many task scheduling systems are based on quartz-scheduler, this will cause duplicate tracing and link different sub-tasks as they share the same quartz level trigger, such as ElasticJob.</li>
+<li>Plugin of spring-webflux-5.x in the optional plugin folder. Please only activate this plugin when you use webflux alone as a web container. If you are using SpringMVC 5 or Spring Gateway, you don’t need this plugin.</li>
+</ul>
+<h3 id="前端配置"><a href="#前端配置" class="headerlink" title="前端配置"></a>前端配置</h3><p>前端配置在文件夹<code>webapp</code>的<code>webapp.yml</code>文件里面。</p>
+<h2 id="客户端接入"><a href="#客户端接入" class="headerlink" title="客户端接入"></a>客户端接入</h2><h3 id="java应用"><a href="#java应用" class="headerlink" title="java应用"></a>java应用</h3><p>执行命令里面加上<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:/path/<span class="keyword">to</span>/skywalking-<span class="built_in">agent</span>/skywalking-<span class="built_in">agent</span>.jar -Dskywalking_config=/path/<span class="keyword">to</span>/<span class="built_in">agent</span>.config -jar yourApp.jar</span><br></pre></td></tr></table></figure></p>
+<p>这里另外设置了agent的配置，具体agent的配置可以参考<a href="https://github.com/apache/skywalking/blob/8.3.0/docs-hotfix/docs/en/setup/service-agent/java-agent/README.md" target="_blank" rel="noopener">官方文档</a>，这里贴上我自己的配置:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Licensed to the Apache Software Foundation (ASF) under one</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> or more contributor license agreements.  See the NOTICE file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> distributed with this work <span class="keyword">for</span> additional information</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> regarding copyright ownership.  The ASF licenses this file</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> to you under the Apache License, Version 2.0 (the</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="string">"License"</span>); you may not use this file except <span class="keyword">in</span> compliance</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> with the License.  You may obtain a copy of the License at</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">     http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="meta">#</span><span class="bash"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Unless required by applicable law or agreed to <span class="keyword">in</span> writing, software</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> distributed under the License is distributed on an <span class="string">"AS IS"</span> BASIS,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> See the License <span class="keyword">for</span> the specific language governing permissions and</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> limitations under the License.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The agent namespace</span></span><br><span class="line">agent.namespace=$&#123;SW_AGENT_NAMESPACE:LOCAL&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The service name <span class="keyword">in</span> UI</span></span><br><span class="line">agent.service_name=$&#123;SW_AGENT_NAME:Activiti&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The number of sampled traces per 3 seconds</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Negative or zero means off, by default</span></span><br><span class="line">agent.sample_n_per_3_secs=$&#123;SW_AGENT_SAMPLE:-1&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Authentication active is based on backend setting, see application.yml <span class="keyword">for</span> more details.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.authentication = <span class="variable">$&#123;SW_AGENT_AUTHENTICATION:xxxx&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The max amount of spans <span class="keyword">in</span> a single segment.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Through this config item, SkyWalking keep your application memory cost estimated.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.span_limit_per_segment=<span class="variable">$&#123;SW_AGENT_SPAN_LIMIT:150&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Ignore the segments <span class="keyword">if</span> their operation names end with these suffix.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.ignore_suffix=<span class="variable">$&#123;SW_AGENT_IGNORE_SUFFIX:.jpg,.jpeg,.js,.css,.png,.bmp,.gif,.ico,.mp3,.mp4,.html,.svg&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> If <span class="literal">true</span>, SkyWalking agent will save all instrumented classes files <span class="keyword">in</span> `/debugging` folder.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> SkyWalking team may ask <span class="keyword">for</span> these files <span class="keyword">in</span> order to resolve compatible problem.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.is_open_debugging_class = <span class="variable">$&#123;SW_AGENT_OPEN_DEBUG:true&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> If <span class="literal">true</span>, SkyWalking agent will cache all instrumented classes files to memory or disk files (decided by class cache mode),</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> allow other javaagent to enhance those classes that enhanced by SkyWalking agent.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.is_cache_enhanced_class = <span class="variable">$&#123;SW_AGENT_CACHE_CLASS:false&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The instrumented classes cache mode: MEMORY or FILE</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> MEMORY: cache class bytes to memory, <span class="keyword">if</span> instrumented classes is too many or too large, it may take up more memory</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> FILE: cache class bytes <span class="keyword">in</span> `/class-cache` folder, automatically clean up cached class files when the application exits</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.class_cache_mode = <span class="variable">$&#123;SW_AGENT_CLASS_CACHE_MODE:MEMORY&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The operationName max length</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Notice, <span class="keyword">in</span> the current practice, we don<span class="string">'t recommend the length over 190.</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> agent.operation_name_threshold=<span class="variable">$&#123;SW_AGENT_OPERATION_NAME_THRESHOLD:150&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> If <span class="literal">true</span>, skywalking agent will <span class="built_in">enable</span> profile when user create a new profile task. Otherwise <span class="built_in">disable</span> profile.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> profile.active=<span class="variable">$&#123;SW_AGENT_PROFILE_ACTIVE:true&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Parallel monitor segment count</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> profile.max_parallel=<span class="variable">$&#123;SW_AGENT_PROFILE_MAX_PARALLEL:5&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Max monitor segment time(minutes), <span class="keyword">if</span> current segment monitor time out of <span class="built_in">limit</span>, <span class="keyword">then</span> stop it.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> profile.duration=<span class="variable">$&#123;SW_AGENT_PROFILE_DURATION:10&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Max dump thread stack depth</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> profile.dump_max_stack_depth=<span class="variable">$&#123;SW_AGENT_PROFILE_DUMP_MAX_STACK_DEPTH:500&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Snapshot transport to backend buffer size</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> profile.snapshot_transport_buffer_size=<span class="variable">$&#123;SW_AGENT_PROFILE_SNAPSHOT_TRANSPORT_BUFFER_SIZE:50&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Backend service addresses.</span></span><br><span class="line">collector.backend_service=$&#123;SW_AGENT_COLLECTOR_BACKEND_SERVICES:127.0.0.1:11800&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Logging file_name</span></span><br><span class="line">logging.file_name=$&#123;SW_LOGGING_FILE_NAME:skywalking-api.log&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Logging level</span></span><br><span class="line">logging.level=$&#123;SW_LOGGING_LEVEL:INFO&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Logging dir</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> logging.dir=<span class="variable">$&#123;SW_LOGGING_DIR:""&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Logging max_file_size, default: 300 * 1024 * 1024 = 314572800</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> logging.max_file_size=<span class="variable">$&#123;SW_LOGGING_MAX_FILE_SIZE:314572800&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The max <span class="built_in">history</span> <span class="built_in">log</span> files. When rollover happened, <span class="keyword">if</span> <span class="built_in">log</span> files exceed this number,</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">then</span> the oldest file will be delete. Negative or zero means off, by default.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> logging.max_history_files=<span class="variable">$&#123;SW_LOGGING_MAX_HISTORY_FILES:-1&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Listed exceptions would not be treated as an error. Because <span class="keyword">in</span> some codes, the exception is being used as a way of controlling business flow.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Besides, the annotation named IgnoredException <span class="keyword">in</span> the trace toolkit is another way to configure ignored exceptions.</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> statuscheck.ignored_exceptions=<span class="variable">$&#123;SW_STATUSCHECK_IGNORED_EXCEPTIONS:&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> The max recursive depth when checking the exception traced by the agent. Typically, we don<span class="string">'t recommend setting this more than 10, which could cause a performance issue. Negative value and 0 would be ignored, which means all exceptions would make the span tagged in error status.</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> statuscheck.max_recursive_depth=<span class="variable">$&#123;SW_STATUSCHECK_MAX_RECURSIVE_DEPTH:1&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Mount the specific folders of the plugins. Plugins <span class="keyword">in</span> mounted folders would work.</span></span><br><span class="line">plugin.mount=$&#123;SW_MOUNT_FOLDERS:plugins,activations&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Exclude activated plugins</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> plugin.exclude_plugins=<span class="variable">$&#123;SW_EXCLUDE_PLUGINS:&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> mysql plugin configuration</span></span><br><span class="line">plugin.mysql.trace_sql_parameters=$&#123;SW_MYSQL_TRACE_SQL_PARAMETERS:true&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Kafka producer configuration</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> plugin.kafka.bootstrap_servers=<span class="variable">$&#123;SW_KAFKA_BOOTSTRAP_SERVERS:localhost:9092&#125;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Match spring bean with regex expression <span class="keyword">for</span> classname</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> plugin.springannotation.classname_match_regex=<span class="variable">$&#123;SW_SPRINGANNOTATION_CLASSNAME_MATCH_REGEX:&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="NodeJs接入"><a href="#NodeJs接入" class="headerlink" title="NodeJs接入"></a>NodeJs接入</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import <span class="built_in">Agent</span> <span class="keyword">from</span> <span class="string">'skywalking'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Agent</span>.start(&#123;</span><br><span class="line">  serviceName: <span class="string">''</span>,</span><br><span class="line">  serviceInstance: <span class="string">''</span>,</span><br><span class="line">  collectorAddress: <span class="string">''</span>,</span><br><span class="line">  authorization: <span class="string">''</span>,</span><br><span class="line">  maxBufferSize: <span class="number">1000</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>参数包括：</p>
+<p>Environment Variable | Description | Default<br>| :— | :— | :— |<br>| <code>SW_AGENT_NAME</code> | The name of the service | <code>your-nodejs-service</code> |<br>| <code>SW_AGENT_INSTANCE</code> | The name of the service instance | Randomly generated |<br>| <code>SW_AGENT_COLLECTOR_BACKEND_SERVICES</code> | The backend OAP server address | <code>127.0.0.1:11800</code> |<br>| <code>SW_AGENT_AUTHENTICATION</code> | The authentication token to verify that the agent is trusted by the backend OAP, as for how to configure the backend, refer to <a href="https://github.com/apache/skywalking/blob/4f0f39ffccdc9b41049903cc540b8904f7c9728e/oap-server/server-bootstrap/src/main/resources/application.yml#L155-L158" target="_blank" rel="noopener">the yaml</a>. | not set |<br>| <code>SW_AGENT_LOGGING_LEVEL</code> | The logging level, could be one of <code>CRITICAL</code>, <code>FATAL</code>, <code>ERROR</code>, <code>WARN</code>(<code>WARNING</code>), <code>INFO</code>, <code>DEBUG</code> | <code>INFO</code> |<br>| <code>SW_AGENT_MAX_BUFFER_SIZE</code> | The maximum buffer size before sending the segment data to backend | <code>&#39;1000&#39;</code> |</p>
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><h3 id="自己开发插件"><a href="#自己开发插件" class="headerlink" title="自己开发插件"></a>自己开发插件</h3><p>可以参考<a href="https://insights.thoughtworks.cn/skywalking-plugin-guide/" target="_blank" rel="noopener">文章</a>，已经写得很好了。。。我不需要再表述了.</p>
+<p>开发插件后，可以给官方<a href="https://skywalking.apache.org/zh/2019-01-21-agent-plugin-practice/" target="_blank" rel="noopener">贡献一下</a></p>
+<h3 id="浏览器端监控、使用标签查询、指标分析语言"><a href="#浏览器端监控、使用标签查询、指标分析语言" class="headerlink" title="浏览器端监控、使用标签查询、指标分析语言"></a>浏览器端监控、使用标签查询、指标分析语言</h3><p>参考<a href="https://skywalking.apache.org/zh/2020-10-29-skywalking8-2-release/" target="_blank" rel="noopener">官方文档</a></p>
+<p>SkyWalking浏览器监视也提供以下数据: PV（page views，页面浏览量）， UV（unique visitors，独立访客数），浏览量前 N 的页面（Top N Page Views）等。这些数据可以为产品队伍优化他们的产品提供线索。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/plugin.intellij.assistant.mybaitslog-2020.1-1.0.3.jpg" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/0081Kckwly1gkl5gnpi0dj30zk0m843n.jpg" alt="image"></p>
+<h3 id="服务性能指标监控"><a href="#服务性能指标监控" class="headerlink" title="服务性能指标监控"></a>服务性能指标监控</h3><p>Skywalking还可以查看具体Service的性能指标，根据相关的性能指标可以分析系统的瓶颈所在并提出优化方案。</p>
+<p>在服务调用拓扑图上点击相应的节点我们可以看到该服务的</p>
+<ul>
+<li>SLA: 服务可用性（主要是通过请求成功与失败次数来计算）</li>
+<li>CPM: 每分钟调用次数</li>
+<li>Avg Response Time: 平均响应时间</li>
+</ul>
+<p>从应用整体外部来看我们可以监测到应用在一定时间段内的</p>
+<ul>
+<li>服务可用性指标SLA</li>
+<li>每分钟平均响应数</li>
+<li>平均响应时间</li>
+<li>服务进程PID</li>
+<li>服务所在物理机的IP、HostName、Operation System</li>
+</ul>
+<h3 id="服务告警"><a href="#服务告警" class="headerlink" title="服务告警"></a>服务告警</h3><p>通过webhook的方式让我们可以自定义我们告警信息的通知方式。诸如:邮件通知、微信通知、短信通知等。</p>
+<p>先来看一下告警的规则配置。在<code>alarm-settings.xml</code>中可以配置告警规则，告警规则支持自定义。</p>
+<p>一份告警配置由以下几部分组成：</p>
+<ul>
+<li><code>service_resp_time_rule</code>：告警规则名称 <code>***_rule</code> （规则名称可以自定义但是必须以<code>_rule</code>结尾</li>
+<li><code>indicator-name</code>：指标数据名称： 定义参见<code>http://t.cn/EGhfbmd</code></li>
+<li><code>op</code>: 操作符： &gt; , &lt; , = 【当然你可以自己扩展开发其他的操作符】</li>
+<li><code>threshold</code>：目标值：指标数据的目标数据 如sample中的1000就是服务响应时间，配合上操作符就是大于1000ms的服务响应</li>
+<li><code>period</code>: 告警检查周期：多久检查一次当前的指标数据是否符合告警规则</li>
+<li><code>counts</code>: 达到告警阈值的次数</li>
+<li><code>silence-period</code>：忽略相同告警信息的周期</li>
+<li><code>message</code>：告警信息</li>
+<li><code>webhooks</code>：服务告警通知服务地</li>
+</ul>
+<p>Skywalking通过HttpClient的方式远程调用在配置项webhooks中定义的告警通知服务地址。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2020/12/11/Skyworking实践/" title="Skyworking实践">https://dinghuang.github.io/2020/12/11/Skyworking实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/08/Mysql最佳实践/" rel="next" title="Mysql最佳实践">
+                <i class="fa fa-chevron-left"></i> Mysql最佳实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dinghuang123@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.strongsickcat.com" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用SkyWalking"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用SkyWalking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构设计"><span class="nav-number">1.2.</span> <span class="nav-text">架构设计</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源码编译"><span class="nav-number">2.1.</span> <span class="nav-text">源码编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载制品"><span class="nav-number">2.2.</span> <span class="nav-text">下载制品</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务启动"><span class="nav-number">2.3.</span> <span class="nav-text">服务启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">2.3.1.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前端配置"><span class="nav-number">2.3.2.</span> <span class="nav-text">前端配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端接入"><span class="nav-number">2.4.</span> <span class="nav-text">客户端接入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#java应用"><span class="nav-number">2.4.1.</span> <span class="nav-text">java应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeJs接入"><span class="nav-number">2.4.2.</span> <span class="nav-text">NodeJs接入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级功能"><span class="nav-number">2.5.</span> <span class="nav-text">高级功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自己开发插件"><span class="nav-number">2.5.1.</span> <span class="nav-text">自己开发插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器端监控、使用标签查询、指标分析语言"><span class="nav-number">2.5.2.</span> <span class="nav-text">浏览器端监控、使用标签查询、指标分析语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务性能指标监控"><span class="nav-number">2.5.3.</span> <span class="nav-text">服务性能指标监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务告警"><span class="nav-number">2.5.4.</span> <span class="nav-text">服务告警</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2020/12/11/Skyworking实践/';
+          this.page.identifier = '2020/12/11/Skyworking实践/';
+          this.page.title = 'Skyworking实践';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

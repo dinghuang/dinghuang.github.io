@@ -301,6 +301,215 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2021/06/08/Seata部署使用(1.4.2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/06/08/Seata部署使用(1.4.2)/" itemprop="url">Seata部署使用(1.4.2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-08T15:47:00+08:00">
+                2021-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/06/08/Seata部署使用(1.4.2)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2021/06/08/Seata部署使用(1.4.2)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>源码地址： <a href="https://github.com/seata/seata.git" target="_blank" rel="noopener">https://github.com/seata/seata.git</a> </p>
+<h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="xa模式"><a href="#xa模式" class="headerlink" title="xa模式"></a>xa模式</h2><p>确保mysql版本&gt;5.7 并且开启了XA事务支持</p>
+<h2 id="at模式"><a href="#at模式" class="headerlink" title="at模式"></a>at模式</h2><p>每个mysql库执行脚本<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`undo_log`</span></span><br><span class="line">(</span><br><span class="line">    <span class="string">`branch_id`</span>     <span class="built_in">BIGINT</span>       <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'branch transaction id'</span>,</span><br><span class="line">    <span class="string">`xid`</span>           <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'global transaction id'</span>,</span><br><span class="line">    <span class="string">`context`</span>       <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'undo_log context,such as serialization'</span>,</span><br><span class="line">    <span class="string">`rollback_info`</span> LONGBLOB     <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'rollback info'</span>,</span><br><span class="line">    <span class="string">`log_status`</span>    <span class="built_in">INT</span>(<span class="number">11</span>)      <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'0:normal status,1:defense status'</span>,</span><br><span class="line">    <span class="string">`log_created`</span>   DATETIME(<span class="number">6</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'create datetime'</span>,</span><br><span class="line">    <span class="string">`log_modified`</span>  DATETIME(<span class="number">6</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'modify datetime'</span>,</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`ux_undo_log`</span> (<span class="string">`xid`</span>, <span class="string">`branch_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span></span><br><span class="line">  AUTO_INCREMENT = <span class="number">1</span></span><br><span class="line">  <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8 <span class="keyword">COMMENT</span> =<span class="string">'AT transaction mode undo table'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="saga模式"><a href="#saga模式" class="headerlink" title="saga模式"></a>saga模式</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- -------------------------------- The script used for sage  --------------------------------</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`seata_state_machine_def`</span></span><br><span class="line">(</span><br><span class="line">    <span class="string">`id`</span>               <span class="built_in">VARCHAR</span>(<span class="number">32</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'id'</span>,</span><br><span class="line">    <span class="string">`name`</span>             <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'name'</span>,</span><br><span class="line">    <span class="string">`tenant_id`</span>        <span class="built_in">VARCHAR</span>(<span class="number">32</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'tenant id'</span>,</span><br><span class="line">    <span class="string">`app_name`</span>         <span class="built_in">VARCHAR</span>(<span class="number">32</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'application name'</span>,</span><br><span class="line">    <span class="string">`type`</span>             <span class="built_in">VARCHAR</span>(<span class="number">20</span>)  <span class="keyword">COMMENT</span> <span class="string">'state language type'</span>,</span><br><span class="line">    <span class="string">`comment_`</span>         <span class="built_in">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">COMMENT</span> <span class="string">'comment'</span>,</span><br><span class="line">    <span class="string">`ver`</span>              <span class="built_in">VARCHAR</span>(<span class="number">16</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'version'</span>,</span><br><span class="line">    <span class="string">`gmt_create`</span>       DATETIME(<span class="number">3</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'create time'</span>,</span><br><span class="line">    <span class="string">`status`</span>           <span class="built_in">VARCHAR</span>(<span class="number">2</span>)   <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'status(AC:active|IN:inactive)'</span>,</span><br><span class="line">    <span class="string">`content`</span>          <span class="built_in">TEXT</span> <span class="keyword">COMMENT</span> <span class="string">'content'</span>,</span><br><span class="line">    <span class="string">`recover_strategy`</span> <span class="built_in">VARCHAR</span>(<span class="number">16</span>) <span class="keyword">COMMENT</span> <span class="string">'transaction recover strategy(compensate|retry)'</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span></span><br><span class="line">  <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`seata_state_machine_inst`</span></span><br><span class="line">(</span><br><span class="line">    <span class="string">`id`</span>                  <span class="built_in">VARCHAR</span>(<span class="number">128</span>)            <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'id'</span>,</span><br><span class="line">    <span class="string">`machine_id`</span>          <span class="built_in">VARCHAR</span>(<span class="number">32</span>)             <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'state machine definition id'</span>,</span><br><span class="line">    <span class="string">`tenant_id`</span>           <span class="built_in">VARCHAR</span>(<span class="number">32</span>)             <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'tenant id'</span>,</span><br><span class="line">    <span class="string">`parent_id`</span>           <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">COMMENT</span> <span class="string">'parent id'</span>,</span><br><span class="line">    <span class="string">`gmt_started`</span>         DATETIME(<span class="number">3</span>)             <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'start time'</span>,</span><br><span class="line">    <span class="string">`business_key`</span>        <span class="built_in">VARCHAR</span>(<span class="number">48</span>) <span class="keyword">COMMENT</span> <span class="string">'business key'</span>,</span><br><span class="line">    <span class="string">`start_params`</span>        <span class="built_in">TEXT</span> <span class="keyword">COMMENT</span> <span class="string">'start parameters'</span>,</span><br><span class="line">    <span class="string">`gmt_end`</span>             DATETIME(<span class="number">3</span>) <span class="keyword">COMMENT</span> <span class="string">'end time'</span>,</span><br><span class="line">    <span class="string">`excep`</span>               <span class="built_in">BLOB</span> <span class="keyword">COMMENT</span> <span class="string">'exception'</span>,</span><br><span class="line">    <span class="string">`end_params`</span>          <span class="built_in">TEXT</span> <span class="keyword">COMMENT</span> <span class="string">'end parameters'</span>,</span><br><span class="line">    <span class="string">`status`</span>              <span class="built_in">VARCHAR</span>(<span class="number">2</span>) <span class="keyword">COMMENT</span> <span class="string">'status(SU succeed|FA failed|UN unknown|SK skipped|RU running)'</span>,</span><br><span class="line">    <span class="string">`compensation_status`</span> <span class="built_in">VARCHAR</span>(<span class="number">2</span>) <span class="keyword">COMMENT</span> <span class="string">'compensation status(SU succeed|FA failed|UN unknown|SK skipped|RU running)'</span>,</span><br><span class="line">    <span class="string">`is_running`</span>          TINYINT(<span class="number">1</span>) <span class="keyword">COMMENT</span> <span class="string">'is running(0 no|1 yes)'</span>,</span><br><span class="line">    <span class="string">`gmt_updated`</span>         DATETIME(<span class="number">3</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`unikey_buz_tenant`</span> (<span class="string">`business_key`</span>, <span class="string">`tenant_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span></span><br><span class="line">  <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`seata_state_inst`</span></span><br><span class="line">(</span><br><span class="line">    <span class="string">`id`</span>                       <span class="built_in">VARCHAR</span>(<span class="number">48</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'id'</span>,</span><br><span class="line">    <span class="string">`machine_inst_id`</span>          <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'state machine instance id'</span>,</span><br><span class="line">    <span class="string">`name`</span>                     <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'state name'</span>,</span><br><span class="line">    <span class="string">`type`</span>                     <span class="built_in">VARCHAR</span>(<span class="number">20</span>)  <span class="keyword">COMMENT</span> <span class="string">'state type'</span>,</span><br><span class="line">    <span class="string">`service_name`</span>             <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">COMMENT</span> <span class="string">'service name'</span>,</span><br><span class="line">    <span class="string">`service_method`</span>           <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="keyword">COMMENT</span> <span class="string">'method name'</span>,</span><br><span class="line">    <span class="string">`service_type`</span>             <span class="built_in">VARCHAR</span>(<span class="number">16</span>) <span class="keyword">COMMENT</span> <span class="string">'service type'</span>,</span><br><span class="line">    <span class="string">`business_key`</span>             <span class="built_in">VARCHAR</span>(<span class="number">48</span>) <span class="keyword">COMMENT</span> <span class="string">'business key'</span>,</span><br><span class="line">    <span class="string">`state_id_compensated_for`</span> <span class="built_in">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">COMMENT</span> <span class="string">'state compensated for'</span>,</span><br><span class="line">    <span class="string">`state_id_retried_for`</span>     <span class="built_in">VARCHAR</span>(<span class="number">50</span>) <span class="keyword">COMMENT</span> <span class="string">'state retried for'</span>,</span><br><span class="line">    <span class="string">`gmt_started`</span>              DATETIME(<span class="number">3</span>)  <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'start time'</span>,</span><br><span class="line">    <span class="string">`is_for_update`</span>            TINYINT(<span class="number">1</span>) <span class="keyword">COMMENT</span> <span class="string">'is service for update'</span>,</span><br><span class="line">    <span class="string">`input_params`</span>             <span class="built_in">TEXT</span> <span class="keyword">COMMENT</span> <span class="string">'input parameters'</span>,</span><br><span class="line">    <span class="string">`output_params`</span>            <span class="built_in">TEXT</span> <span class="keyword">COMMENT</span> <span class="string">'output parameters'</span>,</span><br><span class="line">    <span class="string">`status`</span>                   <span class="built_in">VARCHAR</span>(<span class="number">2</span>)   <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'status(SU succeed|FA failed|UN unknown|SK skipped|RU running)'</span>,</span><br><span class="line">    <span class="string">`excep`</span>                    <span class="built_in">BLOB</span> <span class="keyword">COMMENT</span> <span class="string">'exception'</span>,</span><br><span class="line">    <span class="string">`gmt_updated`</span>              DATETIME(<span class="number">3</span>) <span class="keyword">COMMENT</span> <span class="string">'update time'</span>,</span><br><span class="line">    <span class="string">`gmt_end`</span>                  DATETIME(<span class="number">3</span>) <span class="keyword">COMMENT</span> <span class="string">'end time'</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>, <span class="string">`machine_inst_id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span></span><br><span class="line">  <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span> = utf8;</span><br></pre></td></tr></table></figure>
+<h2 id="部署TC"><a href="#部署TC" class="headerlink" title="部署TC"></a>部署TC</h2><p>执行mysql脚本<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">-- -------------------------------- The script used when storeMode is 'db' --------------------------------</span><br><span class="line">-- the table to store GlobalSession data</span><br><span class="line"><span class="keyword">CREATE</span> TABLE <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="symbol">`global_table`</span></span><br><span class="line">(</span><br><span class="line">    <span class="symbol">`xid`</span>                       VARCHAR(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`transaction_id`</span>            BIGINT,</span><br><span class="line">    <span class="symbol">`status`</span>                    TINYINT      <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`application_id`</span>            VARCHAR(<span class="number">32</span>),</span><br><span class="line">    <span class="symbol">`transaction_service_group`</span> VARCHAR(<span class="number">32</span>),</span><br><span class="line">    <span class="symbol">`transaction_name`</span>          VARCHAR(<span class="number">128</span>),</span><br><span class="line">    <span class="symbol">`timeout`</span>                   INT,</span><br><span class="line">    <span class="symbol">`begin_time`</span>                BIGINT,</span><br><span class="line">    <span class="symbol">`application_data`</span>          VARCHAR(<span class="number">2000</span>),</span><br><span class="line">    <span class="symbol">`gmt_create`</span>                DATETIME,</span><br><span class="line">    <span class="symbol">`gmt_modified`</span>              DATETIME,</span><br><span class="line">    <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`xid`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="symbol">`idx_gmt_modified_status`</span> (<span class="symbol">`gmt_modified`</span>, <span class="symbol">`status`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="symbol">`idx_transaction_id`</span> (<span class="symbol">`transaction_id`</span>)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br><span class="line"></span><br><span class="line">-- the table to store BranchSession data</span><br><span class="line"><span class="keyword">CREATE</span> TABLE <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="symbol">`branch_table`</span></span><br><span class="line">(</span><br><span class="line">    <span class="symbol">`branch_id`</span>         BIGINT       <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`xid`</span>               VARCHAR(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`transaction_id`</span>    BIGINT,</span><br><span class="line">    <span class="symbol">`resource_group_id`</span> VARCHAR(<span class="number">32</span>),</span><br><span class="line">    <span class="symbol">`resource_id`</span>       VARCHAR(<span class="number">256</span>),</span><br><span class="line">    <span class="symbol">`branch_type`</span>       VARCHAR(<span class="number">8</span>),</span><br><span class="line">    <span class="symbol">`status`</span>            TINYINT,</span><br><span class="line">    <span class="symbol">`client_id`</span>         VARCHAR(<span class="number">64</span>),</span><br><span class="line">    <span class="symbol">`application_data`</span>  VARCHAR(<span class="number">2000</span>),</span><br><span class="line">    <span class="symbol">`gmt_create`</span>        DATETIME(<span class="number">6</span>),</span><br><span class="line">    <span class="symbol">`gmt_modified`</span>      DATETIME(<span class="number">6</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`branch_id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="symbol">`idx_xid`</span> (<span class="symbol">`xid`</span>)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br><span class="line"></span><br><span class="line">-- the table to store lock data</span><br><span class="line"><span class="keyword">CREATE</span> TABLE <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="symbol">`lock_table`</span></span><br><span class="line">(</span><br><span class="line">    <span class="symbol">`row_key`</span>        VARCHAR(<span class="number">128</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`xid`</span>            VARCHAR(<span class="number">128</span>),</span><br><span class="line">    <span class="symbol">`transaction_id`</span> BIGINT,</span><br><span class="line">    <span class="symbol">`branch_id`</span>      BIGINT       <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="symbol">`resource_id`</span>    VARCHAR(<span class="number">256</span>),</span><br><span class="line">    <span class="symbol">`table_name`</span>     VARCHAR(<span class="number">32</span>),</span><br><span class="line">    <span class="symbol">`pk`</span>             VARCHAR(<span class="number">36</span>),</span><br><span class="line">    <span class="symbol">`gmt_create`</span>     DATETIME,</span><br><span class="line">    <span class="symbol">`gmt_modified`</span>   DATETIME,</span><br><span class="line">    <span class="keyword">PRIMARY</span> <span class="keyword">KEY</span> (<span class="symbol">`row_key`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="symbol">`idx_branch_id`</span> (<span class="symbol">`branch_id`</span>)</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure></p>
+<p>如果使用源码编译的话，需要注释掉，或者idea导入插件protobuf support<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--        &lt;module&gt;seata-serializer-protobuf&lt;/module&gt;--&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>修改配置<code>registry.conf</code>、<code>file.conf</code>，如果需要不同的环境区分不同的配置，新建文件<code>registry-dev.conf</code>、<code>file-dev.conf</code>，然后启动启动类<code>io.seata.server.Server</code>，启动的jvm参数加上变量<code>-DseataEnv=uat</code>，这样就可以实现多环境启动了。</p>
+<p>到server目录下，打包部署服务器:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean package -Dmaven<span class="selector-class">.test</span><span class="selector-class">.skip</span>=true -Prelease-seata</span><br></pre></td></tr></table></figure></p>
+<p>会生成制品，制品目录在<code>/distribution</code>，如果是部署服务器上面或者是通过docker镜像部署的话，可以参考<code>/distribution/Dockerfile</code>，或者直接通过下面的命令启动<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh ./bin/seata-server.sh -p <span class="number">8091</span> -h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> -n <span class="number">1</span> -e uat</span><br></pre></td></tr></table></figure></p>
+<p>具体参数如下</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>全写</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h</td>
+<td>–host</td>
+<td>指定在注册中心注册的 IP</td>
+<td>不指定时获取当前的 IP，外部访问部署在云环境和容器中的 server 建议指定</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>–port</td>
+<td>指定 server 启动的端口</td>
+<td>默认为 8091</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>–storeMode</td>
+<td>事务日志存储方式</td>
+<td>支持file,db,redis，默认为 file 注:redis需seata-server 1.3版本及以上</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>–serverNode</td>
+<td>用于指定seata-server节点ID</td>
+<td>如 1,2,3…, 默认为 1</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>–seataEnv</td>
+<td>指定 seata-server 运行环境</td>
+<td>如 dev, test 等, 服务启动时会使用 registry-dev.conf 这样的配置</td>
+</tr>
+</tbody>
+</table>
+<p>可以查看在我本地输出脚本的完整的jvm参数<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Library/</span>Java<span class="regexp">/JavaVirtualMachines/</span>jdk1<span class="number">.8</span><span class="number">.0</span>_181.jdk<span class="regexp">/Contents/</span>Home<span class="regexp">/bin/</span>java -server -Xmx2048m -Xms2048m -Xmn1024m -Xss512k -<span class="string">XX:</span>SurvivorRatio=<span class="number">10</span> -<span class="string">XX:</span>MetaspaceSize=<span class="number">128</span>m -<span class="string">XX:</span>MaxMetaspaceSize=<span class="number">256</span>m -<span class="string">XX:</span>MaxDirectMemorySize=<span class="number">1024</span>m -<span class="string">XX:</span>-OmitStackTraceInFastThrow -<span class="string">XX:</span>-UseAdaptiveSizePolicy -<span class="string">XX:</span>+HeapDumpOnOutOfMemoryError -<span class="string">XX:</span>HeapDumpPath=<span class="regexp">/Users/</span>dinghuang<span class="regexp">/Documents/</span>workSpace<span class="regexp">/github/</span>seata<span class="regexp">/distribution/</span>seata-server<span class="number">-1.4</span><span class="number">.2</span><span class="regexp">/logs/</span>java_heapdump.hprof -<span class="string">XX:</span>+DisableExplicitGC -<span class="string">XX:</span>+CMSParallelRemarkEnabled -<span class="string">XX:</span>+UseCMSInitiatingOccupancyOnly -<span class="string">XX:</span>CMSInitiatingOccupancyFraction=<span class="number">75</span> -<span class="string">Xloggc:</span><span class="regexp">/Users/</span>dinghuang<span class="regexp">/Documents/</span>workSpace<span class="regexp">/github/</span>seata<span class="regexp">/distribution/</span>seata-server<span class="number">-1.4</span><span class="number">.2</span><span class="regexp">/logs/</span>seata_gc.log -<span class="string">verbose:</span>gc -Dio.netty.leakDetectionLevel=advanced -Dlogback.color.disable-<span class="keyword">for</span>-bat=<span class="literal">true</span> -classpath <span class="regexp">/Users/</span>dinghuang<span class="regexp">/Documents/</span>workSpace<span class="regexp">/github/</span>seata<span class="regexp">/distribution/</span>seata-server<span class="number">-1.4</span><span class="number">.2</span><span class="regexp">/conf:/</span>Users<span class="regexp">/dinghuang/</span>Documents<span class="regexp">/workSpace/</span>github<span class="regexp">/seata/</span>distribution<span class="regexp">/seata-server-1.4.2/</span>lib<span class="comment">/* -Dapp.name=seata-server -Dapp.pid=23748 -Dapp.repo=/Users/dinghuang/Documents/workSpace/github/seata/distribution/seata-server-1.4.2/lib -Dapp.home=/Users/dinghuang/Documents/workSpace/github/seata/distribution/seata-server-1.4.2 -Dbasedir=/Users/dinghuang/Documents/workSpace/github/seata/distribution/seata-server-1.4.2 io.seata.server.Server -e uat</span></span><br></pre></td></tr></table></figure></p>
+<p>如果配置中心使用apollo，可以参考这篇文章：<a href="https://www.studying.icu/pages/94a254/#seata" target="_blank" rel="noopener">https://www.studying.icu/pages/94a254/#seata</a>  （1.4.2有bug，apollo的配置不能用，建议用1.4.1）</p>
+<h1 id="Spring框架使用"><a href="#Spring框架使用" class="headerlink" title="Spring框架使用"></a>Spring框架使用</h1><p>pom.xml引入包<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/io.seata/seata-spring-boot-starter --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.seata<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>seata-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>修改application.yml配置文件（1.4.2有bug，apollo的配置不能用，建议用1.4.1）<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">seata:</span></span><br><span class="line"><span class="attr">  enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  application-id:</span> <span class="string">applicationName</span></span><br><span class="line"><span class="attr">  tx-service-group:</span> <span class="string">my_test_tx_group</span></span><br><span class="line"><span class="attr">  enable-auto-data-source-proxy:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  data-source-proxy-mode:</span> <span class="string">AT</span></span><br><span class="line"><span class="attr">  use-jdk-proxy:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  excludes-for-auto-proxying:</span> <span class="string">firstClassNameForExclude,secondClassNameForExclude</span></span><br><span class="line"><span class="attr">  client:</span></span><br><span class="line"><span class="attr">    rm:</span></span><br><span class="line"><span class="attr">      async-commit-buffer-limit:</span> <span class="number">10000</span></span><br><span class="line"><span class="attr">      report-retry-count:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">      table-meta-check-enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      report-success-enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      saga-branch-register-enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      saga-json-parser:</span> <span class="string">fastjson</span></span><br><span class="line"><span class="attr">      saga-retry-persist-mode-update:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      saga-compensate-persist-mode-update:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      lock:</span></span><br><span class="line"><span class="attr">        retry-interval:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">        retry-times:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">        retry-policy-branch-rollback-on-conflict:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    tm:</span></span><br><span class="line"><span class="attr">      commit-retry-count:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">      rollback-retry-count:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">      default-global-transaction-timeout:</span> <span class="number">60000</span></span><br><span class="line"><span class="attr">      degrade-check:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      degrade-check-period:</span> <span class="number">2000</span></span><br><span class="line"><span class="attr">      degrade-check-allow-times:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">    undo:</span></span><br><span class="line"><span class="attr">      data-validation:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      log-serialization:</span> <span class="string">jackson</span></span><br><span class="line"><span class="attr">      log-table:</span> <span class="string">undo_log</span></span><br><span class="line"><span class="attr">      only-care-update-columns:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">      compress:</span></span><br><span class="line"><span class="attr">        enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        type:</span> <span class="string">zip</span></span><br><span class="line"><span class="attr">        threshold:</span> <span class="number">64</span><span class="string">k</span></span><br><span class="line"><span class="attr">    load-balance:</span></span><br><span class="line"><span class="attr">      type:</span> <span class="string">RandomLoadBalance</span></span><br><span class="line"><span class="attr">      virtual-nodes:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">  service:</span></span><br><span class="line"><span class="attr">    vgroup-mapping:</span></span><br><span class="line"><span class="attr">      my_test_tx_group:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">    grouplist:</span></span><br><span class="line"><span class="attr">      default:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8091</span></span><br><span class="line"><span class="attr">    enable-degrade:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    disable-global-transaction:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  transport:</span></span><br><span class="line"><span class="attr">    shutdown:</span></span><br><span class="line"><span class="attr">      wait:</span> <span class="number">3</span></span><br><span class="line"><span class="attr">    thread-factory:</span></span><br><span class="line"><span class="attr">      boss-thread-prefix:</span> <span class="string">NettyBoss</span></span><br><span class="line"><span class="attr">      worker-thread-prefix:</span> <span class="string">NettyServerNIOWorker</span></span><br><span class="line"><span class="attr">      server-executor-thread-prefix:</span> <span class="string">NettyServerBizHandler</span></span><br><span class="line"><span class="attr">      share-boss-worker:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">      client-selector-thread-prefix:</span> <span class="string">NettyClientSelector</span></span><br><span class="line"><span class="attr">      client-selector-thread-size:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">      client-worker-thread-prefix:</span> <span class="string">NettyClientWorkerThread</span></span><br><span class="line"><span class="attr">      worker-thread-size:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">      boss-thread-size:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    server:</span> <span class="string">NIO</span></span><br><span class="line"><span class="attr">    heartbeat:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    serialization:</span> <span class="string">seata</span></span><br><span class="line"><span class="attr">    compressor:</span> <span class="string">none</span></span><br><span class="line"><span class="attr">    enable-client-batch-send-request:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  config:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    consul:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8500</span></span><br><span class="line"><span class="attr">    apollo:</span></span><br><span class="line"><span class="attr">      apollo-meta:</span> <span class="attr">http://192.168.1.204:8801</span></span><br><span class="line"><span class="attr">      app-id:</span> <span class="string">seata-server</span></span><br><span class="line"><span class="attr">      namespace:</span> <span class="string">application</span></span><br><span class="line"><span class="attr">      apollo-accesskey-secret:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    etcd3:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="attr">http://localhost:2379</span></span><br><span class="line"><span class="attr">    nacos:</span></span><br><span class="line"><span class="attr">      namespace:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line"><span class="attr">      group:</span> <span class="string">SEATA_GROUP</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    zk:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:2181</span></span><br><span class="line"><span class="attr">      session-timeout:</span> <span class="number">6000</span></span><br><span class="line"><span class="attr">      connect-timeout:</span> <span class="number">2000</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    custom:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">  registry:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">file</span></span><br><span class="line"><span class="attr">    file:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">file.conf</span></span><br><span class="line"><span class="attr">    consul:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8500</span></span><br><span class="line"><span class="attr">      acl-token:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    etcd3:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="attr">http://localhost:2379</span></span><br><span class="line"><span class="attr">    eureka:</span></span><br><span class="line"><span class="attr">      weight:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">      service-url:</span> <span class="attr">http://localhost:8761/eureka</span></span><br><span class="line"><span class="attr">    nacos:</span></span><br><span class="line"><span class="attr">      application:</span> <span class="string">seata-server</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:8848</span></span><br><span class="line">      <span class="string">group</span> <span class="string">:</span> <span class="string">"SEATA_GROUP"</span></span><br><span class="line"><span class="attr">      namespace:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    redis:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="attr">localhost:6379</span></span><br><span class="line"><span class="attr">      db:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      timeout:</span> <span class="number">0</span></span><br><span class="line"><span class="attr">    sofa:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:9603</span></span><br><span class="line"><span class="attr">      region:</span> <span class="string">DEFAULT_ZONE</span></span><br><span class="line"><span class="attr">      datacenter:</span> <span class="string">DefaultDataCenter</span></span><br><span class="line"><span class="attr">      group:</span> <span class="string">SEATA_GROUP</span></span><br><span class="line"><span class="attr">      address-wait-time:</span> <span class="number">3000</span></span><br><span class="line"><span class="attr">      application:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">    zk:</span></span><br><span class="line"><span class="attr">      server-addr:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="string">:2181</span></span><br><span class="line"><span class="attr">      session-timeout:</span> <span class="number">6000</span></span><br><span class="line"><span class="attr">      connect-timeout:</span> <span class="number">2000</span></span><br><span class="line"><span class="attr">      username:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">      password:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    custom:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">  log:</span></span><br><span class="line"><span class="attr">    exception-rate:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure></p>
+<p>具体的例子可以看<br><a href="https://github.com/seata/seata-samples" target="_blank" rel="noopener">https://github.com/seata/seata-samples</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/12/11/Skyworking实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2768,179 +2977,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2019/08/18/面试分享(六).算法相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="强壮的病猫">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dinghuang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只病猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/18/面试分享(六).算法相关/" itemprop="url">面试分享(六).算法相关</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-18T18:33:00+08:00">
-                2019-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/08/18/面试分享(六).算法相关/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2019/08/18/面试分享(六).算法相关/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="算法相关"><a href="#算法相关" class="headerlink" title="算法相关"></a>算法相关</h1><ul>
-<li>递归使用中有什么需要注意的地方，递归写法一般可以用什么去替换？</li>
-<li>如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG230.png" alt="image"></li>
-<li>设计一个发号器，考虑集群和高并发的情况，要求发号器生成的id是递增趋势，通过id可以区分出来是今天生成的id还是昨天生成的id，但是生成的id中不能直接带有日期，要具有一定的混淆功能，白纸写代码</li>
-<li>一个二位数组，每个元素都可以往上下左右四个方向走，寻找最长递增路径。如下图所示，最长递增路径即红色字体路径。白纸写代码。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG231.png" alt="image"></li>
-<li>反转链表，要求时间复杂度O(N)，空间复杂度O(1)  </li>
-<li>非递归实现斐波那契数列 </li>
-<li>这一周股市价格为[2,6,1,4,8]，求哪一天买入哪一天卖出，可获得最大收益，最大收益为多少</li>
-<li>按照箭头方向查找二叉树<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG233.png" alt="image"></li>
-<li>表a b c之间用ID关联，求阴影部分的数据<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG234.png" alt="image"></li>
-<li>一个整形无序数组，里面三个数只和等于一个目标值，求这三个数</li>
-<li>链表问题<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/WechatIMG235.png" alt="image"></li>
-<li>扑克牌问题<br>有十张扑克牌，从上面开始抽，抽出一张放桌子上，然后再抽出一张放扑克牌的最下面，这样循环往复的操作，直到手里的牌都没有了。这时，桌子上牌的顺序正好是1 2 3 4 5 6 7 8 9 10。要求写代码求出原顺序</li>
-<li>手写大顶堆</li>
-<li>手写LRU 算法</li>
-<li>字符串相加<br>两个数字类型的字符串，直接转int或者double肯定都放不下，然后求这两个数的和，返回值还是字符串，15分钟时间，要求无Bug</li>
-<li>寻找目标值位置<br>有一个二维数组，数组横向有序，纵向有序，求目标值的位置，10分钟时间</li>
-<li>求字符串“efabcbaefehiabcba”中最长的回文数，不去重</li>
-<li>反转int类型的值x，不要借用String，只用int 即可。&amp;&amp; 针对该程序，写出其应有的测试用例</li>
-<li>top K 问题</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2997,7 +3033,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3078,7 +3114,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

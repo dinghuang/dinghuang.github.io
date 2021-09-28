@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="WSWvVPyzUsUM54ydNcrE1pUzdYt5xGKnqD1i7XpWVF8" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=5.1.4" color="#222">
+
+
+  <link rel="manifest" href="/images/site.webmanifest">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
+
+
+
+  <meta name="keywords" content="JAVA," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="代码地址  什么是DDD对于一个架构师来说，在软件开发中如何降低系统复杂度是一个永恒的挑战，无论是 94 年 GoF 的 Design Patterns ， 99 年的 Martin Fowler 的 Refactoring ， 02 年的 P of EAA ，还是 03 年的 Enterprise Integration Patterns ，都是通过一系列的设计模式或范例来降低一些常见的复杂度">
+<meta name="keywords" content="JAVA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDD领域驱动设计">
+<meta property="og:url" content="https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/index.html">
+<meta property="og:site_name" content="一只病猫">
+<meta property="og:description" content="代码地址  什么是DDD对于一个架构师来说，在软件开发中如何降低系统复杂度是一个永恒的挑战，无论是 94 年 GoF 的 Design Patterns ， 99 年的 Martin Fowler 的 Refactoring ， 02 年的 P of EAA ，还是 03 年的 Enterprise Integration Patterns ，都是通过一系列的设计模式或范例来降低一些常见的复杂度">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG2.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/0_Dig5eOh00vMkqOiw.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/v2-32711c0238ff0ee8a15af95faf13c2c9_1440w.jpg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG9.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG10.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG11.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/8906859-c7a0c865b8217865.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/8906859-27500c1a61ca00ec.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG3.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG4.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/DDD%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1ee42f0915a33f6f000707c974792495_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-952c66bf1d97e78af66873dd50fe124d_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-dbec337d0e361426cc58864e67756adb_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-24099ac4f31bf9472bcf8b19ffaf48ab_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-14d91a1f537b39307cf72a437ff3c60f_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-44ebd98e1697c75e119aa1d94a8f7768_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-5182bc6ecf7fe977b5968d9181a414aa_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-11af1ddff05b42025e83e204e71c9a5b_1440w.png">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-9e83433ede22b4d45e08c067b02e661f_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/123312kjsalkdkal.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b3d0dccea152b7e846dc60ca3d615093_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-59a53da7e651770e2e1d96bafdf6a503_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1c36105863c3f5187260a02548dd813b_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b9a185f16cd6203796b582e7c43479d3_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-31fb63320e200bd58ec087ba4cab195d_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-71623c8f80edb4f7a6a0bceb8ebe85f5_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/v2-93a7e4f3d3bda78cf8ba33411a5d3e2d_1440w.jpeg">
+<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG629.png">
+<meta property="og:updated_time" content="2021-09-28T09:23:28.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DDD领域驱动设计">
+<meta name="twitter:description" content="代码地址  什么是DDD对于一个架构师来说，在软件开发中如何降低系统复杂度是一个永恒的挑战，无论是 94 年 GoF 的 Design Patterns ， 99 年的 Martin Fowler 的 Refactoring ， 02 年的 P of EAA ，还是 03 年的 Enterprise Integration Patterns ，都是通过一系列的设计模式或范例来降低一些常见的复杂度">
+<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/"/>
+
+
+
+
+
+  <title>DDD领域驱动设计 | 一只病猫</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-108021384-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?00a1ba3f5c477c92d7c1ccbb00c6427b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一只病猫</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">静坐常思己过，闲谈莫论人非</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'HcRPHRrBuwozvgUoLNyX','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DDD领域驱动设计</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-18T15:47:00+08:00">
+                2021-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/03/18/DDD领域驱动设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2021/03/18/DDD领域驱动设计/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="https://github.com/dinghuang/spring-cloud-framework/tree/master/dinghuang-framework-parent/dinghuang-framework-core" target="_blank" rel="noopener">代码地址</a></p>
+</blockquote>
+<h1 id="什么是DDD"><a href="#什么是DDD" class="headerlink" title="什么是DDD"></a>什么是DDD</h1><p>对于一个架构师来说，在软件开发中如何降低系统复杂度是一个永恒的挑战，无论是 94 年 GoF 的 Design Patterns ， 99 年的 Martin Fowler 的 Refactoring ， 02 年的 P of EAA ，还是 03 年的 Enterprise Integration Patterns ，都是通过一系列的设计模式或范例来降低一些常见的复杂度。</p>
+<p>但是问题在于，这些书的理念是通过技术手段解决技术问题，但并没有从根本上解决业务的问题。所以 03 年 Eric Evans 的 Domain Driven Design 一书，以及后续 Vaughn Vernon 的 Implementing DDD ， Uncle Bob 的 Clean Architecture 等书，真正的从业务的角度出发，为全世界绝大部分做纯业务的开发提供了一整套的架构思路。</p>
+<p>DDD 不是一套框架，而是一种架构思想，所以在代码层面缺乏了足够的约束，导致 DDD 在实际应用中上手门槛很高，甚至可以说绝大部分人都对 DDD 的理解有所偏差，所有认知的最终目的都是基于合理的代码结构、框架和约束，来降低 DDD 的实践门槛，提升代码质量、可测试性、安全性、健壮性。</p>
+<h1 id="好的架构设计"><a href="#好的架构设计" class="headerlink" title="好的架构设计"></a>好的架构设计</h1><p>在做架构设计时，一个好的架构应该需要实现以下几个目标：</p>
+<ul>
+<li>独立于框架：架构不应该依赖某个外部的库或框架，不应该被框架的结构所束缚。</li>
+<li>独立于UI：前台展示的样式可能会随时发生变化（今天可能是网页、明天可能变成console、后天是独立app），但是底层架构不应该随之而变化。</li>
+<li>独立于底层数据源：无论今天你用MySQL、Oracle还是MongoDB、CouchDB，甚至使用文件系统，软件架构不应该因为不同的底层数据储存方式而产生巨大改变。</li>
+<li>独立于外部依赖：无论外部依赖如何变更、升级，业务的核心逻辑不应该随之而大幅变化。<br>可测试：无论外部依赖了什么数据库、硬件、UI或者服务，业务的逻辑应该都能够快速被验证正确性。</li>
+</ul>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><h2 id="领域模型（DOMAIN）"><a href="#领域模型（DOMAIN）" class="headerlink" title="领域模型（DOMAIN）"></a>领域模型（DOMAIN）</h2><ul>
+<li>模型是对客观世界事物的一种抽象和简化。</li>
+<li>它是从某个角度反映人对客观世界事物的一种认识。</li>
+<li>它用于对事物的本质进行深入细致的研究。</li>
+</ul>
+<p>举一个常见的例子：一个函数写了几千行，里面的if-else写了一大堆，计算各种业务规则。另一个人接手之后，分析了好几个月，才把业务逻辑彻底理清楚。从表面来看，这是代码写的不规范，要重构，把一个几千行的函数拆成一个个小的函数。从根本上来讲，就是“重要逻辑”隐藏在代码里面，没有“显性”的表达出来。这里可以引用一个观点：建模的本质就是把“重要的东西进行显性化，并进而把这些显性化的构造块，互相串联起来，组成一个体系“。</p>
+<p>DDD通过建立一个业务域到软件域的通用模型，把问题空间同解决方案空间联系在一起，真正把领域的知识挖掘出来，让领域专家可以去驱动软件的实现。</p>
+<p>映射概念：切分的服务。</p>
+<p>领域就是范围。范围的重点是边界。领域的核心思想是将问题逐级细分来减低业务和系统的复杂度，这也是 DDD 讨论的核心。</p>
+<p>如果说你要盖一栋房子，那么你需要以下的东西</p>
+<p>有一块地<br>楼共有6层<br>每层有4个套房<br>那么你的领域是什么呢？</p>
+<p>领域是房子么？可能，但是你应该知道，如果你把房子作为你的领域，那么你可能会忽略很多的小的需求。你设计的房子必须设计那里是让人住的。那么，一般而言的“房子”可能会让我们忽略一些细节，所以，我们应该缩小我们的领域，那就是“民房”。</p>
+<p>那么，当你和建筑工人或买房子的人说起你设计的房子时，你所说的“民房”就可以很容易的被人理解了。当承包商告诉你要设计一个6层每层4套房子的时候，在语言上你是否稍微修改了一下呢？现在如果你让建筑工人到一个地方建“房子”，他们可能并没有考虑到一些“民房”的一些特性。但是如果你说了“民房”呢，他们肯定会做出合理的分析。</p>
+<p>这就是我们将要说到的“通用语言”</p>
+<h3 id="子域"><a href="#子域" class="headerlink" title="子域"></a>子域</h3><p>映射概念：子服务。</p>
+<p>领域可以进一步划分成子领域，即子域。这是处理高度复杂领域的设计思想，它试图分离技术实现的复杂性。这个拆分的里面在很多架构里都有，比如 C4。</p>
+<h3 id="核心域"><a href="#核心域" class="headerlink" title="核心域"></a>核心域</h3><p>映射概念：核心服务。</p>
+<p>在领域划分过程中，会不断划分子域，子域按重要程度会被划分成三类：核心域、通用域、支撑域。</p>
+<p>决定产品核心竞争力的子域就是核心域，没有太多个性化诉求。</p>
+<p>桃树的例子，有根、茎、叶、花、果、种子等六个子域，不同人理解的核心域不同，比如在果园里，核心域就是果是核心域，在公园里，核心域则是花。有时为了核心域的营养供应，还会剪掉通用域和支撑域（茎、叶等）。</p>
+<h3 id="通用域"><a href="#通用域" class="headerlink" title="通用域"></a>通用域</h3><p>映射概念：中间件服务或第三方服务。</p>
+<p>被多个子域使用的通用功能就是通用域，没有太多企业特征，比如权限认证。</p>
+<h3 id="支撑域"><a href="#支撑域" class="headerlink" title="支撑域"></a>支撑域</h3><p>映射概念：企业公共服务。</p>
+<p>对于功能来讲是必须存在的，但它不对产品核心竞争力产生影响，也不包含通用功能，有企业特征，不具有通用性，比如数据代码类的数字字典系统。</p>
+<h2 id="统一语言（-Ubiquitous-language-）"><a href="#统一语言（-Ubiquitous-language-）" class="headerlink" title="统一语言（ Ubiquitous language ）"></a>统一语言（ Ubiquitous language ）</h2><p>映射概念：统一概念。</p>
+<p>关于统一语言必要性，有一个经典的通天塔故事，人类想建一座通天塔，进度很快，上帝害怕了，于是上帝让建造者说不通的语言，这样通天塔就再也没有能建起来了。统一语言是一件事情能顺利开展的基础。</p>
+<p>由于语言上存在鸿沟，领域专家们只能模糊地描述他们想要的东西，开发人员虽然努力去理解一个自己不熟悉的领域但也只能形成模糊的认识，结果就是各说各的话，或者都是一知半解，最后到上线前才会发现漏了这个漏了那个。</p>
+<p>定义上下文的含义。它的价值是可以解决交流障碍，不管你是 RD、PM、QA 等什么角色，让每个团队使用统一的语言（概念）来交流，甚至可读性更好的代码。</p>
+<p>通用语言包含属于和用例场景，并且能直接反应在代码中。</p>
+<p>可以在事件风暴（开会）中来统一语言，甚至是中英文的映射、业务与代码模型的映射等。可以使用一个表格来记录。</p>
+<p>通用语言也并不是像，XML、Schema或Java这样的语言，它是一种自然的但经过浓缩的领域语言，它是一种开发与用户共享的语言，用来描述问题和领域模型。通用语言不是把从用户那里听到的内容翻译为开发的语言，而是为了减少误解，让用户更容易理解的草图，从而可以真正的帮助纠正错误，帮助开发获取有关的领域新知识。</p>
+<p>统一语言体现在两个方面：</p>
+<ul>
+<li>统一的领域术语</li>
+<li>领域术语通常表示对象命名，如商品、订单等，对应实体对象</li>
+</ul>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>民航业的运输统计指标为例，牵涉到与运量、运力以及周转量相关的术语，就存在 ICAO（International Civil Aviation Organization，国际民用航空组织）与IATA（International Air Transport Association，国际航空运输协会）两大体系，而中国民航局又有自己的中文解释，航空公司和各大机场亦有自己衍生的定义</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG2.png" alt="image"></p>
+<p>如果我们不明白城市对运量与航段运量的真正含义，就可能混淆这两种指标的统计计算规则。这种术语理解错误带来的缺陷往往难以发现，除非业务分析人员、开发人员与测试人员能就此知识达成一致的正确理解。</p>
+<h2 id="限界上下文（-Bounded-Context-）"><a href="#限界上下文（-Bounded-Context-）" class="headerlink" title="限界上下文（ Bounded Context ）"></a>限界上下文（ Bounded Context ）</h2><p>映射概念：服务职责划分的边界。</p>
+<p>限界上下文，限的意思就是划分、规定，界就是界限、或者一个边界，上下文就是业务的整个流程，总的来说，可以称限界上下文为业务流程在一个划定的界限中，我们知道，业务的描述是通过通用语言来表述的，限界上下文和通用语言的关系就是：在一个特定的限界上下文只使用一套通用语言，并且保证它的清晰性和简洁性。</p>
+<p>定义上下文的边界。领域模型存在边界之内。对于同一个概念，不同上下文会有不同的理解，比如商品，在销售阶段叫商品，在运输阶段就叫货品。理论上，限界上下文的边界就是微服务的边界，因此，理解限界上下文在设计中非常重要。</p>
+<p>一个有界上下文可以是一个很小的程序，包括他自己的领域，自己的代码和自己的存储机制，在一个上下文里，他们应该在逻辑上一致，每个有界上下文应该独立于其他的有界上下文。</p>
+<h3 id="上下文映射图（Context-Mapping）"><a href="#上下文映射图（Context-Mapping）" class="headerlink" title="上下文映射图（Context Mapping）"></a>上下文映射图（Context Mapping）</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/0_Dig5eOh00vMkqOiw.jpg" alt="image"></p>
+<h3 id="有界上下文例子"><a href="#有界上下文例子" class="headerlink" title="有界上下文例子"></a>有界上下文例子</h3><p>考虑一下电商系统，最初你可以认为他是一个商店上下文，但是你看的更细点，你会发现其他的上下文，例如：库存，物流，账户等。</p>
+<p>合理的拆分一个大型的有界上下文可以让你的应用程序模块化，并且让你区分不同的关注点，而且让应用程序更易于管理和升级。每个有界上下文都有相应的责任和操作。合理的上下文划分可以让我们更容易的找到逻辑所在的位置，从而避免“大泥球”。</p>
+<h3 id="什么是“大泥球”（BBOM，Big-ball-of-mud）"><a href="#什么是“大泥球”（BBOM，Big-ball-of-mud）" class="headerlink" title="什么是“大泥球”（BBOM，Big ball of mud）"></a>什么是“大泥球”（BBOM，Big ball of mud）</h3><p>大泥球是一个不规则的、杂乱的、松散的泥巴，这类系统是典型的高度重复，快速修复，无意义增长的系统。混乱的消息传递，在一个地方几乎所有的重要信息都是全局的和重复的，所有的系统架构都可能没有被很好的定义。</p>
+<p>我们的目标是避免所有的BBOM</p>
+<p>我们还来说说“民房领域”吧，我们有几个有界上下文：</p>
+<ul>
+<li>电力供应</li>
+<li>停车位</li>
+<li>套房</li>
+<li>等等</li>
+<li><p>详细说一下“套房”吧，套房是由不同的房间组成，每个房间又有不同的门窗。那么现在关于屋里面的窗户就有两个问题了：</p>
+</li>
+<li><p>问题1：你可以想象出来没有屋子的窗户么？</p>
+</li>
+<li>问题2：如果一个窗户没有了容纳他的屋子，那么它有没有唯一的标识？</li>
+</ul>
+<p>回答上面的问题会揭示出DDD中下面的概念：</p>
+<ul>
+<li>实体（Entity）</li>
+<li>值对象(Value Object)</li>
+<li>聚合和聚合根(Aggreates &amp; Aggrate root)</li>
+</ul>
+<h2 id="实体（-Entity-）"><a href="#实体（-Entity-）" class="headerlink" title="实体（ Entity ）"></a>实体（ Entity ）</h2><p>映射概念：Domain 或 entity。</p>
+<p>许多对象不是由它们的属性来定义，而是通过一系列的连续性（continuity）和标识（identity）来从根本上定义的。只要一个对象在生命周期中能够保持连续性，并且独立于它的属性（即使这些属性对系统用户非常重要），那它就是一个实体。</p>
+<p>对于实体Entity，实体核心是用唯一的标识符来定义，而不是通过属性来定义。即即使属性完全相同也可能是两个不同的对象。同时实体本身有状态的，实体又演进的生命周期，实体本身会体现出相关的业务行为，业务行为会实体属性或状态造成影响和改变。无论两个实体是多么的相似，他们都是不同的实体。</p>
+<p>例如：</p>
+<ul>
+<li>你家的卧室</li>
+<li>博客的文章</li>
+<li>博客的用户</li>
+</ul>
+<h2 id="值对象（-Value-Objects-）"><a href="#值对象（-Value-Objects-）" class="headerlink" title="值对象（ Value Objects ）"></a>值对象（ Value Objects ）</h2><p>映射概念：Domain 或 entity。</p>
+<p>当你只关心某个对象的属性时，该对象便可作为一个值对象。为其添加有意义的属性，并赋予它相应的行为。我们需要将值对象看成不变对象，不要给它任何身份标识，还应该尽量避免像实体对象一样的复杂性。</p>
+<p>如果从值对象本身无状态，不可变，并且不分配具体的标识层面来看。那么值对象可以仅仅理解为实际的Entity对象的一个属性结合而已。该值对象附属在一个实际的实体对象上面。值对象本身不存在一个独立的生命周期，也一般不会产生独立的行为。</p>
+<p>定义值对象的关键是值对象没有“唯一标识”。</p>
+<p>比如 money，让它具有 id 显然是不合理的，你也不可能通过 id 查询一个 money。</p>
+<p>定义值对象要依照具体场景的区分来看，你甚至可以把 Article 中的 Author 当成一个值对象，但一定要清楚，Author 独立存在的时候是实体，或者要拿 Author 做复杂的业务逻辑，那么 Author 也会升级为聚合根。</p>
+<h2 id="防腐层（facade）"><a href="#防腐层（facade）" class="headerlink" title="防腐层（facade）"></a>防腐层（facade）</h2><p>亦称适配层。在一个上下文中，有时需要对外部上下文进行访问，通常会引入防腐层的概念来对外部上下文的访问进行一次转义。</p>
+<p>有以下几种情况会考虑引入防腐层：</p>
+<ul>
+<li>需要将外部上下文中的模型翻译成本上下文理解的模型。</li>
+<li>不同上下文之间的团队协作关系，如果是供奉者关系，建议引入防腐层，避免外部上下文变化对本上下文的侵蚀。</li>
+<li>该访问本上下文使用广泛，为了避免改动影响范围过大。</li>
+</ul>
+<p>如果内部多个上下文对外部上下文需要访问，那么可以考虑将其放到通用上下文中。</p>
+<h2 id="领域服务（-Domain-Services-）"><a href="#领域服务（-Domain-Services-）" class="headerlink" title="领域服务（ Domain Services ）"></a>领域服务（ Domain Services ）</h2><p>领域中的一些概念不太适合建模为对象，即归类到实体对象或值对象，因为它们本质上就是一些操作，一些动作，而不是事物。这些操作或动作往往会涉及到多个领域对象，并且需要协调这些领域对象共同完成这个操作或动作。如果强行将这些操作职责分配给任何一个对象，则被分配的对象就是承担一些不该承担的职责，从而会导致对象的职责不明确很混乱。但是基于类的面向对象语言规定任何属性或行为都必须放在对象里面。所以我们需要寻找一种新的模式来表示这种跨多个对象的操作，DDD认为服务是一个很自然的范式用来对应这种跨多个对象的操作，所以就有了领域服务这个模式。和领域对象不同，领域服务是以动词开头来命名的，比如资金转帐服务可以命名为MoneyTransferService。当然，你也可以把服务理解为一个对象，但这和一般意义上的对象有些区别。因为一般的领域对象都是有状态和行为的，而领域服务没有状态只有行为。需要强调的是领域服务是无状态的，它存在的意义就是协调领域对象共完成某个操作，所有的状态还是都保存在相应的领域对象中。我觉得模型（实体）与服务（场景）是对领域的一种划分，模型关注领域的个体行为，场景关注领域的群体行为，模型关注领域的静态结构，场景关注领域的动态功能。这也符合了现实中出现的各种现象，有动有静，有独立有协作。</p>
+<p>领域服务还有一个很重要的功能就是可以避免领域逻辑泄露到应用层。因为如果没有领域服务，那么应用层会直接调用领域对象完成本该是属于领域服务该做的操作，这样一来，领域层可能会把一部分领域知识泄露到应用层。因为应用层需要了解每个领域对象的业务功能，具有哪些信息，以及它可能会与哪些其他领域对象交互，怎么交互等一系列领域知识。因此，引入领域服务可以有效的防治领域层的逻辑泄露到应用层。对于应用层来说，从可理解的角度来讲，通过调用领域服务提供的简单易懂但意义明确的接口肯定也要比直接操纵领域对象容易的多。</p>
+<p>说到领域服务，还需要提一下软件中一般有三种服务：应用层服务、领域服务、基础服务。</p>
+<h3 id="应用层服务"><a href="#应用层服务" class="headerlink" title="应用层服务"></a>应用层服务</h3><ul>
+<li>获取输入（如一个XML请求）；</li>
+<li>发送消息给领域层服务，要求其实现转帐的业务逻辑；</li>
+<li>领域层服务处理成功，则调用基础层服务发送Email通知；</li>
+</ul>
+<h3 id="领域层服务"><a href="#领域层服务" class="headerlink" title="领域层服务"></a>领域层服务</h3><ul>
+<li>获取源帐号和目标帐号，分别通知源帐号和目标帐号进行扣除金额和增加金额的操作；</li>
+<li>提供返回结果给应用层；</li>
+</ul>
+<h3 id="基础层服务"><a href="#基础层服务" class="headerlink" title="基础层服务"></a>基础层服务</h3><p>按照应用层的请求，发送Email通知；</p>
+<p>所以，从上面的例子中可以清晰的看出，每种服务的职责</p>
+<h2 id="领域事件（-Domain-Events-）"><a href="#领域事件（-Domain-Events-）" class="headerlink" title="领域事件（ Domain Events ）"></a>领域事件（ Domain Events ）</h2><p>领域专家所关心的发生在领域中的一些事件。<br>将领域中所发生的活动建模成一系列的离散事件。每个事件都用领域对象来表示。领域事件是领域模型的组成部分，表示领域中所发生的事情。</p>
+<p>一个领域事件可以理解为是发生在一个特定领域中的事件，是你希望在同一个领域中其他部分知道并产生后续动作的事件。但是并不是所有发生过的事情都可以成为领域事件。一个领域事件必须对业务有价值，有助于形成完整的业务闭环，也即一个领域事件将导致进一步的业务操作。</p>
+<p>领域事件可以是业务流程的一个步骤，例如订单提交，客户付费100元，订单完工等。领域事件也可以是定时发生的事情，例如每晚对账完成。或者是一个事件发生后引发的后续动作，例如客户输错密码三次后发生锁定账户的事件。</p>
+<p>如果在通用语言中存在“当a发生时，我们就需要做到b。”这样的描述，则表明a可以定义成一个领域事件。领域事件的命名一般也就是“产生事件的对象名称+完成的动作的过去式”的形式，比如：订单已经发货的事件（OrderDispatchedEvent）、订单已被收货和确认的事件（OrderConfirmedEvent）等。</p>
+<h3 id="为什么需要领域事件"><a href="#为什么需要领域事件" class="headerlink" title="为什么需要领域事件"></a>为什么需要领域事件</h3><p>领域事件也是一种基于事件的架构（EDA）。事件架构的好处可以把处理的流程解耦，实现系统可扩展性，提高主业务流程的内聚性。</p>
+<p>举例而言：用户提交一个订单，系统在完成订单保存后，可能还需要发送一个通知，另外可以产生一系列的后台服务的活动。如果把这一系列的动作放入一个处理过程中，会产生几个的明显问题：<br>一个是订单提交的的事务比较长，性能会有问题，甚至在极端情况下容易引发数据库的严重故障；另外订单提交的服务内聚性差，可维护性差，在业务流程发生变更时候，需要频繁修改主程序。</p>
+<p>如果改为事件驱动模式，把订单提交后触发一个事件，在订单保存后，触发订单提交事件。通知和后续的各种服务动作可以通过订阅这个事件，在自己的实现空间内实现对应的逻辑，这样就把订单提交和后续其他非主要活动从订单提交业务中剥离，实现了订单提交业务高内聚和低耦合性。</p>
+<p>领域事件也继承了事件的作用，当领域中发生了一些活动后，通过领域事件可以把这些活动所产生的副作用显式而不是隐式的表达出来，这种影响可以影响一个或多个聚合对象，而且可以获得更好的扩展性，对数据的锁影响也更小。</p>
+<h4 id="领域事件的特点"><a href="#领域事件的特点" class="headerlink" title="领域事件的特点"></a>领域事件的特点</h4><p>首先是解决领域的聚合性问题。DDD中的聚合有一个原则是，在单个事务中，只允许对一个聚合对象进行修改，由此产生的其他改变必须在单独的事务中完成。如果一个业务跨多个聚合对象，领域事件会是一个不错的工具来解决这个问题。通过领域事件的方式可以达到各个组件之间的数据一致性，通过最终一致性取代事务一致性。</p>
+<ul>
+<li><p>首先是解决领域的聚合性问题。DDD中的聚合有一个原则是，在单个事务中，只允许对一个聚合对象进行修改，由此产生的其他改变必须在单独的事务中完成。如果一个业务跨多个聚合对象，领域事件会是一个不错的工具来解决这个问题。通过领域事件的方式可以达到各个组件之间的数据一致性，通过最终一致性取代事务一致性。</p>
+</li>
+<li><p>其次领域事件也是一种领域分析的工具，有时从领域专家的话中，我们看不出领域事件的迹象，但是业务需求依然有可能需要领域事件。动态流的事件模型加上结合DDD的聚合实体状态和BC，可以有效进行领域建模。</p>
+</li>
+</ul>
+<p>领域事件可以通过观察者模式和订阅模式进行实现。比较常见的实现方式是事件总线（Event Bus）。</p>
+<h2 id="模块（-Modules-）"><a href="#模块（-Modules-）" class="headerlink" title="模块（ Modules ）"></a>模块（ Modules ）</h2><p>模块（Module）是 DDD 中明确提到的一种控制限界上下文的手段，在我们的工程中，一般尽量用一个模块来表示一个领域的限界上下文。</p>
+<p>如代码中所示，一般的工程中包的组织方式为 {com.公司名.组织架构.业务.上下文.*}，这样的组织结构能够明确地将一个上下文限定在包的内部。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.counter.*;</span><span class="comment">//计数上下文</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.category.*;</span><span class="comment">//分类上下文</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.comment.*;</span><span class="comment">//评论上下文</span></span><br></pre></td></tr></table></figure>
+<p>对于模块内的组织结构，一般情况下我们是按照领域对象、领域服务、领域资源库、防腐层等组织方式定义的。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.domain.valobj.*;</span><span class="comment">//领域对象-值对象</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.domain.entity.*;</span><span class="comment">//领域对象-实体</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.domain.aggregate.*;</span><span class="comment">//领域对象-聚合根</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.service.*;</span><span class="comment">//领域服务</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.repo.*;</span><span class="comment">//领域资源库</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.cms.facade.*;</span><span class="comment">//领域防腐层</span></span><br></pre></td></tr></table></figure>
+<h2 id="聚合（-Aggregate-）"><a href="#聚合（-Aggregate-）" class="headerlink" title="聚合（ Aggregate ）"></a>聚合（ Aggregate ）</h2><p>映射概念：包。</p>
+<p>聚合，它通过定义对象之间清晰的所属关系和边界来实现领域模型的内聚，并避免了错综复杂的难以维护的对象关系网的形成。聚合定义了一组具有内聚关系的相关对象的集合，我们把聚合看作是一个修改数据的单元。</p>
+<h3 id="聚合有以下一些特点："><a href="#聚合有以下一些特点：" class="headerlink" title="聚合有以下一些特点："></a>聚合有以下一些特点：</h3><ul>
+<li>每个聚合有一个根和一个边界，边界定义了一个聚合内部有哪些实体或值对象，根是聚合内的某个实体；</li>
+<li>聚合内部的对象之间可以相互引用，但是聚合外部如果要访问聚合内部的对象时，必须通过聚合根开始导航，绝对不能绕过聚合根直接访问聚合内的对象，也就是说聚合根是外部可以保持 对它的引用的唯一元素；</li>
+<li>聚合内除根以外的其他实体的唯一标识都是本地标识，也就是只要在聚合内部保持唯一即可，因为它们总是从属于这个聚合的；</li>
+<li>聚合根负责与外部其他对象打交道并维护自己内部的业务规则；</li>
+<li>基于聚合的以上概念，我们可以推论出从数据库查询时的单元也是以聚合为一个单元，也就是说我们不能直接查询聚合内部的某个非根的对象；</li>
+<li>聚合内部的对象可以保持对其他聚合根的引用；</li>
+<li>删除一个聚合根时必须同时删除该聚合内</li>
+</ul>
+<h2 id="聚合根"><a href="#聚合根" class="headerlink" title="聚合根"></a>聚合根</h2><p>映射概念：包。</p>
+<p>一个上下文内可能包含多个聚合，每个聚合都有一个根实体，叫做聚合根，一个聚合只有一个聚合根。</p>
+<h4 id="关于如何识别聚合以及聚合根的问题："><a href="#关于如何识别聚合以及聚合根的问题：" class="headerlink" title="关于如何识别聚合以及聚合根的问题："></a>关于如何识别聚合以及聚合根的问题：</h4><p>可以先从业务的角度深入思考，然后慢慢分析出有哪些对象是：</p>
+<ul>
+<li>有独立存在的意义，即它是不依赖于其他对象的存在它才有意义的；</li>
+<li>可以被独立访问的，还是必须通过某个其他对象导航得到的；</li>
+</ul>
+<h4 id="如何识别聚合"><a href="#如何识别聚合" class="headerlink" title="如何识别聚合"></a>如何识别聚合</h4><p>我觉得这个需要从业务的角度深入分析哪些对象它们的关系是内聚的，即我们会把他们看成是一个整体来考虑的；然后这些对象我们就可以把它们放在一个聚合内。所谓关系是内聚的，是指这些对象之间必须保持一个固定规则，固定规则是指在数据变化时必须保持不变的一致性规则。当我们在修改一个聚合时，我们必须在事务级别确保整个聚合内的所有对象满足这个固定规则。作为一条建议，聚合尽量不要太大，否则即便能够做到在事务级别保持聚合的业务规则完整性，也可能会带来一定的性能问题。有分析报告显示，通常在大部分领域模型中，有70%的聚合通常只有一个实体，即聚合根，该实体内部没有包含其他实体，只包含一些值对象；另外30%的聚合中，基本上也只包含两到三个实体。这意味着大部分的聚合都只是一个实体，该实体同时也是聚合根。</p>
+<h4 id="如何识别聚合根"><a href="#如何识别聚合根" class="headerlink" title="如何识别聚合根"></a>如何识别聚合根</h4><p>如果一个聚合只有一个实体，那么这个实体就是聚合根；如果有多个实体，那么我们可以思考聚合内哪个对象有独立存在的意义并且可以和外部直接进行交互。</p>
+<p>上面给出的例子中：</p>
+<p>房子、订单和问题是聚合根<br>窗户、订单备注和问题详情是聚合<br>当数据改变时，所有相关的对象被看作一个整体。</p>
+<p>所有的外部数据访问都需要通过同一个根节点进入，这个根就是根节点</p>
+<h2 id="资源库（-Repository-）"><a href="#资源库（-Repository-）" class="headerlink" title="资源库（ Repository ）"></a>资源库（ Repository ）</h2><ul>
+<li>仓储被设计出来的目的是基于这个原因：领域模型中的对象自从被创建出来后不会一直留在内存中活动的，当它不活动时会被持久化到数据库中，然后当需要的时候我们会重建该对象；重建对象就是根据数据库中已存储的对象的状态重新创建对象的过程；所以，可见重建对象是一个和数据库打交道的过程。从更广义的角度来理解，我们经常会像集合一样从某个类似集合的地方根据某个条件获取一个或一些对象，往集合中添加对象或移除对象。也就是说，我们需要提供一种机制，可以提供类似集合的接口来帮助我们管理对象。仓储就是基于这样的思想被设计出来的；</li>
+<li>仓储里面存放的对象一定是聚合，原因是之前提到的领域模型中是以聚合的概念去划分边界的；聚合是我们更新对象的一个边界，事实上我们把整个聚合看成是一个整体概念，要么一起被取出来，要么一起被删除。我们永远不会单独对某个聚合内的子对象进行单独查询或做更新操作。因此，我们只对聚合设计仓储。</li>
+<li>仓储还有一个重要的特征就是分为仓储定义部分和仓储实现部分，在领域模型中我们定义仓储的接口，而在基础设施层实现具体的仓储。这样做的原因是：由于仓储背后的实现都是在和数据库打交道，但是我们又不希望客户（如应用层）把重点放在如何从数据库获取数据的问题上，因为这样做会导致客户（应用层）代码很混乱，很可能会因此而忽略了领域模型的存在。所以我们需要提供一个简单明了的接口，供客户使用，确保客户能以最简单的方式获取领域对象，从而可以让它专心的不会被什么数据访问代码打扰的情况下协调领域对象完成业务逻辑。这种通过接口来隔离封装变化的做法其实很常见。由于客户面对的是抽象的接口并不是具体的实现，所以我们可以随时替换仓储的真实实现，这很有助于我们做单元测试。</li>
+<li>尽管仓储可以像集合一样在内存中管理对象，但是仓储一般不负责事务处理。一般事务处理会交给一个叫“工作单元（Unit Of Work）”的东西。关于工作单元的详细信息我在下面的讨论中会讲到。</li>
+<li>另外，仓储在设计查询接口时，可能还会用到规格模式（Specification Pattern），我见过的最厉害的规格模式应该就是LINQ以及DLINQ查询了。一般我们会根据项目中查询的灵活度要求来选择适合的仓储查询接口设计。通常情况下只需要定义简单明了的具有固定查询参数的查询接口就可以了。只有是在查询条件是动态指定的情况下才可能需要用到Specification等模式。</li>
+</ul>
+<p>领域对象需要资源存储，资源库可以理解成 DAO，但它比 DAO 更宽泛，存储的手段可以是多样化的，常见的无非是数据库、分布式缓存、本地缓存等。资源库（Repository）的作用，就是对领域的存储和访问进行统一管理的对象。</p>
+<p>在系统中，我们是通过如下的方式组织资源库的。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.repo.dao.ArticleDao;</span><span class="comment">//数据库访问对象-文章</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.repo.dao.CommentDao;</span><span class="comment">//数据库访问对象-评论</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.repo.dao.po.ArticlePO;</span><span class="comment">//数据库持久化对象-文章</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.repo.dao.po.CommentPO;</span><span class="comment">//数据库持久化对象-评论</span></span><br><span class="line"><span class="meta"><span class="meta-keyword">import</span> com.company.team.bussiness.repo.cache.ArticleObj;</span><span class="comment">//分布式缓存访问对象-文章缓存访问</span></span><br></pre></td></tr></table></figure>
+<p>资源库对外的整体访问由 Repository 提供，它聚合了各个资源库的数据信息，同时也承担了资源存储的逻辑（例如缓存更新机制等）。</p>
+<h1 id="四种-Domain-模式"><a href="#四种-Domain-模式" class="headerlink" title="四种 Domain 模式"></a>四种 Domain 模式</h1><p>除了晦涩难懂的概念外，让我们最难接受的可能就是模型的运用了，Spring 思想中，Domain 只是数据的载体，所有行为都在 Service 中使用 Domain 封装后流转，而 OOP 讲究一对象维度来执行业务，所以，DDD 中的对象是用行为的（理解这点非常重要哦）。</p>
+<p>这里我为你总结了全部的四种领域模式，供你区分和理解：</p>
+<ul>
+<li>失血模型</li>
+<li>贫血模型</li>
+<li>充血模型</li>
+<li>胀血模型</li>
+</ul>
+<h2 id="失血模型"><a href="#失血模型" class="headerlink" title="失血模型"></a>失血模型</h2><p>Domain Object 只有属性的 getter/setter 方法的纯数据类，所有的业务逻辑完全由 business object 来完成。</p>
+<h2 id="贫血模型"><a href="#贫血模型" class="headerlink" title="贫血模型"></a>贫血模型</h2><p>简单来说，就是 Domain Object 包含了不依赖于持久化的领域逻辑，而那些依赖持久化的领域逻辑被分离到 Service 层。</p>
+<p>意这个模式不在 Domain 层里依赖 DAO。持久化的工作还需要在 DAO 或者 Service 中进行。</p>
+<p>这样做的优缺点</p>
+<p>优点：各层单向依赖，结构清晰。</p>
+<p>缺点：</p>
+<ul>
+<li>Domain Object 的部分比较紧密依赖的持久化 Domain Logic 被分离到 Service 层，显得不够 OO</li>
+<li>Service 层过于厚重</li>
+</ul>
+<h2 id="充血模型"><a href="#充血模型" class="headerlink" title="充血模型"></a>充血模型</h2><p>充血模型和第二种模型差不多，区别在于业务逻辑划分，将绝大多数业务逻辑放到 Domain 中，Service 是很薄的一层，封装少量业务逻辑，并且不和 DAO 打交道：</p>
+<blockquote>
+<p>Service (事务封装) —&gt; Domain Object &lt;—&gt; DAO</p>
+</blockquote>
+<p>所有业务逻辑都在 Domain 中，事务管理也在 Item 中实现。这样做的优缺点如下。</p>
+<p>优点：</p>
+<ul>
+<li>更加符合 OO 的原则；</li>
+<li><p>Service 层很薄，只充当 Facade 的角色，不和 DAO 打交道。<br>缺点：</p>
+</li>
+<li><p>DAO 和 Domain Object 形成了双向依赖，复杂的双向依赖会导致很多潜在的问题。</p>
+</li>
+<li>如何划分 Service 层逻辑和 Domain 层逻辑是非常含混的，在实际项目中，由于设计和开发人员的水平差异，可能 导致整个结构的混乱无序。</li>
+</ul>
+<h2 id="充血模型-1"><a href="#充血模型-1" class="headerlink" title="充血模型"></a>充血模型</h2><p>基于充血模型的第三个缺点，干脆取消 Service 层，只剩下 Domain Object 和 DAO 两层，在 Domain Object 的 Domain Logic 上面封装事务。</p>
+<blockquote>
+<p>Domain Object (事务封装，业务逻辑) &lt;—&gt; DAO</p>
+</blockquote>
+<p>似乎 Ruby on rails 就是这种模型，它甚至把 Domain Object 和 DAO 都合并了。</p>
+<p>这样做的优缺点：</p>
+<ul>
+<li>简化了分层</li>
+<li>也算符合 OO</li>
+</ul>
+<p>该模型缺点：</p>
+<ul>
+<li>很多不是 Domain Logic 的 Service 逻辑也被强行放入 Domain Object ，引起了 Domain Object 模型的不稳定；</li>
+<li>Domain Object 暴露给 Web 层过多的信息，可能引起意想不到的副作用。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/v2-32711c0238ff0ee8a15af95faf13c2c9_1440w.jpg" alt="image"></p>
+<h1 id="DDD分层架构"><a href="#DDD分层架构" class="headerlink" title="DDD分层架构"></a>DDD分层架构</h1><p>优点：</p>
+<ul>
+<li>开发人员可以只关注整个结构中的某一层。</li>
+<li>可以很容易的用新的实现来替换原有层次的实现。</li>
+<li>可以降低层与层之间的依赖。</li>
+<li>有利于标准化。</li>
+<li>利于各层逻辑的复用。<br>缺点：</li>
+<li>降低了系统的性能。这是显然的，因为增加了中间层，不过可以通过缓存机制来改善。</li>
+<li>可能会导致级联的修改。这种修改尤其体现在自上而下的方向，不过可以通过依赖倒置来改善。</li>
+</ul>
+<h2 id="四层架构"><a href="#四层架构" class="headerlink" title="四层架构"></a>四层架构</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG9.png" alt="image"></p>
+<ul>
+<li>User Interface为用户界面层（或表示层），负责向用户显示信息和解释用户命令。这里指的用户可以是另一个计算机系统，不一定是使用用户界面的人。</li>
+<li>Application为应用层，定义软件要完成的任务，并且指挥表达领域概念的对象来解决问题。这一层所负责的工作对业务来说意义重大，也是与其它系统的应用层进行交互的必要渠道。应用层要尽量简单，不包含业务规则或者知识，而只为下一层中的领域对象协调任务，分配工作，使它们互相协作。它没有反映业务情况的状态，但是却可以具有另外一种状态，为用户或程序显示某个任务的进度。</li>
+<li>Domain为领域层（或模型层），负责表达业务概念，业务状态信息以及业务规则。尽管保存业务状态的技术细节是由基础设施层实现的，但是反映业务情况的状态是由本层控制并且使用的。领域层是业务软件的核心，领域模型位于这一层。</li>
+<li>Infrastructure层为基础实施层，向其他层提供通用的技术能力：为应用层传递消息，为领域层提供持久化机制，为用户界面层绘制屏幕组件，等等。基础设施层还能够通过架构框架来支持四个层次间的交互模式。<br>传统的四层架构都是限定型松散分层架构，即Infrastructure层的任意上层都可以访问该层（“L”型），而其它层遵守严格分层架构</li>
+</ul>
+<p>在四层架构模式的实践中，对于分层的本地化定义主要为：</p>
+<ul>
+<li>User Interface层主要是Restful消息处理，配置文件解析，等等。</li>
+<li>Application层主要是多进程管理及调度，多线程管理及调度，多协程调度和状态机管理，等等。</li>
+<li>Domain层主要是领域模型的实现，包括领域对象的确立，这些对象的生命周期管理及关系，领域服务的定义，领域事件的发布，等等。</li>
+<li>Infrastructure层主要是业务平台，编程框架，第三方库的封装，基础算法，等等。</li>
+</ul>
+<blockquote>
+<p>严格意义上来说，User Interface指的是用户界面，Restful消息和配置文件解析等处理应该放在Application层，User Interface层没有的话就空缺。但User Interface也可以理解为用户接口，所以将Restful消息和配置文件解析等处理放在User Interface层也行。</p>
+</blockquote>
+<h2 id="五层架构"><a href="#五层架构" class="headerlink" title="五层架构"></a>五层架构</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG10.png" alt="image"></p>
+<ul>
+<li>User Interface是用户接口层，主要用于处理用户发送的Restful请求和解析用户输入的配置文件等，并将信息传递给Application层的接口。</li>
+<li>Application层是应用层，负责多进程管理及调度、多线程管理及调度、多协程调度和维护业务实例的状态模型。当调度层收到用户接口层的请求后，委托Context层与本次业务相关的上下文进行处理。</li>
+<li>Context是环境层，以上下文为单位，将Domain层的领域对象cast成合适的role，让role交互起来完成业务逻辑。</li>
+<li>Domain层是领域层，定义领域模型，不仅包括领域对象及其之间关系的建模，还包括对象的角色role的显式建模。</li>
+<li>Infrastructure层是基础实施层，为其他层提供通用的技术能力：业务平台，编程框架，持久化机制，消息机制，第三方库的封装，通用算法，等等。</li>
+</ul>
+<p>很多DDD落地实践，都是面向控制面或管理面且消息交互比较多的系统。这类系统的一次业务，包含一组同步消息或异步消息构成的序列，如果都放在Context层，会导致该层的代码比较复杂，于是我们考虑：</p>
+<ul>
+<li>Context层在面向控制面或管理面且消息交互比较多的系统中又分裂成两层，即Context层和大Context层。</li>
+<li>Context层处理单位为Action，对应一条同步消息或异步消息。</li>
+<li>大Context层对应一个事务处理，由一个Action序列组成，一般通过Transaction DSL实现，所以我们习惯把大Context层叫做Transaction DSL层。</li>
+<li>Application层在面向控制面或管理面且消息交互比较多的系统中经常会做一些调度相关的工作，所以我们习惯把Application层叫做Scheduler层。</li>
+</ul>
+<p>因此，在面向控制面或管理面且消息交互比较多的系统中，DDD分层架构模式就变成了六层，<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG11.png" alt="image"></p>
+<p>在实践中，将这六层的本地化定义为：</p>
+<ul>
+<li>User Interface是用户接口层，主要用于处理用户发送的Restful请求和解析用户输入的配置文件等，并将信息传递给Scheduler层的接口。</li>
+<li>Scheduler是调度层，负责多进程管理及调度、多线程管理及调度、多协程调度和维护业务实例的状态模型。当调度层收到用户接口层的请求后，委托Transaction层与本次操作相关的事务进行处理。</li>
+<li>Transaction是事务层，对应一个业务流程，比如UE Attach，将多个同步消息或异步消息的处理序列组合成一个事务，而且在大多场景下，都有选择结构。万一事务执行失败，则立即进行回滚。当事务层收到调度层的请求后，委托Context层的Action进行处理，常常还伴随使用Context层的Specification（谓词）进行Action的选择。</li>
+<li>Context是环境层，以Action为单位，处理一条同步消息或异步消息，将Domain层的领域对象cast成合适的role，让role交互起来完成业务逻辑。环境层通常也包括Specification的实现，即通过Domain层的知识去完成一个条件判断。</li>
+<li>Domain层是领域层，定义领域模型，不仅包括领域对象及其之间关系的建模，还包括对象的角色role的显式建模。</li>
+<li>Infrastructure层是基础实施层，为其他层提供通用的技术能力：业务平台，编程框架，持久化机制，消息机制，第三方库的封装，通用算法，等等。</li>
+</ul>
+<p>事务层的核心是事务模型，事务模型的框架代码一般放在基础设施层。</p>
+<p>综上所述，DDD六层架构可以看做是DDD五层架构在特定领域的变体，我们统称为DDD五层架构，而DDD五层架构与传统的四层架构类似，都是限定型松散分层架构。</p>
+<h2 id="六边形架构"><a href="#六边形架构" class="headerlink" title="六边形架构"></a>六边形架构</h2><p>有一种方法可以改进分层架构，即依赖倒置原则(Dependency Inversion Principle, DIP)，它通过改变不同层之间的依赖关系达到改进目的。</p>
+<blockquote>
+<p>依赖倒置原则由Robert C. Martin提出，正式定义为：<br>高层模块不应该依赖于底层模块，两者都应该依赖于抽象。<br>抽象不应该依赖于细节，细节应该依赖于抽象。</p>
+</blockquote>
+<p>根据该定义，DDD分层架构中的低层组件应该依赖于高层组件提供的接口，即无论高层还是低层都依赖于抽象，整个分层架构好像被推平了。如果我们把分层架构推平，再向其中加入一些对称性，就会出现一种具有对称性特征的架构风格，即六边形架构。六边形架构是Alistair Cockburn在2005年提出的，在这种架构中，不同的客户通过“平等”的方式与系统交互。需要新的客户吗？不是问题。只需要添加一个新的适配器将客户输入转化成能被系统API所理解的参数就行。同时，对于每种特定的输出，都有一个新建的适配器负责完成相应的转化功能。</p>
+<p>六边形架构也称为端口与适配器，如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/8906859-c7a0c865b8217865.png" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/8906859-27500c1a61ca00ec.png" alt="image"></p>
+<p>六边形每条不同的边代表了不同类型的端口，端口要么处理输入，要么处理输出。对于每种外界类型，都有一个适配器与之对应，外界通过应用层API与内部进行交互。上图中有3个客户请求均抵达相同的输入端口（适配器A、B和C），另一个客户请求使用了适配器D。假设前3个请求使用了HTTP协议（浏览器、REST和SOAP等），而后一个请求使用了AMQP协议（比如RabbitMQ）。端口并没有明确的定义，它是一个非常灵活的概念。无论采用哪种方式对端口进行划分，当客户请求到达时，都应该有相应的适配器对输入进行转化，然后端口将调用应用程序的某个操作或者向应用程序发送一个事件，控制权由此交给内部区域。<br>应用程序通过公共API接收客户请求，使用领域模型来处理请求。我们可以将DDD战术设计的建模元素Repository的实现看作是持久化适配器，该适配器用于访问先前存储的聚合实例或者保存新的聚合实例。正如图中的适配器E、F和G所展示的，我们可以通过不同的方式实现资源库，比如关系型数据库、基于文档的存储、分布式缓存或内存存储等。如果应用程序向外界发送领域事件消息，我们将使用适配器H进行处理。该适配器处理消息输出，而上面提到的处理AMQP消息的适配器则是处理消息输入的，因此应该使用不同的端口。</p>
+<p>我们在实际的项目开发中，不同层的组件可以同时开发。当一个组件的功能明确后，就可以立即启动开发。由于该组件的用户有多个，并且这些用户的侧重点不同，所以需要提供多个不同的接口。同时，这些用户的认识也是不断深入的，可能会多次重构相关的接口。于是，组件的多个用户经常会找组件的开发者讨论这些问题，无形中降低了组件的开发效率。<br>我们换一种方式，组件的开发者在明确了组件的功能后就专注于功能的开发，确保功能稳定和高效。组件的用户自己定义组件的接口（端口），然后基于接口写测试，并不断演进接口。在跨层集成测试时，由组件开发者或用户再开发一个适配器就可以了。</p>
+<h3 id="六边形架构模式的演变"><a href="#六边形架构模式的演变" class="headerlink" title="六边形架构模式的演变"></a>六边形架构模式的演变</h3><p>尽管六边形架构模式已经很好，但是没有最好只有更好，演变没有尽头。在六边形架构模式提出后的这些年，又依次衍生出三种六边形架构模式的变体，感兴趣的读者可以点击链接自行学习：</p>
+<ul>
+<li>Jeffrey Palermo在2008年提出了洋葱架构，六边形架构是洋葱架构的一个超集。</li>
+<li>Robert C. Martin在2012年提出了干净架构（Clean Architecture），这是六边形架构的一个变体。</li>
+<li>Russ Miles在2013年提出了Life Preserver设计，这是一种基于六边形架构的设计。</li>
+</ul>
+<h1 id="DDD实践"><a href="#DDD实践" class="headerlink" title="DDD实践"></a>DDD实践</h1><p>假如你是一个团队 Leader 或者架构师，当你接手一个旧系统维护及重构的任务时，你该如何改造呢？是否觉得哪里都不对但由于业务认知的不熟悉而无从下手呢？</p>
+<ul>
+<li>通过公共平台大概梳理出系统之间的调用关系（一般中等以上公司都具备 RPC 和 HTTP 调用关系，无脑的挨个系统查询即可），画出来的可能会很乱，也可能会比较清晰，但这就是现状。</li>
+<li>分配组员每个人认领几个项目，来梳理项目维度关系，这些关系包括：对外接口、交互、用例、MQ 等的详细说明。个别核心系统可以画出内部实体或者聚合根。</li>
+<li>小组开会，挨个 review 每个系统的业务概念，达到组内统一语言。</li>
+<li>根据以上资料，即可看出哪些不合理的调用关系（比如循环调用、不规范的调用等），甚至不合理的分层。</li>
+<li>根据主线业务自顶向下细分领域，以及限界上下文。此过程可能会颠覆之前的系统划分。</li>
+<li>根据业务复杂性，指定领域模型，选择贫血或者充血模型。团队内部最好实行统一习惯，以免出现交接成本过大。</li>
+<li>分工进行开发，并设置 deadline，注意，不要单一的设置一个 deadline，要设置中间 check 时间，比如 dealline 是 1 月 20 日，还要设置两个 check 时间，分别沟通代码风格及边界职责，以免 deadline 时延期。</li>
+</ul>
+<h3 id="事件风暴（Event-Storming）"><a href="#事件风暴（Event-Storming）" class="headerlink" title="事件风暴（Event Storming）"></a>事件风暴（Event Storming）</h3><p>事件风暴也被称为事件建模，形式有点类似于头脑风暴的方法,通过事件风暴的方法可以快速分析复杂业务领域，完成领域建模的目标。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG3.png" alt="image"></p>
+<blockquote>
+<p>事件风暴是一项团队活动，旨在通过领域事件识别出聚合根，进而划分微服务的限界上下文。在活动中，团队先通过头脑风暴的形式罗列出领域中所有的领域事件，整合之后形成最终的领域事件集合，然后对于每一个事件，标注出导致该事件的命令（Command），再然后为每个事件标注出命令发起方的角色，命令可以是用户发起，也可以是第三方系统调用或者是定时器触发等。最后对事件进行分类整理出聚合根以及限界上下文。</p>
+</blockquote>
+<p>事件风暴方法通常有以下几个步骤：</p>
+<ul>
+<li>邀请合适的人参加</li>
+<li>提供无限制的建模空间</li>
+<li>发掘领域事件，可使用橙色贴纸标识</li>
+<li>发掘领域事件的来源，探询命令，可使用蓝色贴纸标识。多种来源也可以- 考虑用不同颜色来区分，例如用黄色表示角色，粉色表示外部系统，红色表示时间触发。</li>
+<li>寻找聚合，可用绿色贴纸标识</li>
+<li>持续探索，发掘子域，BC，用户角色，验收测试标准，补充信息等。</li>
+</ul>
+<p>事件风暴的步骤可以如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG4.png" alt="image"></p>
+<p>在我们的一次产品的重构活动中也采用了事件风暴方法。系统代码维护了10几年，代码中存在大量的“坏味道”：重复代码，过长函数，过大的类，过长的参数列表，发散式变化，霰弹式修改，镀金问题，注释不清等问题。实际研发过程中也是经常出现一点改动都可能会引起不可预测的结果，重构势在必行。</p>
+<p>但是在重构过程中，也没有人可以说清楚现有系统的逻辑，如何重构成为了一个难题。重构过程我们引入了咨询公司给我们的方法，采用了事件风暴的办法，通过对领域中所发生的事情（也就是领域事件）来探索这个领域，并且使用便签来描述领域中的事件，这些便签会沿着时间轴贴到一个很大的建模面板上。</p>
+<p>举例来说，能够引发事件的事情包括用户行为、外部系统所发生的事情以及时间的流逝。事件也有助于找到领域的边界，对术语的不同阐述可能就意味着存在边界。</p>
+<p>准备工作，四色贴纸：</p>
+<ul>
+<li>橙色：事件，某个动作的结果，以“XX已XX”的方式表示，比如“用户信息已查询”</li>
+<li>蓝色：属性，事件相关的输入、输出数据等</li>
+<li>黄色：命令，某个动作，比如“查找用户信息”</li>
+<li>绿色：实体，命令的触发者</li>
+<li>开始梳理业务，将结果贴到白版上</li>
+<li>继续深入梳理，将整个过程的模型、关键数据等梳理出来，贴在白板上<br>确定重构指导思路，执行重构动作，重构的同时引入单元测试保障重构的质量</li>
+</ul>
+<h1 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h1><p>我们先看一个简单的例子，这个 case 的业务逻辑如下：</p>
+<blockquote>
+<p>一个新应用在全国通过 地推业务员 做推广，需要做一个用户注册系统，同时希望在用户注册后能够通过用户电话（先假设仅限座机）的地域（区号）对业务员发奖金。</p>
+</blockquote>
+<p>先不要去纠结这个根据用户电话去发奖金的业务逻辑是否合理，也先不要去管用户是否应该在注册时和业务员做绑定，这里我们看的主要还是如何更加合理的去实现这个逻辑。一个简单的用户和用户注册的代码实现如下：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    Long userId;</span><br><span class="line">    <span class="keyword">String</span> name;</span><br><span class="line">    <span class="keyword">String</span> phone;</span><br><span class="line">    <span class="keyword">String</span> address;</span><br><span class="line">    Long repId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RegistrationServiceImpl</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">RegistrationService</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> SalesRepRepository salesRepRepo;</span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> User register(<span class="keyword">String</span> name, <span class="keyword">String</span> phone, <span class="keyword">String</span> address) </span><br><span class="line">      throws ValidationException &#123;</span><br><span class="line">        <span class="comment">// 校验逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (name == <span class="literal">null</span> || name.length() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"name"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (phone == <span class="literal">null</span> || !isValidPhoneNumber(phone)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 此处省略address的校验逻辑</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 取电话号里的区号，然后通过区号找到区域内的SalesRep</span></span><br><span class="line">        <span class="keyword">String</span> areaCode = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">String</span>[] areas = <span class="keyword">new</span> <span class="type">String</span>[]&#123;<span class="string">"0571"</span>, <span class="string">"021"</span>, <span class="string">"010"</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; phone.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">String</span> prefix = phone.substring(<span class="number">0</span>, i);</span><br><span class="line">            <span class="keyword">if</span> (Arrays.asList(areas).contains(prefix)) &#123;</span><br><span class="line">                areaCode = prefix;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        SalesRep rep = salesRepRepo.findRep(areaCode);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最后创建用户，落盘，然后返回</span></span><br><span class="line">        User user = <span class="keyword">new</span> <span class="type">User</span>();</span><br><span class="line">        user.name = name;</span><br><span class="line">        user.phone = phone;</span><br><span class="line">        user.address = address;</span><br><span class="line">        <span class="keyword">if</span> (rep != <span class="literal">null</span>) &#123;</span><br><span class="line">            user.repId = rep.repId;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> userRepo.save(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> boolean isValidPhoneNumber(<span class="keyword">String</span> phone) &#123;</span><br><span class="line">        <span class="keyword">String</span> pattern = <span class="string">"^0[1-9]&#123;2,3&#125;-?\\d&#123;8&#125;$"</span>;</span><br><span class="line">        <span class="keyword">return</span> phone.matches(pattern);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们日常绝大部分代码和模型其实都跟这个是类似的，乍一看貌似没啥问题，但我们再深入一步，从以下四个维度去分析一下：接口的清晰度（可阅读性）、数据验证和错误处理、业务逻辑代码的清晰度、和可测试性。</p>
+<h2 id="问题1-接口的清晰度"><a href="#问题1-接口的清晰度" class="headerlink" title="问题1 - 接口的清晰度"></a>问题1 - 接口的清晰度</h2><p>在Java代码中，对于一个方法来说所有的参数名在编译时丢失，留下的仅仅是一个参数类型的列表，所以我们重新看一下以上的接口定义，其实在运行时仅仅是：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">User</span> <span class="title">register</span>(<span class="keyword">String</span>, <span class="keyword">String</span>, <span class="keyword">String</span>);</span><br></pre></td></tr></table></figure>
+<p>所以以下的代码是一段编译器完全不会报错的，很难通过看代码就能发现的 bug ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service.<span class="keyword">register</span>(<span class="string">"殷浩"</span>, <span class="string">"浙江省杭州市余杭区文三西路969号"</span>, <span class="string">"0571-12345678"</span>);</span><br></pre></td></tr></table></figure>
+<p>当然，在真实代码中运行时会报错，但这种 bug 是在运行时被发现的，而不是在编译时。普通的 Code Review 也很难发现这种问题，很有可能是代码上线后才会被暴露出来。这里的思考是，有没有办法在编码时就避免这种可能会出现的问题？</p>
+<p>另外一种常见的，特别是在查询服务中容易出现的例子如下：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">User findByName(String name);</span><br><span class="line">User findByPhone(String phone);</span><br><span class="line">User findByNameAndPhone(String name, String phone);</span><br></pre></td></tr></table></figure>
+<p>在这个场景下，由于入参都是 String 类型，不得不在方法名上面加上 ByXXX 来区分，而 findByNameAndPhone 同样也会陷入前面的入参顺序错误的问题，而且和前面的入参不同，这里参数顺序如果输错了，方法不会报错只会返回 null，而这种 bug 更加难被发现。这里的思考是，有没有办法让方法入参一目了然，避免入参错误导致的 bug ？</p>
+<h2 id="问题2-数据验证和错误处理"><a href="#问题2-数据验证和错误处理" class="headerlink" title="问题2 - 数据验证和错误处理"></a>问题2 - 数据验证和错误处理</h2><p>在前面这段数据校验代码：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (phone == <span class="literal">null</span> || !isValidPhoneNumber(phone)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在日常编码中经常会出现，一般来说这种代码需要出现在方法的最前端，确保能够 fail-fast 。但是假设你有多个类似的接口和类似的入参，在每个方法里这段逻辑会被重复。而更严重的是如果未来我们要拓展电话号去包含手机时，很可能需要加入以下代码：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (phone == <span class="literal">null</span> || !isValidPhoneNumber(phone) || !isValidCellNumber(phone)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你有很多个地方用到了 phone 这个入参，但是有个地方忘记修改了，会造成 bug 。这是一个 DRY 原则被违背时经常会发生的问题。</p>
+<p>如果有个新的需求，需要把入参错误的原因返回，那么这段代码就变得更加复杂：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (phone == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone不能为空"</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isValidPhoneNumber(phone)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone格式错误"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以想像得到，代码里充斥着大量的类似代码块时，维护成本要有多高。</p>
+<p>最后，在这个业务方法里，会（隐性或显性的）抛 ValidationException，所以需要外部调用方去try/catch，而业务逻辑异常和数据校验异常被混在了一起，是否是合理的？</p>
+<p>在传统Java架构里有几个办法能够去解决一部分问题，常见的如BeanValidation注解或ValidationUtils类，比如：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Use Bean Validation</span></span><br><span class="line"><span class="selector-tag">User</span> <span class="selector-tag">registerWithBeanValidation</span>(</span><br><span class="line">  <span class="variable">@NotNull</span> <span class="variable">@NotBlank</span> String name,</span><br><span class="line">  <span class="variable">@NotNull</span> <span class="variable">@Pattern</span>(regexp = <span class="string">"^0?[1-9]&#123;2,3&#125;-?\\d&#123;8&#125;$"</span>) String phone,</span><br><span class="line">  <span class="variable">@NotNull</span> String address</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Use ValidationUtils:</span></span><br><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">User</span> <span class="selector-tag">registerWithUtils</span>(String name, String phone, String address) &#123;</span><br><span class="line">    <span class="selector-tag">ValidationUtils</span><span class="selector-class">.validateName</span>(name); <span class="comment">// throws ValidationException</span></span><br><span class="line">    <span class="selector-tag">ValidationUtils</span><span class="selector-class">.validatePhone</span>(phone);</span><br><span class="line">    <span class="selector-tag">ValidationUtils</span><span class="selector-class">.validateAddress</span>(address);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但这几个传统的方法同样有问题，</p>
+<p>BeanValidation：</p>
+<ul>
+<li>通常只能解决简单的校验逻辑，复杂的校验逻辑一样要写代码实现定制校验器</li>
+<li>在添加了新校验逻辑时，同样会出现在某些地方忘记添加一个注解的情况，DRY原则还是会被违背</li>
+</ul>
+<p>ValidationUtils类：</p>
+<ul>
+<li>当大量的校验逻辑集中在一个类里之后，违背了Single Responsibility单一性原则，导致代码混乱和不可维护</li>
+<li>业务异常和校验异常还是会混杂</li>
+</ul>
+<p>所以，有没有一种方法，能够一劳永逸的解决所有校验的问题以及降低后续的维护成本和异常处理成本呢？</p>
+<h2 id="问题3-业务代码的清晰度"><a href="#问题3-业务代码的清晰度" class="headerlink" title="问题3 - 业务代码的清晰度"></a>问题3 - 业务代码的清晰度</h2><p>在这段代码里：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String areaCode = <span class="literal">null</span>;</span><br><span class="line">String[] areas = new String[]&#123;<span class="string">"0571"</span>, <span class="string">"021"</span>, <span class="string">"010"</span>&#125;;</span><br><span class="line"><span class="keyword">for</span> (int i = 0; i &lt; phone.length(); i++) &#123;</span><br><span class="line">    String<span class="built_in"> prefix </span>= phone.substring(0, i);</span><br><span class="line">    <span class="keyword">if</span> (Arrays.asList(areas).contains(prefix)) &#123;</span><br><span class="line">        areaCode = prefix;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">SalesRep rep = salesRepRepo.findRep(areaCode);</span><br></pre></td></tr></table></figure>
+<p>实际上出现了另外一种常见的情况，那就是从一些入参里抽取一部分数据，然后调用一个外部依赖获取更多的数据，然后通常从新的数据中再抽取部分数据用作其他的作用。这种代码通常被称作“胶水代码”，其本质是由于外部依赖的服务的入参并不符合我们原始的入参导致的。比如，如果SalesRepRepository包含一个findRepByPhone的方法，则上面大部分的代码都不必要了。</p>
+<p>所以，一个常见的办法是将这段代码抽离出来，变成独立的一个或多个方法：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">private static String findAreaCode(String phone) &#123;</span><br><span class="line">    <span class="keyword">for</span> (int i = 0; i &lt; phone.length(); i++) &#123;</span><br><span class="line">        String<span class="built_in"> prefix </span>= phone.substring(0, i);</span><br><span class="line">        <span class="keyword">if</span> (isAreaCode(prefix)) &#123;</span><br><span class="line">            return prefix;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static boolean isAreaCode(String prefix) &#123;</span><br><span class="line">    String[] areas = new String[]&#123;<span class="string">"0571"</span>, <span class="string">"021"</span>&#125;;</span><br><span class="line">    return Arrays.asList(areas).contains(prefix);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后原始代码变为：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">String areaCode</span> = findAreaCode(phone);</span><br><span class="line"><span class="attribute">SalesRep rep</span> = salesRepRepo.findRep(areaCode);</span><br></pre></td></tr></table></figure>
+<p>而为了复用以上的方法，可能会抽离出一个静态工具类 PhoneUtils 。但是这里要思考的是，静态工具类是否是最好的实现方式呢？当你的项目里充斥着大量的静态工具类，业务代码散在多个文件当中时，你是否还能找到核心的业务逻辑呢？</p>
+<h2 id="问题4-可测试性"><a href="#问题4-可测试性" class="headerlink" title="问题4 - 可测试性"></a>问题4 - 可测试性</h2><p>为了保证代码质量，每个方法里的每个入参的每个可能出现的条件都要有 TC 覆盖（假设我们先不去测试内部业务逻辑），所以在我们这个方法里需要以下的 TC ：</p>
+<p>假如一个方法有 N 个参数，每个参数有 M 个校验逻辑，至少要有 N * M 个 TC 。</p>
+<p>如果这时候在该方法中加入一个新的入参字段 fax ，即使 fax 和 phone 的校验逻辑完全一致，为了保证 TC 覆盖率，也一样需要 M 个新的 TC 。</p>
+<p>而假设有 P 个方法中都用到了 phone 这个字段，这 P 个方法都需要对该字段进行测试，也就是说整体需要：</p>
+<p>P <em> N </em> M</p>
+<p>个测试用例才能完全覆盖所有数据验证的问题，在日常项目中，这个测试的成本非常之高，导致大量的代码没被覆盖到。而没被测试覆盖到的代码才是最有可能出现问题的地方。</p>
+<p>在这个情况下，降低测试成本 == 提升代码质量，如何能够降低测试的成本呢？</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>我们回头先重新看一下原始的 use case，并且标注其中可能重要的概念：</p>
+<p>一个新应用在全国通过 地推业务员 做推广，需要做一个用户的注册系统，在用户注册后能够通过用户电话号的区号对业务员发奖金。</p>
+<p>在分析了 use case 后，发现其中地推业务员、用户本身自带 ID 属性，属于 Entity（实体），而注册系统属于 Application Service（应用服务），这几个概念已经有存在。但是发现电话号这个概念却完全被隐藏到了代码之中。我们可以问一下自己，取电话号的区号的逻辑是否属于用户（用户的区号？）？是否属于注册服务（注册的区号？）？如果都不是很贴切，那就说明这个逻辑应该属于一个独立的概念。所以这里引入我们第一个原则：</p>
+<p>Make Implicit Concepts Explicit</p>
+<h3 id="将隐性的概念显性化"><a href="#将隐性的概念显性化" class="headerlink" title="将隐性的概念显性化"></a>将隐性的概念显性化</h3><p>在这里，我们可以看到，原来电话号仅仅是用户的一个参数，属于隐形概念，但实际上电话号的区号才是真正的业务逻辑，而我们需要将电话号的概念显性化，通过写一个Value Object：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> PhoneNumber &#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> final <span class="built_in">String</span> <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">String</span> getNumber() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">number</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> PhoneNumber(<span class="built_in">String</span> <span class="built_in">number</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">number</span> == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ValidationException(<span class="string">"number不能为空"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isValid(<span class="built_in">number</span>)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ValidationException(<span class="string">"number格式错误"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.number = <span class="built_in">number</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">String</span> getAreaCode() &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; <span class="built_in">number</span>.length(); i++) &#123;</span><br><span class="line">            <span class="built_in">String</span> prefix = <span class="built_in">number</span>.substring(<span class="number">0</span>, i);</span><br><span class="line">            <span class="keyword">if</span> (isAreaCode(prefix)) &#123;</span><br><span class="line">                <span class="keyword">return</span> prefix;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">boolean</span> isAreaCode(<span class="built_in">String</span> prefix) &#123;</span><br><span class="line">        <span class="built_in">String</span>[] areas = <span class="keyword">new</span> <span class="built_in">String</span>[]&#123;<span class="string">"0571"</span>, <span class="string">"021"</span>, <span class="string">"010"</span>&#125;;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(areas).contains(prefix);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">boolean</span> isValid(<span class="built_in">String</span> <span class="built_in">number</span>) &#123;</span><br><span class="line">        <span class="built_in">String</span> pattern = <span class="string">"^0?[1-9]&#123;2,3&#125;-?\\d&#123;8&#125;$"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">number</span>.matches(pattern);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面有几个很重要的元素：</p>
+<ul>
+<li>通过 private final String number 确保 PhoneNumber 是一个（Immutable）Value Object。（一般来说 VO 都是 Immutable 的，这里只是重点强调一下）</li>
+<li>校验逻辑都放在了 constructor 里面，确保只要 PhoneNumber 类被创建出来后，一定是校验通过的。</li>
+<li>之前的 findAreaCode 方法变成了 PhoneNumber 类里的 getAreaCode ，突出了 areaCode 是 PhoneNumber 的一个计算属性。</li>
+</ul>
+<p>这样做完之后，我们发现把 PhoneNumber 显性化之后，其实是生成了一个 Type（数据类型）和一个 Class（类）：</p>
+<ul>
+<li>Type 指我们在今后的代码里可以通过 PhoneNumber 去显性的标识电话号这个概念</li>
+<li>Class 指我们可以把所有跟电话号相关的逻辑完整的收集到一个文件里<br>这两个概念加起来，构造成了本文标题的 Domain Primitive（DP）。</li>
+</ul>
+<p>我们看一下全面使用了 DP 之后效果：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> &#123;</span></span><br><span class="line">    UserId userId;</span><br><span class="line">    Name name;</span><br><span class="line">    PhoneNumber phone;</span><br><span class="line">    Address address;</span><br><span class="line">    RepId repId;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> User register(</span><br><span class="line">  <span class="meta">@NotNull</span> Name name,</span><br><span class="line">  <span class="meta">@NotNull</span> PhoneNumber phone,</span><br><span class="line">  <span class="meta">@NotNull</span> Address address</span><br><span class="line">) &#123;</span><br><span class="line">    <span class="comment">// 找到区域内的SalesRep</span></span><br><span class="line">    SalesRep rep = salesRepRepo.findRep(phone.getAreaCode());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最后创建用户，落盘，然后返回，这部分代码实际上也能用Builder解决</span></span><br><span class="line">    User user = <span class="keyword">new</span> User();</span><br><span class="line">    user.name = name;</span><br><span class="line">    user.phone = phone;</span><br><span class="line">    user.address = address;</span><br><span class="line">    <span class="keyword">if</span> (rep != <span class="literal">null</span>) &#123;</span><br><span class="line">        user.repId = rep.repId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> userRepo.saveUser(user);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到在使用了 DP 之后，所有的数据验证逻辑和非业务流程的逻辑都消失了，剩下都是核心业务逻辑，可以一目了然。我们重新用上面的四个维度评估一下：</p>
+<h2 id="评估1-接口的清晰度"><a href="#评估1-接口的清晰度" class="headerlink" title="评估1 - 接口的清晰度"></a>评估1 - 接口的清晰度</h2><p>重构后的方法签名变成了很清晰的：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public<span class="built_in"> User </span>register(Name, PhoneNumber, Address)</span><br></pre></td></tr></table></figure>
+<p>而之前容易出现的bug，如果按照现在的写法</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service.register(<span class="keyword">new</span> <span class="type">Name</span>(<span class="string">"殷浩"</span>), <span class="keyword">new</span> <span class="type">Address</span>(<span class="string">"浙江省杭州市余杭区文三西路969号"</span>), <span class="keyword">new</span> <span class="type">PhoneNumber</span>(<span class="string">"0571-12345678"</span>));</span><br></pre></td></tr></table></figure>
+<p>让接口 API 变得很干净，易拓展。</p>
+<h2 id="评估2-数据验证和错误处理"><a href="#评估2-数据验证和错误处理" class="headerlink" title="评估2 - 数据验证和错误处理"></a>评估2 - 数据验证和错误处理</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">public</span> <span class="selector-tag">User</span> <span class="selector-tag">register</span>(</span><br><span class="line">  <span class="variable">@NotNull</span> Name name,</span><br><span class="line">  <span class="variable">@NotNull</span> PhoneNumber phone,</span><br><span class="line">  <span class="variable">@NotNull</span> Address address</span><br><span class="line">) <span class="comment">// no throws</span></span><br></pre></td></tr></table></figure>
+<p>如前文代码展示的，重构后的方法里，完全没有了任何数据验证的逻辑，也不会抛 ValidationException 。原因是因为 DP 的特性，只要是能够带到入参里的一定是正确的或 null（Bean Validation 或 lombok 的注解能解决 null 的问题）。所以我们把数据验证的工作量前置到了调用方，而调用方本来就是应该提供合法数据的，所以更加合适。</p>
+<p>再展开来看，使用DP的另一个好处就是代码遵循了 DRY 原则和单一性原则，如果未来需要修改 PhoneNumber 的校验逻辑，只需要在一个文件里修改即可，所有使用到了 PhoneNumber 的地方都会生效。</p>
+<h2 id="评估3-业务代码的清晰度"><a href="#评估3-业务代码的清晰度" class="headerlink" title="评估3 - 业务代码的清晰度"></a>评估3 - 业务代码的清晰度</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SalesRep rep = salesRepRepo.findRep(phone.getAreaCode());</span><br><span class="line">User<span class="built_in"> user </span>= xxx;</span><br><span class="line">return userRepo.save(user);</span><br></pre></td></tr></table></figure>
+<p>除了在业务方法里不需要校验数据之外，原来的一段胶水代码 findAreaCode 被改为了 PhoneNumber 类的一个计算属性 getAreaCode ，让代码清晰度大大提升。而且胶水代码通常都不可复用，但是使用了 DP 后，变成了可复用、可测试的代码。我们能看到，在刨除了数据验证代码、胶水代码之后，剩下的都是核心业务逻辑。（ Entity 相关的重构在后面文章会谈到，这次先忽略）</p>
+<h2 id="评估4-可测试性"><a href="#评估4-可测试性" class="headerlink" title="评估4 - 可测试性"></a>评估4 - 可测试性</h2><p>当我们将 PhoneNumber 抽取出来之后，在来看测试的 TC ：</p>
+<p>首先 PhoneNumber 本身还是需要 M 个测试用例，但是由于我们只需要测试单一对象，每个用例的代码量会大大降低，维护成本降低。<br>每个方法里的每个参数，现在只需要覆盖为 null 的情况就可以了，其他的 case 不可能发生（因为只要不是 null 就一定是合法的）<br>所以，单个方法的 TC 从原来的 N * M 变成了今天的 N + M 。同样的，多个方法的 TC 数量变成了</p>
+<p>N + M + P</p>
+<p>这个数量一般来说要远低于原来的数量 N<em> M </em> P ，让测试成本极大的降低。</p>
+<h2 id="评估总结"><a href="#评估总结" class="headerlink" title="评估总结"></a>评估总结</h2><h2 id="进阶使用"><a href="#进阶使用" class="headerlink" title="进阶使用"></a>进阶使用</h2><p>在上文我介绍了 DP 的第一个原则：将隐性的概念显性化。在这里我将介绍 DP 的另外两个原则，用一个新的案例。</p>
+<h2 id="▍案例1-转账"><a href="#▍案例1-转账" class="headerlink" title="▍案例1 - 转账"></a>▍案例1 - 转账</h2><p>假设现在要实现一个功能，让A用户可以支付 x 元给用户 B ，可能的实现如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(BigDecimal money, Long recipientId)</span> </span>&#123;</span><br><span class="line">    BankService.transfer(money, <span class="string">"CNY"</span>, recipientId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果这个是境内转账，并且境内的货币永远不变，该方法貌似没啥问题，但如果有一天货币变更了（比如欧元区曾经出现的问题），或者我们需要做跨境转账，该方法是明显的 bug ，因为 money 对应的货币不一定是 CNY 。</p>
+<p>在这个 case 里，当我们说“支付 x 元”时，除了 x 本身的数字之外，实际上是有一个隐含的概念那就是货币“元”。但是在原始的入参里，之所以只用了 BigDecimal 的原因是我们认为 CNY 货币是默认的，是一个隐含的条件，但是在我们写代码时，需要把所有隐性的条件显性化，而这些条件整体组成当前的上下文。所以 DP 的第二个原则是：</p>
+<p>Make Implicit Context Explicit</p>
+<p>将 隐性的 上下文 显性化</p>
+<p>所以当我们做这个支付功能时，实际上需要的一个入参是支付金额 + 支付货币。我们可以把这两个概念组合成为一个独立的完整概念：Money。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Money</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> BigDecimal amount;</span><br><span class="line">    <span class="keyword">private</span> Currency currency;</span><br><span class="line">    <span class="keyword">public</span> Money(BigDecimal amount, Currency currency) &#123;</span><br><span class="line">        <span class="keyword">this</span>.amount = amount;</span><br><span class="line">        <span class="keyword">this</span>.currency = currency;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而原有的代码则变为：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pay</span><span class="params">(Money money, Long recipientId)</span> </span>&#123;</span><br><span class="line">    BankService.transfer(money, recipientId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过将默认货币这个隐性的上下文概念显性化，并且和金额合并为 Money ，我们可以避免很多当前看不出来，但未来可能会暴雷的bug。</p>
+<h2 id="案例2-跨境转账"><a href="#案例2-跨境转账" class="headerlink" title="案例2 - 跨境转账"></a>案例2 - 跨境转账</h2><p>前面的案例升级一下，假设用户可能要做跨境转账从 CNY 到 USD ，并且货币汇率随时在波动：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public void pay(Money money, Currency targetCurrency, Long recipientId) &#123;</span><br><span class="line">    if (money.getCurrency().equals(targetCurrency)) &#123;</span><br><span class="line">        <span class="keyword">BankService.transfer(money, </span>recipientId)<span class="comment">;</span></span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        <span class="keyword">BigDecimal </span>rate = ExchangeService.getRate(money.getCurrency(), targetCurrency)<span class="comment">;</span></span><br><span class="line">        <span class="keyword">BigDecimal </span>targetAmount = money.getAmount().<span class="keyword">multiply(new </span><span class="keyword">BigDecimal(rate));</span></span><br><span class="line"><span class="keyword"> </span>       Money targetMoney = new Money(targetAmount, targetCurrency)<span class="comment">;</span></span><br><span class="line">        <span class="keyword">BankService.transfer(targetMoney, </span>recipientId)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个case里，由于 targetCurrency 不一定和 money 的 Curreny 一致，需要调用一个服务去取汇率，然后做计算。最后用计算后的结果做转账。</p>
+<p>这个case最大的问题在于，金额的计算被包含在了支付的服务中，涉及到的对象也有2个 Currency ，2 个 Money ，1 个 BigDecimal ，总共 5 个对象。这种涉及到多个对象的业务逻辑，需要用 DP 包装掉，所以这里引出 DP 的第三个原则：</p>
+<p>Encapsulate Multi-Object Behavior</p>
+<p>封装 多对象 行为</p>
+<p>在这个 case 里，可以将转换汇率的功能，封装到一个叫做 ExchangeRate 的 DP 里：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Value</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExchangeRate</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> BigDecimal rate;</span><br><span class="line">    <span class="keyword">private</span> Currency <span class="keyword">from</span>;</span><br><span class="line">    <span class="keyword">private</span> Currency to;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExchangeRate</span>(<span class="params">BigDecimal rate, Currency <span class="keyword">from</span>, Currency to</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.rate = rate;</span><br><span class="line">        <span class="keyword">this</span>.<span class="keyword">from</span> = <span class="keyword">from</span>;</span><br><span class="line">        <span class="keyword">this</span>.to = to;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Money <span class="title">exchange</span>(<span class="params">Money fromMoney</span>) </span>&#123;</span><br><span class="line">        notNull(fromMoney);</span><br><span class="line">        isTrue(<span class="keyword">this</span>.<span class="keyword">from</span>.<span class="keyword">equals</span>(fromMoney.getCurrency()));</span><br><span class="line">        BigDecimal targetAmount = fromMoney.getAmount().multiply(rate);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Money(targetAmount, to);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ExchangeRate汇率对象，通过封装金额计算逻辑以及各种校验逻辑，让原始代码变得极其简单：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public void pay(Money money, Currency targetCurrency, Long recipientId) &#123;</span><br><span class="line">    ExchangeRate rate = ExchangeService.getRate(money.getCurrency(), targetCurrency)<span class="comment">;</span></span><br><span class="line">    Money targetMoney = rate.exchange(money)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">BankService.transfer(targetMoney, </span>recipientId)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="讨论和总结"><a href="#讨论和总结" class="headerlink" title="讨论和总结"></a>讨论和总结</h2><h3 id="▍Domain-Primitive-的定义"><a href="#▍Domain-Primitive-的定义" class="headerlink" title="▍Domain Primitive 的定义"></a>▍Domain Primitive 的定义</h3><p>让我们重新来定义一下 Domain Primitive ：Domain Primitive 是一个在特定领域里，拥有精准定义的、可自我验证的、拥有行为的 Value Object 。</p>
+<p>DP是一个传统意义上的Value Object，拥有Immutable的特性<br>DP是一个完整的概念整体，拥有精准定义<br>DP使用业务域中的原生语言<br>DP可以是业务域的最小组成部分、也可以构建复杂组合<br>注：Domain Primitive的概念和命名来自于Dan Bergh Johnsson &amp; Daniel Deogun的书 Secure by Design。</p>
+<h3 id="▍使用-Domain-Primitive-的三原则"><a href="#▍使用-Domain-Primitive-的三原则" class="headerlink" title="▍使用 Domain Primitive 的三原则"></a>▍使用 Domain Primitive 的三原则</h3><p>让隐性的概念显性化<br>让隐性的上下文显性化<br>封装多对象行为</p>
+<h3 id="▍Domain-Primitive-和-DDD-里-Value-Object-的区别"><a href="#▍Domain-Primitive-和-DDD-里-Value-Object-的区别" class="headerlink" title="▍Domain Primitive 和 DDD 里 Value Object 的区别"></a>▍Domain Primitive 和 DDD 里 Value Object 的区别</h3><p>在 DDD 中， Value Object 这个概念其实已经存在：</p>
+<p>在 Evans 的 DDD 蓝皮书中，Value Object 更多的是一个非 Entity 的值对象<br>在Vernon的IDDD红皮书中，作者更多的关注了Value Object的Immutability、Equals方法、Factory方法等<br>Domain Primitive 是 Value Object 的进阶版，在原始 VO 的基础上要求每个 DP 拥有概念的整体，而不仅仅是值对象。在 VO 的 Immutable 基础上增加了 Validity 和行为。当然同样的要求无副作用（side-effect free）。</p>
+<h3 id="▍Domain-Primitive-和-Data-Transfer-Object-DTO-的区别"><a href="#▍Domain-Primitive-和-Data-Transfer-Object-DTO-的区别" class="headerlink" title="▍Domain Primitive 和 Data Transfer Object (DTO) 的区别"></a>▍Domain Primitive 和 Data Transfer Object (DTO) 的区别</h3><p>在日常开发中经常会碰到的另一个数据结构是 DTO ，比如方法的入参和出参。DP 和 DTO 的区别如下：</p>
+<h3 id="▍什么情况下应该用-Domain-Primitive"><a href="#▍什么情况下应该用-Domain-Primitive" class="headerlink" title="▍什么情况下应该用 Domain Primitive"></a>▍什么情况下应该用 Domain Primitive</h3><p>常见的 DP 的使用场景包括：</p>
+<p>有格式限制的 String：比如Name，PhoneNumber，OrderNumber，ZipCode，Address等<br>有限制的Integer：比如OrderId（&gt;0），Percentage（0-100%），Quantity（&gt;=0）等<br>可枚举的 int ：比如 Status（一般不用Enum因为反序列化问题）<br>Double 或 BigDecimal：一般用到的 Double 或 BigDecimal 都是有业务含义的，比如 Temperature、Money、Amount、ExchangeRate、Rating 等<br>复杂的数据结构：比如 Map&lt;String, List<integer>&gt; 等，尽量能把 Map 的所有操作包装掉，仅暴露必要行为</integer></p>
+<h2 id="实战-老应用重构的流程"><a href="#实战-老应用重构的流程" class="headerlink" title="实战 - 老应用重构的流程"></a>实战 - 老应用重构的流程</h2><p>在新应用中使用 DP 是比较简单的，但在老应用中使用 DP 是可以遵循以下流程按部就班的升级。在此用本文的第一个 case 为例。</p>
+<h3 id="▍第一步-创建-Domain-Primitive，收集所有-DP-行为"><a href="#▍第一步-创建-Domain-Primitive，收集所有-DP-行为" class="headerlink" title="▍第一步 - 创建 Domain Primitive，收集所有 DP 行为"></a>▍第一步 - 创建 Domain Primitive，收集所有 DP 行为</h3><p>在前文中，我们发现取电话号的区号这个是一个可以独立出来的、可以放入 PhoneNumber 这个 Class 的逻辑。类似的，在真实的项目中，以前散落在各个服务或工具类里面的代码，可以都抽出来放在 DP 里，成为 DP 自己的行为或属性。这里面的原则是：所有抽离出来的方法要做到无状态，比如原来是 static 的方法。如果原来的方法有状态变更，需要将改变状态的部分和不改状态的部分分离，然后将无状态的部分融入 DP 。因为 DP 本身不能带状态，所以一切需要改变状态的代码都不属于 DP 的范畴。</p>
+<p>(代码参考 PhoneNumber 的代码，这里不再重复)</p>
+<h3 id="▍第二步-替换数据校验和无状态逻辑"><a href="#▍第二步-替换数据校验和无状态逻辑" class="headerlink" title="▍第二步 - 替换数据校验和无状态逻辑"></a>▍第二步 - 替换数据校验和无状态逻辑</h3><p>为了保障现有方法的兼容性，在第二步不会去修改接口的签名，而是通过代码替换原有的校验逻辑和根 DP 相关的业务逻辑。比如：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> User register(<span class="keyword">String</span> name, <span class="keyword">String</span> phone, <span class="keyword">String</span> address)</span><br><span class="line">        throws ValidationException &#123;</span><br><span class="line">    <span class="keyword">if</span> (name == <span class="literal">null</span> || name.length() == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"name"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (phone == <span class="literal">null</span> || !isValidPhoneNumber(phone)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">ValidationException</span>(<span class="string">"phone"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">String</span> areaCode = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">String</span>[] areas = <span class="keyword">new</span> <span class="type">String</span>[]&#123;<span class="string">"0571"</span>, <span class="string">"021"</span>, <span class="string">"010"</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; phone.length(); i++) &#123;</span><br><span class="line">        <span class="keyword">String</span> prefix = phone.substring(<span class="number">0</span>, i);</span><br><span class="line">        <span class="keyword">if</span> (Arrays.asList(areas).contains(prefix)) &#123;</span><br><span class="line">            areaCode = prefix;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    SalesRep rep = salesRepRepo.findRep(areaCode);</span><br><span class="line">    <span class="comment">// 其他代码...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 DP 替换代码后：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> User register(<span class="keyword">String</span> name, <span class="keyword">String</span> phone, <span class="keyword">String</span> address)</span><br><span class="line">        throws ValidationException &#123;</span><br><span class="line">    </span><br><span class="line">    Name _name = <span class="keyword">new</span> <span class="type">Name</span>(name);</span><br><span class="line">    PhoneNumber _phone = <span class="keyword">new</span> <span class="type">PhoneNumber</span>(phone);</span><br><span class="line">    Address _address = <span class="keyword">new</span> <span class="type">Address</span>(address);</span><br><span class="line">    </span><br><span class="line">    SalesRep rep = salesRepRepo.findRep(_phone.getAreaCode());</span><br><span class="line">    <span class="comment">// 其他代码...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 new PhoneNumber(phone) 这种代码，替代了原有的校验代码。</p>
+<p>通过 _phone.getAreaCode() 替换了原有的无状态的业务逻辑。</p>
+<p>▍第三步 - 创建新接口<br>创建新接口，将DP的代码提升到接口参数层：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public<span class="built_in"> User </span>register(Name name, PhoneNumber phone,<span class="built_in"> Address </span>address) &#123;</span><br><span class="line">    SalesRep rep = salesRepRepo.findRep(phone.getAreaCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>▍第四步 - 修改外部调用</p>
+<p>外部调用方需要修改调用链路，比如：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">service.register(<span class="string">"殷浩"</span>, <span class="string">"0571-12345678"</span>, <span class="string">"浙江省杭州市余杭区文三西路969号"</span>);</span><br><span class="line">改为：</span><br><span class="line"></span><br><span class="line">service.register(<span class="keyword">new</span> <span class="type">Name</span>(<span class="string">"殷浩"</span>), <span class="keyword">new</span> <span class="type">PhoneNumber</span>(<span class="string">"0571-12345678"</span>), <span class="keyword">new</span> <span class="type">Address</span>(<span class="string">"浙江省杭州市余杭区文三西路969号"</span>));</span><br></pre></td></tr></table></figure>
+<p>通过以上 4 步，就能让你的代码变得更加简洁、优雅、健壮、安全。你还在等什么？今天就去尝试吧！</p>
+<h1 id="应用架构设计"><a href="#应用架构设计" class="headerlink" title="应用架构设计"></a>应用架构设计</h1><p>设计原则</p>
+<ul>
+<li>单一性原则（Single Responsibility Principle）：单一性原则要求一个对象/类应该只有一个变更的原因。但是在这个案例里，代码可能会因为任意一个外部依赖或计算逻辑的改变而改变。</li>
+<li>依赖反转原则（Dependency Inversion Principle）：依赖反转原则要求在代码中依赖抽象，而不是具体的实现。在这个案例里外部依赖都是具体的实现，比如YahooForexService虽然是一个接口类，但是它对应的是依赖了Yahoo提供的具体服务，所以也算是依赖了实现。同样的KafkaTemplate、MyBatis的DAO实现都属于具体实现。</li>
+<li>开放封闭原则（Open Closed Principle）：开放封闭原则指开放扩展，但是封闭修改。在这个案例里的金额计算属于可能会被修改的代码，这个时候该逻辑应该需要被包装成为不可修改的计算类，新功能通过计算类的拓展实现。</li>
+</ul>
+<h2 id="需求背景"><a href="#需求背景" class="headerlink" title="需求背景"></a>需求背景</h2><p>我们先看一个简单的案例需求如下：</p>
+<p>用户可以通过银行网页转账给另一个账号，支持跨币种转账。</p>
+<p>同时因为监管和对账需求，需要记录本次转账活动。</p>
+<p>拿到这个需求之后，一个开发可能会经历一些技术选型，最终可能拆解需求如下：</p>
+<p>1、从MySql数据库中找到转出和转入的账户，选择用 MyBatis 的 mapper 实现 DAO；2、从 Yahoo（或其他渠道）提供的汇率服务获取转账的汇率信息（底层是 http 开放接口）；</p>
+<p>3、计算需要转出的金额，确保账户有足够余额，并且没超出每日转账上限；</p>
+<p>4、实现转入和转出操作，扣除手续费，保存数据库；</p>
+<p>5、发送 Kafka 审计消息，以便审计和对账用；</p>
+<p>而一个简单的代码实现如下：<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransferController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> TransferService transferService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Result&lt;Boolean&gt; transfer(<span class="keyword">String</span> targetAccountNumber, BigDecimal amount, HttpSession session) &#123;</span><br><span class="line">        Long userId = (Long) session.getAttribute(<span class="string">"userId"</span>);</span><br><span class="line">        <span class="keyword">return</span> transferService.transfer(userId, targetAccountNumber, amount, <span class="string">"CNY"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransferServiceImpl</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">TransferService</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="keyword">String</span> TOPIC_AUDIT_LOG = <span class="string">"TOPIC_AUDIT_LOG"</span>;</span><br><span class="line">    <span class="keyword">private</span> AccountMapper accountDAO;</span><br><span class="line">    <span class="keyword">private</span> KafkaTemplate&lt;<span class="keyword">String</span>, <span class="keyword">String</span>&gt; kafkaTemplate;</span><br><span class="line">    <span class="keyword">private</span> YahooForexService yahooForex;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> Result&lt;Boolean&gt; transfer(Long sourceUserId, <span class="keyword">String</span> targetAccountNumber, BigDecimal targetAmount, <span class="keyword">String</span> targetCurrency) &#123;</span><br><span class="line">        <span class="comment">// 1. 从数据库读取数据，忽略所有校验逻辑如账号是否存在等</span></span><br><span class="line">        AccountDO sourceAccountDO = accountDAO.selectByUserId(sourceUserId);</span><br><span class="line">        AccountDO targetAccountDO = accountDAO.selectByAccountNumber(targetAccountNumber);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 业务参数校验</span></span><br><span class="line">        <span class="keyword">if</span> (!targetAccountDO.getCurrency().equals(targetCurrency)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">InvalidCurrencyException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 获取外部数据，并且包含一定的业务逻辑</span></span><br><span class="line">        <span class="comment">// exchange rate = 1 source currency = X target currency</span></span><br><span class="line">        BigDecimal exchangeRate = BigDecimal.ONE;</span><br><span class="line">        <span class="keyword">if</span> (sourceAccountDO.getCurrency().equals(targetCurrency)) &#123;</span><br><span class="line">            exchangeRate = yahooForex.getExchangeRate(sourceAccountDO.getCurrency(), targetCurrency);</span><br><span class="line">        &#125;</span><br><span class="line">        BigDecimal sourceAmount = targetAmount.divide(exchangeRate, RoundingMode.DOWN);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 业务参数校验</span></span><br><span class="line">        <span class="keyword">if</span> (sourceAccountDO.getAvailable().compareTo(sourceAmount) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">InsufficientFundsException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sourceAccountDO.getDailyLimit().compareTo(sourceAmount) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">DailyLimitExceededException</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 计算新值，并且更新字段</span></span><br><span class="line">        BigDecimal <span class="keyword">new</span><span class="type">Source</span> = sourceAccountDO.getAvailable().subtract(sourceAmount);</span><br><span class="line">        BigDecimal <span class="keyword">new</span><span class="type">Target</span> = targetAccountDO.getAvailable().add(targetAmount);</span><br><span class="line">        sourceAccountDO.setAvailable(<span class="keyword">new</span><span class="type">Source</span>);</span><br><span class="line">        targetAccountDO.setAvailable(<span class="keyword">new</span><span class="type">Target</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 6. 更新到数据库</span></span><br><span class="line">        accountDAO.update(sourceAccountDO);</span><br><span class="line">        accountDAO.update(targetAccountDO);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 7. 发送审计消息</span></span><br><span class="line">        <span class="keyword">String</span> message = sourceUserId + <span class="string">","</span> + targetAccountNumber + <span class="string">","</span> + targetAmount + <span class="string">","</span> + targetCurrency;</span><br><span class="line">        kafkaTemplate.send(TOPIC_AUDIT_LOG, message);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.success(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p>在重构之前，我们先画一张流程图，描述当前代码在做的每个步骤：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/DDD%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1.jpeg" alt="image"></p>
+<p>这是一个传统的三层分层结构：UI层、业务层、和基础设施层。上层对于下层有直接的依赖关系，导致耦合度过高。在业务层中对于下层的基础设施有强依赖，耦合度高。我们需要对这张图上的每个节点做抽象和整理，来降低对外部依赖的耦合度。</p>
+<h2 id="抽象数据存储层"><a href="#抽象数据存储层" class="headerlink" title="抽象数据存储层"></a>抽象数据存储层</h2><p>第一步常见的操作是将Data Access层做抽象，降低系统对数据库的直接依赖。具体的方法如下：</p>
+<p>新建Account实体对象：一个实体（Entity）是拥有ID的域对象，除了拥有数据之外，同时拥有行为。Entity和数据库储存格式无关，在设计中要以该领域的通用严谨语言（Ubiquitous Language）为依据。<br>新建对象储存接口类AccountRepository：Repository只负责Entity对象的存储和读取，而Repository的实现类完成数据库存储的细节。通过加入Repository接口，底层的数据库连接可以通过不同的实现类而替换。</p>
+<p>具体的简单代码实现如下：</p>
+<p>Account实体类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> AccountId id;</span><br><span class="line">    <span class="keyword">private</span> AccountNumber accountNumber;</span><br><span class="line">    <span class="keyword">private</span> UserId userId;</span><br><span class="line">    <span class="keyword">private</span> Money available;</span><br><span class="line">    <span class="keyword">private</span> Money dailyLimit;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">withdraw</span><span class="params">(Money money)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 转出</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deposit</span><span class="params">(Money money)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 转入</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>和AccountRepository及MyBatis实现类：<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountRepository</span> </span>&#123;</span><br><span class="line">    <span class="function">Account <span class="title">find</span><span class="params">(AccountId id)</span></span>;</span><br><span class="line">    <span class="function">Account <span class="title">find</span><span class="params">(AccountNumber accountNumber)</span></span>;</span><br><span class="line">    <span class="function">Account <span class="title">find</span><span class="params">(UserId userId)</span></span>;</span><br><span class="line">    <span class="function">Account <span class="title">save</span><span class="params">(Account account)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountRepositoryImpl</span> <span class="keyword">implements</span> <span class="title">AccountRepository</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountMapper accountDAO;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AccountBuilder accountBuilder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Account <span class="title">find</span><span class="params">(AccountId id)</span> </span>&#123;</span><br><span class="line">        AccountDO accountDO = accountDAO.selectById(id.getValue());</span><br><span class="line">        <span class="function"><span class="keyword">return</span> accountBuilder.<span class="title">toAccount</span><span class="params">(accountDO)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Account <span class="title">find</span><span class="params">(AccountNumber accountNumber)</span> </span>&#123;</span><br><span class="line">        AccountDO accountDO = accountDAO.selectByAccountNumber(accountNumber.getValue());</span><br><span class="line">        <span class="function"><span class="keyword">return</span> accountBuilder.<span class="title">toAccount</span><span class="params">(accountDO)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Account <span class="title">find</span><span class="params">(UserId userId)</span> </span>&#123;</span><br><span class="line">        AccountDO accountDO = accountDAO.selectByUserId(userId.getId());</span><br><span class="line">        <span class="function"><span class="keyword">return</span> accountBuilder.<span class="title">toAccount</span><span class="params">(accountDO)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">Account <span class="title">save</span><span class="params">(Account account)</span> </span>&#123;</span><br><span class="line">        AccountDO accountDO = accountBuilder.fromAccount(account);</span><br><span class="line">        <span class="keyword">if</span> (accountDO.getId() == <span class="keyword">null</span>) &#123;</span><br><span class="line">            accountDAO.insert(accountDO);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            accountDAO.update(accountDO);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> accountBuilder.<span class="title">toAccount</span><span class="params">(accountDO)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Account实体类和AccountDO数据类的对比如下：</p>
+<ul>
+<li>Data Object数据类：AccountDO是单纯的和数据库表的映射关系，每个字段对应数据库表的一个column，这种对象叫Data Object。DO只有数据，没有行为。AccountDO的作用是对数据库做快速映射，避免直接在代码里写SQL。无论你用的是MyBatis还是Hibernate这种ORM，从数据库来的都应该先直接映射到DO上，但是代码里应该完全避免直接操作 DO。</li>
+<li>Entity实体类：Account 是基于领域逻辑的实体类，它的字段和数据库储存不需要有必然的联系。Entity包含数据，同时也应该包含行为。在 Account 里，字段也不仅仅是String等基础类型，而应该尽可能用上一讲的 Domain Primitive 代替，可以避免大量的校验代码。</li>
+</ul>
+<p>DAO 和 Repository 类的对比如下：</p>
+<ul>
+<li>DAO对应的是一个特定的数据库类型的操作，相当于SQL的封装。所有操作的对象都是DO类，所有接口都可以根据数据库实现的不同而改变。比如，insert 和 update 属于数据库专属的操作。</li>
+<li>Repository对应的是Entity对象读取储存的抽象，在接口层面做统一，不关注底层实现。比如，通过 save 保存一个Entity对象，但至于具体是 insert 还是 update 并不关心。Repository的具体实现类通过调用DAO来实现各种操作，通过Builder/Factory对象实现AccountDO 到 Account之间的转化</li>
+</ul>
+<h3 id="Repository和Entity"><a href="#Repository和Entity" class="headerlink" title="Repository和Entity"></a>Repository和Entity</h3><ul>
+<li>通过Account对象，避免了其他业务逻辑代码和数据库的直接耦合，避免了当数据库字段变化时，大量业务逻辑也跟着变的问题。</li>
+<li>通过Repository，改变业务代码的思维方式，让业务逻辑不再面向数据库编程，而是面向领域模型编程。</li>
+<li>Account属于一个完整的内存中对象，可以比较容易的做完整的测试覆盖，包含其行为。</li>
+<li>Repository作为一个接口类，可以比较容易的实现Mock或Stub，可以很容易测试。</li>
+<li>AccountRepositoryImpl实现类，由于其职责被单一出来，只需要关注Account到AccountDO的映射关系和Repository方法到DAO方法之间的映射关系，相对于来说更容易测试。</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1ee42f0915a33f6f000707c974792495_1440w.jpeg" alt="image"></p>
+<h2 id="抽象第三方服务"><a href="#抽象第三方服务" class="headerlink" title="抽象第三方服务"></a>抽象第三方服务</h2><p>类似对于数据库的抽象，所有第三方服务也需要通过抽象解决第三方服务不可控，入参出参强耦合的问题。在这个例子里我们抽象出 ExchangeRateService 的服务，和一个ExchangeRate的Domain Primitive类：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ExchangeRateService</span> </span>&#123;</span><br><span class="line">    <span class="function">ExchangeRate <span class="title">getExchangeRate</span><span class="params">(Currency source, Currency <span class="keyword">target</span>)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExchangeRateServiceImpl</span> <span class="keyword">implements</span> <span class="title">ExchangeRateService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> YahooForexService yahooForexService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">ExchangeRate <span class="title">getExchangeRate</span><span class="params">(Currency source, Currency <span class="keyword">target</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (source.equals(<span class="keyword">target</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ExchangeRate(BigDecimal.ONE, source, <span class="keyword">target</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        BigDecimal forex = yahooForexService.getExchangeRate(source.getValue(), <span class="keyword">target</span>.getValue());</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExchangeRate(forex, source, <span class="keyword">target</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="防腐层（ACL）"><a href="#防腐层（ACL）" class="headerlink" title="防腐层（ACL）"></a>防腐层（ACL）</h3><p>这种常见的设计模式叫做Anti-Corruption Layer（防腐层或ACL）。很多时候我们的系统会去依赖其他的系统，而被依赖的系统可能包含不合理的数据结构、API、协议或技术实现，如果对外部系统强依赖，会导致我们的系统被”腐蚀“。这个时候，通过在系统间加入一个防腐层，能够有效的隔离外部依赖和内部逻辑，无论外部如何变更，内部代码可以尽可能的保持不变。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-952c66bf1d97e78af66873dd50fe124d_1440w.jpeg" alt="image"></p>
+<p>ACL 不仅仅只是多了一层调用，在实际开发中ACL能够提供更多强大的功能：</p>
+<ul>
+<li>适配器：很多时候外部依赖的数据、接口和协议并不符合内部规范，通过适配器模式，可以将数据转化逻辑封装到ACL内部，降低对业务代码的侵入。在这个案例里，我们通过封装了ExchangeRate和Currency对象，转化了对方的入参和出参，让入参出参更符合我们的标准。</li>
+<li>缓存：对于频繁调用且数据变更不频繁的外部依赖，通过在ACL里嵌入缓存逻辑，能够有效的降低对于外部依赖的请求压力。同时，很多时候缓存逻辑是写在业务代码里的，通过将缓存逻辑嵌入ACL，能够降低业务代码的复杂度。</li>
+<li>兜底：如果外部依赖的稳定性较差，一个能够有效提升我们系统稳定性的策略是通过ACL起到兜底的作用，比如当外部依赖出问题后，返回最近一次成功的缓存或业务兜底数据。这种兜底逻辑一般都比较复杂，如果散落在核心业务代码中会很难维护，通过集中在ACL中，更加容易被测试和修改。</li>
+<li>易于测试：类似于之前的Repository，ACL的接口类能够很容易的实现Mock或Stub，以便于单元测试。</li>
+<li>功能开关：有些时候我们希望能在某些场景下开放或关闭某个接口的功能，或者让某个接口返回一个特定的值，我们可以在ACL配置功能开关来实现，而不会对真实业务代码造成影响。同时，使用功能开关也能让我们容易的实现Monkey测试，而不需要真正物理性的关闭外部依赖。</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-dbec337d0e361426cc58864e67756adb_1440w.jpeg" alt="image"></p>
+<h2 id="抽象中间件"><a href="#抽象中间件" class="headerlink" title="抽象中间件"></a>抽象中间件</h2><p>类似于2.2的第三方服务的抽象，对各种中间件的抽象的目的是让业务代码不再依赖中间件的实现逻辑。因为中间件通常需要有通用型，中间件的接口通常是String或Byte[] 类型的，导致序列化/反序列化逻辑通常和业务逻辑混杂在一起，造成胶水代码。通过中间件的ACL抽象，减少重复胶水代码。</p>
+<p>在这个案例里，我们通过封装一个抽象的AuditMessageProducer和AuditMessage DP对象，实现对底层kafka实现的隔离：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuditMessage</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> UserId userId;</span><br><span class="line">    <span class="keyword">private</span> AccountNumber source;</span><br><span class="line">    <span class="keyword">private</span> AccountNumber <span class="keyword">target</span>;</span><br><span class="line">    <span class="keyword">private</span> Money money;</span><br><span class="line">    <span class="keyword">private</span> Date date;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">serialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userId + <span class="string">","</span> + source + <span class="string">","</span> + <span class="keyword">target</span> + <span class="string">","</span> + money + <span class="string">","</span> + date;   </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function">AuditMessage <span class="title">deserialize</span><span class="params">(String value)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// todo</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AuditMessageProducer</span> </span>&#123;</span><br><span class="line">    <span class="function">SendResult <span class="title">send</span><span class="params">(AuditMessage message)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuditMessageProducerImpl</span> <span class="keyword">implements</span> <span class="title">AuditMessageProducer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TOPIC_AUDIT_LOG = <span class="string">"TOPIC_AUDIT_LOG"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> KafkaTemplate&lt;String, String&gt; kafkaTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function">SendResult <span class="title">send</span><span class="params">(AuditMessage message)</span> </span>&#123;</span><br><span class="line">        String messageBody = message.serialize();</span><br><span class="line">        kafkaTemplate.send(TOPIC_AUDIT_LOG, messageBody);</span><br><span class="line">        <span class="function"><span class="keyword">return</span> SendResult.<span class="title">success</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-24099ac4f31bf9472bcf8b19ffaf48ab_1440w.jpeg" alt="image"></p>
+<h2 id="封装业务逻辑"><a href="#封装业务逻辑" class="headerlink" title="封装业务逻辑"></a>封装业务逻辑</h2><h3 id="用Domain-Primitive封装跟实体无关的无状态计算逻辑"><a href="#用Domain-Primitive封装跟实体无关的无状态计算逻辑" class="headerlink" title="用Domain Primitive封装跟实体无关的无状态计算逻辑"></a>用Domain Primitive封装跟实体无关的无状态计算逻辑</h3><p>在这个案例里使用ExchangeRate来封装汇率计算逻辑：<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BigDecimal </span>exchangeRate = <span class="keyword">BigDecimal.ONE;</span></span><br><span class="line"><span class="keyword">if </span>(sourceAccountDO.getCurrency().equals(targetCurrency)) &#123;</span><br><span class="line">    exchangeRate = yahooForex.getExchangeRate(sourceAccountDO.getCurrency(), targetCurrency)<span class="comment">;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">BigDecimal </span>sourceAmount = targetAmount.<span class="keyword">divide(exchangeRate, </span>RoundingMode.DOWN)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<p>变为：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ExchangeRate exchangeRate</span> = exchangeRateService.getExchangeRate(sourceAccount.getCurrency(), targetMoney.getCurrency());</span><br><span class="line"><span class="attribute">Money sourceMoney</span> = exchangeRate.exchangeTo(targetMoney);</span><br></pre></td></tr></table></figure></p>
+<h3 id="用Entity封装单对象的有状态的行为，包括业务校验"><a href="#用Entity封装单对象的有状态的行为，包括业务校验" class="headerlink" title="用Entity封装单对象的有状态的行为，包括业务校验"></a>用Entity封装单对象的有状态的行为，包括业务校验</h3><p>用Account实体类封装所有Account的行为，包括业务校验如下：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line"><span class="keyword">public</span> class Account &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AccountId id;</span><br><span class="line">    <span class="keyword">private</span> AccountNumber accountNumber;</span><br><span class="line">    <span class="keyword">private</span> UserId userId;</span><br><span class="line">    <span class="keyword">private</span> Money <span class="built_in">available</span>;</span><br><span class="line">    <span class="keyword">private</span> Money dailyLimit;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Currency getCurrency() &#123;</span><br><span class="line">        <span class="built_in">return</span> <span class="keyword">this</span>.<span class="built_in">available</span>.getCurrency();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 转入</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> deposit(Money money) &#123;</span><br><span class="line">        <span class="built_in">if</span> (!<span class="keyword">this</span>.getCurrency().equals(money.getCurrency())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCurrencyException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.<span class="built_in">available</span> = <span class="keyword">this</span>.<span class="built_in">available</span>.add(money);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 转出</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> withdraw(Money money) &#123;</span><br><span class="line">        <span class="built_in">if</span> (<span class="keyword">this</span>.<span class="built_in">available</span>.compareTo(money) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InsufficientFundsException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">if</span> (<span class="keyword">this</span>.dailyLimit.compareTo(money) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> DailyLimitExceededException();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.<span class="built_in">available</span> = <span class="keyword">this</span>.<span class="built_in">available</span>.subtract(money);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原有的业务代码则可以简化为：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sourceAccount.deposit(sourceMoney)<span class="comment">;</span></span><br><span class="line">targetAccount.withdraw(targetMoney)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="用Domain-Service封装多对象逻辑"><a href="#用Domain-Service封装多对象逻辑" class="headerlink" title="用Domain Service封装多对象逻辑"></a>用Domain Service封装多对象逻辑</h3><p>在这个案例里，我们发现这两个账号的转出和转入实际上是一体的，也就是说这种行为应该被封装到一个对象中去。特别是考虑到未来这个逻辑可能会产生变化：比如增加一个扣手续费的逻辑。这个时候在原有的TransferService中做并不合适，在任何一个Entity或者Domain Primitive里也不合适，需要有一个新的类去包含跨域对象的行为。这种对象叫做Domain Service。</p>
+<p>我们创建一个AccountTransferService的类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AccountTransferService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Account sourceAccount, Account targetAccount, Money targetMoney, ExchangeRate exchangeRate)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AccountTransferServiceImpl</span> <span class="keyword">implements</span> <span class="title">AccountTransferService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExchangeRateService exchangeRateService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Account sourceAccount, Account targetAccount, Money targetMoney, ExchangeRate exchangeRate)</span> </span>&#123;</span><br><span class="line">        Money sourceMoney = exchangeRate.exchangeTo(targetMoney);</span><br><span class="line">        sourceAccount.deposit(sourceMoney);</span><br><span class="line">        targetAccount.withdraw(targetMoney);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而原始代码则简化为一行：<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accountTransferService.<span class="built_in">transfer</span>(sourceAccount, targetAccount, targetMoney, exchangeRate);</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-14d91a1f537b39307cf72a437ff3c60f_1440w.jpeg" alt="image"></p>
+<h2 id="重构后结果分析"><a href="#重构后结果分析" class="headerlink" title="重构后结果分析"></a>重构后结果分析</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TransferServiceImplNew</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">TransferService</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AccountRepository accountRepository;</span><br><span class="line">    <span class="keyword">private</span> AuditMessageProducer auditMessageProducer;</span><br><span class="line">    <span class="keyword">private</span> ExchangeRateService exchangeRateService;</span><br><span class="line">    <span class="keyword">private</span> AccountTransferService accountTransferService;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> Result&lt;Boolean&gt; transfer(Long sourceUserId, <span class="keyword">String</span> targetAccountNumber, BigDecimal targetAmount, <span class="keyword">String</span> targetCurrency) &#123;</span><br><span class="line">        <span class="comment">// 参数校验</span></span><br><span class="line">        Money targetMoney = <span class="keyword">new</span> <span class="type">Money</span>(targetAmount, <span class="keyword">new</span> <span class="type">Currency</span>(targetCurrency));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 读数据</span></span><br><span class="line">        Account sourceAccount = accountRepository.find(<span class="keyword">new</span> <span class="type">UserId</span>(sourceUserId));</span><br><span class="line">        Account targetAccount = accountRepository.find(<span class="keyword">new</span> <span class="type">AccountNumber</span>(targetAccountNumber));</span><br><span class="line">        ExchangeRate exchangeRate = exchangeRateService.getExchangeRate(sourceAccount.getCurrency(), targetMoney.getCurrency());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 业务逻辑</span></span><br><span class="line">        accountTransferService.transfer(sourceAccount, targetAccount, targetMoney, exchangeRate);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 保存数据</span></span><br><span class="line">        accountRepository.save(sourceAccount);</span><br><span class="line">        accountRepository.save(targetAccount);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送审计消息</span></span><br><span class="line">        AuditMessage message = <span class="keyword">new</span> <span class="type">AuditMessage</span>(sourceAccount, targetAccount, targetMoney);</span><br><span class="line">        auditMessageProducer.send(message);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Result.success(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出来，经过重构后的代码有以下几个特征：</p>
+<ul>
+<li>业务逻辑清晰，数据存储和业务逻辑完全分隔。</li>
+<li>Entity、Domain Primitive、Domain Service都是独立的对象，没有任何外部依赖，但是却包含了所有核心业务逻辑，可以单独完整测试。</li>
+<li>原有的TransferService不再包括任何计算逻辑，仅仅作为组件编排，所有逻辑均delegate到其他组件。这种仅包含Orchestration（编排）的服务叫做Application Service（应用服务）。</li>
+</ul>
+<p>我们可以根据新的结构重新画一张图：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-44ebd98e1697c75e119aa1d94a8f7768_1440w.jpeg" alt="image"></p>
+<p>然后通过重新编排后该图变为：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-5182bc6ecf7fe977b5968d9181a414aa_1440w.jpeg" alt="image"></p>
+<p>我们可以发现，通过对外部依赖的抽象和内部逻辑的封装重构，应用整体的依赖关系变了：</p>
+<ul>
+<li>最底层不再是数据库，而是Entity、Domain Primitive和Domain Service。这些对象不依赖任何外部服务和框架，而是纯内存中的数据和操作。这些对象我们打包为Domain Layer（领域层）。领域层没有任何外部依赖关系。</li>
+<li>再其次的是负责组件编排的Application Service，但是这些服务仅仅依赖了一些抽象出来的ACL类和Repository类，而其具体实现类是通过依赖注入注进来的。Application Service、Repository、ACL等我们统称为Application Layer（应用层）。应用层 依赖 领域层，但不依赖具体实现。</li>
+<li>最后是ACL，Repository等的具体实现，这些实现通常依赖外部具体的技术实现和框架，所以统称为Infrastructure Layer（基础设施层）。Web框架里的对象如Controller之类的通常也属于基础设施层。</li>
+<li></li>
+</ul>
+<p>如果今天能够重新写这段代码，考虑到最终的依赖关系，我们可能先写Domain层的业务逻辑，然后再写Application层的组件编排，最后才写每个外部依赖的具体实现。这种架构思路和代码组织结构就叫做Domain-Driven Design（领域驱动设计，或DDD）。所以DDD不是一个特殊的架构设计，而是所有Transction Script代码经过合理重构后一定会抵达的终点。</p>
+<h2 id="DDD的六边形架构"><a href="#DDD的六边形架构" class="headerlink" title="DDD的六边形架构"></a>DDD的六边形架构</h2><p>在我们传统的代码里，我们一般都很注重每个外部依赖的实现细节和规范，但是今天我们需要敢于抛弃掉原有的理念，重新审视代码结构。在上面重构的代码里，如果抛弃掉所有Repository、ACL、Producer等的具体实现细节，我们会发现每一个对外部的抽象类其实就是输入或输出，类似于计算机系统中的I/O节点。这个观点在CQRS架构中也同样适用，将所有接口分为Command（输入）和Query（输出）两种。除了I/O之外其他的内部逻辑，就是应用业务的核心逻辑。基于这个基础，Alistair Cockburn在2005年提出了Hexagonal Architecture（六边形架构），又被称之为Ports and Adapters（端口和适配器架构）。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-11af1ddff05b42025e83e204e71c9a5b_1440w.png" alt="image"></p>
+<p>在这张图中：</p>
+<ul>
+<li>I/O的具体实现在模型的最外层</li>
+<li>每个I/O的适配器在灰色地带</li>
+<li>每个Hex的边是一个端口</li>
+<li>Hex的中央是应用的核心领域模型</li>
+</ul>
+<p>在Hex中，架构的组织关系第一次变成了一个二维的内外关系，而不是传统一维的上下关系。同时在Hex架构中我们第一次发现UI层、DB层、和各种中间件层实际上是没有本质上区别的，都只是数据的输入和输出，而不是在传统架构中的最上层和最下层。</p>
+<p>除了2005年的Hex架构，2008年 Jeffery Palermo的Onion Architecture（洋葱架构）和2017年 Robert Martin的Clean Architecture（干净架构），都是极为类似的思想。除了命名不一样、切入点不一样之外，其他的整体架构都是基于一个二维的内外关系。这也说明了基于DDD的架构最终的形态都是类似的。Herberto Graca有一个很全面的图包含了绝大部分现实中的端口类，值得借鉴。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-9e83433ede22b4d45e08c067b02e661f_1440w.jpeg" alt="image"></p>
+<h3 id="代码组织结构"><a href="#代码组织结构" class="headerlink" title="代码组织结构"></a>代码组织结构</h3><p>为了有效的组织代码结构，避免下层代码依赖到上层实现的情况，在Java中我们可以通过POM Module和POM依赖来处理相互的关系。通过Spring/SpringBoot的容器来解决运行时动态注入具体实现的依赖的问题。一个简单的依赖关系图如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/123312kjsalkdkal.jpeg" alt="image"></p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b3d0dccea152b7e846dc60ca3d615093_1440w.jpeg" alt="image"></p>
+<h4 id="Types-模块"><a href="#Types-模块" class="headerlink" title="Types 模块"></a>Types 模块</h4><p>Types模块是保存可以对外暴露的Domain Primitives的地方。Domain Primitives因为是无状态的逻辑，可以对外暴露，所以经常被包含在对外的API接口中，需要单独成为模块。Types模块不依赖任何类库，纯 POJO 。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-59a53da7e651770e2e1d96bafdf6a503_1440w.jpeg" alt="image"></p>
+<h4 id="Domain-模块"><a href="#Domain-模块" class="headerlink" title="Domain 模块"></a>Domain 模块</h4><p>Domain 模块是核心业务逻辑的集中地，包含有状态的Entity、领域服务Domain Service、以及各种外部依赖的接口类（如Repository、ACL、中间件等。Domain模块仅依赖Types模块，也是纯 POJO 。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1c36105863c3f5187260a02548dd813b_1440w.jpeg" alt="image"></p>
+<h4 id="Application模块"><a href="#Application模块" class="headerlink" title="Application模块"></a>Application模块</h4><p>Application模块主要包含Application Service和一些相关的类。Application模块依赖Domain模块。还是不依赖任何框架，纯POJO。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b9a185f16cd6203796b582e7c43479d3_1440w.jpeg" alt="image"></p>
+<h4 id="Infrastructure模块"><a href="#Infrastructure模块" class="headerlink" title="Infrastructure模块"></a>Infrastructure模块</h4><p>Infrastructure模块包含了Persistence、Messaging、External等模块。比如：Persistence模块包含数据库DAO的实现，包含Data Object、ORM Mapper、Entity到DO的转化类等。Persistence模块要依赖具体的ORM类库，比如MyBatis。如果需要用Spring-Mybatis提供的注解方案，则需要依赖Spring。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-31fb63320e200bd58ec087ba4cab195d_1440w.jpeg" alt="image"></p>
+<h4 id="Web模块"><a href="#Web模块" class="headerlink" title="Web模块"></a>Web模块</h4><p>Web模块包含Controller等相关代码。如果用SpringMVC则需要依赖Spring。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-71623c8f80edb4f7a6a0bceb8ebe85f5_1440w.jpeg" alt="image"></p>
+<h4 id="Start模块"><a href="#Start模块" class="headerlink" title="Start模块"></a>Start模块</h4><p>Start模块是SpringBoot的启动类。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><ul>
+<li>Types，Domain模块都属于无外部依赖的纯POJO，基本上都可以100%的被单元测试覆盖。</li>
+<li>Application模块的代码依赖外部抽象类，需要通过测试框架去Mock所有外部依赖，但仍然可以100%被单元测试。</li>
+<li>Infrastructure的每个模块的代码相对独立，接口数量比较少，相对比较容易写单测。但是由于依赖了外部I/O，速度上不可能很快，但好在模块的变动不会很频繁，属于一劳永逸。</li>
+<li>Web模块有两种测试方法：通过Spring的MockMVC测试，或者通过HttpClient调用接口测试。但是在测试时最好把Controller依赖的服务类都Mock掉。一般来说当你把Controller的逻辑都后置到Application Service中时，Controller的逻辑变得极为简单，很容易100%覆盖。</li>
+<li>Start模块：通常应用的集成测试写在start里。当其他模块的单元测试都能100%覆盖后，集成测试用来验证整体链路的真实性。</li>
+</ul>
+<h2 id="代码的演进-变化速度"><a href="#代码的演进-变化速度" class="headerlink" title="代码的演进/变化速度"></a>代码的演进/变化速度</h2><p>在传统架构中，代码从上到下的变化速度基本上是一致的，改个需求需要从接口、到业务逻辑、到数据库全量变更，而第三方变更可能会导致整个代码的重写。但是在DDD中不同模块的代码的演进速度是不一样的：</p>
+<ul>
+<li>Domain层属于核心业务逻辑，属于经常被修改的地方。比如：原来不需要扣手续费，现在需要了之类的。通过Entity能够解决基于单个对象的逻辑变更，通过Domain Service解决多个对象间的业务逻辑变更。</li>
+<li>Application层属于Use Case（业务用例）。业务用例一般都是描述比较大方向的需求，接口相对稳定，特别是对外的接口一般不会频繁变更。添加业务用例可以通过新增Application Service或者新增接口实现功能的扩展。</li>
+<li>Infrastructure层属于最低频变更的。一般这个层的模块只有在外部依赖变更了之后才会跟着升级，而外部依赖的变更频率一般远低于业务逻辑的变更频率。<br>所以在DDD架构中，能明显看出越外层的代码越稳定，越内层的代码演进越快，真正体现了领域“驱动”的核心思想。</li>
+</ul>
+<h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>DDD不是一个什么特殊的架构，而是任何传统代码经过合理的重构之后最终一定会抵达的终点。DDD的架构能够有效的解决传统架构中的问题：</p>
+<ul>
+<li>高可维护性：当外部依赖变更时，内部代码只用变更跟外部对接的模块，其他业务逻辑不变。</li>
+<li>高可扩展性：做新功能时，绝大部分的代码都能复用，仅需要增加核心业务逻辑即可。</li>
+<li>高可测试性：每个拆分出来的模块都符合单一性原则，绝大部分不依赖框架，可以快速的单元测试，做到100%覆盖。</li>
+<li>代码结构清晰：通过POM module可以解决模块间的依赖关系， 所有外接模块都可以单独独立成Jar包被复用。当团队形成规范后，可以快速的定位到相关代码。</li>
+</ul>
+<h1 id="Repository模式"><a href="#Repository模式" class="headerlink" title="Repository模式"></a>Repository模式</h1><p>为什么要用 Repository</p>
+<blockquote>
+<p>实体模型 vs. 贫血模型</p>
+</blockquote>
+<p>Entity（实体）这个词在计算机领域的最初应用可能是来自于Peter Chen在1976年的“The Entity-Relationship Model - Toward a Unified View of Data”（ER模型），用来描述实体之间的关系，而ER模型后来逐渐的演变成为一个数据模型，在关系型数据库中代表了数据的储存方式。而2006年的JPA标准，通过@Entity等注解，以及Hibernate等ORM框架的实现，让很多Java开发对Entity的理解停留在了数据映射层面，忽略了Entity实体的本身行为，造成今天很多的模型仅包含了实体的数据和属性，而所有的业务逻辑都被分散在多个服务、Controller、Utils工具类中，这个就是Martin Fowler所说的的Anemic Domain Model（贫血领域模型）。如何知道你的模型是贫血的呢？可以看一下你代码中是否有以下的几个特征：</p>
+<ul>
+<li>有大量的XxxDO对象：这里DO虽然有时候代表了Domain Object，但实际上仅仅是数据库表结构的映射，里面没有包含（或包含了很少的）业务逻辑；</li>
+<li>服务和Controller里有大量的业务逻辑：比如校验逻辑、计算逻辑、格式转化逻辑、对象关系逻辑、数据存储逻辑等；</li>
+<li>大量的Utils工具类等。</li>
+</ul>
+<p>而贫血模型的缺陷是非常明显的：</p>
+<ul>
+<li>无法保护模型对象的完整性和一致性：因为对象的所有属性都是公开的，只能由调用方来维护模型的一致性，而这个是没有保障的；之前曾经出现的案例就是调用方没有能维护模型数据的一致性，导致脏数据使用时出现bug，这一类的 bug还特别隐蔽，很难排查到。</li>
+<li>对象操作的可发现性极差：单纯从对象的属性上很难看出来都有哪些业务逻辑，什么时候可以被调用，以及可以赋值的边界是什么；比如说，Long类型的值是否可以是0或者负数？</li>
+<li>代码逻辑重复：比如校验逻辑、计算逻辑，都很容易出现在多个服务、多个代码块里，提升维护成本和bug出现的概率；一类常见的bug就是当贫血模型变更后，校验逻辑由于出现在多个地方，没有能跟着变，导致校验失败或失效。</li>
+<li>代码的健壮性差：比如一个数据模型的变化可能导致从上到下的所有代码的变更。</li>
+<li>强依赖底层实现：业务代码里强依赖了底层数据库、网络/中间件协议、第三方服务等，造成核心逻辑代码的僵化且维护成本高。</li>
+</ul>
+<p>虽然贫血模型有很大的缺陷，但是在我们日常的代码中，我见过的99%的代码都是基于贫血模型，为什么呢？我总结了以下几点：</p>
+<ul>
+<li>数据库思维：从有了数据库的那一天起，开发人员的思考方式就逐渐从“写业务逻辑“转变为了”写数据库逻辑”，也就是我们经常说的在写CRUD代码。</li>
+<li>贫血模型“简单”：贫血模型的优势在于“简单”，仅仅是对数据库表的字段映射，所以可以从前到后用统一格式串通。这里简单打了引号，是因为它只是表面上的简单，实际上当未来有模型变更时，你会发现其实并不简单，每次变更都是非常复杂的事情</li>
+<li>脚本思维：很多常见的代码都属于“脚本”或“胶水代码”，也就是流程式代码。脚本代码的好处就是比较容易理解，但长久来看缺乏健壮性，维护成本会越来越高。</li>
+</ul>
+<p>但是可能最核心的原因在于，实际上我们在日常开发中，混淆了两个概念：</p>
+<ul>
+<li>数据模型（Data Model）：指业务数据该如何持久化，以及数据之间的关系，也就是传统的ER模型；</li>
+<li>业务模型/领域模型（Domain Model）：指业务逻辑中，相关联的数据该如何联动。</li>
+</ul>
+<p>所以，解决这个问题的根本方案，就是要在代码里严格区分Data Model和Domain Model，具体的规范会在后文详细描述。在真实代码结构中，Data Model和 Domain Model实际上会分别在不同的层里，Data Model只存在于数据层，而Domain Model在领域层，而链接了这两层的关键对象，就是Repository。</p>
+<blockquote>
+<p>Repository的价值</p>
+</blockquote>
+<p>在传统的数据库驱动开发中，我们会对数据库操作做一个封装，一般叫做Data Access Object（DAO）。DAO的核心价值是封装了拼接SQL、维护数据库连接、事务等琐碎的底层逻辑，让业务开发可以专注于写代码。但是在本质上，DAO的操作还是数据库操作，DAO的某个方法还是在直接操作数据库和数据模型，只是少写了部分代码。在Uncle Bob的《代码整洁之道》一书里，作者用了一个非常形象的描述：</p>
+<ul>
+<li>硬件（Hardware）：指创造了之后不可（或者很难）变更的东西。数据库对于开发来说，就属于”硬件“，数据库选型后基本上后面不会再变，比如：用了MySQL就很难再改为MongoDB，改造成本过高。</li>
+<li>软件（Software）：指创造了之后可以随时修改的东西。对于开发来说，业务代码应该追求做”软件“，因为业务流程、规则在不停的变化，我们的代码也应该能随时变化。</li>
+<li>固件（Firmware）：即那些强烈依赖了硬件的软件。我们常见的是路由器里的固件或安卓的固件等等。固件的特点是对硬件做了抽象，但仅能适配某款硬件，不能通用。所以今天不存在所谓的通用安卓固件，而是每个手机都需要有自己的固件。</li>
+<li></li>
+</ul>
+<p>从上面的描述我们能看出来，数据库在本质上属于”硬件“，DAO 在本质上属于”固件“，而我们自己的代码希望是属于”软件“。但是，固件有个非常不好的特性，那就是会传播，也就是说当一个软件强依赖了固件时，由于固件的限制，会导致软件也变得难以变更，最终让软件变得跟固件一样难以变更。</p>
+<h2 id="模型对象代码规范"><a href="#模型对象代码规范" class="headerlink" title="模型对象代码规范"></a>模型对象代码规范</h2><p>这边要解决这个问题，首先要指定编码规约</p>
+<blockquote>
+<p>对象类型</p>
+</blockquote>
+<p>在讲Repository规范之前，我们需要先讲清楚3种模型的区别，Entity、Data Object (DO)和Data Transfer Object (DTO)：</p>
+<ul>
+<li>Data Object （DO、数据对象）：实际上是我们在日常工作中最常见的数据模型。但是在DDD的规范里，DO应该仅仅作为数据库物理表格的映射，不能参与到业务逻辑中。为了简单明了，DO的字段类型和名称应该和数据库物理表格的字段类型和名称一一对应，这样我们不需要去跑到数据库上去查一个字段的类型和名称。（当然，实际上也没必要一摸一样，只要你在Mapper那一层做到字段映射）</li>
+<li>Entity（实体对象）：实体对象是我们正常业务应该用的业务模型，它的字段和方法应该和业务语言保持一致，和持久化方式无关。也就是说，Entity和DO很可能有着完全不一样的字段命名和字段类型，甚至嵌套关系。Entity的生命周期应该仅存在于内存中，不需要可序列化和可持久化。</li>
+<li>DTO（传输对象）：主要作为Application层的入参和出参，比如CQRS里的Command、Query、Event，以及Request、Response等都属于DTO的范畴。DTO的价值在于适配不同的业务场景的入参和出参，避免让业务对象变成一个万能大对象。</li>
+</ul>
+<h2 id="模型所在模块和转化器"><a href="#模型所在模块和转化器" class="headerlink" title="模型所在模块和转化器"></a>模型所在模块和转化器</h2><p>于现在从一个对象变为3+个对象，对象间需要通过转化器（Converter/Mapper）来互相转化。而这三种对象在代码中所在的位置也不一样，简单总结如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/v2-93a7e4f3d3bda78cf8ba33411a5d3e2d_1440w.jpeg" alt="image"></p>
+<blockquote>
+<p>这边DO结尾的文件是跟数据库一一对应的，DTO是跟前端或者其他系统协商的，只有DTO需要序列化，Entity是不固定的，实际的属性设置是根据业务来的。这边我推荐用一个mapper层，所有文件都以Mapper结尾，在Mapper层做转换，这边具体的转换用一个工具很好用，叫MapStruct。</p>
+</blockquote>
+<p>从使用复杂度角度来看，区分了DO、Entity、DTO带来了代码量的膨胀（从1个变成了3+2+N个）。但是在实际复杂业务场景下，通过功能来区分模型带来的价值是功能性的单一和可测试、可预期，最终反而是逻辑复杂性的降低。</p>
+<p>我自己的项目因为是简单的业务模型，所以用了通用的贫血模型，规范的项目目录结构如下所示（这边缺少了entity和防腐层的设计）：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG629.png" alt="image"></p>
+<h1 id="DDD领域层的一些设计规范"><a href="#DDD领域层的一些设计规范" class="headerlink" title="DDD领域层的一些设计规范"></a>DDD领域层的一些设计规范</h1><p>上面我主要针对同一个例子对比了OOP、ECS和DDD的3种实现，比较如下：</p>
+<ul>
+<li>基于继承关系的OOP代码：OOP的代码最好写，也最容易理解，所有的规则代码都写在对象里，但是当领域规则变得越来越复杂时，其结构会限制它的发展。新的规则有可能会导致代码的整体重构。</li>
+<li>基于组件化的ECS代码：ECS代码有最高的灵活性、可复用性、及性能，但极具弱化了实体类的内聚，所有的业务逻辑都写在了服务里，会导致业务的一致性无法保障，对商业系统会有较大的影响。</li>
+<li>基于领域对象 + 领域服务的DDD架构：DDD的规则其实最复杂，同时要考虑到实体类的内聚和保证不变性（Invariants），也要考虑跨对象规则代码的归属，甚至要考虑到具体领域服务的调用方式，理解成本比较高。</li>
+</ul>
+<h2 id="实体类（Entity）"><a href="#实体类（Entity）" class="headerlink" title="实体类（Entity）"></a>实体类（Entity）</h2><p>大多数DDD架构的核心都是实体类，实体类包含了一个领域里的状态、以及对状态的直接操作。Entity最重要的设计原则是保证实体的不变性（Invariants），也就是说要确保无论外部怎么操作，一个实体内部的属性都不能出现相互冲突，状态不一致的情况。所以几个设计原则如下：</p>
+<p>创建即一致<br>在贫血模型里，通常见到的代码是一个模型通过手动new出来之后，由调用方一个参数一个参数的赋值，这就很容易产生遗漏，导致实体状态不一致。所以DDD里实体创建的方法有两种：</p>
+<p>constructor参数要包含所有必要属性，或者在constructor里有合理的默认值。</p>
+<blockquote>
+<p>使用Factory模式来降低调用方复杂度</p>
+</blockquote>
+<h3 id="尽量避免public-setter"><a href="#尽量避免public-setter" class="headerlink" title="尽量避免public setter"></a>尽量避免public setter</h3><p>一个最容易导致不一致性的原因是实体暴露了public的setter方法，特别是set单一参数会导致状态不一致的情况。比如，一个订单可能包含订单状态（下单、已支付、已发货、已收货）、支付单、物流单等子实体，如果一个调用方能随意去set订单状态，就有可能导致订单状态和子实体匹配不上，导致业务流程走不通的情况。所以在实体里，需要通过行为方法来修改内部状态。</p>
+<h3 id="通过聚合根保证主子实体的一致性"><a href="#通过聚合根保证主子实体的一致性" class="headerlink" title="通过聚合根保证主子实体的一致性"></a>通过聚合根保证主子实体的一致性</h3><p>在稍微复杂一点的领域里，通常主实体会包含子实体，这时候主实体就需要起到聚合根的作用，即：</p>
+<ul>
+<li>子实体不能单独存在，只能通过聚合根的方法获取到。任何外部的对象都不能直接保留子实体的引用</li>
+<li>子实体没有独立的Repository，不可以单独保存和取出，必须要通过聚合根的Repository实例化</li>
+<li>子实体可以单独修改自身状态，但是多个子实体之间的状态一致性需要聚合根来保障</li>
+</ul>
+<p>常见的电商域中聚合的案例如主子订单模型、商品/SKU模型、跨子订单优惠、跨店优惠模型等。很多聚合根和Repository的设计规范在我前面一篇关于Repository的文章中已经详细解释过，可以拿来参考。</p>
+<h3 id="不可以强依赖其他聚合根实体或领域服务"><a href="#不可以强依赖其他聚合根实体或领域服务" class="headerlink" title="不可以强依赖其他聚合根实体或领域服务"></a>不可以强依赖其他聚合根实体或领域服务</h3><p>一个实体的原则是高内聚、低耦合，即一个实体类不能直接在内部直接依赖一个外部的实体或服务。这个原则和绝大多数ORM框架都有比较严重的冲突，所以是一个在开发过程中需要特别注意的。这个原则的必要原因包括：对外部对象的依赖性会直接导致实体无法被单测；以及一个实体无法保证外部实体变更后不会影响本实体的一致性和正确性。</p>
+<p>所以，正确的对外部依赖的方法有两种：</p>
+<ul>
+<li>只保存外部实体的ID：这里我再次强烈建议使用强类型的ID对象，而不是Long型ID。强类型的ID对象不单单能自我包含验证代码，保证ID值的正确性，同时还能确保各种入参不会因为参数顺序变化而出bug。具体可以参考Domain Primitive。</li>
+<li>针对于“无副作用”的外部依赖，通过方法入参的方式传入。比如上文中的equip(Weapon，EquipmentService）方法。</li>
+</ul>
+<p>如果方法对外部依赖有副作用，不能通过方法入参的方式，只能通过Domain Service解决，见下文。</p>
+<h3 id="任何实体的行为只能直接影响到本实体（和其子实体）"><a href="#任何实体的行为只能直接影响到本实体（和其子实体）" class="headerlink" title="任何实体的行为只能直接影响到本实体（和其子实体）"></a>任何实体的行为只能直接影响到本实体（和其子实体）</h3><p>这个原则更多是一个确保代码可读性、可理解的原则，即任何实体的行为不能有“直接”的”副作用“，即直接修改其他的实体类。这么做的好处是代码读下来不会产生意外。</p>
+<p>另一个遵守的原因是可以降低未知的变更的风险。在一个系统里一个实体对象的所有变更操作应该都是预期内的，如果一个实体能随意被外部直接修改的话，会增加代码bug的风险。</p>
+<h2 id="领域服务（Domain-Service）"><a href="#领域服务（Domain-Service）" class="headerlink" title="领域服务（Domain Service）"></a>领域服务（Domain Service）</h2><p>在上文讲到，领域服务其实也分很多种，在这里根据上文总结出来三种常见的：</p>
+<h3 id="单对象策略型"><a href="#单对象策略型" class="headerlink" title="单对象策略型"></a>单对象策略型</h3><p>这种领域对象主要面向的是单个实体对象的变更，但涉及到多个领域对象或外部依赖的一些规则。在上文中，EquipmentService即为此类：</p>
+<ul>
+<li>变更的对象是Player的参数</li>
+<li>读取的是Player和Weapon的数据，可能还包括从外部读取一些数据</li>
+</ul>
+<p>在这种类型下，实体应该通过方法入参的方式传入这种领域服务，然后通过Double Dispatch来反转调用领域服务的方法。</p>
+<h3 id="跨对象事务型"><a href="#跨对象事务型" class="headerlink" title="跨对象事务型"></a>跨对象事务型</h3><p>当一个行为会直接修改多个实体时，不能再通过单一实体的方法作处理，而必须直接使用领域服务的方法来做操作。在这里，领域服务更多的起到了跨对象事务的作用，确保多个实体的变更之间是有一致性的。</p>
+<h3 id="通用组件型"><a href="#通用组件型" class="headerlink" title="通用组件型"></a>通用组件型</h3><p>这种类型的领域服务更像ECS里的System，提供了组件化的行为，但本身又不直接绑死在一种实体类上。</p>
+<h2 id="策略对象（Domain-Policy）"><a href="#策略对象（Domain-Policy）" class="headerlink" title="策略对象（Domain Policy）"></a>策略对象（Domain Policy）</h2><p>Policy或者Strategy设计模式是一个通用的设计模式，但是在DDD架构中会经常出现，其核心就是封装领域规则。</p>
+<p>一个Policy是一个无状态的单例对象，通常需要至少2个方法：canApply 和 一个业务方法。其中，canApply方法用来判断一个Policy是否适用于当前的上下文，如果适用则调用方会去触发业务方法。通常，为了降低一个Policy的可测试性和复杂度，Policy不应该直接操作对象，而是通过返回计算后的值，在Domain Service里对对象进行操作。</p>
+<p>除了本文里静态注入多个Policy以及手动排优先级之外，在日常开发中经常能见到通过Java的SPI机制或类SPI机制注册Policy，以及通过不同的Priority方案对Policy进行排序，在这里就不作太多的展开了。</p>
+<h2 id="领域事件介绍"><a href="#领域事件介绍" class="headerlink" title="领域事件介绍"></a>领域事件介绍</h2><p>领域事件是一个在领域里发生了某些事后，希望领域里其他对象能够感知到的通知机制。在上面的案例里，代码之所以会越来越复杂，其根本的原因是反应代码（比如升级）直接和上面的事件触发条件（比如收到经验）直接耦合，而且这种耦合性是隐性的。领域事件的好处就是将这种隐性的副作用“显性化”，通过一个显性的事件，将事件触发和事件处理解耦，最终起到代码更清晰、扩展性更好的目的。</p>
+<p>所以，领域事件是在DDD里，比较推荐使用的跨实体“副作用”传播机制。</p>
+<h3 id="领域事件实现"><a href="#领域事件实现" class="headerlink" title="领域事件实现"></a>领域事件实现</h3><p>和消息队列中间件不同的是，领域事件通常是立即执行的、在同一个进程内、可能是同步或异步。我们可以通过一个EventBus来实现进程内的通知机制，简单实现如下：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现者：瑜进 2019/11/28</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventBus</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册器</span></span><br><span class="line">    @Getter</span><br><span class="line">    <span class="keyword">private</span> final EventRegistry invokerRegistry = <span class="keyword">new</span> EventRegistry(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 事件分发器</span></span><br><span class="line">    <span class="keyword">private</span> final EventDispatcher dispatcher = <span class="keyword">new</span> EventDispatcher(ExecutorFactory.getDirectExecutor());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异步事件分发器</span></span><br><span class="line">    <span class="keyword">private</span> final EventDispatcher asyncDispatcher = <span class="keyword">new</span> EventDispatcher(ExecutorFactory.getThreadPoolExecutor());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 事件分发</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> boolean <span class="title">dispatch</span>(<span class="params">Event <span class="keyword">event</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dispatch(<span class="keyword">event</span>, dispatcher);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 异步事件分发</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> boolean <span class="title">dispatchAsync</span>(<span class="params">Event <span class="keyword">event</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> dispatch(<span class="keyword">event</span>, asyncDispatcher);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 内部事件分发</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> boolean <span class="title">dispatch</span>(<span class="params">Event <span class="keyword">event</span>, EventDispatcher dispatcher</span>) </span>&#123;</span><br><span class="line">        checkEvent(<span class="keyword">event</span>);</span><br><span class="line">        <span class="comment">// 1.获取事件数组</span></span><br><span class="line">        Set&lt;Invoker&gt; invokers = invokerRegistry.getInvokers(<span class="keyword">event</span>);</span><br><span class="line">        <span class="comment">// 2.一个事件可以被监听N次，不关心调用结果</span></span><br><span class="line">        dispatcher.dispatch(<span class="keyword">event</span>, invokers);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 事件总线注册</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span>(<span class="params">Object listener</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (listener == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"listener can not be null!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        invokerRegistry.register(listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkEvent</span>(<span class="params">Event <span class="keyword">event</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">event</span> == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"event"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">event</span> instanceof Event)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Event type must by "</span> + Event.class);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用方式：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LevelUpEvent</span> <span class="title">implements</span> <span class="title">Event</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Player player;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">LevelUpHandler</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span>(<span class="params">Player player</span>)</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Player</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receiveExp</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exp += <span class="keyword">value</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.exp &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">            LevelUpEvent <span class="keyword">event</span> = <span class="keyword">new</span> LevelUpEvent(<span class="keyword">this</span>);</span><br><span class="line">            EventBus.dispatch(<span class="keyword">event</span>);</span><br><span class="line">            <span class="keyword">this</span>.exp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@Test</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    EventBus.register(<span class="keyword">new</span> LevelUpHandler());</span><br><span class="line">    player.setLevel(<span class="number">1</span>);</span><br><span class="line">    player.receiveExp(<span class="number">100</span>);</span><br><span class="line">    assertThat(player.getLevel()).<span class="keyword">equals</span>(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="目前领域事件的缺陷和展望"><a href="#目前领域事件的缺陷和展望" class="headerlink" title="目前领域事件的缺陷和展望"></a>目前领域事件的缺陷和展望</h2><p>从上面代码可以看出来，领域事件的很好的实施依赖EventBus、Dispatcher、Invoker这些属于框架级别的支持。同时另一个问题是因为Entity不能直接依赖外部对象，所以EventBus目前只能是一个全局的Singleton，而大家都应该知道全局Singleton对象很难被单测。这就容易导致Entity对象无法被很容易的被完整单测覆盖全。</p>
+<p>另一种解法是侵入Entity，对每个Entity增加一个List:<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Player</span> &#123;</span><br><span class="line">  List&lt;Event&gt; events;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">receiveExp</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exp += <span class="keyword">value</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.exp &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">            LevelUpEvent <span class="keyword">event</span> = <span class="keyword">new</span> LevelUpEvent(<span class="keyword">this</span>);</span><br><span class="line">            events.<span class="keyword">add</span>(<span class="keyword">event</span>); <span class="comment">// 把event加进去</span></span><br><span class="line">            <span class="keyword">this</span>.exp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Test</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    EventBus.register(<span class="keyword">new</span> LevelUpHandler());</span><br><span class="line">    player.setLevel(<span class="number">1</span>);</span><br><span class="line">    player.receiveExp(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(Event <span class="keyword">event</span>: player.getEvents()) &#123; <span class="comment">// 在这里显性的dispatch事件</span></span><br><span class="line">        EventBus.dispatch(<span class="keyword">event</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    assertThat(player.getLevel()).<span class="keyword">equals</span>(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是能看出来这种解法不但会侵入实体本身，同时也需要比较啰嗦的显性在调用方dispatch事件，也不是一个好的解决方案。</p>
+<p>也许未来会有一个框架能让我们既不依赖全局Singleton，也不需要显性去处理事件，但目前的方案基本都有或多或少的缺陷，大家在使用中可以注意。</p>
+<h1 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h1><p>在真实的业务逻辑里，我们的领域模型或多或少的都有一定的“特殊性”，如果100%的要符合DDD规范可能会比较累，所以最主要的是梳理一个对象行为的影响面，然后作出设计决策，即：</p>
+<ul>
+<li>是仅影响单一对象还是多个对象，</li>
+<li>规则未来的拓展性、灵活性，</li>
+<li>性能要求，</li>
+<li>副作用的处理，等等</li>
+</ul>
+<p>当然，很多时候一个好的设计是多种因素的取舍，需要大家有一定的积累，真正理解每个架构背后的逻辑和优缺点。一个好的架构师不是有一个正确答案，而是能从多个方案中选出一个最平衡的方案。</p>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/340911587" target="_blank" rel="noopener">阿里技术专家详解 DDD 系列 第一讲- Domain Primitive</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/343388831" target="_blank" rel="noopener">阿里技术专家详解DDD系列 第二讲 - 应用架构</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/348706530" target="_blank" rel="noopener">阿里技术专家详解DDD系列 第三讲 - Repository模式</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/356518017" target="_blank" rel="noopener">阿里技术专家详解DDD系列 第四讲 - 领域层设计规范</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    强壮的病猫
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/" title="DDD领域驱动设计">https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/11/Skyworking实践/" rel="next" title="Skyworking实践">
+                <i class="fa fa-chevron-left"></i> Skyworking实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/06/08/Seata部署使用(1.4.2)/" rel="prev" title="Seata部署使用(1.4.2)">
+                Seata部署使用(1.4.2) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/dinghuang.png"
+                alt="强壮的病猫" />
+            
+              <p class="site-author-name" itemprop="name">强壮的病猫</p>
+              <p class="site-description motion-element" itemprop="description">学习、生活、闲谈、足球</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dinghuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:dinghuang123@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.strongsickcat.com" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是DDD"><span class="nav-number">1.</span> <span class="nav-text">什么是DDD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#好的架构设计"><span class="nav-number">2.</span> <span class="nav-text">好的架构设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">3.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#领域模型（DOMAIN）"><span class="nav-number">3.1.</span> <span class="nav-text">领域模型（DOMAIN）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子域"><span class="nav-number">3.1.1.</span> <span class="nav-text">子域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心域"><span class="nav-number">3.1.2.</span> <span class="nav-text">核心域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用域"><span class="nav-number">3.1.3.</span> <span class="nav-text">通用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支撑域"><span class="nav-number">3.1.4.</span> <span class="nav-text">支撑域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一语言（-Ubiquitous-language-）"><span class="nav-number">3.2.</span> <span class="nav-text">统一语言（ Ubiquitous language ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">3.2.1.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限界上下文（-Bounded-Context-）"><span class="nav-number">3.3.</span> <span class="nav-text">限界上下文（ Bounded Context ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文映射图（Context-Mapping）"><span class="nav-number">3.3.1.</span> <span class="nav-text">上下文映射图（Context Mapping）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有界上下文例子"><span class="nav-number">3.3.2.</span> <span class="nav-text">有界上下文例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是“大泥球”（BBOM，Big-ball-of-mud）"><span class="nav-number">3.3.3.</span> <span class="nav-text">什么是“大泥球”（BBOM，Big ball of mud）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体（-Entity-）"><span class="nav-number">3.4.</span> <span class="nav-text">实体（ Entity ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值对象（-Value-Objects-）"><span class="nav-number">3.5.</span> <span class="nav-text">值对象（ Value Objects ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防腐层（facade）"><span class="nav-number">3.6.</span> <span class="nav-text">防腐层（facade）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#领域服务（-Domain-Services-）"><span class="nav-number">3.7.</span> <span class="nav-text">领域服务（ Domain Services ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层服务"><span class="nav-number">3.7.1.</span> <span class="nav-text">应用层服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#领域层服务"><span class="nav-number">3.7.2.</span> <span class="nav-text">领域层服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础层服务"><span class="nav-number">3.7.3.</span> <span class="nav-text">基础层服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#领域事件（-Domain-Events-）"><span class="nav-number">3.8.</span> <span class="nav-text">领域事件（ Domain Events ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要领域事件"><span class="nav-number">3.8.1.</span> <span class="nav-text">为什么需要领域事件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#领域事件的特点"><span class="nav-number">3.8.1.1.</span> <span class="nav-text">领域事件的特点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块（-Modules-）"><span class="nav-number">3.9.</span> <span class="nav-text">模块（ Modules ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合（-Aggregate-）"><span class="nav-number">3.10.</span> <span class="nav-text">聚合（ Aggregate ）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合有以下一些特点："><span class="nav-number">3.10.1.</span> <span class="nav-text">聚合有以下一些特点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚合根"><span class="nav-number">3.11.</span> <span class="nav-text">聚合根</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于如何识别聚合以及聚合根的问题："><span class="nav-number">3.11.0.1.</span> <span class="nav-text">关于如何识别聚合以及聚合根的问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何识别聚合"><span class="nav-number">3.11.0.2.</span> <span class="nav-text">如何识别聚合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何识别聚合根"><span class="nav-number">3.11.0.3.</span> <span class="nav-text">如何识别聚合根</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资源库（-Repository-）"><span class="nav-number">3.12.</span> <span class="nav-text">资源库（ Repository ）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四种-Domain-模式"><span class="nav-number">4.</span> <span class="nav-text">四种 Domain 模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#失血模型"><span class="nav-number">4.1.</span> <span class="nav-text">失血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贫血模型"><span class="nav-number">4.2.</span> <span class="nav-text">贫血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#充血模型"><span class="nav-number">4.3.</span> <span class="nav-text">充血模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#充血模型-1"><span class="nav-number">4.4.</span> <span class="nav-text">充血模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD分层架构"><span class="nav-number">6.</span> <span class="nav-text">DDD分层架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#四层架构"><span class="nav-number">6.1.</span> <span class="nav-text">四层架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五层架构"><span class="nav-number">6.2.</span> <span class="nav-text">五层架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六边形架构"><span class="nav-number">6.3.</span> <span class="nav-text">六边形架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#六边形架构模式的演变"><span class="nav-number">6.3.1.</span> <span class="nav-text">六边形架构模式的演变</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD实践"><span class="nav-number">7.</span> <span class="nav-text">DDD实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事件风暴（Event-Storming）"><span class="nav-number">7.0.1.</span> <span class="nav-text">事件风暴（Event Storming）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践"><span class="nav-number">8.</span> <span class="nav-text">实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题1-接口的清晰度"><span class="nav-number">8.1.</span> <span class="nav-text">问题1 - 接口的清晰度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2-数据验证和错误处理"><span class="nav-number">8.2.</span> <span class="nav-text">问题2 - 数据验证和错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题3-业务代码的清晰度"><span class="nav-number">8.3.</span> <span class="nav-text">问题3 - 业务代码的清晰度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题4-可测试性"><span class="nav-number">8.4.</span> <span class="nav-text">问题4 - 可测试性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">8.5.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将隐性的概念显性化"><span class="nav-number">8.5.1.</span> <span class="nav-text">将隐性的概念显性化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估1-接口的清晰度"><span class="nav-number">8.6.</span> <span class="nav-text">评估1 - 接口的清晰度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估2-数据验证和错误处理"><span class="nav-number">8.7.</span> <span class="nav-text">评估2 - 数据验证和错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估3-业务代码的清晰度"><span class="nav-number">8.8.</span> <span class="nav-text">评估3 - 业务代码的清晰度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估4-可测试性"><span class="nav-number">8.9.</span> <span class="nav-text">评估4 - 可测试性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估总结"><span class="nav-number">8.10.</span> <span class="nav-text">评估总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进阶使用"><span class="nav-number">8.11.</span> <span class="nav-text">进阶使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#▍案例1-转账"><span class="nav-number">8.12.</span> <span class="nav-text">▍案例1 - 转账</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例2-跨境转账"><span class="nav-number">8.13.</span> <span class="nav-text">案例2 - 跨境转账</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讨论和总结"><span class="nav-number">8.14.</span> <span class="nav-text">讨论和总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#▍Domain-Primitive-的定义"><span class="nav-number">8.14.1.</span> <span class="nav-text">▍Domain Primitive 的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▍使用-Domain-Primitive-的三原则"><span class="nav-number">8.14.2.</span> <span class="nav-text">▍使用 Domain Primitive 的三原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▍Domain-Primitive-和-DDD-里-Value-Object-的区别"><span class="nav-number">8.14.3.</span> <span class="nav-text">▍Domain Primitive 和 DDD 里 Value Object 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▍Domain-Primitive-和-Data-Transfer-Object-DTO-的区别"><span class="nav-number">8.14.4.</span> <span class="nav-text">▍Domain Primitive 和 Data Transfer Object (DTO) 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▍什么情况下应该用-Domain-Primitive"><span class="nav-number">8.14.5.</span> <span class="nav-text">▍什么情况下应该用 Domain Primitive</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实战-老应用重构的流程"><span class="nav-number">8.15.</span> <span class="nav-text">实战 - 老应用重构的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#▍第一步-创建-Domain-Primitive，收集所有-DP-行为"><span class="nav-number">8.15.1.</span> <span class="nav-text">▍第一步 - 创建 Domain Primitive，收集所有 DP 行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#▍第二步-替换数据校验和无状态逻辑"><span class="nav-number">8.15.2.</span> <span class="nav-text">▍第二步 - 替换数据校验和无状态逻辑</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用架构设计"><span class="nav-number">9.</span> <span class="nav-text">应用架构设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求背景"><span class="nav-number">9.1.</span> <span class="nav-text">需求背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程图"><span class="nav-number">9.2.</span> <span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象数据存储层"><span class="nav-number">9.3.</span> <span class="nav-text">抽象数据存储层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Repository和Entity"><span class="nav-number">9.3.1.</span> <span class="nav-text">Repository和Entity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象第三方服务"><span class="nav-number">9.4.</span> <span class="nav-text">抽象第三方服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#防腐层（ACL）"><span class="nav-number">9.4.1.</span> <span class="nav-text">防腐层（ACL）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象中间件"><span class="nav-number">9.5.</span> <span class="nav-text">抽象中间件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装业务逻辑"><span class="nav-number">9.6.</span> <span class="nav-text">封装业务逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用Domain-Primitive封装跟实体无关的无状态计算逻辑"><span class="nav-number">9.6.1.</span> <span class="nav-text">用Domain Primitive封装跟实体无关的无状态计算逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用Entity封装单对象的有状态的行为，包括业务校验"><span class="nav-number">9.6.2.</span> <span class="nav-text">用Entity封装单对象的有状态的行为，包括业务校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用Domain-Service封装多对象逻辑"><span class="nav-number">9.6.3.</span> <span class="nav-text">用Domain Service封装多对象逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构后结果分析"><span class="nav-number">9.7.</span> <span class="nav-text">重构后结果分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DDD的六边形架构"><span class="nav-number">9.8.</span> <span class="nav-text">DDD的六边形架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码组织结构"><span class="nav-number">9.8.1.</span> <span class="nav-text">代码组织结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Types-模块"><span class="nav-number">9.8.1.1.</span> <span class="nav-text">Types 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Domain-模块"><span class="nav-number">9.8.1.2.</span> <span class="nav-text">Domain 模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Application模块"><span class="nav-number">9.8.1.3.</span> <span class="nav-text">Application模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Infrastructure模块"><span class="nav-number">9.8.1.4.</span> <span class="nav-text">Infrastructure模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web模块"><span class="nav-number">9.8.1.5.</span> <span class="nav-text">Web模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Start模块"><span class="nav-number">9.8.1.6.</span> <span class="nav-text">Start模块</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">9.9.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码的演进-变化速度"><span class="nav-number">9.10.</span> <span class="nav-text">代码的演进/变化速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结-1"><span class="nav-number">9.11.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Repository模式"><span class="nav-number">10.</span> <span class="nav-text">Repository模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模型对象代码规范"><span class="nav-number">10.1.</span> <span class="nav-text">模型对象代码规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型所在模块和转化器"><span class="nav-number">10.2.</span> <span class="nav-text">模型所在模块和转化器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDD领域层的一些设计规范"><span class="nav-number">11.</span> <span class="nav-text">DDD领域层的一些设计规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实体类（Entity）"><span class="nav-number">11.1.</span> <span class="nav-text">实体类（Entity）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量避免public-setter"><span class="nav-number">11.1.1.</span> <span class="nav-text">尽量避免public setter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过聚合根保证主子实体的一致性"><span class="nav-number">11.1.2.</span> <span class="nav-text">通过聚合根保证主子实体的一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不可以强依赖其他聚合根实体或领域服务"><span class="nav-number">11.1.3.</span> <span class="nav-text">不可以强依赖其他聚合根实体或领域服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任何实体的行为只能直接影响到本实体（和其子实体）"><span class="nav-number">11.1.4.</span> <span class="nav-text">任何实体的行为只能直接影响到本实体（和其子实体）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#领域服务（Domain-Service）"><span class="nav-number">11.2.</span> <span class="nav-text">领域服务（Domain Service）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单对象策略型"><span class="nav-number">11.2.1.</span> <span class="nav-text">单对象策略型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨对象事务型"><span class="nav-number">11.2.2.</span> <span class="nav-text">跨对象事务型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通用组件型"><span class="nav-number">11.2.3.</span> <span class="nav-text">通用组件型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略对象（Domain-Policy）"><span class="nav-number">11.3.</span> <span class="nav-text">策略对象（Domain Policy）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#领域事件介绍"><span class="nav-number">11.4.</span> <span class="nav-text">领域事件介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#领域事件实现"><span class="nav-number">11.4.1.</span> <span class="nav-text">领域事件实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目前领域事件的缺陷和展望"><span class="nav-number">11.5.</span> <span class="nav-text">目前领域事件的缺陷和展望</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结-2"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">强壮的病猫</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dinghuang-1.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://dinghuang.github.io/2021/03/18/DDD领域驱动设计/';
+          this.page.identifier = '2021/03/18/DDD领域驱动设计/';
+          this.page.title = 'DDD领域驱动设计';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dinghuang-1.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

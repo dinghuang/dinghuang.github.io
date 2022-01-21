@@ -301,6 +301,297 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2022/01/14/分布式系统认证方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/01/14/分布式系统认证方案/" itemprop="url">分布式系统认证方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-14T15:47:00+08:00">
+                2022-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/01/14/分布式系统认证方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/01/14/分布式系统认证方案/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="分布式系统认证方案"><a href="#分布式系统认证方案" class="headerlink" title="分布式系统认证方案"></a>分布式系统认证方案</h1><p>需要满足以下需求</p>
+<ul>
+<li>统一认证授权：不同客户端均采用一致的认证、授权、会话判断机制，实现统一认证授权服务。</li>
+<li>多样的认证场景：支持用户名密码、短信验证码、二维码、人脸识别等各种认证方式，并可以灵活的切换和扩展。</li>
+<li>应用接入认证：，提供安全的系统对接机制，并可开放部分<code>API</code>给第三方使用。并且内部服务和外部第三方服务均采用统一的接入机制。</li>
+</ul>
+<h2 id="分布式认证方案"><a href="#分布式认证方案" class="headerlink" title="分布式认证方案"></a>分布式认证方案</h2><h3 id="基于Session的认证方式"><a href="#基于Session的认证方式" class="headerlink" title="基于Session的认证方式"></a>基于Session的认证方式</h3><h4 id="session复制"><a href="#session复制" class="headerlink" title="session复制"></a>session复制</h4><p>将服务器A的<code>session</code>，复制到服务器B，同样将服务器B的<code>session</code>也复制到服务器A，这样两台服务器的<code>session</code>就一致了。像<code>tomcat</code>等<code>web</code>容器都支持<code>session</code>复制的功能，在同一个局域网内，一台服务器的<code>session</code>会广播给其他服务器。</p>
+<p><strong>缺点</strong>：同一个网段内服务器太多，每个服务器都会去复制<code>session</code>，会造成服务器内存浪费。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/32ddf89eaf8116e96578b34174cb8d4d.png" alt="image"></p>
+<h4 id="session黏性"><a href="#session黏性" class="headerlink" title="session黏性"></a>session黏性</h4><p>利用<code>Nginx</code>服务器的反向代理，将服务器A和服务器B进行代理，然后采用<code>ip_hash</code>的负载策略，将客户端和服务器进行绑定，也就是说客户端A第一次访问的是服务器B，那么第二次访问也必然是服务器B，这样就不存在<code>session</code>不一致的问题了。</p>
+<p><strong>缺点</strong>：如果服务器A宕机了，那么客户端A和客户端B的<code>session</code>就会出现丢失。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/1ee1b2b5126e2c273b8b6f4df1d27881.png" alt="image"></p>
+<h4 id="session集中管理"><a href="#session集中管理" class="headerlink" title="session集中管理"></a>session集中管理</h4><p>这种方式就是将所有服务器的<code>session</code>进行统一管理，可以使用<code>v</code>等高性能服务器来集中管理<code>session</code>，而且<code>spring</code>官方提供的<code>spirng-session</code>就是这样处理<code>session</code>的一致性问题。这也是目前企业开发用到的比较多的一种分布式<code>session</code>解决方案。</p>
+<h3 id="基于Token的认证方式"><a href="#基于Token的认证方式" class="headerlink" title="基于Token的认证方式"></a>基于Token的认证方式</h3><p>基于<code>token</code>的认证方式，服务端不用存储认证数据，易维护扩展性强， 客户端可以把<code>token</code>存在任意地方，并且可以实现<code>web</code>和<code>app</code>统一认证机制。<br><code>token</code>认证方式对第三方应用接入更适合，因为它更开放，可使用当前有流行的开放协议<code>Oauth2.0</code>、<code>JWT</code>等。一般情况服务端无需存储会话信息，减轻了服务端的压力。</p>
+<p><code>缺点</code>：<code>token</code>由于自包含信息，因此一般数据量较大，而且每次请求<br>都需要传递，因此比较占带宽。另外，<code>token</code>的签名验签操作也会给<code>cpu</code>带来额外的处理负担。</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20200427151958303.png" alt="image"></p>
+<h4 id="验证流程"><a href="#验证流程" class="headerlink" title="验证流程"></a>验证流程</h4><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20200427152702654.png" alt="image"><br>1  用户通过接入方（应用）登录，接入方采取<code>OAuth2.0</code>方式在统一认证服务(<code>oauth-service</code>)中认证。</p>
+<p>2 认证服务调用验证该用户的身份是否合法，并获取用户权限信息。</p>
+<p>3 认证服务获取接入方权限信息，并验证接入方是否合法。</p>
+<p>4 若登录用户以及接入方都合法，认证服务生成<code>jwt</code>令牌返回给接入方，其中<code>jwt</code>中包含了用户权限及接入方权限。</p>
+<p>5 后续，接入方携带<code>jwt</code>令牌对<code>API</code>网关内的微服务资源进行访问。</p>
+<p>6 <code>API</code>网关对令牌解析、并验证接入方的权限是否能够访问本次请求的微服务。</p>
+<p>7 如果接入方的权限没问题，<code>API</code>网关将原请求<code>header</code>中附加解析后的明文<code>Token</code>，并将请求转发至微服务。</p>
+<p>8 微服务收到请求，明文<code>token</code>中包含登录用户的身份和权限信息。因此后续微服务自己可以干两件事：</p>
+<ul>
+<li>用户授权拦截（看当前用户是否有权访问该资源）</li>
+<li>将用户信息存储进当前线程上下文（有利于后续业务逻辑随时<br>获取当前用户信息）</li>
+</ul>
+<h4 id="OAuth2-0"><a href="#OAuth2-0" class="headerlink" title="OAuth2.0"></a>OAuth2.0</h4><p><code>OAuth</code>（开放授权）是一个开放标准，允许用户授权第三方移动应用访问他们存储在另外的服务提供者上的信息，而不需要将用户名和密码提供给第三方移动应用或分享他们数据的所有内容。<code>OAuth2.0</code>是<code>OAuth</code>协议的延续版本，但不向后兼容<code>OAuth1.0</code>即完全废止了<code>OAuth1.0</code>。</p>
+<p><code>OAuth2</code>中的四种认证授权模式</p>
+<ul>
+<li>授权码模式（<code>authorization code</code>）</li>
+<li>简化模式/隐式授权模式（<code>implicit</code>）</li>
+<li>密码模式（<code>password</code>）</li>
+<li>客户端模式（<code>client credentials</code>）</li>
+</ul>
+<p><code>OAuth2.0</code>包括以下角色</p>
+<ul>
+<li>客户端:本身不存储资源，需要通过资源拥有者的授权去请求资源服务器的资源，比如:<code>Android</code>客户端、<code>Web</code>客户端（浏览器端）、微信客户端等。</li>
+<li>资源拥有者:通常为用户，也可以是应用程序，即该资源的拥有者。</li>
+<li>授权服务器（认证服务器）:用于服务提供商对资源拥有的身份进行认证、对访问资源进行授权，认证成功后会给客户端发放令牌（<code>access_token</code>），作为客户端访问资源服务器的凭据。</li>
+<li>资源服务器: 存储资源的服务器。</li>
+</ul>
+<h5 id="JWT-token"><a href="#JWT-token" class="headerlink" title="JWT token"></a>JWT token</h5><p><code>JWT</code>的全称是<code>JSON Web Tokens</code>，它由下面2部分组成：</p>
+<ul>
+<li><code>Authorization</code> (授权) : 这是使用<code>JWT</code>的最常见场景。一旦用户登录，后续每个请求都将包含<code>JWT</code>，允许用户访问该令牌允许的路由、服务和资源。单点登录是现在广泛使用的<code>JWT</code>的一个特性，因为它的开销很小，并且可以轻松地跨域使用。</li>
+<li><code>Information Exchange</code> (信息交换) : <code>JWT</code>可以被签名，例如，用公钥/私钥对，可以验证内容没有被篡改。</li>
+</ul>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/874963-20180709124807031-664967381.png" alt="image"></p>
+<ul>
+<li><code>Header</code>：<code>token</code>的类型（<code>JWT</code>）和算法名称（比如：<code>HMAC SHA256</code>或者<code>RSA</code>等等）</li>
+<li><code>Payload</code>：<code>JWT</code>的第二部分是<code>payload</code>，它包含声明（要求）。声明是关于实体(通常是用户)和其他数据的声明。声明有三种类型: <code>registered</code>, <code>public</code> 和 <code>private</code>。</li>
+<li><code>Signature</code>：签名是用于验证消息在传递过程中有没有被更改，并且，对于使用私钥签名的<code>token</code>，它还可以验证JWT的发送方是否为它所称的发送方。</li>
+</ul>
+<blockquote>
+<p>注意，不要在<code>JWT</code>的<code>payload</code>或<code>header</code>中放置敏感信息，除非它们是加密的</p>
+</blockquote>
+<h5 id="授权码模式"><a href="#授权码模式" class="headerlink" title="授权码模式"></a>授权码模式</h5><p><strong>举例：小米账户授权</strong><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/%E5%B0%8F%E7%B1%B3%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B.png" alt="image"><br><code>Authorization Code</code>授权分为两步，首先获取<code>Authorization Code</code>，然后用<code>Code</code>换取<code>Access Token</code>。其流程示意图如下<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/AuthorizationCode%E4%BA%A4%E4%BA%92%E6%B5%81%E7%A8%8B.png" alt="image"></p>
+<p>一般会有下面的注意事项：</p>
+<ul>
+<li><code>Authorization Code</code>只能使用一次，不可重复使用</li>
+<li><code>Authorization Code</code>有效时间为5分钟, 在返回<code>Authorization Code</code>5分钟之后失效</li>
+</ul>
+<h5 id="简化模式"><a href="#简化模式" class="headerlink" title="简化模式"></a>简化模式</h5><p>简化模式相对于授权码模式，少了获取<code>code</code>以及用<code>code</code>换<code>token</code>这一步，用户授权后，认证服务器直接返回一个<code>token</code>。</p>
+<h5 id="密码模式"><a href="#密码模式" class="headerlink" title="密码模式"></a>密码模式</h5><p>这个模式流程简单，但很不安全，一般用在强信任的两个系统。</p>
+<h5 id="客户端模式"><a href="#客户端模式" class="headerlink" title="客户端模式"></a>客户端模式</h5><p>分配一个账号密码，每一个账户密码资源服务器会对允许请求的资源做权限控制。可以用这个账号密码来获取<code>token</code>，通过这个<code>token</code>去获取资源服务器允许你请求的资源，之所以使用<code>token</code>而不直接使用账户密码还是为了安全考虑，<code>token</code>有过期机制，过期后需要使用账户密码重新获取<code>token</code>，很多时候这个重新获取的业务场景被称为签到。</p>
+<blockquote>
+<p>认证服务器会给准入的接入方一个身份，用于接入时的凭据:<br><code>client_id</code>：客户端标识，<code>client_secret</code>：客户端秘钥<br>因此，准确来说，授权服务器对两种<code>OAuth2.0</code>中的两个角色进行认证授权，分别是资源拥有者、客户端。</p>
+</blockquote>
+<h2 id="Spring-Security-OAuth2"><a href="#Spring-Security-OAuth2" class="headerlink" title="Spring-Security-OAuth2"></a>Spring-Security-OAuth2</h2><p><code>Spring-Security-OAuth2</code>是对<code>OAuth2</code>的一种实现，<code>OAuth2.0</code>的服务提供方涵盖两个服务，即授权服务 (<code>Authorization Server</code>，也叫认证服务) 和资源服务 (<code>Resource Server</code>)，使用 <code>Spring Security OAuth2</code> 的时候你可以选择把它们在同一个应用程序中实现，也可以选择建立使用同一个授权服务的多个资源服务。</p>
+<h3 id="SpringSecurity-过滤器"><a href="#SpringSecurity-过滤器" class="headerlink" title="SpringSecurity 过滤器"></a>SpringSecurity 过滤器</h3><p>两个至关重要的类：<code>OncePerRequestFilter</code>和<code>GenericFilterBean</code>，在过滤器链的过滤器中，或多或少间接或直接继承到</p>
+<ul>
+<li><code>OncePerRequestFilter</code>顾名思义，能够确保在一次请求只通过一次<code>filter</code>，而不需要重复执行。</li>
+<li><p><code>GenericFilterBean</code>是<code>javax.servlet.Filter</code>接口的一个基本的实现类</p>
+<ul>
+<li><code>GenericFilterBean</code>将<code>web.xml</code>中<code>filter</code>标签中的配置参数<code>-init-param</code>项作为<code>bean</code>的属性</li>
+<li><code>GenericFilterBean</code>可以简单地成为任何类型的<code>filter</code>的父类</li>
+<li><code>GenericFilterBean</code>的子类可以自定义一些自己需要的属性</li>
+<li><code>GenericFilterBean</code>，将实际的过滤工作留给他的子类来完成，这就导致了他的子类不得不实现<code>doFilter</code>方法</li>
+<li><code>GenericFilterBean</code>不依赖于<code>Spring</code>的<code>ApplicationContext</code>，<code>Filters</code>通常不会直接读取他们的容器信息（<code>ApplicationContext concept</code>）而是通过访问<code>spring</code>容器（<code>Spring root application context</code>）中的<code>service beans</code>来获取，通常是通过调用<code>filter</code>里面的<code>getServletContext()</code> 方法来获取<h4 id="WebAsyncManagerIntegrationFilter"><a href="#WebAsyncManagerIntegrationFilter" class="headerlink" title="WebAsyncManagerIntegrationFilter"></a>WebAsyncManagerIntegrationFilter</h4></li>
+</ul>
+</li>
+<li><p>根据请求封装获取<code>WebAsyncManager</code></p>
+</li>
+<li>从<code>WebAsyncManager</code>获取/注册<code>SecurityContextCallableProcessingInterceptor</code></li>
+</ul>
+<h4 id="SecurityContextPersistenceFilter"><a href="#SecurityContextPersistenceFilter" class="headerlink" title="SecurityContextPersistenceFilter"></a>SecurityContextPersistenceFilter</h4><ul>
+<li>先实例<code>SecurityContextHolder</code>-&gt;<code>HttpSessionSecurityContextRepository</code>（下面以<code>repo</code>代替）.作用：其会从<code>Session</code>中取出已认证用户的信息,提高效率,避免每一次请求都要查询用户认证信息。</li>
+<li>根据请求和响应构建<code>HttpRequestResponseHolder</code></li>
+<li><code>repo</code>根据<code>HttpRequestResponseHolder</code>加载<code>context</code>获取<code>SecurityContext</code></li>
+<li><code>SecurityContextHolder</code>将获得到的<code>SecurityContext</code>设置到<code>Context</code>中，然后继续向下执行其他过滤器</li>
+<li><code>finally</code>-&gt; <code>SecurityContextHolder</code>获取<code>SecurityContext</code>，然后清除，并将其和请求信息保存到<code>repo</code>，从请求中移除<code>FILTER_APPLIED</code>属性</li>
+</ul>
+<h4 id="HeaderWriterFilter"><a href="#HeaderWriterFilter" class="headerlink" title="HeaderWriterFilter"></a>HeaderWriterFilter</h4><ul>
+<li>往该请求的<code>Header</code>中添加相应的信息,在<code>http</code>标签内部使用<code>security</code>:<code>headers</code>来控制</li>
+</ul>
+<h4 id="CsrfFilter"><a href="#CsrfFilter" class="headerlink" title="CsrfFilter"></a>CsrfFilter</h4><ul>
+<li><code>csrf</code>又称跨域请求伪造，攻击方通过伪造用户请求访问受信任站点。</li>
+<li>对需要验证的请求验证是否包含<code>csrf</code>的<code>token</code>信息，如果不包含，则报错。这样攻击网站无法获取到<code>token</code>信息，则跨域提交的信息都无法通过过滤器的校验。</li>
+</ul>
+<h4 id="LogoutFilter"><a href="#LogoutFilter" class="headerlink" title="LogoutFilter"></a>LogoutFilter</h4><ul>
+<li>匹配<code>URL</code>,默认为<code>/logout</code></li>
+<li>匹配成功后则用户退出,清除认证信息</li>
+</ul>
+<h4 id="RequestCacheAwareFilter"><a href="#RequestCacheAwareFilter" class="headerlink" title="RequestCacheAwareFilter"></a>RequestCacheAwareFilter</h4><ul>
+<li>通过<code>HttpSessionRequestCache</code>内部维护了一个<code>RequestCache</code>，用于缓存<code>HttpServletRequest</code></li>
+</ul>
+<h4 id="SecurityContextHolderAwareRequestFilter"><a href="#SecurityContextHolderAwareRequestFilter" class="headerlink" title="SecurityContextHolderAwareRequestFilter"></a>SecurityContextHolderAwareRequestFilter</h4><ul>
+<li>针对<code>ServletRequest</code>进行了一次包装，使得<code>request</code>具有更加丰富的<code>API</code></li>
+</ul>
+<h4 id="AnonymousAuthenticationFilter"><a href="#AnonymousAuthenticationFilter" class="headerlink" title="AnonymousAuthenticationFilter"></a>AnonymousAuthenticationFilter</h4><ul>
+<li>当<code>SecurityContextHolder</code>中认证信息为空,则会创建一个匿名用户存入到<code>SecurityContextHolder</code>中。匿名身份过滤器，这个过滤器很重要，需要将它与<code>UsernamePasswordAuthenticationFilter</code> 放在一起比较理解，<code>spring security</code>为了兼容未登录的访问，也走了一套认证流程，只不过是一个匿名的身份。</li>
+<li>匿名认证过滤器是<code>Spirng Security</code>为了整体逻辑的统一性，即使是未通过认证的用户，也给予了一个匿名身份。而<code>AnonymousAuthenticationFilter</code>该过滤器的位置也是非常的科学的，它位于常用的身份认证过滤器（如<code>UsernamePasswordAuthenticationFilter</code>、<code>BasicAuthenticationFilter</code>、<code>RememberMeAuthenticationFilter</code>）之后，意味着只有在上述身份过滤器执行完毕后，<code>SecurityContext</code>依旧没有用户信息，<code>AnonymousAuthenticationFilte</code>该过滤器才会有意义—-基于用户一个匿名身份。</li>
+</ul>
+<h4 id="SessionManagementFilter"><a href="#SessionManagementFilter" class="headerlink" title="SessionManagementFilter"></a>SessionManagementFilter</h4><ul>
+<li><code>securityContextRepository</code>限制同一用户开启多个会话的数量</li>
+<li><code>SessionAuthenticationStrategy</code>防止<code>session-fixation protection attack</code>（保护非匿名用户）</li>
+</ul>
+<h4 id="ExceptionTranslationFilter"><a href="#ExceptionTranslationFilter" class="headerlink" title="ExceptionTranslationFilter"></a>ExceptionTranslationFilter</h4><ul>
+<li><code>ExceptionTranslationFilter</code>异常转换过滤器位于整个<code>springSecurityFilterChain</code>的后方，用来转换整个链路中出现的异常</li>
+<li>此过滤器的作用是处理中<code>FilterSecurityInterceptor</code>抛出的异常，然后将请求重定向到对应页面，或返回对应的响应错误代码</li>
+</ul>
+<h4 id="FilterSecurityInterceptor"><a href="#FilterSecurityInterceptor" class="headerlink" title="FilterSecurityInterceptor"></a>FilterSecurityInterceptor</h4><ul>
+<li>获取到所配置资源访问的授权信息</li>
+<li>根据<code>SecurityContextHolder</code>中存储的用户信息来决定其是否有权限</li>
+<li>主要一些实现功能在其父类<code>AbstractSecurityInterceptor</code>中</li>
+</ul>
+<h4 id="UsernamePasswordAuthenticationFilter"><a href="#UsernamePasswordAuthenticationFilter" class="headerlink" title="UsernamePasswordAuthenticationFilter"></a>UsernamePasswordAuthenticationFilter</h4><ul>
+<li>表单认证是最常用的一个认证方式，一个最直观的业务场景便是允许用户在表单中输入用户名和密码进行登录，而这背后的<code>UsernamePasswordAuthenticationFilter</code>，在整个<code>Spring Security</code>的认证体系中则扮演着至关重要的角色</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><code>pom.xml</code><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-freemarker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.data<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-data-commons<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-oauth2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>授权服务器配置:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthorizationServer</span> <span class="keyword">extends</span> <span class="title">AuthorizationServerConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TokenStore tokenStore;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ClientDetailsService clientDetailsService;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AuthorizationCodeServices authorizationCodeServices;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//令牌访问端点</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> </span>&#123;</span><br><span class="line">        endpoints</span><br><span class="line">                .authenticationManager(authenticationManager)</span><br><span class="line">                .authorizationCodeServices(authorizationCodeServices)</span><br><span class="line">                .tokenServices(tokenService())</span><br><span class="line">                .allowedTokenEndpointRequestMethods(HttpMethod.POST);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//注意这个部分,到时候和请求链接的参数比对</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        clients.inMemory() <span class="comment">//用内存存储</span></span><br><span class="line">                .withClient(<span class="string">"c1"</span>)</span><br><span class="line">                .secret(<span class="keyword">new</span> BCryptPasswordEncoder().encode(<span class="string">"secret"</span>)) <span class="comment">//客户端密钥</span></span><br><span class="line">                .resourceIds(<span class="string">"res1"</span>)  <span class="comment">//资源列表</span></span><br><span class="line">                .authorizedGrantTypes(<span class="string">"authorization_code"</span>, <span class="string">"password"</span>, <span class="string">"client_credentials"</span>, <span class="string">"refresh_token"</span>)</span><br><span class="line">                .scopes(<span class="string">"all"</span>)<span class="comment">//允许授权范围</span></span><br><span class="line">                .autoApprove(<span class="keyword">false</span>)</span><br><span class="line">                .redirectUris(<span class="string">"http://www.baidu.com"</span>); <span class="comment">//验证回调地址</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//令牌管理服务</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AuthorizationServerTokenServices <span class="title">tokenService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        DefaultTokenServices service = <span class="keyword">new</span> DefaultTokenServices();</span><br><span class="line">        service.setClientDetailsService(clientDetailsService); <span class="comment">//客户端服务信息</span></span><br><span class="line">        service.setSupportRefreshToken(<span class="keyword">true</span>); <span class="comment">// 是否产生刷新令牌</span></span><br><span class="line">        service.setTokenStore(tokenStore); <span class="comment">//令牌存储策略</span></span><br><span class="line">        service.setAccessTokenValiditySeconds(<span class="number">7200</span>);<span class="comment">// 令牌默认有效期2小时</span></span><br><span class="line">        service.setRefreshTokenValiditySeconds(<span class="number">259200</span>);<span class="comment">// 刷新令牌默认有效期3天</span></span><br><span class="line">        <span class="keyword">return</span> service;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 令牌访问端点安全策略</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthorizationServerSecurityConfigurer security)</span> </span>&#123;</span><br><span class="line">        security</span><br><span class="line">                .tokenKeyAccess(<span class="string">"permitAll()"</span>)  <span class="comment">//oauth2/token_key</span></span><br><span class="line">                .checkTokenAccess(<span class="string">"permitAll()"</span>) <span class="comment">//oauth/check_key</span></span><br><span class="line">                .allowFormAuthenticationForClients(); <span class="comment">// 表单认证 (申请令牌)</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> AuthorizationCodeServices <span class="title">authorizationCodeServices</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//设置授权码模式的授权码如何 存取，暂时采用内存方式</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InMemoryAuthorizationCodeServices();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果要用数据库就在这个<code>UserDetailsService</code>编码<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomUserDetailsService</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">UserDetailsService</span></span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    <span class="keyword">public</span> UserDetails loadUserByUsername(<span class="keyword">String</span> login) throws UsernameNotFoundException &#123;</span><br><span class="line">        <span class="comment">// 1. 查询用户 数据库查出角色权限</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 设置角色</span></span><br><span class="line">        Collection&lt;GrantedAuthority&gt; grantedAuthorities = <span class="keyword">new</span> <span class="type">ArrayList</span>&lt;&gt;();</span><br><span class="line">        GrantedAuthority grantedAuthority;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"admin"</span>.equals(login)) &#123;</span><br><span class="line">            grantedAuthority = <span class="keyword">new</span> <span class="type">SimpleGrantedAuthority</span>(<span class="string">"ADMIN"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            grantedAuthority = <span class="keyword">new</span> <span class="type">SimpleGrantedAuthority</span>(<span class="string">"USER"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        grantedAuthorities.add(grantedAuthority);</span><br><span class="line">        <span class="comment">//写死 用户密码123以及角色 USER 查出来的密码和比对的加密算法要传入进去</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">User</span>(login,</span><br><span class="line">                <span class="keyword">new</span> <span class="type">BCryptPasswordEncoder</span>().encode(<span class="string">"123"</span>), grantedAuthorities);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在config包下定义TokenConfig，</span></span><br><span class="line"><span class="comment"> * 我们暂时先使用InMemoryTokenStore，生成一个普通的令牌。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenStore <span class="title">tokenStore</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> InMemoryTokenStore();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Configuration</span></span><br><span class="line"><span class="variable">@EnableGlobalMethodSecurity</span>(securedEnabled = true,prePostEnabled = true)</span><br><span class="line">public class WebSecurityConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//认证管理器</span></span><br><span class="line">    <span class="variable">@Bean</span></span><br><span class="line">    public AuthenticationManager authenticationManagerBean() throws Exception &#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">super</span><span class="selector-class">.authenticationManagerBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//密码编码器</span></span><br><span class="line">    @<span class="selector-tag">Bean</span></span><br><span class="line">    <span class="selector-tag">public</span> <span class="selector-tag">PasswordEncoder</span> <span class="selector-tag">passwordEncoder</span>() &#123;</span><br><span class="line">        <span class="selector-tag">return</span> <span class="selector-tag">new</span> <span class="selector-tag">BCryptPasswordEncoder</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//安全拦截机制（最重要）</span></span><br><span class="line">    @<span class="selector-tag">Override</span></span><br><span class="line">    <span class="selector-tag">protected</span> <span class="selector-tag">void</span> <span class="selector-tag">configure</span>(HttpSecurity http) <span class="selector-tag">throws</span> <span class="selector-tag">Exception</span> &#123;</span><br><span class="line">        <span class="selector-tag">http</span><span class="selector-class">.csrf</span>()<span class="selector-class">.disable</span>()</span><br><span class="line">                <span class="selector-class">.authorizeRequests</span>()</span><br><span class="line">                <span class="selector-class">.antMatchers</span>(<span class="string">"/r/r1"</span>)<span class="selector-class">.hasAnyAuthority</span>(<span class="string">"p1"</span>)</span><br><span class="line">                <span class="selector-class">.antMatchers</span>(<span class="string">"/login*"</span>)<span class="selector-class">.permitAll</span>()</span><br><span class="line">                <span class="selector-class">.anyRequest</span>()<span class="selector-class">.authenticated</span>()</span><br><span class="line">                <span class="selector-class">.and</span>()</span><br><span class="line">                <span class="selector-class">.formLogin</span>()</span><br><span class="line">        ;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问<code>http://localhost:8000/oauth/authorize?client_id=pa&amp;reponse_type=code&amp;scope=all&amp;redirect_uri=http://www.baidu.com</code><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20200427170419370.png" alt="image"><br>确认授权:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20200427170432285.png" alt="image"><br>获取到授权码:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20200427171656730.png" alt="image"></p>
+<p>[参考]</p>
+<p><a href="https://www.codenong.com/cs105791529/" target="_blank" rel="noopener">循序渐进之单点登录（4）–分布式系统认证(OAuth2,JWT)
+</a></p>
+<p><a href="https://juejin.cn/post/6844903542306668551" target="_blank" rel="noopener">Spring Security 核心过滤器链分析</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2021/11/12/分布式锁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3187,284 +3478,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/06/23/业务埋点设计/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="强壮的病猫">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dinghuang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只病猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/06/23/业务埋点设计/" itemprop="url">业务埋点设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-23T18:33:00+08:00">
-                2020-06-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/程序设计/" itemprop="url" rel="index">
-                    <span itemprop="name">程序设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/06/23/业务埋点设计/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/06/23/业务埋点设计/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>可以先看一本书《精通Web Analytics 2.0》</p>
-<h2 id="埋点是什么"><a href="#埋点是什么" class="headerlink" title="埋点是什么"></a>埋点是什么</h2><p>所谓埋点就是在应用中特定的流程收集一些信息，用来跟踪应用使用的状况，后续用来进一步优化产品或是提供运营的数据支撑，包括访问数（Visits），访客数（Visitor），停留时长（Time On Site），页面浏览数（Page Views）和跳出率（Bounce Rate）。这样的信息收集可以大致分为两种：页面统计（track this virtual page view），统计操作行为（track this button by an event）。</p>
-<h2 id="埋点是谁的工作"><a href="#埋点是谁的工作" class="headerlink" title="埋点是谁的工作"></a>埋点是谁的工作</h2><p>现在公司通常都会有数据产品经理或业务线数据分析师，结合版本迭代过程进行埋点规划。如果是代码埋点，还需要开发完成相应的埋点代码。</p>
-<h2 id="埋点的意义"><a href="#埋点的意义" class="headerlink" title="埋点的意义"></a>埋点的意义</h2><p>埋点就是为了对产品进行持续追踪，通过深度数据分析不断优化产品。好比去医院体检，医生测了你身体的各个健康指标，以此来判断你的健康状况。埋点的目的，其实就是随时或者定期监测你的产品的“健康”状况。</p>
-<p>任何一个系统在设计初始阶段只关心核心业务的功能，等到系统上线以后，数据分析师对用户行为分析时会发现缺少很多数据，此时需要采用埋点的方法进行采集需要的数据。</p>
-<p>业务人员主要通过自有或第三方的数据统计平台了解产品的概览性数据指标，包括新增用户数、活跃用户数等。这些指标能帮助企业宏观的了解用户访问的整体情况和趋势，从整体上把握产品的运营状况，但很难基于这些指标直接得到切实的产品改进策略。</p>
-<p>而埋点将产品数据分析的深度下钻到流量分布和流动层面，通过对产品中的用户交互行为的统计分析，对宏观指标进行深入剖析，发现指标背后的问题，寻找人群的行为特点和关系，洞察用户行为与提升业务价值之间的潜在关联，了解组成特定数据现象的原因，并据此构建产品优化 迭代 和运营策略。</p>
-<p>对于产品来说，用户在你的产品里做了什么、停留了多久、有什么异样，都是需要关注的。比如用户点击率怎么样？用户在核心使用路径上是否顺畅？有没有得到用户的认可？有没有因为设计按钮过多导致用户行为无效？用户希望有什么样的功能更新等等问题都可以通过埋点的方法实现。</p>
-<p>埋点做好才能用来进行数据驱动产品和精细化运营。而埋点质量的好坏也直接影响到了产品运营的质量。因此它贯穿了产品的整个生命周期，为产品优化指明了方向。所以说，好的数据埋点，就成功了一半。</p>
-<h2 id="when-amp-amp-where"><a href="#when-amp-amp-where" class="headerlink" title="when &amp;&amp; where"></a>when &amp;&amp; where</h2><p>埋点是目的导向。</p>
-<p>在产品规划时就要思考数据埋点问题，如果在产品外发后再考虑怎么埋点，就会导致前期版本用户的数据无法收集，想要看某个数据时就会非常无奈，只有等到新版本完善来弥补。</p>
-<p>思考要埋哪些点、埋点的形式，需要紧密结合产品迭代的方向、运营需求，并和数据开发等进行充分沟通以确认：</p>
-<ul>
-<li>埋点能够得到想要的数据解决/支持；</li>
-<li>能够得到当前版本的复盘情况；</li>
-<li>后续版本的数据支撑。</li>
-</ul>
-<p>通常的沟通过程以 埋点文档为载体；数据埋点评审为终结。</p>
-<h3 id="当前版本的复盘情况："><a href="#当前版本的复盘情况：" class="headerlink" title="当前版本的复盘情况："></a>当前版本的复盘情况：</h3><ul>
-<li>新版本功能使用情况，是否符合预期；</li>
-<li>新功能上线后对其他功能点的影响？是否为整体均有积极作用；</li>
-<li>版本运营活动目标群体的特征获取;</li>
-<li>新增商业化目标的监测……</li>
-</ul>
-<h3 id="后续版本的数据支撑："><a href="#后续版本的数据支撑：" class="headerlink" title="后续版本的数据支撑："></a>后续版本的数据支撑：</h3><ul>
-<li>规划方向的用户行为分析</li>
-<li>画像特征分析</li>
-</ul>
-<h1 id="埋点指标："><a href="#埋点指标：" class="headerlink" title="埋点指标："></a>埋点指标：</h1><h2 id="基础指标"><a href="#基础指标" class="headerlink" title="基础指标"></a>基础指标</h2><p>基础指标是一些常用的参数指标，比如用户行为相关的，有用户数、新增用户数、活跃用户数等；用户设备相关的，比如电脑系统、地区、语言、国家、产品版本等；用户属性相关的，性别、年龄等。这一部分一般很难通过埋点拿到，但是通过一般第三方工具可以看个大概。</p>
-<h2 id="用户行为数据指标"><a href="#用户行为数据指标" class="headerlink" title="用户行为数据指标"></a>用户行为数据指标</h2><p>用户行为的行为数据，就是埋点的核心了。这一部分根据不同的产品，收集的数据也不同。再拿PC端的腾讯视频举例，每个用户每天使用腾讯视频的时长是多少？每次看的是哪些视频？用户最喜欢看哪个频道的视频？每个频道的使用情况是怎么样的？用户一般是在一天中的哪个时间段打开腾讯视频的。想要看的数据非常多，而这些，都是要提前规划好，有目的性得去决定要埋什么点、怎么埋。如果你的目的是为了研究一下用户对弹幕的接受程度，那围绕弹幕，设置一些指标数据，比如发布弹幕的次数和频率？看视频时是否开启了弹幕？这样的话，就能够通过数据，看出用户对弹幕的真实反映，对于提升产品功能和运营都有很大帮助。</p>
-<h2 id="核心质量指标"><a href="#核心质量指标" class="headerlink" title="核心质量指标"></a>核心质量指标</h2><p>Crash等一些因为产品质量引起的问题，都是用户所不能忍受的。而且用户量越大，越容易出现产品质量问题。尤其是一些产品，他的产品属性决定了，产品质量是吸引用户购买的一个很重要的因素。比如迅雷、photoshop等软件，核心质量的指标能帮助我们监控产品的“健康”情况。</p>
-<p>这里说的质量指标，不单单指产品的 异常退出率、Crash率， 还包括和产品自身业务相关的指标。比如，对于视频编辑产品， 编辑成功率 是很重要的指标；对于迅雷， 下载成功率 是核心指标；对于在线类产品， 资源解析 成功率 是核心指标……</p>
-<h2 id="访问与访客"><a href="#访问与访客" class="headerlink" title="访问与访客"></a>访问与访客</h2><p>访问次数（Visits）与访问人数（Vistors）是几乎所有应用都需要统计的指标，这也是最基础的指标。对于应用的统计来说，经常看到的DAU（日活跃用户数量），MAU（用户数量统计），UV（独立（IP）访客）等指标都是指统计访客（Vistors）。访问（Visits）是指会话层，用户打开应用花一段时间浏览又离开，从指标定义（访问次数）来说这被称之为统计会话（Session）数。一次会话（Session 或 Visit）是打开应用的第一个请求（打开应用）和最后一个请求决定的。如果用户打开应用然后放下手机或是离开电脑，并在接下来30分钟内没有任何动作，此次会话自动结束，通常也算作一次访问或会话期（30分钟是早起网页版应用约定俗成的会话数定义，目前用户停留在应用的时长变长，30分钟的限定也可能随之不同，总之是能代表一次用户访问的时长）。在计算访问人数（Vistors）时，埋点上报的数据是尽可能接近真实访客的人数。对于有需要统计独立访客这个指标的场景，这里还是需要强调一下，访问人数（Vistors）并不是真实独立的人，因此收集数据时必须知道访问人数虽然能够很好的反映使用应用的真实访问者的数量，但不等于使用应用的真实人数。（原因是，重复安装的应用，或是手机参数被修改都会使得独立访客的指标收到影响。计算访问人数的埋点都是依赖Cookie，用户打开应用，应用都会在此人的终端创建一个独立Cookie, Cookie会被保留，但还是难免会被用户手动清理或是Cookie被禁用导致同一用户使用应用Cookie不一致，所以独立访客只能高度接近于使用应用的真实人数。）</p>
-<h2 id="停留时长"><a href="#停留时长" class="headerlink" title="停留时长"></a>停留时长</h2><p>停留时长用来衡量用户在应用的某一个页面或是一次访问（会话）所停留的时间。页面停留时长，表示在每个页面所花费的时间；例如：首页就是进入首页（10：00）到离开首页进入下一个页面(10:01)的时长，首页停留时长计算为1分钟。页面A是2分钟。停留时长的数据并不都是一定采集得到的，比如页面B进入时间（10：03），离开出现异常或是退出时间没有记录，这时候计算就是0 （所以指标计算时需要了解埋点的状况，剔除这样的无效数据）。应用的停留时长，表示一次访问（会话）所停留的时间，计算起来就是所有页面的访问时长，同样是上一个流程，应用的停留时长就是4分钟。</p>
-<h2 id="跳出率"><a href="#跳出率" class="headerlink" title="跳出率"></a>跳出率</h2><p>跳出率的计算方法现在在各个公司还是很多种，最经常被使用的是：用户只访问了一个页面所占的会话比例（原因是：假设这种场景，用户来了访问了一个页面就离开了，想想用户使用的心里画面应该是：打开应用，心想什么鬼，然后关闭应用甚至卸载了。这个场景多可怕，这也是为什么跳出率指标被如此关注）跳出率可以分解到两个层次：一是整个应用的跳出率，二是重点的着陆页的跳出率，甚至是搜索关键词的跳出率。跳出率的指标可操作性非常强，通过统计跳出率可以直接发现页面的问题发现关键词的问题。</p>
-<h2 id="退出率"><a href="#退出率" class="headerlink" title="退出率"></a>退出率</h2><p>退出率是针对页面的，这个指标的目标很简单，就是在针对某个页面有多少用户离开了应用，主要用户反映用户从应用离开的情况。哪些页面需要被改进最快的方式被发掘。（注意：退出率高不一定是坏事。例如：预测流程的最终节点的退出率就应该是高的）</p>
-<h2 id="转化率"><a href="#转化率" class="headerlink" title="转化率"></a>转化率</h2><p>我们在产品上投入这么多，不就是为了衡量产出么？所以对于电商类应用，还有比转化率更值得关注的指标吗？转化率的计算方法是某种产出除以独立访客或是访问量，对于电商产品来说，就是提交订单用户数除以独立访客。转化率的计算看起来想到那简单，但却是埋点中最贴近业务的数据收集。这也是最体现埋点技巧的指标，需要结合业务特点制定计算方法。提交订单量/访客数是最基本的转化率，转化率还可以分层次，指定用户路径的，如：完成某条路径的提交订单数/访客数。</p>
-<h2 id="参与度"><a href="#参与度" class="headerlink" title="参与度"></a>参与度</h2><p>参与度并不是一个指标，而是一系列的指标的统称，例如访问深度，访问频次，针对电商的下单次数，针对内容服务商的播放次数，及用户行为序列这些都可以是衡量参与度的指标。之所以把参与度列为一个指标，是希望大家明白把指标结合业务，产生化学反应，活学活用去发现事物的本质。</p>
-<h1 id="数据采集普遍遇到的几个问题"><a href="#数据采集普遍遇到的几个问题" class="headerlink" title="数据采集普遍遇到的几个问题"></a>数据采集普遍遇到的几个问题</h1><ul>
-<li>实时性，对于工具性产品在无网条件下的数据，无法实时上报；</li>
-<li>完整性，由于用户隐私协议&amp;欧盟通用数据保护条例的，部分数据无法采集；</li>
-<li>异常，android_id、idfa、idfv 随版本升级变化或无法获取。</li>
-</ul>
-<h1 id="怎么埋点"><a href="#怎么埋点" class="headerlink" title="怎么埋点"></a>怎么埋点</h1><h2 id="代码埋点"><a href="#代码埋点" class="headerlink" title="代码埋点"></a>代码埋点</h2><p>以为需要监测网站上/app上用户的行为，是需要在网页/app中加上一些代码的，当用户触发相应行为时，进行数据上报，也就是代码埋点。这样的代码，在网站上叫监测代码，在app中叫SDK（Software Development Kit）。市场上的第三方数据采集均支持代码埋点，GA, GrowingIO，神策等。</p>
-<ul>
-<li>优点<ul>
-<li>采集的数据比较具有针对性，更加适合精细化数据分析。</li>
-<li>同时也能提高数据的准确性。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>每一个控件的埋点都需要添加相应的代码，不仅工作量大，而且限定了必须是技术开发人员才能完成。</li>
-<li>每一次产品迭代，都需要更新埋点方案。</li>
-</ul>
-</li>
-<li>适用场景<ul>
-<li>有具体的业务分析需求，且按照各个事件埋点的方式不能满足。</li>
-<li>需要对埋点事件进行传参等自定义属性设置。代码埋点虽然较复杂，但功能最完善，覆盖了埋点中的不同业务需求。</li>
-</ul>
-</li>
-</ul>
-<h2 id="可视化埋点"><a href="#可视化埋点" class="headerlink" title="可视化埋点"></a>可视化埋点</h2><p>利用可视化交互手段，数据产品/数据分析师可以通过可视化界面（管理后台连接设备） 配置事件，如下是腾讯移动分析的可视化埋点界面。可视化埋点仍需要先配置相关事件，再采集。</p>
-<p>例如腾讯的<a href="https://mta.qq.com/" target="_blank" rel="noopener">https://mta.qq.com/</a><br><img src="https://mta.qq.com/v3/docs/assets/autotrack05.png" alt="image"></p>
-<p>蚂蚁金服的移动开发平台<br><a href="https://tech.antfin.com/docs/2/49549" target="_blank" rel="noopener">https://tech.antfin.com/docs/2/49549</a></p>
-<ul>
-<li>优点<ul>
-<li>业务人员可用，无需技术人员进行SDK嵌入，不懂代码的产品运营人员也可通过后台可视化界面配置和统计埋点并实时下发到客户端生效。</li>
-<li>无需版本更新，由于不需要嵌入新SDK，不需要发布新版本，可谓即时生效。</li>
-<li>对所有版本生效：新增埋点在所有版本生效，不存在迭代问题。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>可覆盖的功能有限，目前并不是所有控件操作都可以通过这种方案进行定制。</li>
-<li>不能自定义交互事件属性，由于获取的是交互事件元素的DOMpath，无法对具体事件设置参数。</li>
-<li>不支持可以不断加载的内容瀑布流交互。</li>
-</ul>
-</li>
-<li>适用场景<ul>
-<li>分析或统计需求简单，不需要对埋点事件进行传参等自定义属性设置。</li>
-<li>频繁上线或更新的H5类型的运营活动</li>
-</ul>
-</li>
-</ul>
-<h2 id="无埋点"><a href="#无埋点" class="headerlink" title="无埋点"></a>无埋点</h2><p>无埋点是指开发人员集成采集 SDK 后，SDK 便直接开始捕捉和监测用户在应用里的所有行为，并全部上报，不需要开发人员添加额外代码。</p>
-<p>数据分析师/数据产品 通过管理后台的圈选功能来选出自己关注的用户行为，并给出事件命名。之后就可以结合时间属性、用户属性、事件进行分析了。所以无埋点并不是真的不用埋点了。目前市场第三方工具GrowingIO支持无埋点全量行为数据抓取<a href="https://growingio.jinshuju.com/" target="_blank" rel="noopener">https://growingio.jinshuju.com/</a></p>
-<ul>
-<li>优点<ul>
-<li>因为无埋点对页面所有元素进行埋点，那么这个页面每个元素被点击的概率你也就知道，对点击概率比较大的元素可以进行深入分析。</li>
-<li>可以在系统上线后使用，支持基于全量的数据回溯，因为无埋点在你部署SDK的时候数据就一直在收集，可帮助进行启发式、探索式的数据分析。</li>
-<li>它技术门槛低，部署简单。</li>
-</ul>
-</li>
-<li>缺点<ul>
-<li>无埋点无法采集自定义属性，只使用通用大部门，通用的场景。</li>
-<li>数据形式非业务导向，因为是对所有事件数据的自动收集，没有按照业务需求进行事件或区域设置，业务或数据人员在使用时或许不能直接使用，需要二次计算或处理。</li>
-<li>兼容性不好，传输时效性较差等问题，因为是对所有的元素数据都收集，会给数据传输和服务器带来较大的压力。</li>
-</ul>
-</li>
-<li>适用场景<ul>
-<li>分析或统计需求简单，不需要对埋点事件进行传参等自定义属性设置的事件。</li>
-<li>针对快速、频繁上线和迭代的H5类型的运营活动的评估。</li>
-</ul>
-</li>
-</ul>
-<p>总体来说，无埋点和可视化埋点更侧重结果的展现，对过程追溯少，更适合产品经理分析基础的产品功能流畅度、用户体验、产品路径设置等。代码埋点和后端埋点，不仅能展现结果，也会记录用户行为过程，支持深度的行为分析和偏好洞察，还可将行为数据与业务数据打通，适合产品和运营人员深度使用。</p>
-<p>无论采用哪种埋点方式，都应该根据业务场景和产品阶段，梳理和构建数据分析体系。埋点规划混乱、数据采集无序、数据分析断层，最终将会让企业陷入“有数据而无价值”的境地。</p>
-<h1 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h1><p><img src="http://qiniu.zlt2000.cn/FncpOSYb_pvFPf0kr9H7tU4ktdvq" alt="image"></p>
-<p>通过 日志埋点 来实现业务监控和行为分析主要需要以下4个步骤</p>
-<p>数据生成(埋点)<br>数据收集<br>数据解析(结构化)<br>数据落盘<br>数据使用(展示/分析)</p>
-<h2 id="数据使用"><a href="#数据使用" class="headerlink" title="数据使用"></a>数据使用</h2><p><img src="http://qiniu.zlt2000.cn/FgAqw5FNDtsLfwUdNnlxShiJ64hk" alt="image"></p>
-<h1 id="如何做数据埋点"><a href="#如何做数据埋点" class="headerlink" title="如何做数据埋点"></a>如何做数据埋点</h1><p>其实这个问题不应该问别人，应该问你自己，通过上文，我们已经知道了，如果你想绘制基础的人群画像你就需要获取用户机型、网络类型、操作系统，IP地域等数据；如果你想分析每一个注册转化率，你就需要获取每一个步骤的点击次数，然后制作成漏斗，看那一步转化率出现了问题……目的不一样，获取的数据也不一样，使用的埋点技术也不一样。<br><img src="https://img.shangyexinzhi.com/xztest-image/article/417f5f73ed680cfbab173acbf316212c.jpeg" alt="image"></p>
-<p>那么，我们该如何选择埋点方式呢？</p>
-<p>我们的目的是实现深度数据分析，不应该采用与其他企业通用的埋点方法，应该采用适合自己的埋点方法。也就是做到“因系统而异、避免千系统一面的情况。</p>
-<p>在系统刚上线的初期阶段，我们可以采用无埋点的方式。因为我们通过UV、PV、点击率等基本指标及即可满足数据分析需求。如果产品上线时间很长，我们需要进行深度数据分析则选择代码埋点。它可以帮我们收集需要的属性。另外，如何埋点既可以在前端实现，也可以在后端实现，我们推荐在后端实现。因为后端数据可以保证数据的准确性。最后，如果您为了方便快捷并且免费，可以选择第三方统计工具，但是一定要选择适合自己业务的统计工具。</p>
-<p>从业务过程中采集埋点，是数据驱动型公司的必要条件。一般公司的产品功能评审环节，不仅有 PRD (Product requirement document），还加入了对应的 DRD ( Data requirement document）。对于埋点而言，DRD 需要明确业务目标与埋点缺口之间的关系以及需求的优先级。埋点的需求大多来自于 DRD，整个过程会涉及多个角色，主要包括产品经理、业务数据负责人、开发工程师、测试工程师，如图所示。</p>
-<p><img src="https://img.36krcdn.com/20200409/v2_d43dfb858dae4481bcefe8567e2b55fe_img_000" alt="image"></p>
-<p>总之，如果您需要深度分析，选择后端（手动）埋点和无埋点组合的方案；如果您只是想看宏观数据，可以选择无埋点。无论采用哪种埋点方法，一定要慎重，根据需要来设置，最好不要出现错埋或者漏埋的情况。最后，数据分析师一定要和业务工程团队（部署实施埋点的部门）配合好才能实现完美的数据采集方案，有时候沟通比选择埋点方式更重。</p>
-<h1 id="优秀的实践案例"><a href="#优秀的实践案例" class="headerlink" title="优秀的实践案例"></a>优秀的实践案例</h1><p>有赞埋点实践<a href="https://tech.youzan.com/track-1/" target="_blank" rel="noopener">https://tech.youzan.com/track-1/</a></p>
-<p>美团点评前端无痕埋点实践<a href="https://tech.meituan.com/2017/03/02/mt-mobile-analytics-practice.html" target="_blank" rel="noopener">https://tech.meituan.com/2017/03/02/mt-mobile-analytics-practice.html</a></p>
-<p>产品经理该如何做好数据埋点<a href="https://www.uisdc.com/product-manager-makes-data-event-tracking" target="_blank" rel="noopener">https://www.uisdc.com/product-manager-makes-data-event-tracking</a></p>
-<p>数据统计埋点工作框架及细节规范<a href="https://www.inneed.club/articles/detail/pkx0epxgew" target="_blank" rel="noopener">https://www.inneed.club/articles/detail/pkx0epxgew</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -3516,7 +3534,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3597,7 +3615,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

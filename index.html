@@ -301,6 +301,185 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2022/06/08/Spock单元测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="强壮的病猫">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/dinghuang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一只病猫">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/06/08/Spock单元测试/" itemprop="url">Spock-Spring-Gradle 单元测试</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-08T15:47:00+08:00">
+                2022-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index">
+                    <span itemprop="name">JAVA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/06/08/Spock单元测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2022/06/08/Spock单元测试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Spock介绍"><a href="#Spock介绍" class="headerlink" title="Spock介绍"></a>Spock介绍</h1><p><code>Spock</code>是国外一款优秀的测试框架，基于<code>BDD</code>（行为驱动开发）思想实现，功能非常强大。<code>Spock</code>结合<code>Groovy</code>动态语言的特点，提供了各种标签，并采用简单、通用、结构化的描述语言，让编写测试代码更加简洁、高效。<code>Spock</code>作为测试框架，在开发效率、可读性和维护性方面均取得了不错的收益。</p>
+<h1 id="修改项目配置"><a href="#修改项目配置" class="headerlink" title="修改项目配置"></a>修改项目配置</h1><p>项目用<code>gradle</code>管理，用的是<code>7.4.2</code>版本，<code>spock</code>用的是<code>2.0-M3-groovy-3.0</code>版本。</p>
+<h2 id="配置修改"><a href="#配置修改" class="headerlink" title="配置修改"></a>配置修改</h2><p>修改文件<code>build.gradle</code>并添加依赖<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">List</span> spockTest = [</span><br><span class="line">        <span class="string">"org.spockframework:spock-core:2.0-M3-groovy-3.0"</span>,</span><br><span class="line">        <span class="string">"org.spockframework:spock-spring:2.0-M3-groovy-3.0"</span>,</span><br><span class="line">        <span class="string">"org.mockito:mockito-core:4.3.1"</span>,</span><br><span class="line">        <span class="string">"org.mockito:mockito-inline:4.3.1"</span>,</span><br><span class="line">        <span class="string">"org.springframework.boot:spring-boot-starter-test"</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    <span class="attribute">implementation</span> <span class="string">'org.codehaus.groovy:groovy:3.0.5'</span></span><br><span class="line">    testImplementation spockTest</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sourceSets &#123;</span><br><span class="line">    <span class="section">main</span> &#123;</span><br><span class="line">        <span class="section">java</span> &#123; <span class="attribute">srcDirs</span> = [<span class="string">'src/main/java'</span>] &#125;</span><br><span class="line">        resources &#123; <span class="attribute">srcDirs</span> = [<span class="string">'src/main/resources'</span>] &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    test &#123;</span><br><span class="line">        <span class="section">java</span> &#123; <span class="attribute">srcDirs</span> = [<span class="string">'src/test/groovy'</span>] &#125;</span><br><span class="line">        resources &#123; <span class="attribute">srcDirs</span> = [<span class="string">'src/test/resources'</span>] &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">apply from: <span class="string">'test.gradle'</span></span><br></pre></td></tr></table></figure></p>
+<p>修改<code>test.gradle</code>，这步主要是和<code>jacoco</code>结合生成报告（带覆盖率，用的<code>jacoco</code>的<code>offline</code>特性）<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="keyword">from</span>: <span class="string">'testFilesConf.gradle'</span></span><br><span class="line">apply plugin: <span class="string">'java'</span></span><br><span class="line">apply plugin: <span class="string">"groovy"</span></span><br><span class="line">apply plugin: <span class="string">"jacoco"</span></span><br><span class="line"></span><br><span class="line">jacoco &#123;</span><br><span class="line">    toolVersion = <span class="string">"0.8.7"</span></span><br><span class="line">    reportsDir = <span class="keyword">file</span>(<span class="string">"$buildDir/customJacocoReportDir"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">configurations</span> &#123;</span><br><span class="line">    jacocoAnt</span><br><span class="line">    jacocoRuntime</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test &#123;</span><br><span class="line">    useJUnitPlatform()</span><br><span class="line">    maxHeapSize = <span class="string">"1G"</span></span><br><span class="line">    jacoco &#123;</span><br><span class="line">        destinationFile = <span class="keyword">file</span>(<span class="string">"$buildDir/jacoco/test.exec"</span>)</span><br><span class="line">        classDumpDir = <span class="keyword">file</span>(<span class="string">"$buildDir/jacoco/classpathdumps"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    testLogging &#123;</span><br><span class="line">        afterSuite &#123; desc, result -&gt;</span><br><span class="line">            <span class="keyword">if</span> (!desc.parent) &#123;</span><br><span class="line">                <span class="keyword">println</span> <span class="string">"Unit Tests: $&#123;result.resultType&#125; ($&#123;result.testCount&#125; tests, $&#123;result.successfulTestCount&#125; successes, $&#123;result.failedTestCount&#125; failures, $&#123;result.skippedTestCount&#125; skipped)"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> excludedSourcesPattern = [<span class="string">'**/entity/**'</span>, <span class="string">'**/dto/**'</span>]</span><br><span class="line"></span><br><span class="line">jacocoTestReport &#123;</span><br><span class="line">    reports &#123;</span><br><span class="line">        html.enabled <span class="keyword">true</span></span><br><span class="line">        csv.enabled <span class="keyword">false</span></span><br><span class="line">        xml.enabled <span class="keyword">true</span></span><br><span class="line">        xml.destination <span class="keyword">file</span>(<span class="string">"$buildDir/jacocoHtml/jacocoXml.xml"</span>)</span><br><span class="line">        html.destination <span class="keyword">file</span>(<span class="string">"$buildDir/reports/jacoco/test/html"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    afterEvaluate &#123;</span><br><span class="line">        getClassDirectories().setFrom(</span><br><span class="line">                classDirectories.files.<span class="keyword">collect</span> &#123;</span><br><span class="line">                    <span class="keyword">fileTree</span>(dir: it, excludes: excludedSourcesPattern)</span><br><span class="line">                &#125;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> compileClassPath = [  <span class="string">"$&#123;project.buildDir&#125;/classes/java/main"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> instrument(dependsOn: [<span class="string">'classes'</span>]) &#123;</span><br><span class="line">    ext.outputDir = buildDir.path + <span class="string">'/intermediates/classes-instrumented/Java'</span></span><br><span class="line">    <span class="keyword">doLast</span> &#123;</span><br><span class="line">        <span class="keyword">ant</span>.taskdef(name: <span class="string">'instrument'</span>,</span><br><span class="line">                classname: <span class="string">'org.jacoco.ant.InstrumentTask'</span>,</span><br><span class="line">                <span class="keyword">classpath</span>: <span class="keyword">configurations</span>.jacocoAnt.asPath)</span><br><span class="line">        <span class="keyword">ant</span>.instrument(destdir: outputDir) &#123;</span><br><span class="line">            compileClassPath.<span class="keyword">each</span> &#123;</span><br><span class="line">                fileset(dir: it)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">gradle.taskGraph.whenReady &#123; graph -&gt;</span><br><span class="line">    <span class="keyword">if</span> (graph.hasTask(instrument)) &#123;</span><br><span class="line">        tasks.withType(Test) &#123;</span><br><span class="line">            <span class="keyword">doFirst</span> &#123;</span><br><span class="line">                systemProperty <span class="string">'jacoco-agent.destfile'</span>, buildDir.path + <span class="string">'/jacoco/test.exec'</span></span><br><span class="line">                <span class="keyword">classpath</span> = files(instrument.outputDir) + <span class="keyword">classpath</span> + <span class="keyword">configurations</span>.jacocoRuntime</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> jacocoReport(dependsOn: [<span class="string">'instrument'</span>, <span class="string">'test'</span>]) &#123;</span><br><span class="line">    <span class="keyword">doLast</span> &#123;</span><br><span class="line">        <span class="keyword">ant</span>.taskdef(name: <span class="string">'report'</span>,</span><br><span class="line">                classname: <span class="string">'org.jacoco.ant.ReportTask'</span>,</span><br><span class="line">                <span class="keyword">classpath</span>: <span class="keyword">configurations</span>.jacocoAnt.asPath)</span><br><span class="line">        <span class="keyword">ant</span>.report() &#123;</span><br><span class="line">            executiondata &#123;</span><br><span class="line">                <span class="keyword">ant</span>.<span class="keyword">file</span>(<span class="keyword">file</span>: buildDir.path + <span class="string">"/jacoco/test.exec"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            structure(name: <span class="keyword">project</span>.name) &#123;</span><br><span class="line">                classfiles &#123;</span><br><span class="line">                    compileClassPath.<span class="keyword">each</span> &#123;</span><br><span class="line">                        fileset(dir: it)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                sourcefiles &#123;</span><br><span class="line">                    fileset(dir: <span class="string">'src/main/java'</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            html(destdir: buildDir.path + <span class="string">'/reports/jacoco'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">check.dependsOn jacocoTestReport</span><br></pre></td></tr></table></figure></p>
+<h2 id="对Spring的封装"><a href="#对Spring的封装" class="headerlink" title="对Spring的封装"></a>对Spring的封装</h2><p>这边对Spring做了一个封装，可以做成一个测试的maven模块，先写一个自定义注解，主要是用作Spring容器的启动，同时制定启动的配置文件为test<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> * @Author: dinghuang</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Date: since 2022/5/30 16:03</span></span><br><span class="line"><span class="comment"> * @Modify By: dinghuang</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="variable">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="variable">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="variable">@Documented</span></span><br><span class="line"><span class="variable">@Inherited</span></span><br><span class="line"><span class="variable">@SpringBootTest</span>(webEnvironment = RANDOM_PORT, classes = ServerApplication.class)</span><br><span class="line"><span class="variable">@ActiveProfiles</span>(<span class="string">"test"</span>)</span><br><span class="line"><span class="variable">@Stepwise</span></span><br><span class="line">public <span class="variable">@interface</span> CustomTest &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个时候我们在test的resource下面的<code>application.properties</code>修改一下配置<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="selector-class">.profiles</span><span class="selector-class">.active</span>=test</span><br></pre></td></tr></table></figure></p>
+<p>接下来就是写代码了</p>
+<h1 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h1><p>代码写在<code>test</code>目录下，跟<code>junit</code>不一样的是，目录结构是：<code>test-&gt;groovy-&gt;xxxx.xxx.xxx</code></p>
+<blockquote>
+<p>需要<code>IDEA</code>把<code>groovy</code>的<code>mark directory</code>设置成<code>test root</code></p>
+</blockquote>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>这边不懂Spock的语法的，可以百度下，这边直接略过</p>
+<p>先看业务代码，业务很简单，查一个字典表返回数据<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: dinghuang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: since 2022/4/1 18:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modify</span> By: dinghuang</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysDictService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SysDictService.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysDictDao sysDictDao;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">getDictName</span><span class="params">(String dict)</span> </span>&#123;</span><br><span class="line">        SysDict sysDict = sysDictDao.selectByPrimaryKey(dict);</span><br><span class="line">        <span class="function"><span class="keyword">return</span> sysDict.<span class="title">getDictname</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Mock模拟"><a href="#Mock模拟" class="headerlink" title="Mock模拟"></a>Mock模拟</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @Author: dinghuang</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Date: since 2022/5/30 16:18</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> * @Modify By: dinghuang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CustomTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestControllerTest</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="type">SysDictTestService</span> sysDictTestService</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SpringBean</span></span><br><span class="line">    <span class="type">SysDictDao</span> sysDictDao = <span class="type">Mock</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> '<span class="title">Mock测试</span>'</span>() &#123;</span><br><span class="line">        given:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dict</span> </span>= '系统'</span><br><span class="line">        <span class="number">1</span> * sysDictDao.selectByPrimaryKey(dict) &gt;&gt; <span class="keyword">new</span> <span class="type">SysDict</span>('系统')</span><br><span class="line"></span><br><span class="line">        when:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">result</span> </span>= sysDictTestService.getDictName(dict)</span><br><span class="line"></span><br><span class="line">        then:</span><br><span class="line">        result == '系统'</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Where使用"><a href="#Where使用" class="headerlink" title="Where使用"></a>Where使用</h3><p>正常我们单元测试率有个分支覆盖率指标，如果用junit写太麻烦了，用spock可以非常简洁，假如字典的逻辑不同的dictName有不同的处理逻辑<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @Author: dinghuang</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Date: since 2022/5/30 16:18</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> * @Modify By: dinghuang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CustomTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestControllerTest</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="type">SysDictTestService</span> sysDictTestService</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SpringBean</span></span><br><span class="line">    <span class="type">SysDictDao</span> sysDictDao = <span class="type">Mock</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> '<span class="title">Where测试</span>'</span>() &#123;</span><br><span class="line">        given:</span><br><span class="line">        sysDictDao.selectByPrimaryKey(a) &gt;&gt; d</span><br><span class="line"></span><br><span class="line">        when:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">b</span> </span>= sysDictTestService.getDictName(a)</span><br><span class="line"></span><br><span class="line">        then:</span><br><span class="line">        b == c</span><br><span class="line"></span><br><span class="line">        where:</span><br><span class="line">        a       | d                       || c</span><br><span class="line">        <span class="symbol">'1000</span>0' | <span class="keyword">new</span> <span class="type">SysDict</span>('系统')       || '系统'</span><br><span class="line">        <span class="symbol">'1000</span>4' | <span class="keyword">new</span> <span class="type">SysDict</span>('多点登录处理方式') || '多点登录处理方式'</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里可以用<code>@Unroll</code>注解，可以把每一次调用作为一个单独的测试用例运行，这样运行后的单元测试结果更加直观：<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@Unroll</span><br><span class="line"><span class="function"><span class="keyword">def</span> '<span class="title">Where</span>测试'<span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="symbol">given:</span></span><br><span class="line">    sysDictDao.selectByPrimaryKey(a) <span class="meta">&gt;&gt; </span>d</span><br><span class="line"></span><br><span class="line">    <span class="symbol">when:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">b</span> = <span class="title">sysDictTestService</span>.<span class="title">getDictName</span><span class="params">(a)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="symbol">then:</span></span><br><span class="line">    b == c</span><br><span class="line"></span><br><span class="line">    <span class="symbol">where:</span></span><br><span class="line">    a       <span class="params">| d                       |</span><span class="params">| c</span></span><br><span class="line"><span class="params">    '10000' |</span> new SysDict(<span class="string">'系统'</span>)       <span class="params">||</span> <span class="string">'系统'</span></span><br><span class="line">    <span class="string">'10004'</span> <span class="params">| new SysDict('多点登录处理方式') |</span><span class="params">| '多点登录处理方式'</span></span><br><span class="line"><span class="params"></span></span><br><span class="line"><span class="params">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="测试异常"><a href="#测试异常" class="headerlink" title="测试异常"></a>测试异常</h3><p>先修改一下业务代码，如下<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: dinghuang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: since 2022/4/1 18:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modify</span> By: dinghuang</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysDictTestService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SysDictTestService.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysDictDao sysDictDao;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">getDictName</span><span class="params">(String dict)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"测试异常"</span>.equals(dict)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(ErrorCodeEnum.SYS_ERROR);</span><br><span class="line">        &#125;</span><br><span class="line">        SysDict sysDict = sysDictDao.selectByPrimaryKey(dict);</span><br><span class="line">        <span class="function"><span class="keyword">return</span> sysDict.<span class="title">getDictname</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>写异常测试类<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @Author: dinghuang</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Date: since 2022/5/30 16:18</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> * @Modify By: dinghuang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CustomTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestControllerTest</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="type">SysDictTestService</span> sysDictTestService</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> '<span class="title">测试异常</span>'</span>() &#123;</span><br><span class="line">        given:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dict</span> </span>= '测试异常'</span><br><span class="line"></span><br><span class="line">        when:</span><br><span class="line">        sysDictTestService.getDictName(dict)</span><br><span class="line"></span><br><span class="line">        then:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">exception</span> </span>= thrown(<span class="type">BusinessException</span>)</span><br><span class="line">        exception.errorCode == <span class="symbol">'2137999</span>9'</span><br><span class="line">        exception.message == <span class="symbol">'bizErrCode</span>=<span class="number">21379999</span>,bizErrMsg=系统异常'</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="静态方法Mock"><a href="#静态方法Mock" class="headerlink" title="静态方法Mock"></a>静态方法Mock</h3><p>先修改一下业务代码<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: dinghuang</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: since 2022/4/1 18:05</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Modify</span> By: dinghuang</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysDictTestService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(SysDictTestService.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysDictDao sysDictDao;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function">String <span class="title">getDateStr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">return</span> DateUtil.<span class="title">getCurrentSysDate</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DateUtil</span> </span>&#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">String</span> getCurrentSysDate() &#123;</span><br><span class="line">        <span class="keyword">return</span> getDate(<span class="keyword">new</span> <span class="type">Date</span>(), yyyyMMdd_PATTERN);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>静态方法测试<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @Author: dinghuang</span></span><br><span class="line"><span class="comment"> * @Description:</span></span><br><span class="line"><span class="comment"> * @Date: since 2022/5/30 16:18</span></span><br><span class="line"><span class="comment"> * @version 1.0</span></span><br><span class="line"><span class="comment"> * @Modify By: dinghuang</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@CustomTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestControllerTest</span> <span class="keyword">extends</span> <span class="title">Specification</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="type">SysDictTestService</span> sysDictTestService</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Shared</span></span><br><span class="line">    <span class="type">MockedStatic</span>&lt;<span class="type">DateUtil</span>&gt; dateUtilMockedStatic</span><br><span class="line"></span><br><span class="line">    void setup() &#123;</span><br><span class="line">        dateUtilMockedStatic = <span class="type">Mockito</span>.mockStatic(<span class="type">DateUtil</span>.<span class="keyword">class</span>)</span><br><span class="line">        <span class="comment">// mock静态类</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> '<span class="title">测试异常</span>'</span>() &#123;</span><br><span class="line">        given:</span><br><span class="line">        <span class="type">Mockito</span>.when(<span class="type">DateUtil</span>.getCurrentSysDate()).thenReturn(<span class="string">"1991-01-02"</span>)</span><br><span class="line"></span><br><span class="line">        when:</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">date</span> </span>= sysDictTestService.getDateStr()</span><br><span class="line"></span><br><span class="line">        then:</span><br><span class="line">        date == <span class="string">"1991-01-02"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="测试sql"><a href="#测试sql" class="headerlink" title="测试sql"></a>测试sql</h3><p>这个原理是在每个单元测试可以写一个前置后置处理方法，比如跑测试A，会自动跑测试A的前置，把数据库初始化进去，数据初始化进去，用的是H2内存数据库，但是这个东西对特定数据库的一些语法不支持，所以不太建议这么做，简单的sql的确可以测试出问题</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 直接获取待测试的mapper</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">def</span> personInfoMapper = MapperUtil.getMapper(PersonInfoMapper.<span class="keyword">class</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 测试数据准备，通常为sql表结构创建用的ddl，支持多个文件以逗号分隔。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">def</span> setup() &#123;</span><br><span class="line">executeSqlScriptFile(<span class="string">"com/xxx/xxx/xxx/......../schema.sql"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 数据表清除，通常待drop的数据表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">def</span> cleanup() &#123;</span><br><span class="line">dropTables(<span class="string">"person_info"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 直接构造数据库中的数据表,此方法适用于数据量较小的mapper sql测试</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@MyDbUnit</span>(</span><br><span class="line">    content = &#123;</span><br><span class="line">        person_info(<span class="string">id:</span> <span class="number">1</span>, <span class="string">name:</span> <span class="string">"abc"</span>, <span class="string">age:</span> <span class="number">21</span>)</span><br><span class="line">        person_info(<span class="string">id:</span> <span class="number">2</span>, <span class="string">name:</span> <span class="string">"bcd"</span>, <span class="string">age:</span> <span class="number">22</span>)</span><br><span class="line">        person_info(<span class="string">id:</span> <span class="number">3</span>, <span class="string">name:</span> <span class="string">"cde"</span>, <span class="string">age:</span> <span class="number">23</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"><span class="keyword">def</span> <span class="string">"demo1_01"</span>() &#123;</span><br><span class="line"><span class="string">when:</span></span><br><span class="line"><span class="keyword">int</span> beforeCount = personInfoMapper.count()</span><br><span class="line"><span class="comment">// groovy sql用于快速执行sql，不仅能验证数据结果，也可向数据中添加数据。</span></span><br><span class="line"><span class="keyword">def</span> result = <span class="keyword">new</span> Sql(dataSource).firstRow(<span class="string">"select * from `person_info`"</span>) </span><br><span class="line"><span class="keyword">int</span> deleteCount = personInfoMapper.deleteById(<span class="number">1</span>L)</span><br><span class="line"><span class="keyword">int</span> afterCount = personInfoMapper.count()</span><br><span class="line"></span><br><span class="line"><span class="string">then:</span></span><br><span class="line">beforeCount == <span class="number">3</span></span><br><span class="line">result.name == <span class="string">"abc"</span></span><br><span class="line">deleteCount == <span class="number">1</span></span><br><span class="line">afterCount == <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="报告"><a href="#报告" class="headerlink" title="报告"></a>报告</h3><p>正常运行完成<code>gradle test</code>会生成报告在路径<code>build\reports\tests\test\index.html</code>，这个是html的，没有覆盖率的情况，如图所示：</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG758.png" alt=""></p>
+<p>运行我们<code>test.gradle</code>中自己写的task，<code>gradle jacocoReport</code>，会生成单元测试覆盖报告在路径<code>build\reports\jacoco\index.html</code>，如图所示</p>
+<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG759.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2022/03/07/RocketMQ安装使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3934,237 +4113,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dinghuang.github.io/2020/09/08/如何画架构设计图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="强壮的病猫">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/dinghuang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一只病猫">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/09/08/如何画架构设计图/" itemprop="url">如何画架构设计图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-09-08T15:47:00+08:00">
-                2020-09-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/架构/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/09/08/如何画架构设计图/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/09/08/如何画架构设计图/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="如何画架构设计图"><a href="#如何画架构设计图" class="headerlink" title="如何画架构设计图"></a>如何画架构设计图</h1><p>转载于<a href="https://www.zhihu.com/question/27440059/answer/780182558?utm_campaign=shareopn&amp;utm_content=group2_Answer&amp;utm_medium=social&amp;utm_oi=771100730449731584&amp;utm_source=wechat_session&amp;s_r=0" target="_blank" rel="noopener">知乎</a></p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="什么是架构"><a href="#什么是架构" class="headerlink" title="什么是架构"></a>什么是架构</h3><p>架构就是对系统中的实体以及实体之间的关系所进行的抽象描述，是一系列的决策。</p>
-<p>架构是结构和愿景。</p>
-<p>系统架构是概念的体现，是对物/信息的功能与形式元素之间的对应情况所做的分配，是对元素之间的关系以及元素同周边环境之间的关系所做的定义。</p>
-<p>做好架构是个复杂的任务有了架构之后，就需要让干系人理解、遵循相关决策。</p>
-<h3 id="什么是架构图"><a href="#什么是架构图" class="headerlink" title="什么是架构图"></a>什么是架构图</h3><p>系统架构图是为了抽象的表示软件系统的整体轮廓和各个组件之间的相互关系和约束边界，以及软件系统的物理部署和软件系统的演进方向的整体视图。</p>
-<h3 id="架构图的作用"><a href="#架构图的作用" class="headerlink" title="架构图的作用"></a>架构图的作用</h3><p>一图胜千言。要让干系人理解、遵循架构决策，就需要把架构信息传递出去。架构图就是一个很好的载体。那么，画架构图是为了：</p>
-<ul>
-<li>解决沟通障碍</li>
-<li>达成共识</li>
-<li>减少歧义</li>
-</ul>
-<h2 id="架构图分类"><a href="#架构图分类" class="headerlink" title="架构图分类"></a>架构图分类</h2><p>搜集了很多资料，分类有很多，有一种比较流行的是4+1视图，分别为场景视图、逻辑视图、物理视图、处理流程视图和开发视图。</p>
-<h3 id="场景视图"><a href="#场景视图" class="headerlink" title="场景视图"></a>场景视图</h3><p>场景视图用于描述系统的参与者与功能用例间的关系,反映系统的最终需求和交互设计,通常由用例图表示。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-d85450f5fde7b1b952c375aeb5b08ef9_1440w.jpg" alt="image"></p>
-<h3 id="逻辑视图"><a href="#逻辑视图" class="headerlink" title="逻辑视图"></a>逻辑视图</h3><p>逻辑视图用于描述系统软件功能拆解后的组件关系,组件约束和边界,反映系统整体组成与系统如何构建的过程,通常由UML的组件图和类图来表示。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-e3e7793037d994f51a70875c976bae8d_1440w.jpg" alt="image"></p>
-<h3 id="物理视图"><a href="#物理视图" class="headerlink" title="物理视图"></a>物理视图</h3><p>物理视图用于描述系统软件到物理硬件的映射关系,反映出系统的组件是如何部署到一组可计算机器节点上,用于指导软件系统的部署实施过程</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f8aa7bd39f8c1ff151d42abe295eac1e_1440w.jpg" alt="image"></p>
-<h3 id="处理流程视图"><a href="#处理流程视图" class="headerlink" title="处理流程视图"></a>处理流程视图</h3><p>处理流程视图用于描述系统软件组件之间的通信时序,数据的输入输出,反映系统的功能流程与数据流程,通常由时序图和流程图表示。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f75cf601674f20a7b06df2a3cc2fb934_1440w.jpg" alt="image"></p>
-<h3 id="开发视图"><a href="#开发视图" class="headerlink" title="开发视图"></a>开发视图</h3><p>开发视图用于描述系统的模块划分和组成,以及细化到内部包的组成设计,服务于开发人员,反映系统开发实施过程。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-594b11d0f1c0b0e2bba824f5d489e403_1440w.jpg" alt="image"></p>
-<p>5 种架构视图从不同角度表示一个软件系统的不同特征，组合到一起作为架构蓝图描述系统架构。</p>
-<h2 id="好的架构图"><a href="#好的架构图" class="headerlink" title="好的架构图"></a>好的架构图</h2><p>上面的分类是前人的经验总结，图也是从网上摘来的，那么这些图画的好不好呢？是不是我们要依葫芦画瓢去画这样一些图？</p>
-<p>先不去管这些图好不好，我们通过对这些图的分类以及作用，思考了一下，总结下来，我们认为，在画出一个好的架构图之前， 首先应该要明确其受众，再想清楚要给他们传递什么信息 ，所以，不要为了画一个物理视图去画物理视图，为了画一个逻辑视图去画逻辑视图，而应该根据受众的不同，传递的信息的不同，用图准确地表达出来，最后的图可能就是在这样一些分类里。那么，画出的图好不好的一个直接标准就是：受众有没有准确接收到想传递的信息。</p>
-<p>明确这两点之后，从受众角度来说，一个好的架构图是不需要解释的，它应该是自描述的，并且要具备一致性和足够的准确性，能够与代码相呼应。</p>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ul>
-<li>方框代表什么？</li>
-</ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-1542f3d3594594c88b2abad7926f32af_1440w.jpg" alt="image"></p>
-<p>为什么适用方框而不是圆形，它有什么特殊的含义吗？随意使用方框或者其它形状可能会引起混淆。</p>
-<ul>
-<li>虚线、实线什么意思？箭头什么意思？颜色什么意思？</li>
-</ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg" alt="image"></p>
-<p>随意使用线条或者箭头可能会引起误会。</p>
-<ul>
-<li>运行时与编译时冲突？层级冲突？</li>
-</ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-f793c4721c9101087656c109c315585c_1440w.jpg" alt="image"></p>
-<p>架构是一项复杂的工作，只使用单个图表来表示架构很容易造成莫名其妙的语义混乱。</p>
-<h2 id="如何更好的表达软件架构"><a href="#如何更好的表达软件架构" class="headerlink" title="如何更好的表达软件架构"></a>如何更好的表达软件架构</h2><h3 id="C4"><a href="#C4" class="headerlink" title="C4"></a>C4</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-8576e8884006dfb5e2e88fa4405ae0f9_1440w.jpg" alt="image"></p>
-<p>C4 模型使用容器（应用程序、数据存储、微服务等）、组件和代码来描述一个软件系统的静态结构。这几种图比较容易画，也给出了画图要点，但最关键的是，我们认为，它明确指出了每种图可能的受众以及意义。</p>
-<p>下面的案例来自C4官网，然后加上了一些我们的理解。</p>
-<h3 id="语境图-System-Context-Diagram"><a href="#语境图-System-Context-Diagram" class="headerlink" title="语境图(System Context Diagram)"></a>语境图(System Context Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-cf751ecece5c86fef705d44e422f088b_1440w.jpg" alt="image"></p>
-<p>这是一个想象的待建设的互联网银行系统，它使用外部的大型机银行系统存取客户账户、交易信息，通过外部电邮系统给客户发邮件。可以看到，非常简单、清晰，相信不需要解释，都看的明白，里面包含了需要建设的系统本身，系统的客户，和这个系统有交互的周边系统。</p>
-<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>这样一个简单的图，可以告诉我们，要构建的系统是什么；它的用户是谁，谁会用它，它要如何融入已有的IT环境。这个图的受众可以是开发团队的内部人员、外部的技术或非技术人员。即：</p>
-<ul>
-<li>构建的系统是什么</li>
-<li>谁会用它</li>
-<li>如何融入已有的IT环境</li>
-</ul>
-<h4 id="怎么画"><a href="#怎么画" class="headerlink" title="怎么画"></a>怎么画</h4><p>中间是自己的系统，周围是用户和其它与之相互作用的系统。这个图的关键就是梳理清楚待建设系统的用户和高层次的依赖，梳理清楚了画下来只需要几分钟时间。</p>
-<h3 id="容器图-Container-Diagram"><a href="#容器图-Container-Diagram" class="headerlink" title="容器图(Container Diagram)"></a>容器图(Container Diagram)</h3><p>容器图是把语境图里待建设的系统做了一个展开。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-542d65da584b32dbfe6e63d208484670_1440w.jpg" alt="image"></p>
-<p>上图中，除了用户和外围系统，要建设的系统包括一个基于java\spring mvc的web应用提供系统的功能入口，基于xamarin架构的手机app提供手机端的功能入口，一个基于java的api应用提供服务，一个mysql数据库用于存储，各个应用之间的交互都在箭头线上写明了。</p>
-<p>看这张图的时候，不会去关注到图中是直角方框还是圆角方框，不会关注是实线箭头还是虚线箭头，甚至箭头的指向也没有引起太多注意。</p>
-<p>我们有许多的画图方式，都对框、线的含义做了定义，这就需要画图的人和看图的人都清晰的理解这些定义，才能读全图里的信息，而现实是，这往往是非常高的一个要求，所以，很多图只能看个大概的含义。</p>
-<h4 id="用途-1"><a href="#用途-1" class="headerlink" title="用途"></a>用途</h4><p>这个图的受众可以是团队内部或外部的开发人员，也可以是运维人员。用途可以罗列为：</p>
-<ul>
-<li>展现了软件系统的整体形态</li>
-<li>体现了高层次的技术决策</li>
-<li>系统中的职责是如何分布的，容器间的是如何交互的</li>
-<li>告诉开发者在哪里写代码</li>
-</ul>
-<h4 id="怎么画-1"><a href="#怎么画-1" class="headerlink" title="怎么画"></a>怎么画</h4><p>用一个框图来表示，内部可能包括名称、技术选择、职责，以及这些框图之间的交互，如果涉及外部系统，最好明确边界</p>
-<h3 id="组件图-Component-Diagram"><a href="#组件图-Component-Diagram" class="headerlink" title="组件图(Component Diagram)"></a>组件图(Component Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-b320fa5f7733cb8e7b9f45a910aadb3f_1440w.jpg" alt="image"></p>
-<p>组件图是把某个容器进行展开，描述其内部的模块。</p>
-<h4 id="用途-2"><a href="#用途-2" class="headerlink" title="用途"></a>用途</h4><p>这个图主要是给内部开发人员看的，怎么去做代码的组织和构建。其用途有</p>
-<ul>
-<li>描述了系统由哪些组件/服务组成</li>
-<li>厘清了组件之间的关系和依赖</li>
-<li>为软件开发如何分解交付提供了框架</li>
-</ul>
-<h3 id="类图-Code-Class-Diagram"><a href="#类图-Code-Class-Diagram" class="headerlink" title="类图(Code/Class Diagram)"></a>类图(Code/Class Diagram)</h3><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-bbfef0211b32a11ee209140f964ae233_1440w.jpg" alt="image"></p>
-<h2 id="工具使用"><a href="#工具使用" class="headerlink" title="工具使用"></a>工具使用</h2><h3 id="本地协作"><a href="#本地协作" class="headerlink" title="本地协作"></a>本地协作</h3><h4 id="Mac-OmniGraffle"><a href="#Mac-OmniGraffle" class="headerlink" title="Mac:OmniGraffle"></a>Mac:OmniGraffle</h4><p>OmniGraffle 是由 The Omni Group 制作的一款绘图软件，它曾获得苹果设计奖。OmniGraffle 可以支持流程图、逻辑图或者网页产品模型设计等，功能非常强大。与 Graffle 对应的是在Windows平台广泛应用的 MS Visio（ Graffle 这个词据说就是为了和Visio区分而硬造出来的）</p>
-<h4 id="Windows-Visio"><a href="#Windows-Visio" class="headerlink" title="Windows:Visio"></a>Windows:Visio</h4><p>Office Visio 是office软件系列中的负责绘制流程图和示意图的软件，是一款便于IT和商务人员就复杂信息、系统和流程进行可视化处理、分析和交流的软件。使用具有专业外观的 Office Visio 图表，可以促进对系统和流程的了解，深入了解复杂信息并利用这些知识做出更好的业务决策。<br>Microsoft Office Visio帮助您创建具有专业外观的图表，以便理解、记录和分析信息、数据、系统和过程。</p>
-<h3 id="在线协作"><a href="#在线协作" class="headerlink" title="在线协作"></a>在线协作</h3><h4 id="Process-On"><a href="#Process-On" class="headerlink" title="Process On"></a>Process On</h4><p>是一款用HTML5、Canvas以及JavaScript技术开发而成的在线网页版作图工具。只需在工具栏拖放对应的图形到画布中,就可进行编辑，还支持流程图、思维导图、原型、拓扑图等，最让人心动的就是有实时协助的功能，从此再也不需要和同学、老师、领导之间来回传送文件，直接邀请，一起协作完成。</p>
-<h2 id="案例分享"><a href="#案例分享" class="headerlink" title="案例分享"></a>案例分享</h2><p>下面是 城市运营态势 工具的一个架构图。作为一个应该自描述的架构图，这里不多做解释了。如果有看不明白的，那肯定是还画的不够好。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/v2-a6bc2de3271462f663b3d0203ba42050_1440w.jpg" alt="image"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4221,7 +4169,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

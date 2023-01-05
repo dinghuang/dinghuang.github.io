@@ -1404,7 +1404,7 @@
 <pre><code>24b9da6552252987aa493b52f8696cd6d3b00373
 </code></pre><p>Git 中使用这种哈希值的情况很多，你将经常看到这种哈希值。 实际上，Git 数据库中保存的信息都是以文件内容的哈希值来索引，而不是文件名。</p>
 <h3 id="2-2-三种状态"><a href="#2-2-三种状态" class="headerlink" title="2.2. 三种状态"></a>2.2. 三种状态</h3><p> Git 有三种状态，你的文件可能处于其中之一：已提交（committed）、已修改（modified）和已暂存（staged）。 已提交表示数据已经安全的保存在本地数据库中。 已修改表示修改了文件，但还没保存到数据库中。 已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。</p>
-<p>由此引入 Git 项目的三个工作区域的概念：<strong>Git 仓库</strong>、<strong>工作目录</strong> 以及<strong>暂存区域</strong>。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/areas.png" alt="此处输入图片的描述"></p>
+<p>由此引入 Git 项目的三个工作区域的概念：<strong>Git 仓库</strong>、<strong>工作目录</strong> 以及<strong>暂存区域</strong>。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/areas.png" alt="此处输入图片的描述"></p>
 <h3 id="2-3-Git-仓库、工作目录-、暂存区域"><a href="#2-3-Git-仓库、工作目录-、暂存区域" class="headerlink" title="2.3. Git 仓库、工作目录 、暂存区域"></a>2.3. Git 仓库、工作目录 、暂存区域</h3><p>  <strong>Git 仓库目录</strong> 是 Git 用来保存项目的元数据和对象数据库的地方。 这是 Git 中最重要的部分，从其它计算机克隆仓库时，拷贝的就是这里的数据。</p>
 <p><strong>工作目录</strong> 是对项目的某个版本独立提取出来的内容。 这些从 Git 仓库的压缩数据库中提取出来的文件，放在磁盘上供你使用或修改。</p>
 <p><strong>暂存区域</strong> 是一个文件，保存了下次将提交的文件列表信息，一般在 Git 仓库目录中。 有时候也被称作`‘索引’’，不过一般说法还是叫暂存区域。</p>
@@ -1449,7 +1449,7 @@ $ git commit -m &apos;initial project version&apos;
 </code></pre><h2 id="2-克隆现有的仓库"><a href="#2-克隆现有的仓库" class="headerlink" title="2.克隆现有的仓库"></a>2.克隆现有的仓库</h2><pre><code>$ git clone https://github.com/libgit2/libgit2
 $ git clone https://github.com/libgit2/libgit2 mylibgit
 </code></pre><p>这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 mylibgit。</p>
-<h2 id="3-记录每次更新到仓库"><a href="#3-记录每次更新到仓库" class="headerlink" title="3.记录每次更新到仓库"></a>3.记录每次更新到仓库</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/lifecycle.png" alt="文件的状态变化周期"></p>
+<h2 id="3-记录每次更新到仓库"><a href="#3-记录每次更新到仓库" class="headerlink" title="3.记录每次更新到仓库"></a>3.记录每次更新到仓库</h2><p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/lifecycle.png" alt="文件的状态变化周期"></p>
 <h3 id="2-1-检查当前文件状态"><a href="#2-1-检查当前文件状态" class="headerlink" title="2.1. 检查当前文件状态"></a>2.1. 检查当前文件状态</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line">On branch <span class="literal">master</span></span><br><span class="line">nothing to commit, working directory clean</span><br></pre></td></tr></table></figure>
 <p>现在，让我们在项目下创建一个新的 README 文件。 如果之前并不存在这个文件，使用 git status 命令，你将看到一个新的未跟踪文件：</p>
 <pre><code>$ echo &apos;My Project&apos; &gt; README
@@ -2322,7 +2322,7 @@ Date:   Tue Aug 26 19:48:51 2008 +0800
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

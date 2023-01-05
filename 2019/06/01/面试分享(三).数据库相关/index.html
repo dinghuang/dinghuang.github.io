@@ -97,70 +97,70 @@
 <meta property="og:site_name" content="一只病猫">
 <meta property="og:description" content="数据库相关读过MyBatis源码没有？可以参考本文 聊一聊对分库分表的理解大众点评设计案例原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/907596-20170106160057409-885292032.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1343758042_8526.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1343757655_1008.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225116942.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225333630.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225423934.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225728222.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225736738.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225756637.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2019070822580935.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225823969.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225900770.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230031559.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230102585.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230139385.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/31.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/4.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/0.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/5.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/6.JPG">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111257402.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111258238.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111259913.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111300494.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20190706105542781.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113023312.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113110216.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113601623.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2018072711355127.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2018072711351276.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-b1ddc3677c81c9b5.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-1f499d02104728e0.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-35dc3a0aed8a0f9a.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-3e7aaef9e3865926.png">
-<meta property="og:updated_time" content="2019-11-06T03:09:22.545Z">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1b24c0df.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/8aff3f22.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/ddb1ceb8.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/f80cafa2.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/52610d6d.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/b301cb95.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/c573941e.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/494ebd9e.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2ae1ba98.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/0a93304e.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/a8d54b30.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/907596-20170106160057409-885292032.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1343758042_8526.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1343757655_1008.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225116942.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225333630.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225423934.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225728222.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225736738.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225756637.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2019070822580935.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225823969.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225900770.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230031559.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230102585.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230139385.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/31.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/4.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/0.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/5.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/6.JPG">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111257402.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111258238.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111259913.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111300494.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190706105542781.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113023312.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113110216.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113601623.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2018072711355127.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2018072711351276.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-b1ddc3677c81c9b5.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-1f499d02104728e0.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-35dc3a0aed8a0f9a.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-3e7aaef9e3865926.png">
+<meta property="og:updated_time" content="2023-01-05T04:09:55.500Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试分享(三).数据库相关">
 <meta name="twitter:description" content="数据库相关读过MyBatis源码没有？可以参考本文 聊一聊对分库分表的理解大众点评设计案例原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这">
-<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png">
+<meta name="twitter:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1b24c0df.png">
 
 
 
@@ -463,18 +463,18 @@
 
       
         <h1 id="数据库相关"><a href="#数据库相关" class="headerlink" title="数据库相关"></a>数据库相关</h1><h2 id="读过MyBatis源码没有？"><a href="#读过MyBatis源码没有？" class="headerlink" title="读过MyBatis源码没有？"></a>读过MyBatis源码没有？</h2><p><a href="https://www.cnblogs.com/zhjh256/p/8512392.html" target="_blank" rel="noopener">可以参考本文</a></p>
-<h2 id="聊一聊对分库分表的理解"><a href="#聊一聊对分库分表的理解" class="headerlink" title="聊一聊对分库分表的理解"></a>聊一聊对分库分表的理解</h2><h3 id="大众点评设计案例"><a href="#大众点评设计案例" class="headerlink" title="大众点评设计案例"></a>大众点评设计案例</h3><p>原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这些问题越来越突出，订单数据库的切分就愈发急迫了。这次切分，我们的目标是未来十年内不需要担心订单容量的问题。先对订单库进行垂直切分，将原有的订单库分为基础订单库、订单流程库等。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1b24c0df.png" alt="image"><br>垂直切分缓解了原来单集群的压力，但是在抢购时依然捉襟见肘。原有的订单模型已经无法满足业务需求，于是我们设计了一套新的统一订单模型，为同时满足C端用户、B端商户、客服、运营等的需求，我们分别通过用户ID和商户ID进行切分，并通过PUMA（我们内部开发的MySQL binlog实时解析服务）同步到一个运营库。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/8aff3f22.png" alt="image"></p>
+<h2 id="聊一聊对分库分表的理解"><a href="#聊一聊对分库分表的理解" class="headerlink" title="聊一聊对分库分表的理解"></a>聊一聊对分库分表的理解</h2><h3 id="大众点评设计案例"><a href="#大众点评设计案例" class="headerlink" title="大众点评设计案例"></a>大众点评设计案例</h3><p>原大众点评的订单单表早就已经突破两百G，由于查询维度较多，即使加了两个从库，优化索引，仍然存在很多查询不理想的情况。去年大量抢购活动的开展，使数据库达到瓶颈，应用只能通过限速、异步队列等对其进行保护；业务需求层出不穷，原有的订单模型很难满足业务需求，但是基于原订单表的DDL又非常吃力，无法达到业务要求。随着这些问题越来越突出，订单数据库的切分就愈发急迫了。这次切分，我们的目标是未来十年内不需要担心订单容量的问题。先对订单库进行垂直切分，将原有的订单库分为基础订单库、订单流程库等。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1b24c0df.png" alt="image"><br>垂直切分缓解了原来单集群的压力，但是在抢购时依然捉襟见肘。原有的订单模型已经无法满足业务需求，于是我们设计了一套新的统一订单模型，为同时满足C端用户、B端商户、客服、运营等的需求，我们分别通过用户ID和商户ID进行切分，并通过PUMA（我们内部开发的MySQL binlog实时解析服务）同步到一个运营库。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/8aff3f22.png" alt="image"></p>
 <ul>
 <li>切分策略<ul>
-<li>查询切分：将ID和库的Mapping关系记录在一个单独的库中。优点：ID和库的Mapping算法可以随意更改。缺点：引入额外的单点。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/ddb1ceb8.png" alt="image"></li>
-<li>范围切分：比如按照时间区间或ID区间来切分。优点：单表大小可控，天然水平扩展。缺点：无法解决集中写入瓶颈的问题。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/f80cafa2.png" alt="image"></li>
-<li>Hash切分：一般采用Mod来切分，下面着重讲一下Mod的策略。数据水平切分后我们希望是一劳永逸或者是易于水平扩展的，所以推荐采用mod 2^n这种一致性Hash。以统一订单库为例，我们分库分表的方案是32*32的，即通过UserId后四位mod 32分到32个库中，同时再将UserId后四位Div 32 Mod 32将每个库分为32个表，共计分为1024张表。线上部署情况为8个集群(主从)，每个集群4个库。为什么说这种方式是易于水平扩展的呢？我们分析如下两个场景。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/52610d6d.png" alt="image"><ul>
+<li>查询切分：将ID和库的Mapping关系记录在一个单独的库中。优点：ID和库的Mapping算法可以随意更改。缺点：引入额外的单点。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/ddb1ceb8.png" alt="image"></li>
+<li>范围切分：比如按照时间区间或ID区间来切分。优点：单表大小可控，天然水平扩展。缺点：无法解决集中写入瓶颈的问题。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/f80cafa2.png" alt="image"></li>
+<li>Hash切分：一般采用Mod来切分，下面着重讲一下Mod的策略。数据水平切分后我们希望是一劳永逸或者是易于水平扩展的，所以推荐采用mod 2^n这种一致性Hash。以统一订单库为例，我们分库分表的方案是32*32的，即通过UserId后四位mod 32分到32个库中，同时再将UserId后四位Div 32 Mod 32将每个库分为32个表，共计分为1024张表。线上部署情况为8个集群(主从)，每个集群4个库。为什么说这种方式是易于水平扩展的呢？我们分析如下两个场景。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/52610d6d.png" alt="image"><ul>
 <li>场景一：数据库性能达到瓶颈<ul>
-<li>方法一：按照现有规则不变，可以直接扩展到32个数据库集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/b301cb95.png" alt="image"></li>
-<li>方法二：如果32个集群也无法满足需求，那么将分库分表规则调整为(32<em>2^n)</em>(32⁄2^n)，可以达到最多1024个集群。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/c573941e.png" alt="image"></li>
+<li>方法一：按照现有规则不变，可以直接扩展到32个数据库集群。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/b301cb95.png" alt="image"></li>
+<li>方法二：如果32个集群也无法满足需求，那么将分库分表规则调整为(32<em>2^n)</em>(32⁄2^n)，可以达到最多1024个集群。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/c573941e.png" alt="image"></li>
 </ul>
 </li>
-<li>场景二：单表容量达到瓶颈（或者1024已经无法满足你）<br>  方法：假如单表都已突破200G，200<em>1024=200T（按照现有的订单模型算了算，大概一万千亿订单，相信这一天，嗯，指日可待！），没关系，32     </em>(32 <em>2^n)，这时分库规则不变，单库里的表再进行裂变，当然，在目前订单这种规则下（用userId后四位 mod）还是有极限的，因为只有四位，所以最多拆8192个表，至于为什么只取后四位，后面会有篇幅讲到。另外一个维度是通过ShopID进行切分，规则8 </em>8和UserID比较类似，就不再赘述，需要注意的是Shop库我们仅存储了订单主表，用来满足Shop维度的查询。<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/494ebd9e.png" alt="image"></li>
+<li>场景二：单表容量达到瓶颈（或者1024已经无法满足你）<br>  方法：假如单表都已突破200G，200<em>1024=200T（按照现有的订单模型算了算，大概一万千亿订单，相信这一天，嗯，指日可待！），没关系，32     </em>(32 <em>2^n)，这时分库规则不变，单库里的表再进行裂变，当然，在目前订单这种规则下（用userId后四位 mod）还是有极限的，因为只有四位，所以最多拆8192个表，至于为什么只取后四位，后面会有篇幅讲到。另外一个维度是通过ShopID进行切分，规则8 </em>8和UserID比较类似，就不再赘述，需要注意的是Shop库我们仅存储了订单主表，用来满足Shop维度的查询。<br>  <img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/494ebd9e.png" alt="image"></li>
 </ul>
 </li>
 </ul>
@@ -505,19 +505,19 @@
 <li><p>数据迁移</p>
 <p>  数据库拆分一般是业务发展到一定规模后的优化和重构，为了支持业务快速上线，很难一开始就分库分表，垂直拆分还好办，改改数据源就搞定了，一旦开始水平拆分，数据清洗就是个大问题，为此，我们经历了以下几个阶段。</p>
 <ul>
-<li>第一阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2ae1ba98.png" alt="image"><ul>
+<li>第一阶段<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2ae1ba98.png" alt="image"><ul>
 <li>数据库双写（事务成功以老模型为准），查询走老模型。</li>
 <li>每日job数据对账（通过DW），并将差异补平。</li>
 <li>通过job导历史数据。</li>
 </ul>
 </li>
-<li>第二阶段<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/0a93304e.png" alt="image"><ul>
+<li>第二阶段<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/0a93304e.png" alt="image"><ul>
 <li>历史数据导入完毕并且数据对账无误。</li>
 <li>依然是数据库双写，但是事务成功与否以新模型为准，在线查询切新模型。</li>
 <li>每日job数据对账，将差异补平。</li>
 </ul>
 </li>
-<li>第三阶段<br>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/a8d54b30.png" alt="image"><ul>
+<li>第三阶段<br>  <img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/a8d54b30.png" alt="image"><ul>
 <li>老模型不再同步写入，仅当订单有终态时才会异步补上。</li>
 <li>此阶段只有离线数据依然依赖老的模型，并且下游的依赖非常多，待DW改造完就可以完全废除老模型了。</li>
 </ul>
@@ -526,7 +526,7 @@
 </li>
 <li>总结<br>并非所有表都需要水平拆分，要看增长的类型和速度，水平拆分是大招，拆分后会增加开发的复杂度，不到万不得已不使用。在大规模并发的业务上，尽量做到在线查询和离线查询隔离，交易查询和运营/客服查询隔离。拆分维度的选择很重要，要尽可能在解决拆分前问题的基础上，便于开发。数据库没你想象的那么坚强，需要保护，尽量使用简单的、良好索引的查询，这样数据库整体可控，也易于长期容量规划以及水平扩展。</li>
 </ul>
-<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p>分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg" alt=""><br>查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg" alt=""><br>在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。</p>
+<h3 id="亿级数据下的分库分表方案"><a href="#亿级数据下的分库分表方案" class="headerlink" title="亿级数据下的分库分表方案"></a>亿级数据下的分库分表方案</h3><h4 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h4><p>分区表是由多个相关的底层表实现，这些底层表也是由句柄对象表示，所以我们也可以直接访问各个分区，存储引擎管理分区的各个底层表和管理普通表一样（所有的底层表都必须使用相同的存储引擎），分区表的索引只是在各个底层表上各自加上一个相同的索引，从存储引擎的角度来看，底层表和一个普通表没有任何不同，存储引擎也无须知道这是一个普通表还是一个分区表的一部分。这个方案也不错，它对用户屏蔽了sharding的细节，即使查询条件没有sharding column，它也能正常工作（只是这时候性能一般）。不过它的缺点很明显：很多的资源都受到单机的限制，例如连接数，网络吞吐等。如何进行分区，在实际应用中是一个非常关键的要素之一。在我们的项目中，以客户信息为例，客户数据量5000万加，项目背景要求保存客户的银行卡绑定关系，客户的证件绑定关系，以及客户绑定的业务信息。此业务背景下，该如何设计数据库呢。项目一期的时候，我们建立了一张客户业务绑定关系表，里面冗余了每一位客户绑定的业务信息。基本结构大致如下：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1086caaj20fa06m761.jpg" alt=""><br>查询时，对银行卡做索引，业务编号做索引，证件号做索引。随着需求大增多，这张表的索引会达到10个以上。而且客户解约再签约，里面会保存两条数据，只是绑定的状态不同。假设我们有5千万的客户，5个业务类型，每位客户平均2张卡，那么这张表的数据量将会达到惊人的5亿，事实上我们系统用户量还没有过百万时就已经不行了。mysql数据库中的数据是以文件的形势存在磁盘上的，默认放在/mysql/data下面（可以通过my.cnf中的datadir来查看）， 一张表主要对应着三个文件，一个是frm存放表结构的，一个是myd存放表数据的，一个是myi存表索引的。这三个文件都非常的庞大，尤其是.myd文件，快5个G了。 下面进行第一次分区优化 ，Mysql支持的分区方式有四种：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e11m0q1wj20fa066tbt.jpg" alt=""><br>在我们的项目中，range分区和list分区没有使用场景，如果基于绑定编号做range或者list分区，绑定编号没有实际的业务含义，无法通过它进行查询，因此，我们就剩下 HASH 分区和 KEY 分区了， HASH 分区仅支持int类型列的分区，且是其中的一列。看看我们的库表结构，发现没有哪一列是int类型的，如何做分区呢？可以增加一列，绑定时间列，将此列设置为int类型，然后按照绑定时间进行分区，将每一天绑定的用户分到同一个区里面去。这次优化之后，我们的插入快了许多，但是查询依然很慢，为什么，因为在做查询的时候，我们也只是根据银行卡或者证件号进行查询，并没有根据时间查询，相当于每次查询，mysql都会将所有的分区表查询一遍。</p>
 <p>然后进行第二次方案优化，既然hash分区和key分区要求其中的一列必须是int类型的，那么创造出一个int类型的列出来分区是否可以。分析发现，银行卡的那串数字有秘密。银行卡一般是16位到19位不等的数字串，我们取其中的某一位拿出来作为表分区是否可行呢，通过分析发现，在这串数字中，其中确实有一位是0到9随机生成的，不同的卡串长度，这一位不同，绝不是最后一位，最后位数字一般都是校验位，不具有随机性。我们新设计的方案，基于银行卡号+随机位进行KEY分区，每次查询的时候，通过计算截取出这位随机位数字，再加上卡号，联合查询，达到了分区查询的目的，需要说明的是，分区后，建立的索引，也必须是分区列，否则的话，Mysql还是会在所有的分区表中查询数据。那么通过银行卡号查询绑定关系的问题解决了，那么证件号呢，如何通过证件号来查询绑定关系。前面已经讲过，做索引一定是要在分区健上进行，否则会引起全表扫描。我们再创建了一张新表，保存客户的证件号绑定关系，每位客户的证件号都是唯一的，新的证件号绑定关系表里，证件号作为了主键，那么如何来计算这个分区健呢，客户的证件信息比较庞杂，有身份证号，港澳台通行证，机动车驾驶证等等，如何在无序的证件号里找到分区健。为了解决这个问题，我们将证件号绑定关系表一分为二，其中的一张表专用于保存身份证类型的证件号，另一张表则保存其他证件类型的证件号，在身份证类型的证件绑定关系表中，我们将身份证号中的月数拆分出来作为了分区健，将同一个月出生的客户证件号保存在同一个区，这样分成了12个区，其他证件类型的证件号，数据量不超过10万，就没有必要进行分区了。这样每次查询时，首先通过证件类型确定要去查询哪张表，再计算分区健进行查询。</p>
 <p>作了分区设计之后，保存2000万用户数据的时候，银行卡表的数据保存文件就分成了10个小文件，证件表的数据保存文件分成了12个小文件，解决了这两个查询的问题，还剩下一个问题就是，业务编号呢，怎么办，一个客户有多个签约业务，如何进行保存，这时候，采用分区的方案就不太合适了，它需要用到分表的方案。</p>
 <h4 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h4><p>如何进行分库分表，目前互联网上有许多的版本，比较知名的一些方案：</p>
@@ -538,18 +538,18 @@
 <li>美团的zebra</li>
 <li>其他比如网易，58，京东等公司都有自研的中间件。</li>
 </ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg" alt=""></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0f0ubx3knj20oc0fd45s.jpg" alt=""></p>
 <p>百花齐放的景象。但是这么多的分库分表中间件方案，归总起来，就两类： client模式和proxy模式 。</p>
 <ul>
-<li>client模式<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg" alt=""></li>
-<li>和proxy模式<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg" alt=""></li>
+<li>client模式<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1osp6e3j20fa0c2ta5.jpg" alt=""></li>
+<li>和proxy模式<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e1v26i8nj20fa0gxmyt.jpg" alt=""></li>
 </ul>
 <p>无论是client模式，还是proxy模式，几个核心的步骤是一样的：SQL解析，重写，路由，执行，结果归并。个人比较倾向于采用client模式，它架构简单，性能损耗也比较小，运维成本低。如果在项目中引入mycat或者cobar，他们的单机模式无法保证可靠性，一旦宕机则服务就变得不可用，你又不得不引入HAProxy来实现它的高可用集群部署方案， 为了解决HAProxy的高可用问题，又需要采用Keepalived来实现。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg" alt=""></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e2eu3bjvj20fa0gy0zk.jpg" alt=""></p>
 <p>我们在项目中放弃了这个方案，采用了shardingjdbc的方式。回到刚才的业务问题，如何对业务类型进行分库分表。分库分表第一步也是最重要的一步，即sharding column的选取，sharding column选择的好坏将直接决定整个分库分表方案最终是否成功。而sharding column的选取跟业务强相关。在我们的项目场景中，sharding column无疑最好的选择是业务编号。通过业务编号，将客户不同的绑定签约业务保存到不同的表里面去，查询时，根据业务编号路由到相应的表中进行查询，达到进一步优化sql的目的。</p>
 <p>前面我们讲到了基于客户签约绑定业务场景的数据库优化，下面我们再聊一聊，对于海量数据的保存方案。</p>
 <h5 id="垂直拆分"><a href="#垂直拆分" class="headerlink" title="垂直拆分"></a>垂直拆分</h5><h6 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h6><p>也就是“大表拆小表”，基于列字段进行的。一般是表中的字段较多，将不常用的， 数据较大，长度较长（比如text类型字段）的拆分到“扩展表“。 一般是针对那种几百列的大表，也避免查询时，数据量太大造成的“跨页”问题。</p>
-<h6 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h6><p>垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg" alt=""></p>
+<h6 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h6><p>垂直分库在“微服务”盛行的今天已经非常普及了。基本的思路就是按照业务模块来划分出不同的数据库，而不是像早期一样将所有的数据表都放到同一个数据库中。如下图：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0ezns2ifaj20bf08kgml.jpg" alt=""></p>
 <p>优点</p>
 <p>数据库往往最容易成为应用系统的瓶颈，而数据库本身属于“有状态”的，相对于 Web 和应用服务器来讲，是比较难实现“横向扩展”的。数据库的连接资源比较宝贵且单机处理能力也有限，在高并发场景下，垂直分库一定程度上能够突破 IO、连接数及单机硬件资源的瓶颈，是大型分布式系统中优化数据库架构的重要手段。</p>
 <p>缺点</p>
@@ -577,10 +577,10 @@
 </li>
 </ul>
 <p>对于每分钟要处理近1000万的流水，每天流水近1亿的量，如何高效的写入和查询，是一项比较大的挑战。还是老办法，分库分表分区，读写分离，只不过这一次，我们先分表，再分库，最后分区。我们将消息流水按照不同的业务类型进行分表，相同业务的消息流水进入同一张表，分表完成之后，再进行分库。我们将流水相关的数据单独保存到一个库里面去，这些数据，写入要求高，查询和更新到要求低，将它们和那些更新频繁的数据区分开。分库之后，再进行分区。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg" alt=""></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e30hgeqaj20fa06c75g.jpg" alt=""></p>
 <p>这是基于业务垂直度进行的分库操作，垂直分库就是根据业务耦合性，将关联度低的不同表存储在不同的数据库，以达到系统资源的饱和利用率。这样的分库方案结合应用的微服务治理，每个微服务系统使用独立的一个数据库。将不同模块的数据分库存储，模块间不能进行相互关联查询，如果有，要么通过数据冗余解决，要么通过应用代码进行二次加工进行解决。若不能杜绝跨库关联查询，则将小表到数据冗余到大数据量大库里去。假如，流水大表中查询需要关联获得渠道信息，渠道信息在基础管理库里面，那么，要么在查询时，代码里二次查询基础管理库中的渠道信息表，要么将渠道信息表冗余到流水大表中。</p>
 <p>将每天过亿的流水数据分离出去之后，流水库中单表的数据量还是太庞大，我们将单张流水表继续分区，按照一定的业务规则，（一般是查询索引列）将单表进行分区，一个表编程N个表，当然这些变化对应用层是无法感知的。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0e5r0z2zoj20fa0lgjw2.jpg" alt=""></p>
 <p>分区表的设置，一般是以查询索引列进行分区，例如，对于流水表A，查询需要根据手机号和批次号进行查询，所以我们在创建分区的时候，就选择以手机号和批次号进行分区，这样设置后，查询都会走索引，每次查询Mysql都会根据查询条件计算出来，数据会落在那个分区里面，直接到对应的分区表中检索即可，避免了全表扫描。</p>
 <p>对于每天流水过亿的数据，当然是要做历史表进行数据迁移的工作了。客户要求流水数据需要保存半年的时间，有的关键流水需要保存一年。删数据是不可能的了，也跑不了路，虽然当时非常有想删数据跑路的冲动。其实即使是删数据也是不太可能的了，delete的拙劣表演先淘汰了，truncate也快不了多少，我们采用了一种比较巧妙方法，具体步骤如下：</p>
 <ul>
@@ -596,7 +596,7 @@
 <h6 id="水平拆分"><a href="#水平拆分" class="headerlink" title="水平拆分"></a>水平拆分</h6><ul>
 <li><p>水平分表</p>
 <p>  针对数据量巨大的单张表（比如订单表），按照某种规则（RANGE,HASH取模等），切分到多张表里面去。 但是这些表还是在同一个库中，所以库级别的数据库操作还是有IO瓶颈。不建议采用。</p>
-<p>  <img src="https://minios.strongsickcat.com/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg" alt=""></p>
+<p>  <img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/9bc4cb9fgy1g0ezurxr0cj20bk07hwhl.jpg" alt=""></p>
 <p>  某种意义上来讲，有些系统中使用的“冷热数据分离”（将一些使用较少的历史数据迁移到其他的数据库中。而在业务功能上，通常默认只提供热点数据的查询），也是类似的实践。在高并发和海量数据的场景下，分库分表能够有效缓解单机和单库的性能瓶颈和压力，突破 IO、连接数、硬件资源的瓶颈。当然，投入的硬件成本也会更高。同时，这也会带来一些复杂的技术问题和挑战（例如：跨分片的复杂查询，跨分片事务等）。</p>
 </li>
 <li><p>水平分库分表</p>
@@ -645,7 +645,7 @@
 <p> 3–Mysql复制至少需要两个Mysql的服务，当然Mysql服务可以分布在不同的服务器上，也可以在一台服务器上启动多个服务。</p>
 <p> 4–Mysql复制最好确保master和slave服务器上的Mysql版本相同（如果不能满足版本一致，那么要保证master主节点的版本低于slave从节点的版本）</p>
 <p> 5–master和slave两节点间时间需同步</p>
-<p>Mysql复制的流程图如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/907596-20170106160057409-885292032.png" alt="image"></p>
+<p>Mysql复制的流程图如下：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/907596-20170106160057409-885292032.png" alt="image"></p>
 <p>如上图所示：</p>
 <p> Mysql复制过程的第一部分就是master记录二进制日志。在每个事务更新数据完成之前，master在二日志记录这些改变。MySQL将事务串行的写入二进制日志，即使事务中的语句都是交叉执行的。在事件写入二进制日志完成后，master通知存储引擎提交事务。</p>
 <p>第二部分就是slave将master的binary log拷贝到它自己的中继日志。首先，slave开始一个工作线程——I/O线程。I/O线程在master上打开一个普通的连接，然后开始binlog dump process。Binlog dump process从master的二进制日志中读取事件，如果已经跟上master，它会睡眠并等待master产生新的事件。I/O线程将这些事件写入中继日志。</p>
@@ -830,7 +830,7 @@
 </ul>
 </li>
 <li>存储引擎<ul>
-<li>InnoDB<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343758042_8526.png" alt="image"><ul>
+<li>InnoDB<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1343758042_8526.png" alt="image"><ul>
 <li>InnoDB 也采用 B+Tree这种数据结构来实现 B-Tree索引。而很大的区别在于，InnoDB 存储引擎采用“聚集索引”的数据存储方式实现B-Tree索引，所谓“聚集”，就是指数据行和相邻的键值紧凑地存储在一起，注意 InnoDB 只能聚集一个叶子页（16K）的记录（即聚集索引满足一定的范围的记录），因此包含相邻键值的记录可能会相距甚远。</li>
 <li>当InnoDB做全表扫描时并不高效，因为 InnoDB 实际上并没有顺序读取,在大多情况下是在随机读取。做全表扫描时,InnoDB 会按主键顺序扫描页面和行。这应用于所有的InnoDB 表，包括碎片化的表。如果主键页表没有碎片（存储主键和行的页表),全表扫描是相当快，因为读取顺序接近物理存储顺序。但是当主键页有碎片时，该扫描就会变得十分缓慢</li>
 <li>遵循ACID原则(atomicity原子性，consistency一致性，isolation隔离性，durability持久性)，具有事务特性的能力：commit，rollback，crash-recovery。<ul>
@@ -863,7 +863,7 @@
 <li>可以在一个查询中join混用InnoDB引擎的表和其他引擎的表</li>
 </ul>
 </li>
-<li>MyISAM<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1343757655_1008.png" alt="image"><ul>
+<li>MyISAM<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1343757655_1008.png" alt="image"><ul>
 <li>适用场景：read-only or read-mostly workloads in Web and data warehousing configurations(查询效率很高，适合大量读操作的场景)</li>
 <li>每个MyISAM在磁盘上存储成三个文件。第一个文件的名字以表的名字开始，扩展名指出文件类型。MyISAM索引文件【.MYI (MYIndex)】和数据文件【.MYD (MYData)】是分离的，索引文件仅保存记录所在页的指针（物理位置），通过这些地址来读取页，进而读取被索引的行</li>
 <li>MyISAM 默认会把索引读入内存，直接在内存中操作</li>
@@ -1203,7 +1203,7 @@
 <li>命中：应用程序从cache中取数据，取到后返回。</li>
 <li>更新：先把数据存到数据库中，成功后，再让缓存失效。</li>
 </ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225116942.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225116942.png" alt="image"></p>
 <p>一个是查询操作，一个是更新操作的并发，首先，没有了删除cache数据的操作了，而是先更新了数据库中的数据，此时，缓存依然有效，所以，并发的查询操作拿的是没有更新的数据，但是，更新操作马上让缓存的失效了，后续的查询操作再把数据从数据库中拉出来。而不会像文章开头的那个逻辑产生的问题，后续的查询操作一直都在取老的数据。</p>
 <blockquote>
 <p>要么通过2PC或是Paxos协议保证一致性，要么就是拼命的降低并发时脏数据的概率，而Facebook使用了这个降低概率的玩法，因为2PC太慢，而Paxos太复杂。当然，最好还是为缓存设置上过期时间。</p>
@@ -1214,7 +1214,7 @@
 <p>Write Through</p>
 <p>Write Through 套路和Read Through相仿，不过是在更新数据时发生。当有数据更新的时候，如果没有命中缓存，直接更新数据库，然后返回。如果命中了缓存，则更新缓存，然后再由Cache自己更新数据库（这是一个同步操作）</p>
 <p>下图自来Wikipedia的Cache词条。其中的Memory你可以理解为就是我们例子里的数据库。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225333630.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225333630.png" alt="image"></p>
 <h4 id="Write-Behind-Caching-Pattern"><a href="#Write-Behind-Caching-Pattern" class="headerlink" title="Write Behind Caching Pattern"></a>Write Behind Caching Pattern</h4><p>Write Behind 又叫 Write Back。write back就是Linux文件系统的Page Cache的算法。</p>
 <p>Write Back套路，一句说就是，在更新数据的时候，只更新缓存，不更新数据库，而我们的缓存会异步地批量更新数据库。</p>
 <blockquote>
@@ -1222,7 +1222,7 @@
 </blockquote>
 <p>但是，其带来的问题是，数据不是强一致性的，而且可能会丢失（我们知道Unix/Linux非正常关机会导致数据丢失，就是因为这个事）。在软件设计上，我们基本上不可能做出一个没有缺陷的设计，就像算法设计中的时间换空间，空间换时间一个道理，有时候，强一致性和高性能，高可用和高性性是有冲突的。软件设计从来都是取舍Trade-Off。</p>
 <p>另外，Write Back实现逻辑比较复杂，因为他需要track有哪数据是被更新了的，需要刷到持久层上。操作系统的write back会在仅当这个cache需要失效的时候，才会被真正持久起来，比如，内存不够了，或是进程退出了等情况，这又叫lazy write。</p>
-<p>在wikipedia上有一张write back的流程图，基本逻辑如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225423934.png" alt="image"></p>
+<p>在wikipedia上有一张write back的流程图，基本逻辑如下：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225423934.png" alt="image"></p>
 <h3 id="缓存架构设计"><a href="#缓存架构设计" class="headerlink" title="缓存架构设计"></a>缓存架构设计</h3><h4 id="更新缓存-VS-淘汰缓存"><a href="#更新缓存-VS-淘汰缓存" class="headerlink" title="更新缓存 VS 淘汰缓存"></a>更新缓存 VS 淘汰缓存</h4><p>更新缓存：数据不但写入数据库，还会写入缓存；优点：缓存不会增加一次miss，命中率高</p>
 <p>淘汰缓存：数据只会写入数据库，不会写入缓存，只会把数据淘汰掉；优点：简单</p>
 <p>这两者的选择主要取决于“更新缓存的复杂度”。</p>
@@ -1246,15 +1246,15 @@
 <p>（2）先淘汰缓存，再写数据库</p>
 <p>对于一个不能保证事务性的操作，一定涉及“哪个任务先做，哪个任务后做”的问题，解决这个问题的方向是：如果出现不一致，谁先做对业务的影响较小，就谁先执行。</p>
 <p>由于写数据库与淘汰缓存不能保证原子性，谁先谁后同样要遵循上述原则。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225728222.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225728222.png" alt="image"></p>
 <p>假设先写数据库，再淘汰缓存：第一步写数据库操作成功，第二步淘汰缓存失败，则会出现DB中是新数据，Cache中是旧数据，数据不一致。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225736738.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225736738.png" alt="image"></p>
 <p>假设先淘汰缓存，再写数据库：第一步淘汰缓存成功，第二步写数据库失败，则只会引发一次Cache miss。</p>
 <p>结论：数据和缓存的操作时序：先淘汰缓存，再写数据库。</p>
-<h4 id="缓存架构优化"><a href="#缓存架构优化" class="headerlink" title="缓存架构优化"></a>缓存架构优化</h4><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225756637.png" alt="image"></p>
+<h4 id="缓存架构优化"><a href="#缓存架构优化" class="headerlink" title="缓存架构优化"></a>缓存架构优化</h4><p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225756637.png" alt="image"></p>
 <p>上述缓存架构有一个缺点：业务方需要同时关注缓存与DB，主要有两种优化方案：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2019070822580935.png" alt="image"></p>
-<p>一种方案是服务化：加入一个服务层，向上游提供帅气的数据访问接口，向上游屏蔽底层数据存储的细节，这样业务线不需要关注数据是来自于cache还是DB。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225823969.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2019070822580935.png" alt="image"></p>
+<p>一种方案是服务化：加入一个服务层，向上游提供帅气的数据访问接口，向上游屏蔽底层数据存储的细节，这样业务线不需要关注数据是来自于cache还是DB。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225823969.png" alt="image"></p>
 <p>另一种方案是异步缓存更新：业务线所有的写操作都走数据库，所有的读操作都总缓存，由一个异步的工具来做数据库与缓存之间数据的同步，具体细节是：</p>
 <p>（1）要有一个init cache的过程，将需要缓存的数据全量写入cache</p>
 <p>（2）如果DB有写操作，异步更新程序读取binlog，更新cache</p>
@@ -1287,7 +1287,7 @@
 <li>【异步】最后，消费者消费该消息，更新到缓存中。</li>
 </ul>
 <p>这两种方式，可以进一步优化，可以先尝试更新缓存，如果失败，则插入任务表，或者事务消息。</p>
-<p>另外，极端情况下，如果并发写执行时，先更新成功 DB 的，结果后更新缓存：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708225900770.png" alt="image"></p>
+<p>另外，极端情况下，如果并发写执行时，先更新成功 DB 的，结果后更新缓存：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708225900770.png" alt="image"></p>
 <p>理论来说，希望的更新缓存顺序是，线程 1 快于线程 2 ，但是实际线程1 晚于线程 2 ，导致数据不一致。</p>
 <p>图中一直是基于定时任务或消息队列来实现异步更新缓存，如果网络抖动，导致【插入任务表，或者事务消息】的顺序不一致。</p>
 <p>那么怎么解决呢？需要做如下三件事情：</p>
@@ -1296,7 +1296,7 @@
 <p>3、在定时任务或消息队列执行更新缓存时，先读取缓存，对比版本号或时间戳，大于才进行更新。 当然，此处也会有并发问题，所以还是得引入分布式锁或 CAS 操作。</p>
 <p>关于 Redis 分布式锁，可以看看 <a href="http://svip.iocoder.cn/Redis/Interview" target="_blank" rel="noopener">《精尽 Redis 面试题》</a> 的 <a href="http://svip.iocoder.cn/Cache/Interview/#" target="_blank" rel="noopener">「如何使用 Redis 实现分布式锁？」 </a>问题。</p>
 <p>关于 Redis CAS 操作，可以看看 <a href="http://svip.iocoder.cn/Redis/Interview" target="_blank" rel="noopener">《精尽 Redis 面试题》</a> 的 <a href="http://svip.iocoder.cn/Cache/Interview/#" target="_blank" rel="noopener">「什么是 Redis 事务？」 </a>问题。</p>
-<h4 id="基于数据库的-binlog-日志"><a href="#基于数据库的-binlog-日志" class="headerlink" title="基于数据库的 binlog 日志"></a>基于数据库的 binlog 日志</h4><h5 id="重客户端"><a href="#重客户端" class="headerlink" title="重客户端"></a>重客户端</h5><p>写入缓存：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230031559.png" alt="image"></p>
+<h4 id="基于数据库的-binlog-日志"><a href="#基于数据库的-binlog-日志" class="headerlink" title="基于数据库的 binlog 日志"></a>基于数据库的 binlog 日志</h4><h5 id="重客户端"><a href="#重客户端" class="headerlink" title="重客户端"></a>重客户端</h5><p>写入缓存：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230031559.png" alt="image"></p>
 <ul>
 <li>应用同时更新数据库和缓存</li>
 <li>如果数据库更新成功，则开始更新缓存，否则如果数据库更新失败，则整个更新过程失败。</li>
@@ -1307,8 +1307,8 @@
 <p>问题点：如果更新Redis失败，同时在将数据发到MQ之前的时间，应用重启了，这时候MQ就没有需要更新的数据，如果Redis对所有数据没有设置过期时间，同时在读多写少的场景下，只能通过人工介入来更新缓存。</p>
 <p>读缓存：</p>
 <p>如何来解决这个问题？那么在写入Redis数据的时候，在数据中增加一个时间戳插入到Redis中。在从Redis中读取数据的时候，首先要判断一下当前时间有没有过期，如果没有则从缓存中读取，如果过期了则从数据库中读取最新数据覆盖当前Redis数据并更新时间戳。具体过程如下图所示：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230102585.png" alt="image"></p>
-<h5 id="客户端数据库与缓存解耦"><a href="#客户端数据库与缓存解耦" class="headerlink" title="客户端数据库与缓存解耦"></a>客户端数据库与缓存解耦</h5><p>上述方案对于应用的研发人员来讲比较重，需要研发人员同时考虑数据库和Redis是否成功来做不同方案，如何让研发人员只关注数据库层面，而不用关心缓存层呢？请看下图：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190708230139385.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230102585.png" alt="image"></p>
+<h5 id="客户端数据库与缓存解耦"><a href="#客户端数据库与缓存解耦" class="headerlink" title="客户端数据库与缓存解耦"></a>客户端数据库与缓存解耦</h5><p>上述方案对于应用的研发人员来讲比较重，需要研发人员同时考虑数据库和Redis是否成功来做不同方案，如何让研发人员只关注数据库层面，而不用关心缓存层呢？请看下图：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190708230139385.png" alt="image"></p>
 <ul>
 <li>应用直接写数据到数据库中。</li>
 <li>数据库更新binlog日志。</li>
@@ -1326,7 +1326,7 @@
 <p>2.所有结点存储一个关键字；</p>
 <p>3.非叶子结点的左指针指向小于其关键字的子树，右指针指向大于其关键字的子树；</p>
 <p>如：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/1.JPG" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/1.JPG" alt="image"></p>
 <p>二叉搜索树的搜索，从根结点开始，如果查询的关键字与结点的关键字相等，那么就命中；</p>
 <p>否则，如果查询关键字比结点关键字小，就进入左儿子；如果比结点关键字大，就进入</p>
 <p>右儿子；如果左儿子或右儿子的指针为空，则报告找不到相应的关键字；</p>
@@ -1334,9 +1334,9 @@
 <p>的搜索性能逼近二分查找；但它比连续内存空间的二分查找的优点是，改变 二叉搜索树结构</p>
 <p>（插入与删除结点）不需要移动大段的内存数据，甚至通常是常数开销；</p>
 <p>如：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2.JPG" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2.JPG" alt="image"></p>
 <p>但 二叉搜索树在经过多次插入与删除后，有可能导致不同的结构：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/31.JPG" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/31.JPG" alt="image"></p>
 <p>右边也是一个 二叉搜索树，但它的搜索性能已经是线性的了；同样的关键字集合有可能导致不同的</p>
 <p>树结构索引；所以，使用 二叉搜索树还要考虑尽可能让 二叉搜索树保持左图的结构，和避免右图的结构，也就是所谓的“平衡”问题；      </p>
 <p>实际使用的 二叉搜索树都是在原二叉搜索树的基础上加上平衡算法，即“平衡二叉树”；如何保持 二叉搜索树</p>
@@ -1350,7 +1350,7 @@
 <p>6.非叶子结点的关键字：K[1], K[2], …, K[M-1]；且K[i] &lt; K[i+1]；</p>
 <p>7.非叶子结点的指针：P[1], P[2], …, P[M]；其中P[1]指向关键字小于K[1]的子树，P[M]指向关键字大于K[M-1]的子树，其它P[i]指向关键字属于(K[i-1], K[i])的子树；</p>
 <p>8.所有叶子结点位于同一层；</p>
-<p>如：（M=3）<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/4.JPG" alt="image"></p>
+<p>如：（M=3）<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/4.JPG" alt="image"></p>
 <p>  B-树的搜索，从根结点开始，对结点内的关键字（有序）序列进行二分查找，如果</p>
 <p>命中则结束，否则进入查询关键字所属范围的儿子结点；重复，直到所对应的儿子指针为</p>
 <p>空，或已经是叶子结点；</p>
@@ -1362,7 +1362,7 @@
 <p>5.自动层次控制；</p>
 <p>由于限制了除根结点以外的非叶子结点，至少含有M/2个儿子，确保了结点的至少</p>
 <p>利用率，其最底搜索性能为：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/0.JPG" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/0.JPG" alt="image"></p>
 <p>其中，M为设定的非叶子结点最多子树个数，N为关键字总数；</p>
 <p>所以B-树的性能总是等价于二分查找（与M值无关），也就没有B树平衡的问题；</p>
 <p>由于M/2的限制，在插入结点时，如果结点已满，需要将结点分裂为两个各占M/2的结点；删除结点时，需将两个不足M/2的兄弟结点合并；</p>
@@ -1372,7 +1372,7 @@
 <p>3.非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树</p>
 <p>（B-树是开区间）；</p>
 <p>5.为所有叶子结点增加一个链指针；</p>
-<p>6.所有关键字都在叶子结点出现；<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/5.JPG" alt="image"></p>
+<p>6.所有关键字都在叶子结点出现；<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/5.JPG" alt="image"></p>
 <p> B+的搜索与B-树也基本相同，区别是B+树只有达到叶子结点才命中（B-树可以在</p>
 <p>非叶子结点命中），其性能也等价于在关键字全集做一次二分查找；</p>
 <p>B+的特性：</p>
@@ -1382,7 +1382,7 @@
 <p>3.非叶子结点相当于是叶子结点的索引（稀疏索引），叶子结点相当于是存储</p>
 <p>（关键字）数据的数据层；</p>
 <p>4.更适合文件索引系统；</p>
-<h3 id="B-树-2"><a href="#B-树-2" class="headerlink" title="B*树"></a>B*树</h3><p>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针；<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/6.JPG" alt="image"></p>
+<h3 id="B-树-2"><a href="#B-树-2" class="headerlink" title="B*树"></a>B*树</h3><p>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针；<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/6.JPG" alt="image"></p>
 <p><code>B*</code>树定义了非叶子结点关键字个数至少为(2/3)*M，即块的最低使用率为2/3</p>
 <p>（代替B+树的1/2）；</p>
 <p>B+树的分裂：当一个结点满时，分配一个新的结点，并将原结点中1/2的数据</p>
@@ -1401,18 +1401,18 @@
 <p>在B+Tree的每个叶子节点增加一个指向相邻叶子节点的指针，就形成了带有顺序访问指针的B+Tree。做这个优化的目的是为了提高区间访问的性能，例如图4中如果要查询key为从18到49的所有数据记录，当找到18后，只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率。</p>
 <h3 id="非聚簇索引"><a href="#非聚簇索引" class="headerlink" title="非聚簇索引"></a>非聚簇索引</h3><p>非聚簇索引就是指B+Tree的叶子节点上的data，并不是数据本身，而是数据存放的地址。主索引和辅助索引没啥区别，只是主索引中的key一定得是唯一的。主要用在MyISAM存储引擎中</p>
 <p>MyISAM引擎使用B+Tree作为索引结构，叶节点的data域存放的是数据记录的地址。下图是MyISAM索引的原理图：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111257402.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111257402.png" alt="image"></p>
 <p>这里设表一共有三列，假设我们以Col1为主键，则上图是一个MyISAM表的主索引（Primary key）示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。在MyISAM中，主索引和辅助索引（Secondary key）在结构上没有任何区别，只是主索引要求key是唯一的，而辅助索引的key可以重复。如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111258238.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111258238.png" alt="image"></p>
 <p>同样也是一颗B+Tree，data域保存数据记录的地址。因此，MyISAM中索引检索的算法为首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
 <p>MyISAM的索引方式也叫做“非聚集”的，之所以这么称呼是为了与InnoDB的聚集索引区分。</p>
 <p>InnoDB索引实现</p>
 <p>虽然InnoDB也使用B+Tree作为索引结构，但具体实现方式却与MyISAM截然不同。</p>
 <p>第一个重大区别是InnoDB的数据文件本身就是索引文件。从上文知道，MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111259913.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111259913.png" alt="image"></p>
 <p>上图是InnoDB主索引（同时也是数据文件）的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚集索引。因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有），如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形。</p>
 <p>第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20121130111300494.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20121130111300494.png" alt="image"></p>
 <p>这里以英文字符的ASCII码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录。</p>
 <ul>
 <li>MyisAM顺序储存数据，索引叶子节点保存对应数据行地址，辅助索引跟主键索引相差无几（主键索引key不能相同）；InnoDB主键节点同时保存数据行，其他辅助索引保存的是主键索引的值；</li>
@@ -1464,7 +1464,7 @@
 </ul>
 <h3 id="MVCC"><a href="#MVCC" class="headerlink" title="MVCC"></a>MVCC</h3><p>MVCC(Multi Version Concurrency Control的简称)，代表多版本并发控制。与MVCC相对的，是基于锁的并发控制，Lock-Based Concurrency Control)。<br>MVCC最大的优势：读不加锁，读写不冲突。在读多写少的OLTP应用中，读写不冲突是非常重要的，极大的增加了系统的并发性能</p>
 <p>了解MVCC前，我们先学习下Mysql架构和数据库事务隔离级别</p>
-<h4 id="MYSQL-架构"><a href="#MYSQL-架构" class="headerlink" title="MYSQL 架构"></a>MYSQL 架构</h4><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20190706105542781.png" alt="image"></p>
+<h4 id="MYSQL-架构"><a href="#MYSQL-架构" class="headerlink" title="MYSQL 架构"></a>MYSQL 架构</h4><p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20190706105542781.png" alt="image"></p>
 <p>MySQL从概念上可以分为四层，顶层是接入层，不同语言的客户端通过mysql的协议与mysql服务器进行连接通信，接入层进行权限验证、连接池管理、线程管理等。下面是mysql服务层，包括sql解析器、sql优化器、数据缓冲、缓存等。再下面是mysql中的存储引擎层，mysql中存储引擎是基于表的。最后是系统文件层，保存数据、索引、日志等。</p>
 <h4 id="MVCC是为了解决什么问题"><a href="#MVCC是为了解决什么问题" class="headerlink" title="MVCC是为了解决什么问题?"></a>MVCC是为了解决什么问题?</h4><ul>
 <li>大多数的MYSQL事务型存储引擎,如,InnoDB，Falcon以及PBXT都不使用一种简单的行锁机制.事实上,他们都和MVCC–多版本并发控制来一起使用。</li>
@@ -1638,7 +1638,7 @@
 <h5 id="Next-Key-Lock"><a href="#Next-Key-Lock" class="headerlink" title="Next-Key Lock"></a>Next-Key Lock</h5><p>针对非唯一索引而言，行记录锁与间隙锁组合起来用就叫做Next-Key Lock。锁定一个范围，并且锁定记录本身。对于行的查询，都是采用该方法，主要目的是解决幻读的问题。</p>
 <p>通过一个例子介绍间隙锁</p>
 <p>表test5中存在如下数据：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113023312.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113023312.png" alt="image"></p>
 <p>select * from test5 where v1=45 for update; 对v1=45的行加X锁，此时会对(40,45][45,50)加间隙锁，其他事物不能操作在此范围内的数据。</p>
 <p>但是为什么在左侧值为40，右侧值为50的时候，有时候操作会被挂起，有时候操作不会挂起呢？</p>
 <p>update table set v1=41 where v1=40;41在(40，50)范围会被锁定。</p>
@@ -1685,10 +1685,10 @@
 <p>“bulk inserts”仍然使用AUTO-INC表级锁,并保持到语句结束；“Simple inserts”（要插入的行数事先已知）通过在mutex（轻量锁）的控制下获得所需数量的自动递增值来避免表级AUTO-INC锁，只在分配的时间内持有，不是整个语句，(statement-based replication)操作是安全。</p>
 <p>innodb_autoinc_lock_mode= 2 轻量锁定模式(所有insert采用轻量级）</p>
 <p>所有类INSERT(“INSERT-like” )语句都不会使用表级AUTO-INC lock，”批量插入”时，在由任何给定语句分配的自动递增值中可能存在间隙，(statement-based replication)操作是不安全。</p>
-<p>可以汇总为如下表格：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113110216.png" alt="image"></p>
+<p>可以汇总为如下表格：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113110216.png" alt="image"></p>
 <p>示例：innodb_autoinc_lock_mode= 1时不连续</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">创建一个表id为自增主键：</span><br><span class="line"></span><br><span class="line">CREATE TABLE `test6` (</span><br><span class="line"></span><br><span class="line">id int(11) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">name int(11),</span><br><span class="line">modified TIMESTAMP<span class="built_in"> DEFAULT </span>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,</span><br><span class="line">PRIMARY KEY (`id`)</span><br><span class="line">) <span class="attribute">ENGINE</span>=InnoDB <span class="attribute">AUTO_INCREMENT</span>=1<span class="built_in"> DEFAULT </span><span class="attribute">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
-<p>先插入一条记录，然后再多次自插入数据，发现id没有5、10~12，如下：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/20180727113601623.png" alt="image"><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2018072711355127.png" alt="image"><br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2018072711351276.png" alt="image"></p>
+<p>先插入一条记录，然后再多次自插入数据，发现id没有5、10~12，如下：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/20180727113601623.png" alt="image"><br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2018072711355127.png" alt="image"><br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2018072711351276.png" alt="image"></p>
 <p>这种情况就是上面锁说的，insert…select…属于Bulk insert，不能预判要插入多少条数据，所以在自增值分配上每次都会按照2^n-1分配：</p>
 <p>第一次，先分配一个自增值，因为只有一条数据，正好</p>
 <p>第二次，先分配一个自增值3，发现还有数据，继续按2^n-1分配，分配4、5，此时只剩一条数据4，但5已经被分配出去。</p>
@@ -1748,7 +1748,7 @@
 <h2 id="MySQL间隙锁有没有了解，死锁有没有了解，写一段会造成死锁的SQL语句，死锁发生了如何解决，MySQL有没有提供什么机制去解决死锁"><a href="#MySQL间隙锁有没有了解，死锁有没有了解，写一段会造成死锁的SQL语句，死锁发生了如何解决，MySQL有没有提供什么机制去解决死锁" class="headerlink" title="MySQL间隙锁有没有了解，死锁有没有了解，写一段会造成死锁的SQL语句，死锁发生了如何解决，MySQL有没有提供什么机制去解决死锁"></a>MySQL间隙锁有没有了解，死锁有没有了解，写一段会造成死锁的SQL语句，死锁发生了如何解决，MySQL有没有提供什么机制去解决死锁</h2><h3 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a>间隙锁</h3><p>之前我们介绍了排他锁，其实innodb下的记录锁（也叫行锁），间隙锁，next-key锁统统属于排他锁。</p>
 <p>行锁<br>记录锁其实很好理解，对表中的记录加锁，叫做记录锁，简称行锁。</p>
 <p>生活中的间隙锁<br>编程的思想源于生活，生活中的例子能帮助我们更好的理解一些编程中的思想。<br>生活中排队的场景，小明，小红，小花三个人依次站成一排，此时，如何让新来的小刚不能站在小红旁边，这时候只要将小红和她前面的小明之间的空隙封锁，将小红和她后面的小花之间的空隙封锁，那么小刚就不能站到小红的旁边。<br>这里的小红，小明，小花，小刚就是数据库的一条条记录。<br>他们之间的空隙也就是间隙，而封锁他们之间距离的锁，叫做间隙锁。</p>
-<p>Mysql中的间隙锁<br>下表中（见图一），id为主键，number字段上有非唯一索引的二级索引，有什么方式可以让该表不能再插入number=5的记录？<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png" alt="image"></p>
+<p>Mysql中的间隙锁<br>下表中（见图一），id为主键，number字段上有非唯一索引的二级索引，有什么方式可以让该表不能再插入number=5的记录？<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png" alt="image"></p>
 <p>图一<br>根据上面生活中的例子，我们自然而然可以想到，只要控制几个点，number=5之前不能插入记录，number=5现有的记录之间不能再插入新的记录，number=5之后不能插入新的记录，那么新的number=5的记录将不能被插入进来。</p>
 <p>那么，mysql是如何控制number=5之前，之中，之后不能有新的记录插入呢（防止幻读）？<br>答案是用间隙锁，在RR级别下，mysql通过间隙锁可以实现锁定number=5之前的间隙，number=5记录之间的间隙，number=5之后的间隙，从而使的新的记录无法被插入进来。</p>
 <p>间隙是怎么划分的？</p>
@@ -1759,24 +1759,24 @@
 <p>间隙锁的目的是为了防止幻读，其主要通过两个方面实现这个目的：<br>（1）防止间隙内有新数据被插入<br>（2）防止已存在的数据，更新成间隙内的数据（例如防止numer=3的记录通过update变成number=5）</p>
 <p>innodb自动使用间隙锁的条件：<br>（1）必须在RR级别下<br>（2）检索条件必须有索引（没有索引的话，mysql会全表扫描，那样会锁定整张表所有的记录，包括不存在的记录，此时其他事务不能修改不能删除不能添加）</p>
 <p>接下来，通过实际操作观察下间隙锁的作用范围</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-ad0d50c44dc041be.png" alt="image"></p>
 <h4 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h4><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">session 1:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">select</span>  * <span class="keyword">from</span> news <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">4</span> <span class="keyword">for</span> <span class="keyword">update</span> ;</span><br><span class="line"></span><br><span class="line">session 2:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">2</span>,<span class="number">4</span>);#（阻塞）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">2</span>,<span class="number">2</span>);#（阻塞）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">4</span>,<span class="number">4</span>);#（阻塞）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">4</span>,<span class="number">5</span>);#（阻塞）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">7</span>,<span class="number">5</span>);#（执行成功）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">9</span>,<span class="number">5</span>);#（执行成功）</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">11</span>,<span class="number">5</span>);#（执行成功）</span><br></pre></td></tr></table></figure>
 <p>检索条件number=4,向左取得最靠近的值2作为左区间，向右取得最靠近的5作为右区间，因此，session 1的间隙锁的范围（2，4），（4，5），如下图所示：</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-b1ddc3677c81c9b5.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-b1ddc3677c81c9b5.png" alt="image"></p>
 <p>间隙锁锁定的区间为（2，4），（4，5），即记录（id=1,number=2）和记录（id=3,number=4）之间间隙会被锁定，记录（id=3,number=4）和记录（id=6,number=5）之间间隙被锁定。</p>
 <p>因此记录（id=2,number=4），（id=2,number=2），（id=4,number=4），（id=4,number=5）正好处在（id=3,number=4）和（id=6,number=5）之间，所以插入不了，需要等待锁的释放，而记录(id=7,number=5)，（id=9,number=5），（id=11,number=5）不在上述锁定的范围内，因此都会插入成功。</p>
 <h4 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h4><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">session 1:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">select</span>  * <span class="keyword">from</span> news <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">13</span> <span class="keyword">for</span> <span class="keyword">update</span> ;</span><br><span class="line"></span><br><span class="line">session 2:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">11</span>,<span class="number">5</span>);#(执行成功)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">12</span>,<span class="number">11</span>);#(执行成功)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">14</span>,<span class="number">11</span>);#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">15</span>,<span class="number">12</span>);#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">14</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">11</span>;#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">11</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">11</span>;#(执行成功)</span><br></pre></td></tr></table></figure>
-<p>检索条件number=13,向左取得最靠近的值11作为左区间，向右由于没有记录因此取得无穷大作为右区间，因此，session 1的间隙锁的范围（11，无穷大），如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-1f499d02104728e0.png" alt="image"></p>
+<p>检索条件number=13,向左取得最靠近的值11作为左区间，向右由于没有记录因此取得无穷大作为右区间，因此，session 1的间隙锁的范围（11，无穷大），如下图所示：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-1f499d02104728e0.png" alt="image"></p>
 <p>此表中没有number=13的记录的，innodb依然会为该记录左右两侧加间隙锁，间隙锁的范围（11，无穷大）。</p>
 <p>有人会问，为啥update news set id=14 where number=11会阻塞，但是update news set id=11 where number=11却执行成功呢？</p>
 <p>间隙锁采用在指定记录的前面和后面以及中间的间隙上加间隙锁的方式避免数据被插入，此图间隙锁锁定的区域是（11，无穷大），也就是记录（id=13,number=11）之后不能再插入记录，update news set id=14 where number=11这条语句如果执行的话，将会被插入到（id=13,number=11）的后面，也就是在区间（11，无穷大）之间，由于该区间被间隙锁锁定，所以只能阻塞等待，而update news set id=11 where number=11执行后是会被插入到（id=13,number=11）的记录前面，也就不在（11，无穷大）的范围内，所以无需等待，执行成功。</p>
 <h4 id="案例三"><a href="#案例三" class="headerlink" title="案例三"></a>案例三</h4><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">session 1:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">select</span>  * <span class="keyword">from</span> news <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">5</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"></span><br><span class="line">session 2:</span><br><span class="line">start  transaction ;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">4</span>,<span class="number">4</span>);#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">4</span>,<span class="number">5</span>);#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">5</span>,<span class="number">5</span>);#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">7</span>,<span class="number">11</span>);#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">9</span>,<span class="number">12</span>);#(执行成功)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">12</span>,<span class="number">11</span>);#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> <span class="keyword">number</span>=<span class="number">5</span> <span class="keyword">where</span> id=<span class="number">1</span>;#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">11</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">11</span>;#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">2</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">4</span> ;#（执行成功）</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">4</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">4</span> ;#（阻塞）</span><br></pre></td></tr></table></figure>
-<p>检索条件number=5,向左取得最靠近的值4作为左区间，向右取得11为右区间，因此，session 1的间隙锁的范围（4，5），（5，11），如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-35dc3a0aed8a0f9a.png" alt="image"></p>
+<p>检索条件number=5,向左取得最靠近的值4作为左区间，向右取得11为右区间，因此，session 1的间隙锁的范围（4，5），（5，11），如下图所示：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-35dc3a0aed8a0f9a.png" alt="image"></p>
 <p>有人会问，为啥<code>insert into news value(9,12)</code>会执行成功？间隙锁采用在指定记录的前面和后面以及中间的间隙上加间隙锁的方式避免数据被插入，（id=9,number=12）很明显在记录（13,11）的后面，因此不再锁定的间隙范围内。</p>
 <p>为啥u<code>pdate news set number=5 where id=1</code>会阻塞？<br>number=5的记录的前面，后面包括中间都被封锁了，你这个update news set number=5 where id=1根本没法执行，因为innodb已经把你可以存放的位置都锁定了，因为只能等待。</p>
 <p>同理，<code>update news set id=11 where number=11</code>由于记录（id=10,number=5）与记录（id=13,number=11）中间的间隙被封锁了，你这句sql也没法执行，必须等待，因为存放的位置被封锁了。</p>
 <h4 id="案例四"><a href="#案例四" class="headerlink" title="案例四"></a>案例四</h4><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">session 1:</span><br><span class="line">start  transaction;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> news <span class="keyword">where</span> <span class="keyword">number</span>&gt;<span class="number">4</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"></span><br><span class="line">session 2:</span><br><span class="line">start  transaction;</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">2</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">4</span> ;#(执行成功)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">4</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">4</span> ;#(阻塞)</span><br><span class="line"><span class="keyword">update</span> news <span class="keyword">set</span> id=<span class="number">5</span> <span class="keyword">where</span> <span class="keyword">number</span>=<span class="number">5</span> ;#(阻塞)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="number">2</span>,<span class="number">3</span>);#(执行成功)</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> news <span class="keyword">value</span>(<span class="literal">null</span>,<span class="number">13</span>);#(阻塞)</span><br></pre></td></tr></table></figure>
-<p>检索条件number&gt;4,向左取得最靠近的值4作为左区间，向右取无穷大，因此，session 1的间隙锁的范围（4，无穷大），如下图所示：<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/2604566-3e7aaef9e3865926.png" alt="image"></p>
+<p>检索条件number&gt;4,向左取得最靠近的值4作为左区间，向右取无穷大，因此，session 1的间隙锁的范围（4，无穷大），如下图所示：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/2604566-3e7aaef9e3865926.png" alt="image"></p>
 <p>session2中之所以有些阻塞，有些执行成功，其实就是因为插入的区域被锁定，从而阻塞。</p>
 <p>next-key锁</p>
 <p>next-key锁其实包含了记录锁和间隙锁，即锁定一个范围，并且锁定记录本身，InnoDB默认加锁方式是next-key 锁。<br>上面的案例一session 1中的sql是：select * from news where number=4 for update ;<br>next-key锁锁定的范围为间隙锁+记录锁，即区间（2，4），（4，5）加间隙锁，同时number=4的记录加记录锁。</p>
@@ -2082,7 +2082,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

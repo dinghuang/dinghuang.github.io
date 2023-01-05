@@ -97,18 +97,18 @@
 <meta property="og:site_name" content="一只病猫">
 <meta property="og:description" content="参考文章 PPT下载 分布式锁为什么需要分布式锁常见的是秒杀场景，订单服务部署了多个服务实例。如秒杀商品有 4 个，第一个用户购买 3 个，第二个用户购买 2 个，理想状态下第一个用户能购买成功，第二个用户提示购买失败，反之亦可。而实际可能出现的情况是，两个用户都得到库存为 4，第一个用户买到了 3 个，更新库存之前，第二个用户下了 2 个商品的订单，更新库存为 2，导致业务逻辑出错。 在上面的场">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG666.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/59572ed0f6957d315488a6c24e9d0907.jpeg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG667.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG668.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG669.png">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG1.jpeg">
-<meta property="og:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20210429173943675.png">
-<meta property="og:updated_time" content="2021-11-12T05:44:54.631Z">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG666.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/59572ed0f6957d315488a6c24e9d0907.jpeg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG667.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG668.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG669.png">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG1.jpeg">
+<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/20210429173943675.png">
+<meta property="og:updated_time" content="2023-01-05T04:09:55.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式锁">
 <meta name="twitter:description" content="参考文章 PPT下载 分布式锁为什么需要分布式锁常见的是秒杀场景，订单服务部署了多个服务实例。如秒杀商品有 4 个，第一个用户购买 3 个，第二个用户购买 2 个，理想状态下第一个用户能购买成功，第二个用户提示购买失败，反之亦可。而实际可能出现的情况是，两个用户都得到库存为 4，第一个用户买到了 3 个，更新库存之前，第二个用户下了 2 个商品的订单，更新库存为 2，导致业务逻辑出错。 在上面的场">
-<meta name="twitter:image" content="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG666.png">
+<meta name="twitter:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG666.png">
 
 
 
@@ -411,10 +411,10 @@
 
       
         <p>参考<a href="https://mp.weixin.qq.com/s/35aCS_5GqLyzZS3VobL6fg" target="_blank" rel="noopener">文章</a></p>
-<p><a href="https://minios.strongsickcat.com/dinghuang-blog-picture/common/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.pptx" target="_blank" rel="noopener">PPT下载</a></p>
+<p><a href="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81.pptx" target="_blank" rel="noopener">PPT下载</a></p>
 <h1 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h1><h2 id="为什么需要分布式锁"><a href="#为什么需要分布式锁" class="headerlink" title="为什么需要分布式锁"></a>为什么需要分布式锁</h2><p>常见的是秒杀场景，订单服务部署了多个服务实例。如秒杀商品有 4 个，第一个用户购买 3 个，第二个用户购买 2 个，理想状态下第一个用户能购买成功，第二个用户提示购买失败，反之亦可。而实际可能出现的情况是，两个用户都得到库存为 4，第一个用户买到了 3 个，更新库存之前，第二个用户下了 2 个商品的订单，更新库存为 2，导致业务逻辑出错。</p>
 <p>在上面的场景中，商品的库存是共享变量，面对高并发情形，需要保证对资源的访问互斥。在单机环境中，比如 Java 语言中其实提供了很多并发处理相关的 API，但是这些 API 在分布式场景中就无能为力了，由于分布式系统具备多线程和多进程的特点，且分布在不同机器中，synchronized 和 lock 关键字将失去原有锁的效果，。仅依赖这些语言自身提供的 API 并不能实现分布式锁的功能，因此需要想想其它方法实现分布式锁。</p>
-<h2 id="分布式锁三个属性和两大类"><a href="#分布式锁三个属性和两大类" class="headerlink" title="分布式锁三个属性和两大类"></a>分布式锁三个属性和两大类</h2><p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG666.png" alt="image"></p>
+<h2 id="分布式锁三个属性和两大类"><a href="#分布式锁三个属性和两大类" class="headerlink" title="分布式锁三个属性和两大类"></a>分布式锁三个属性和两大类</h2><p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG666.png" alt="image"></p>
 <p>总的来说，分布式锁服务有三个必备的性质</p>
 <ul>
 <li>互斥（Mutual Exclusion），这是锁最基本的功能，同一时刻只能有一个客户端持有锁；</li>
@@ -478,10 +478,10 @@
 <li>第四个为 PX，作用是给这个 key 加一个过期时间，具体时间长短由第五个参数决定；</li>
 <li>第五个为具体的过期时间，对应第四个参数 PX 是毫秒，EX 是秒；</li>
 </ul>
-<p>一般会使用开源的redission去实现，具体逻辑如图所示:<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/59572ed0f6957d315488a6c24e9d0907.jpeg" alt="image"></p>
+<p>一般会使用开源的redission去实现，具体逻辑如图所示:<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/59572ed0f6957d315488a6c24e9d0907.jpeg" alt="image"></p>
 <p>这个方案在互斥性和避免死锁上性能良好，且非常轻量。但单节点的 Redis 存在单点故障。注意，Redis 主从复制是异步的，所以加入从节点会增加破坏互斥性的风险。为了实现容错性，就有了基于多节点 Redis 的分布式锁，即 Redlock。</p>
 <h3 id="基于多节点-Redis-的分布式锁"><a href="#基于多节点-Redis-的分布式锁" class="headerlink" title="基于多节点 Redis 的分布式锁"></a>基于多节点 Redis 的分布式锁</h3><p>Redlock 用到多个独立的 Redis 节点，其思想简而言之，是在多个 Redis 实际都获取锁，其中一个宕机了，只要还有超过半数节点可用，就可以继续提供锁服务。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG667.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG667.png" alt="image"></p>
 <p>如图所示，Redlock 获取锁的大致步骤如下，：</p>
 <ul>
 <li>依次对多个 Redis 实例进行加锁(一般是3个或5个)，加锁命令使用单实例 Redis 的加锁命令；</li>
@@ -498,7 +498,7 @@
 <li>Redlock 基于时间戳的合理性值得怀疑，多台服务器难以保证时间一致；</li>
 </ul>
 <p>第一点如下图所示，Client 1 获取锁后发生了 STW GC(或缺页等问题)，TTL 过期后 Client 2 获取了锁，此时两个客户端持有锁，违反了互斥性。后续写操作自然就可能存在问题。</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG668.png" alt="image"><br>我们在避免死锁时提到，需要另外用单调递增 id (Martin 称之为 fencing token，也叫序列号)来标识每一个锁。增加 id 后逻辑如下图所示，最后的 Client 1 的写请求因为 token 是旧的，会被存储系统拒绝。<br><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG669.png" alt="image"></p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG668.png" alt="image"><br>我们在避免死锁时提到，需要另外用单调递增 id (Martin 称之为 fencing token，也叫序列号)来标识每一个锁。增加 id 后逻辑如下图所示，最后的 Client 1 的写请求因为 token 是旧的，会被存储系统拒绝。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG669.png" alt="image"></p>
 <p>第二点 Martin 认为，Redlock 的时间戳计算方式不可靠，每台服务器的走时并不绝对准确，例如 NTP 进行同步时系统会发生时钟漂移，即当前服务器的时间戳突然变大或变小，这都会影响 Redlock 的计算。</p>
 <p>Martin 的这篇文章引起了大家对分布式锁广泛讨论。Redis 作者 antirez 也不甘示弱，发表文章《Is Redlock safe?》进行反驳，回应了上述两个问题，总结了 antirez 的论点：</p>
 <ul>
@@ -547,7 +547,7 @@
 <li>如果发现序列不是最小的，则从子节点列表中选择比当前序列号小一位的节点记为 p，客户端调用 exist(p, watch=true)，即监听 p，当 p 被删除时收到通知（该节点只有比自己小一位的节点释放时才能获得锁）；</li>
 <li>如果 exist() 返回 null，即前一个分布式锁被释放了，转到步骤 2；否则需要一直等待步骤 4 中 watch 的通知。</li>
 </ul>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/WechatIMG1.jpeg" alt="image"><br>如上图所示，每个客户端只监听比自己小的 znode，可以避免惊群效应。</p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/WechatIMG1.jpeg" alt="image"><br>如上图所示，每个客户端只监听比自己小的 znode，可以避免惊群效应。</p>
 <p>获取锁的伪代码如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="keyword">create</span>(l + “/guid-<span class="keyword">lock</span>-”, EPHEMERAL|<span class="keyword">SEQUENTIAL</span>)</span><br><span class="line">C = getChildren(l, <span class="literal">false</span>)</span><br><span class="line"><span class="keyword">if</span> n <span class="keyword">is</span> lowest znode <span class="keyword">in</span> C, <span class="keyword">exit</span></span><br><span class="line">p = znode <span class="keyword">in</span> C ordered just <span class="keyword">before</span> n</span><br><span class="line"><span class="keyword">goto</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
 <p>释放锁非常简单：客户端直接删除他们在步骤 1 创建的 znode 节点。</p>
 <p>有几点需要注意：</p>
@@ -569,7 +569,7 @@
 </ul>
 <p>为了帮助开发者快速实现分布式锁，etcd 给出了 clientv3 包，其中分布式锁在 concurrency 包中。按照官方文档给出的案例1，首先创建一个新的会话(session)并指定租约的 TTL，然后实例化一个 NewMutex() 之后就可以调用 Lock() 和 Unlock() 进行抢锁和释放锁。代码如下：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cli</span>, <span class="keyword">err</span> := clientv3.New(clientv3.Config&#123;Endpoints: endpoints&#125;)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil &#123;</span><br><span class="line">   <span class="keyword">log</span>.Fatal(<span class="keyword">err</span>)</span><br><span class="line">&#125;</span><br><span class="line">defer <span class="keyword">cli</span>.<span class="keyword">Close</span>()</span><br><span class="line"></span><br><span class="line">s, <span class="keyword">err</span> := concurrency.NewSession(<span class="keyword">cli</span>, concurrency.WithTTL(10))</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> != nil &#123;</span><br><span class="line">   <span class="keyword">log</span>.Fatal(<span class="keyword">err</span>)</span><br><span class="line">&#125;</span><br><span class="line">defer s.<span class="keyword">Close</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">m</span> := concurrency.NewMutex(s, <span class="string">"/my-lock/"</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> := <span class="keyword">m</span>.Lock(context.TODO()); <span class="keyword">err</span> != nil &#123;</span><br><span class="line">   <span class="keyword">log</span>.Fatal(<span class="keyword">err</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="string">"acquired lock for s"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">err</span> := <span class="keyword">m</span>.Unlock(context.TODO()); <span class="keyword">err</span> != nil &#123;</span><br><span class="line">   <span class="keyword">log</span>.Fatal(<span class="keyword">err</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="string">"released lock for s"</span>)</span><br></pre></td></tr></table></figure></p>
 <p>基于如上分析的思路，绘制出实现 etcd 分布式锁的流程图</p>
-<p><img src="https://minios.strongsickcat.com/dinghuang-blog-picture/common/20210429173943675.png" alt="image"><br>其中 Lock() 函数的源代码很容易找到，由于篇幅我就不放出来了，但源代码中可以看到的一些其他机制包括：</p>
+<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/common/20210429173943675.png" alt="image"><br>其中 Lock() 函数的源代码很容易找到，由于篇幅我就不放出来了，但源代码中可以看到的一些其他机制包括：</p>
 <ul>
 <li>Revision 机制。一个全局序列号，跟 ZooKeeper 的序列号类似，可以用来避免 watch 惊群；</li>
 <li>Prefix 机制。即上述代码中 etcd 会创建一个前缀为 /my-lock/ 的 key(/my-lock/ + LeaseID)，分布式锁由该前缀下 revision 最小(最早创建)的 key 获得；</li>
@@ -849,7 +849,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

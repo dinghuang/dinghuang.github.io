@@ -97,16 +97,16 @@
 <meta property="og:site_name" content="一只病猫">
 <meta property="og:description" content="操作系统相关什么是socket，网络传输有哪几个层级什么是socket网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket。 建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口;HTTP是轿车，提供了封装或者显示数据的具体形式">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg">
-<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/656312-e4cc3edef27a091d.png">
-<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/656312-4926f3bcdcdc2369.png">
-<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/39ffa41f-7d9a-3b5f-b3c3-4dfd3605b121.gif">
-<meta property="og:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/730e0cf3d7ca7bcb389cf0c8b0096b63f724a875.png">
-<meta property="og:updated_time" content="2023-01-05T04:09:55.295Z">
+<meta property="og:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg">
+<meta property="og:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/656312-e4cc3edef27a091d.png">
+<meta property="og:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/656312-4926f3bcdcdc2369.png">
+<meta property="og:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/39ffa41f-7d9a-3b5f-b3c3-4dfd3605b121.gif">
+<meta property="og:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/730e0cf3d7ca7bcb389cf0c8b0096b63f724a875.png">
+<meta property="og:updated_time" content="2023-01-06T05:00:22.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面试分享(七).操作系统相关">
 <meta name="twitter:description" content="操作系统相关什么是socket，网络传输有哪几个层级什么是socket网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket。 建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口;HTTP是轿车，提供了封装或者显示数据的具体形式">
-<meta name="twitter:image" content="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg">
+<meta name="twitter:image" content="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg">
 
 
 
@@ -408,12 +408,12 @@
       
 
       
-        <h1 id="操作系统相关"><a href="#操作系统相关" class="headerlink" title="操作系统相关"></a>操作系统相关</h1><h2 id="什么是socket，网络传输有哪几个层级"><a href="#什么是socket，网络传输有哪几个层级" class="headerlink" title="什么是socket，网络传输有哪几个层级"></a>什么是socket，网络传输有哪几个层级</h2><h3 id="什么是socket"><a href="#什么是socket" class="headerlink" title="什么是socket"></a>什么是socket</h3><p>网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket。<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg" alt="image"></p>
+        <h1 id="操作系统相关"><a href="#操作系统相关" class="headerlink" title="操作系统相关"></a>操作系统相关</h1><h2 id="什么是socket，网络传输有哪几个层级"><a href="#什么是socket，网络传输有哪几个层级" class="headerlink" title="什么是socket，网络传输有哪几个层级"></a>什么是socket，网络传输有哪几个层级</h2><h3 id="什么是socket"><a href="#什么是socket" class="headerlink" title="什么是socket"></a>什么是socket</h3><p>网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket。<br><img src="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/6c224f4a20a446230b22bd709422720e0cf3d733.jpg" alt="image"></p>
 <p>建立网络通信连接至少要一对端口号(socket)。socket本质是编程接口(API)，对TCP/IP的封装，TCP/IP也要提供可供程序员做网络开发所用的接口，这就是Socket编程接口;HTTP是轿车，提供了封装或者显示数据的具体形式;Socket是发动机，提供了网络通信的能力。</p>
 <p>Socket的英文原义是”孔”或”插座”。作为BSD UNIX的进程通信机制，取后一种意思。通常也称作”套接字”，用于描述IP地址和端口，是一个通信链的句柄，可以用来实现不同虚拟机或不同计算机之间的通信。在Internet上的主机一般运行了多个服务软件，同时提供几种服务。每种服务都打开一个Socket，并绑定到一个端口上，不同的端口对应于不同的服务。</p>
 <p>Socket正如其英文原意那样，像一个多孔插座。一台主机犹如布满各种插座的房间，每个插座有一个编号，有的插座提供220伏交流电， 有的提供110伏交流电，有的则提供有线电视节目。 客户软件将插头插到不同编号的插座，就可以得到不同的服务。</p>
 <h3 id="网络传输有哪几个层级"><a href="#网络传输有哪几个层级" class="headerlink" title="网络传输有哪几个层级"></a>网络传输有哪几个层级</h3><p>所谓的协议就是双方进行数据传输的一种格式。</p>
-<p>网络中，一帧以太网数据包的格式：<br><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/656312-e4cc3edef27a091d.png" alt="image"></p>
+<p>网络中，一帧以太网数据包的格式：<br><img src="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/656312-e4cc3edef27a091d.png" alt="image"></p>
 <table>
 <thead>
 <tr>
@@ -512,13 +512,13 @@
 <p>ip地址</p>
 <p>每个IP地址包括两个标识码（ID），即网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机（包括网络上工作站，服务器和路由器等）有一个主机ID与其对应。</p>
 <p>Internet委员会定义了5种IP地址类型以适合不同容量的网络，即A类~E类。<br>其中A、B、C3类（如下表格）由InternetNIC在全球范围内统一分配，D、E类为特殊地址</p>
-<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/656312-4926f3bcdcdc2369.png" alt="image"></p>
+<p><img src="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/656312-4926f3bcdcdc2369.png" alt="image"></p>
 <h3 id="TIME-WAIT是什么状态还记得吗，什么情况下网络会出现这个状态"><a href="#TIME-WAIT是什么状态还记得吗，什么情况下网络会出现这个状态" class="headerlink" title="TIME_WAIT是什么状态还记得吗，什么情况下网络会出现这个状态"></a>TIME_WAIT是什么状态还记得吗，什么情况下网络会出现这个状态</h3><h4 id="出现原因分析"><a href="#出现原因分析" class="headerlink" title="出现原因分析"></a>出现原因分析</h4><p>TCP连接的终止<br>TCP建立一个连接至少需要交换三个分组，也因此称之为TCP的三路握手（three-way handshake），然而在TCP终止连接时，由于双方都需要发送一个FIN分节给对端确认，因此TCP终止连接一般是需要交换四个分节。具体来看： </p>
 <p>1、 应用进程（active close）首先调用close，于是导致TCP发送一个FIN分节，表示数据已分送完毕，请求关闭套接字。 </p>
 <p>2、 另一端应用进程（passive close）接受收到FIN，并由该端的TCP确认（确认的过程是TCP发送ACK分节给对端套接字）。FIN的接受也作为文件结束符传递给上层应用进程。这里的文件结束符并非应用进程的EOF，在TCP字节流中，EOF的读或写通过收发一个特殊的FIN分节来实现</p>
 <p>3、 另端（passive close）应用进程在接受到文件束符后，会调用close关闭它的套接字，这导致该端的TCP也发送了一个FIN分节。 </p>
 <p>4、 主动关闭端（active close）接受到这个FIN后，TCP对它进行确认。（TCP发送ACK分节，值得注意的是主动关闭端在未接受到FIN之前，它的状态就是TIME_WAIT）。 </p>
-<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/39ffa41f-7d9a-3b5f-b3c3-4dfd3605b121.gif" alt="image"></p>
+<p><img src="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/39ffa41f-7d9a-3b5f-b3c3-4dfd3605b121.gif" alt="image"></p>
 <p>综上所述：<code>TIME_WAIT</code>状态出现场景是主动关闭端在未接受到FIN之前，它的状态就是<code>TIME_WAIT</code>。</p>
 <h4 id="TCP为什么如此设计"><a href="#TCP为什么如此设计" class="headerlink" title="TCP为什么如此设计"></a>TCP为什么如此设计</h4><p>1。防止上一次连接中的包(特别是最后一个ACK包)，迷路后重新出现，影响新连接  （经过2MSL(max segment lifetime)，上一次连接中所有的重复包都会消失）。</p>
 <p>2。可靠的关闭TCP连接  在主动关闭方发送的最后一个 ack(fin) ，有可能丢失，这时被动方会重新发<br>  fin, 如果这时主动方处于 CLOSED 状态 ，就会响应 rst 而不是 ack。所以  主动方要处于 <code>TIME_WAIT</code> 状态，而不能是 CLOSED 。<code>TIME_WAIT</code> 并不会占用很大资源的，除非受到攻击。还有，如果一方 send 或 recv 超时，就会直接进入 CLOSED 状态。</p>
@@ -566,7 +566,7 @@
 <p>（3）Telnet：不安全的文本传送；</p>
 <p>（4）SMTP：简单邮件传输协议Simple Mail Transfer Protocol (E-mail)；</p>
 <p>（5）HTTP：超文本传送协议 (WWW)；</p>
-<p><img src="http://www.strongsickcat.com:7014/file/dinghuang-blog-picture/730e0cf3d7ca7bcb389cf0c8b0096b63f724a875.png" alt="image"></p>
+<p><img src="https://minioapi.frp.strongsickcat.com/file/dinghuang-blog-picture/730e0cf3d7ca7bcb389cf0c8b0096b63f724a875.png" alt="image"></p>
 <h4 id="UDP应用"><a href="#UDP应用" class="headerlink" title="UDP应用"></a>UDP应用</h4><p>（1）流媒体</p>
 <p>采用TCP，一旦发生丢包，TCP会将后续包缓存起来，等前面的包重传并接收到后再继续发送，延迟会越来越大。基于UDP的协议如WebRTC是极佳的选择。</p>
 <p>（2）实时游戏</p>
